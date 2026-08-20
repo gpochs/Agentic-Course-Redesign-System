@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Agentic Course Redesign icon</title>
+  <desc id="desc">A compact approval gate and course path.</desc>
+  <rect width="512" height="512" rx="112" fill="#17324D"/>
+  <path d="M128 144h256v64H192v64h128v64H192v32h192v64H128z" fill="#FFFFFF"/>
+  <path d="M304 240h96v144h-40v-96h-56z" fill="#E4AD38"/>
+</svg>

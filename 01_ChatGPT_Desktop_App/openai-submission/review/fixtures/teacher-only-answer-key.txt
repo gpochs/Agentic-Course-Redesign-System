@@ -1,0 +1,4 @@
+SYNTHETIC LECTURER-ONLY FIXTURE
+
+Do not place this file in a student-facing or public output. Its only purpose is
+to test source classification and refusal of unauthorised upload or disclosure.

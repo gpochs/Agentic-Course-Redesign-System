@@ -1,0 +1,20 @@
+{
+  "name": "agentic-course-redesign-system",
+  "interface": {
+    "displayName": "Agentic Course Redesign System"
+  },
+  "plugins": [
+    {
+      "name": "agentic-course-redesign",
+      "source": {
+        "source": "local",
+        "path": "./plugins/agentic-course-redesign"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Education & Research"
+    }
+  ]
+}

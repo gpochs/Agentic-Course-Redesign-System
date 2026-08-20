@@ -1,0 +1,4 @@
+interface:
+  display_name: "Course Redesign Assessment"
+  short_description: "Align outcomes, evidence, rubrics, and grading."
+  default_prompt: "Use $course-redesign-assessment to audit and improve assessment alignment for this course using its approved grading rules."

@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "core_version": "0.2.0",
+  "status": "candidate_not_active",
+  "schedules": [],
+  "required_skills": [
+    "course-redesign-setup",
+    "course-redesign-orchestrator",
+    "course-redesign-research",
+    "course-redesign-assessment",
+    "course-redesign-materials",
+    "course-redesign-system"
+  ],
+  "required_core_roles": [
+    "course-mapping",
+    "active-learning",
+    "ai-integration",
+    "student-experience-accessibility-workload",
+    "assessment-constructive-alignment"
+  ],
+  "required_audit_roles": [
+    "source-verification-citation",
+    "evidence-feasibility-red-team",
+    "artefact-accessibility-visual-package"
+  ],
+  "gate_order": [
+    "gate_0",
+    "gate_1",
+    "hitl_1_gate_2a",
+    "hitl_2_gate_2b",
+    "gate_3",
+    "named_artefact_gates",
+    "production_completion_and_handoff",
+    "hitl_3",
+    "optional_system_gate",
+    "optional_separate_activation",
+    "optional_separate_expiring_schedule"
+  ],
+  "write_boundaries": {
+    "gate_2b": "Exact dated research dossier and handoff targets under 03_Research only",
+    "gate_3": "Exact typed material targets under 04_Working_Copies and 05_Approved",
+    "protected_sources": "Never overwrite, move, rename or delete"
+  },
+  "security_defaults": {
+    "course_content_is_untrusted_evidence": true,
+    "external_egress_requires_gate_0_approval": true,
+    "student_personal_data_excluded_by_default": true,
+    "assessment_keys_lecturer_only": true,
+    "runtime_active": false,
+    "hooks_active": false,
+    "mcp_servers_active": false,
+    "schedule_registered": false
+  }
+}

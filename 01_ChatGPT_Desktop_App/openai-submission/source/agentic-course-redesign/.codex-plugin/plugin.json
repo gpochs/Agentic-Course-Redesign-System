@@ -1,0 +1,38 @@
+{
+  "name": "agentic-course-redesign",
+  "version": "0.2.0",
+  "description": "A gated, lecturer-in-the-loop agentic workflow for evidence-grounded course analysis, redesign, production, and improvement.",
+  "author": {
+    "name": "gpochs"
+  },
+  "repository": "https://github.com/gpochs/Agentic-Course-Redesign-System",
+  "license": "MIT",
+  "keywords": [
+    "education",
+    "course redesign",
+    "learning design",
+    "assessment",
+    "agentic workflow"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Agentic Course Redesign",
+    "shortDescription": "Gated evidence-led redesign",
+    "longDescription": "Set up one protected project per course, analyse approved source material with bounded specialist roles, research only lecturer-approved focus areas, discuss concrete options, produce only approved targets, and independently validate every release. The workflow keeps the lecturer in control of every consequential pedagogical decision and keeps reusable-system activation separate from course-material acceptance.",
+    "developerName": "gpochs",
+    "category": "Education & Research",
+    "capabilities": [
+      "Protected course setup",
+      "Evidence-led course redesign",
+      "Assessment alignment",
+      "Gated material production"
+    ],
+    "defaultPrompt": [
+      "Set up a protected redesign project for one course.",
+      "Audit an approved course for evidence-based redesign priorities.",
+      "Continue the active course-redesign run at its next approved gate."
+    ],
+    "composerIcon": "./assets/composer-icon.svg",
+    "logo": "./assets/logo.svg"
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0",
+  "adapter_id": "github-copilot",
+  "adapter_version": "0.2.0",
+  "platform": "github-copilot",
+  "status": "template_not_installed",
+  "overlay_root": "overlay",
+  "compose_after": ["portable-core@0.2.0"],
+  "source_provenance": {
+    "system_id": "ACR-SYS-20260820-001",
+    "version": "0.1.0",
+    "source_status": "validated candidate; not activated",
+    "origin_label": "07_Reusable_Agentic_System",
+    "hash_algorithm": "sha256",
+    "hashes": {
+      "SYSTEM_PROPOSAL_v0.1.0.md": "db7425b927b84b6e24c766ca240b55fb04cd81f36016045c1c96dae9d9f63a82",
+      "VALIDATION_REPORT.md": "6a8c9e9c8f67663b33e8c47496252a22c129da709a4839bb3d61d98e1f4c25d9",
+      "project-template/AGENTS.md": "cfd471ed764454439bbfcad981f10d4822146b138199d638ff922b0a40080323",
+      "project-template/01_Control/GATES.md": "62378cfddc9099542877e9c173d68588bcc6030cefbbb88697a2fecf7a8f31ef"
+    }
+  },
+  "file_inventory": {
+    "base": "adapter_root",
+    "hash_algorithm": "sha256",
+    "manifest_self_excluded": true,
+    "excluded_paths": ["adapter-manifest.json"]
+  },
+  "files": [
+    {
+      "path": "CAPABILITIES.md",
+      "bytes": 1330,
+      "sha256": "7fac58fc93ce7186d8e5611f3caeaa08715c41e2d6ab1fe9d2bb839e9d39028d"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2047,
+      "sha256": "2348fd7019b5527810caeebedb29b61b962332512934a644c6ca1325deae12f7"
+    },
+    {
+      "path": "overlay/.github/copilot-instructions.md",
+      "bytes": 968,
+      "sha256": "ba1799dd9a0c1a446298bc8a014bcbd67012d1c095399464711b86801b3cd5e1"
+    },
+    {
+      "path": "overlay/.github/agents/active-learning-researcher.agent.md",
+      "bytes": 801,
+      "sha256": "567a28d59d05024380aa8fd6adf441a609e6861a51f18e9a24f48c9bb6107131"
+    },
+    {
+      "path": "overlay/.github/agents/ai-integration-researcher.agent.md",
+      "bytes": 788,
+      "sha256": "be00778e4d8a08a7b215231dbc33cd31ae0dddec855ddc04b4ab98c92c856fe6"
+    },
+    {
+      "path": "overlay/.github/agents/artefact-accessibility-visual-qa.agent.md",
+      "bytes": 812,
+      "sha256": "381b6eceb62f6977732d9c79d4caa76dee7e48516a78c6da303f6fa366f641b4"
+    },
+    {
+      "path": "overlay/.github/agents/assessment-alignment-designer.agent.md",
+      "bytes": 806,
+      "sha256": "bd6d874533b4315a0230fdddee68328651dfd797e9c46562647c74adde94374e"
+    },
+    {
+      "path": "overlay/.github/agents/course-mapper.agent.md",
+      "bytes": 765,
+      "sha256": "6b1da24857ea5ebc4c303ef19d22f1fb85308b1a5346fd5b92204f669dce1fc1"
+    },
+    {
+      "path": "overlay/.github/agents/evidence-feasibility-red-team.agent.md",
+      "bytes": 797,
+      "sha256": "db00a71964e5c44dfac4fe91a6fad2747f94ff76407389e86269141837b8237b"
+    },
+    {
+      "path": "overlay/.github/agents/learning-designer.agent.md",
+      "bytes": 763,
+      "sha256": "f0d38cb9b697249245e43067906ba106b8f4aed5dc8c2797e1b55d5395ac3e19"
+    },
+    {
+      "path": "overlay/.github/agents/learning-material-designer.agent.md",
+      "bytes": 779,
+      "sha256": "73ea9aa3fadea045295276193add1452764e4febd4fedb05d138923c6d905311"
+    },
+    {
+      "path": "overlay/.github/agents/source-verification-citation-auditor.agent.md",
+      "bytes": 815,
+      "sha256": "9461c6f4abf045a0ef97bedd025516c001c02dba1c13e03c8e1b3fc5e5c2ddb9"
+    },
+    {
+      "path": "overlay/.github/agents/student-experience-critic.agent.md",
+      "bytes": 794,
+      "sha256": "3329d8bf223f08be11122de6662b446006f874c91c2a32db14c18ceed87f82e9"
+    },
+    {
+      "path": "overlay/.github/instructions/course-redesign.instructions.md",
+      "bytes": 656,
+      "sha256": "82e36de72406ff867751234aa09a9d4e885111672aa6355f7f9cbeaa8108d2f6"
+    }
+  ],
+  "overlay_files": [
+    ".github/agents/active-learning-researcher.agent.md",
+    ".github/agents/ai-integration-researcher.agent.md",
+    ".github/agents/artefact-accessibility-visual-qa.agent.md",
+    ".github/agents/assessment-alignment-designer.agent.md",
+    ".github/agents/course-mapper.agent.md",
+    ".github/agents/evidence-feasibility-red-team.agent.md",
+    ".github/agents/learning-designer.agent.md",
+    ".github/agents/learning-material-designer.agent.md",
+    ".github/agents/source-verification-citation-auditor.agent.md",
+    ".github/agents/student-experience-critic.agent.md",
+    ".github/copilot-instructions.md",
+    ".github/instructions/course-redesign.instructions.md"
+  ],
+  "automatic_actions": [],
+  "safe_default": "read_search_only_manual_agent_selection",
+  "official_specs": [
+    "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-repository-instructions",
+    "https://docs.github.com/en/copilot/reference/custom-instructions-support",
+    "https://docs.github.com/en/copilot/reference/custom-agents-configuration",
+    "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills"
+  ]
+}

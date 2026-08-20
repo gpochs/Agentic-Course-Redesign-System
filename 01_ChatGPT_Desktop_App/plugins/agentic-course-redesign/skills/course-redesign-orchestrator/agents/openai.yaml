@@ -1,0 +1,4 @@
+interface:
+  display_name: "Course Redesign Orchestrator"
+  short_description: "Run the gated lecturer-in-the-loop redesign."
+  default_prompt: "Use $course-redesign-orchestrator to continue my current course-redesign run from its verified state."

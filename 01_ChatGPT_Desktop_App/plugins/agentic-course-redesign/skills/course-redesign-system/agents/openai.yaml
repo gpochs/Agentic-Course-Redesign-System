@@ -1,0 +1,4 @@
+interface:
+  display_name: "Course Redesign System"
+  short_description: "Validate and govern the reusable runtime."
+  default_prompt: "Use $course-redesign-system to review this successful run and propose separately validated system improvements."

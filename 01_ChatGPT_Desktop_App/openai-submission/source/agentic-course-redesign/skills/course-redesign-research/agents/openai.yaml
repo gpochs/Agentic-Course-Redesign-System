@@ -1,0 +1,4 @@
+interface:
+  display_name: "Course Redesign Research"
+  short_description: "Verify claims, sources, texts, and evidence."
+  default_prompt: "Use $course-redesign-research to research the approved course-redesign focus and return a verification ledger."

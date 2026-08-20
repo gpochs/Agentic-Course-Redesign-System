@@ -1,0 +1,4 @@
+interface:
+  display_name: "Course Redesign Materials"
+  short_description: "Produce and validate accessible course files."
+  default_prompt: "Use $course-redesign-materials to create only the approved course files and run full independent artefact QA."

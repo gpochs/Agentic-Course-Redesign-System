@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0",
+  "adapter_id": "claude-code",
+  "adapter_version": "0.2.0",
+  "platform": "claude-code",
+  "status": "template_not_installed",
+  "overlay_root": "overlay",
+  "compose_after": ["portable-core@0.2.0"],
+  "source_provenance": {
+    "system_id": "ACR-SYS-20260820-001",
+    "version": "0.1.0",
+    "source_status": "validated candidate; not activated",
+    "origin_label": "07_Reusable_Agentic_System",
+    "hash_algorithm": "sha256",
+    "hashes": {
+      "SYSTEM_PROPOSAL_v0.1.0.md": "db7425b927b84b6e24c766ca240b55fb04cd81f36016045c1c96dae9d9f63a82",
+      "VALIDATION_REPORT.md": "6a8c9e9c8f67663b33e8c47496252a22c129da709a4839bb3d61d98e1f4c25d9",
+      "project-template/AGENTS.md": "cfd471ed764454439bbfcad981f10d4822146b138199d638ff922b0a40080323",
+      "project-template/01_Control/GATES.md": "62378cfddc9099542877e9c173d68588bcc6030cefbbb88697a2fecf7a8f31ef"
+    }
+  },
+  "file_inventory": {
+    "base": "adapter_root",
+    "hash_algorithm": "sha256",
+    "manifest_self_excluded": true,
+    "excluded_paths": ["adapter-manifest.json"]
+  },
+  "files": [
+    {
+      "path": "CAPABILITIES.md",
+      "bytes": 1316,
+      "sha256": "ddbebd8ed2d6bf45ac08b3253e57529fc1986899917d1ddc2fb2716c6330c9bd"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1707,
+      "sha256": "12c7c22bc7c31cc652113d09f862db42df0160b8e82e4ef7fa5f20da2f3e2ab5"
+    },
+    {
+      "path": "overlay/CLAUDE.md",
+      "bytes": 590,
+      "sha256": "33c510c2b4cf605739453c49dfeb5c240dbbabf8d2e109c753a85511a2fd0c41"
+    },
+    {
+      "path": "overlay/.claude/agents/active-learning-researcher.md",
+      "bytes": 718,
+      "sha256": "48a2e03121e581f3cce25b9cca444bfd04d12854d696d51db7b8bdfb149426a9"
+    },
+    {
+      "path": "overlay/.claude/agents/ai-integration-researcher.md",
+      "bytes": 701,
+      "sha256": "051e65026aba7eb52bcb9b1c974fcff32819419615b2611a2b0d4381c78b9c07"
+    },
+    {
+      "path": "overlay/.claude/agents/artefact-accessibility-visual-qa.md",
+      "bytes": 725,
+      "sha256": "b19dbcc6d528092e8c902780718dfc7bc440b6750740d9f28b9814829c47dc10"
+    },
+    {
+      "path": "overlay/.claude/agents/assessment-alignment-designer.md",
+      "bytes": 719,
+      "sha256": "e5864b27dd9baf165bd961ed32937cfecdd1bc2638e2d2254b035197526af383"
+    },
+    {
+      "path": "overlay/.claude/agents/course-mapper.md",
+      "bytes": 707,
+      "sha256": "7d217c39a0ebabf1fe05f84d08f73e3380823cda477af559f801f8aa7229deec"
+    },
+    {
+      "path": "overlay/.claude/agents/evidence-feasibility-red-team.md",
+      "bytes": 710,
+      "sha256": "2a9de8988d03f70684c8a285d655d1795008b15672ace178e8cb5bfb689c1ad5"
+    },
+    {
+      "path": "overlay/.claude/agents/learning-designer.md",
+      "bytes": 676,
+      "sha256": "171fd033b0c2df8a1c415b0ff76ea08a687293b5bda869ced404121cd50c8f26"
+    },
+    {
+      "path": "overlay/.claude/agents/learning-material-designer.md",
+      "bytes": 692,
+      "sha256": "54f5c16eb314232861fb0ed9f379abf050baf6bfdafb4f955a8b96c9deb338cd"
+    },
+    {
+      "path": "overlay/.claude/agents/source-verification-citation-auditor.md",
+      "bytes": 728,
+      "sha256": "51035ff3f661627166d641921e0452c2a9504a8f7a741eb666c5570b980c87c0"
+    },
+    {
+      "path": "overlay/.claude/agents/student-experience-critic.md",
+      "bytes": 727,
+      "sha256": "41b83c7e0157a33d74801e8bb0f3a693a1d78b4ac0ab1d225be08eb0d044e6b0"
+    },
+    {
+      "path": "overlay/.claude/rules/course-redesign.md",
+      "bytes": 592,
+      "sha256": "ed593a5f88d49e88068befbcbc28eed593ba32d2a639adcfad69f34e2e1b402c"
+    }
+  ],
+  "overlay_files": [
+    ".claude/agents/active-learning-researcher.md",
+    ".claude/agents/ai-integration-researcher.md",
+    ".claude/agents/artefact-accessibility-visual-qa.md",
+    ".claude/agents/assessment-alignment-designer.md",
+    ".claude/agents/course-mapper.md",
+    ".claude/agents/evidence-feasibility-red-team.md",
+    ".claude/agents/learning-designer.md",
+    ".claude/agents/learning-material-designer.md",
+    ".claude/agents/source-verification-citation-auditor.md",
+    ".claude/agents/student-experience-critic.md",
+    ".claude/rules/course-redesign.md",
+    "CLAUDE.md"
+  ],
+  "automatic_actions": [],
+  "safe_default": "read_glob_grep_only",
+  "official_specs": [
+    "https://code.claude.com/docs/en/memory",
+    "https://code.claude.com/docs/en/sub-agents",
+    "https://code.claude.com/docs/en/skills",
+    "https://code.claude.com/docs/en/plugins-reference"
+  ]
+}

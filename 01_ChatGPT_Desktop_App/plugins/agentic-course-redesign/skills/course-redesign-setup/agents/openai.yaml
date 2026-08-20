@@ -1,0 +1,4 @@
+interface:
+  display_name: "Course Redesign Setup"
+  short_description: "Create one protected local course project."
+  default_prompt: "Use $course-redesign-setup to set up an agentic redesign project for one course without overwriting my files."

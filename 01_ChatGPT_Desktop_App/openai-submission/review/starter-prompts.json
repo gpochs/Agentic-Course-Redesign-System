@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "plugin": "agentic-course-redesign",
+  "version": "0.2.0",
+  "prompts": [
+    "Set up a protected redesign project for one course.",
+    "Audit an approved course for evidence-based redesign priorities.",
+    "Continue the active course-redesign run at its next approved gate."
+  ]
+}

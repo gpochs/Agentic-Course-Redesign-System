@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "run_id": null,
+  "run_contract_id": null,
+  "run_contract_version": 1,
+  "task_chat_reference": null,
+  "main_goal": null,
+  "non_goals": [],
+  "success_criteria": [],
+  "stop_conditions": [],
+  "constraints": [],
+  "maximum_stage": "GATE_2A",
+  "permitted_tools": [],
+  "permitted_actions": [],
+  "autonomy_bounds": {
+    "may": [
+      "change_method_order_or_role_allocation_within_approved_goal_gate_scope_and_permissions",
+      "replan_unfinished_downstream_subgoals_after_recorded_observations"
+    ],
+    "must_not": [
+      "change_main_goal_success_criteria_or_stop_conditions",
+      "widen_scope_data_tool_or_egress_permissions",
+      "cross_a_gate_or_create_write_authority",
+      "overturn_or_reopen_a_settled_lecturer_decision_without_new_material_conflict"
+    ]
+  },
+  "source_manifest_fingerprint": null,
+  "source_access_policy_version": null,
+  "source_access_policy_fingerprint": null,
+  "lecturer_decision": null,
+  "approved_at": null
+}

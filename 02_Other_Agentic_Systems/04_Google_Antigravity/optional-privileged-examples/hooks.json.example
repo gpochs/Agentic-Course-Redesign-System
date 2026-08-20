@@ -1,0 +1,17 @@
+{
+  "course-redesign-review-gate-example": {
+    "enabled": false,
+    "PreToolUse": [
+      {
+        "matcher": "run_command|write_to_file|replace_file_content|multi_replace_file_content",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "REPLACE_WITH_A_REVIEWED_LOCAL_POLICY_SCRIPT",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "policy_id": null,
+  "policy_version": 1,
+  "source_manifest_fingerprint": null,
+  "per_source_entries": [],
+  "role_tool_egress_permissions": [],
+  "permitted_output_audiences": [],
+  "assessment_security_boundary": {
+    "student_facing": "must_exclude_answers_model_responses_teacher_comments_and_unreleased_assessment_content",
+    "lecturer_only": "may_contain_authorised_assessment_material_only_for_approved_roles_and_tools",
+    "public_safe": "requires_separate_rights_privacy_and_factual_clearance"
+  },
+  "excluded_sources_and_data": [],
+  "fingerprint_method": "sha256_utf8_canonical_json_sorted_keys_no_insignificant_whitespace_excluding_fingerprint_and_approval_metadata",
+  "fingerprint": null,
+  "lecturer_decision": null,
+  "approved_at": null
+}

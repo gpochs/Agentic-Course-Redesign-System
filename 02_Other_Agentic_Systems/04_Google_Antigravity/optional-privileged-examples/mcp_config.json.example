@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "course-redesign-example-disabled": {
+      "disabled": true,
+      "command": "REPLACE_WITH_A_REVIEWED_LOCAL_EXECUTABLE",
+      "args": [],
+      "disabledTools": ["*"]
+    }
+  }
+}

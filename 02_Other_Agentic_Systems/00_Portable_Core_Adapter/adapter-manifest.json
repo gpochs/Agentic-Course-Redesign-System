@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0",
+  "adapter_id": "portable-core",
+  "adapter_version": "0.2.0",
+  "platform": "portable",
+  "status": "template_not_installed",
+  "overlay_root": "overlay",
+  "compose_after": [],
+  "source_provenance": {
+    "system_id": "ACR-SYS-20260820-001",
+    "version": "0.1.0",
+    "source_status": "validated candidate; not activated",
+    "origin_label": "07_Reusable_Agentic_System",
+    "hash_algorithm": "sha256",
+    "hashes": {
+      "SYSTEM_PROPOSAL_v0.1.0.md": "db7425b927b84b6e24c766ca240b55fb04cd81f36016045c1c96dae9d9f63a82",
+      "VALIDATION_REPORT.md": "6a8c9e9c8f67663b33e8c47496252a22c129da709a4839bb3d61d98e1f4c25d9",
+      "project-template/AGENTS.md": "cfd471ed764454439bbfcad981f10d4822146b138199d638ff922b0a40080323",
+      "project-template/01_Control/GATES.md": "62378cfddc9099542877e9c173d68588bcc6030cefbbb88697a2fecf7a8f31ef",
+      "skills/course-redesign-assessment/SKILL.md": "3ea5218c40eea7c9092dbcb1375c9ddf2dc1f740f3016dd7d2fbf840fec5ff90",
+      "skills/course-redesign-materials/SKILL.md": "5a6c94a59f01e5c6d049a75f2d9d44af0c5a473fefa7922dabb7adb389aa5b31",
+      "skills/course-redesign-orchestrator/SKILL.md": "9f90016d72fafa83d967df880c41c35c6513f2a7c68884492743995fb7eb515a",
+      "skills/course-redesign-research/SKILL.md": "be49de6840853fc7bda93c42ca1977b7af5f39631b9af14cf6253d2b99d9efc8",
+      "skills/course-redesign-setup/SKILL.md": "d21eb751654a91439bd3ce46b533740ccc1d230610aa475736bec491c7f7bb4a",
+      "skills/course-redesign-system/SKILL.md": "141f86b6790442a3086966890ea23532fadfa7bdb4f6d5c2f8c7abdbc2500d98",
+      "agents/active-learning-researcher.toml": "eb8e518d65bf9ea83d770b0a01388a708ded40a68b7347da1d8ed29244774c89",
+      "agents/ai-integration-researcher.toml": "f2a66e52b83fafd3e7c17838bd382bf5b5efca6ae6c96a7829168e12563234cb",
+      "agents/artefact-accessibility-visual-qa.toml": "52d1aa74f3b47d6cf91b461022bb0dad6cb81929c35d7947951be4576bc9881f",
+      "agents/assessment-alignment-designer.toml": "892815a6c595570439d67a6fc719d8e0bb882b1472e9c4ef68c166aa07a0c4a8",
+      "agents/course-mapper.toml": "be5c2982231d741a7f4793e31544144b933f07e852857fbdf155fc1c6e366194",
+      "agents/evidence-feasibility-red-team.toml": "3af42b0a5cc960353f5c0aa0c15737b4abe46cceb32c8535cfae2884527f2510",
+      "agents/learning-designer.toml": "4a3ec35356d3bd2fa938b79ba4d31b87ff9c147b59cc00b6d5338c21f5dd07ad",
+      "agents/learning-material-designer.toml": "0b786e21b5c8b88f030e1c4bc7a76a4966bf695ef9b8e863b969684fb3ca5a32",
+      "agents/source-verification-citation-auditor.toml": "26b79722872a8050b7f429f5a6458152d0fbe3dc1e497645c10b7819a9db749d",
+      "agents/student-experience-critic.toml": "25786fa2c1ab5a744db01369eabe2a4050032cd3e231fe71c6b31a64707c1cb7"
+    }
+  },
+  "semantic_derivation": {
+    "method": "thin course-agnostic adaptation",
+    "copied_runtime": false,
+    "activation_carried_forward": false
+  },
+  "file_inventory": {
+    "base": "adapter_root",
+    "hash_algorithm": "sha256",
+    "manifest_self_excluded": true,
+    "excluded_paths": ["adapter-manifest.json"]
+  },
+  "files": [
+    {
+      "path": "CAPABILITIES.md",
+      "bytes": 1891,
+      "sha256": "6c88c77a7ed00a1cf01256787f4778737e1de3756812d4f8edf0162e7160971f"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3597,
+      "sha256": "10ec4935ce67df79fb39a676b165b5b419164114910adfb9539a6632fd6990f8"
+    },
+    {
+      "path": "overlay/AGENTS.md",
+      "bytes": 2079,
+      "sha256": "531b95146278479c7a05caf5971e759cd2e4ede73d2ae93b9b4e3872972704d3"
+    },
+    {
+      "path": "overlay/.claude/skills/course-redesign/SKILL.md",
+      "bytes": 2158,
+      "sha256": "0cc06bed4f9cd14da8236f4bcada642952d5a4c87f484b37ac952582b558f2ba"
+    },
+    {
+      "path": "overlay/.claude/skills/course-redesign/references/control-contract.md",
+      "bytes": 4092,
+      "sha256": "f571e4108e42229bdaa93bb647dba5c79a760ff2b059241d60b5b52bc237006f"
+    },
+    {
+      "path": "overlay/.claude/skills/course-redesign/references/role-contracts.md",
+      "bytes": 3549,
+      "sha256": "e06340624d35e9ea13414f382ac2c5d10d512e208b8895b1b2ccc0fb22468dc6"
+    },
+    {
+      "path": "overlay/.claude/skills/course-redesign/references/workflow.md",
+      "bytes": 7092,
+      "sha256": "83254eaa15d47a2fb0ea73215a85d233f01c8dc3c452597b205128e80f88d3a0"
+    },
+    {
+      "path": "validation/validate_adapters.py",
+      "bytes": 16136,
+      "sha256": "259b89f159758f1356f1e4133b2849915746a3f9868ab0d7d90ad6b9e859d9ff"
+    }
+  ],
+  "overlay_files": [
+    "AGENTS.md",
+    ".claude/skills/course-redesign/SKILL.md",
+    ".claude/skills/course-redesign/references/control-contract.md",
+    ".claude/skills/course-redesign/references/role-contracts.md",
+    ".claude/skills/course-redesign/references/workflow.md"
+  ],
+  "automatic_actions": [],
+  "safe_default": "read_only_fail_closed",
+  "official_specs": [
+    "https://agentskills.io/specification",
+    "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills",
+    "https://code.claude.com/docs/en/skills",
+    "https://opencode.ai/v2/docs/skills"
+  ]
+}

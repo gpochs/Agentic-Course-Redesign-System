@@ -1,0 +1,49 @@
+# Python and test caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+credentials*.json
+secrets*.json
+
+# Generated bundles and local validation evidence
+dist/
+**/dist/
+*.log
+*.tmp
+*.bak
+*.zip
+*.sha256
+local-only-*
+private-denylist*
+05_Validation/package-inventory.json
+05_Validation/*-validation.json
+
+# Editors and operating systems
+.DS_Store
+Thumbs.db
+desktop.ini
+~$*
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Do not ignore platform configuration committed as templates:
+# .agents/ .codex/ .claude/ .opencode/ .github/

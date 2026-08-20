@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Agentic Course Redesign</title>
+  <desc id="desc">A blue course pathway around a gold approval gate.</desc>
+  <rect width="512" height="512" rx="96" fill="#17324D"/>
+  <path d="M120 144h272v64H184v64h144v64H184v32h208v64H120z" fill="#EAF3FA"/>
+  <path d="M304 240h96v144h-40v-96h-56z" fill="#E4AD38"/>
+  <circle cx="336" cy="272" r="14" fill="#17324D"/>
+</svg>

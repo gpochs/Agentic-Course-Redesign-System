@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0",
+  "adapter_id": "opencode-v2",
+  "adapter_version": "0.2.0",
+  "platform": "opencode-v2",
+  "status": "template_not_installed",
+  "overlay_root": "overlay",
+  "compose_after": ["portable-core@0.2.0"],
+  "source_provenance": {
+    "system_id": "ACR-SYS-20260820-001",
+    "version": "0.1.0",
+    "source_status": "validated candidate; not activated",
+    "origin_label": "07_Reusable_Agentic_System",
+    "hash_algorithm": "sha256",
+    "hashes": {
+      "SYSTEM_PROPOSAL_v0.1.0.md": "db7425b927b84b6e24c766ca240b55fb04cd81f36016045c1c96dae9d9f63a82",
+      "VALIDATION_REPORT.md": "6a8c9e9c8f67663b33e8c47496252a22c129da709a4839bb3d61d98e1f4c25d9",
+      "project-template/AGENTS.md": "cfd471ed764454439bbfcad981f10d4822146b138199d638ff922b0a40080323",
+      "project-template/01_Control/GATES.md": "62378cfddc9099542877e9c173d68588bcc6030cefbbb88697a2fecf7a8f31ef"
+    }
+  },
+  "file_inventory": {
+    "base": "adapter_root",
+    "hash_algorithm": "sha256",
+    "manifest_self_excluded": true,
+    "excluded_paths": ["adapter-manifest.json"]
+  },
+  "files": [
+    {
+      "path": "CAPABILITIES.md",
+      "bytes": 1384,
+      "sha256": "85a9df93525b313348d8994f4766a91c629004781fcae46d167568862e8befb3"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1918,
+      "sha256": "9adf68feb1a4e33669a2f9031ec3900554a76def79acd44c42c895ca711272d2"
+    },
+    {
+      "path": "overlay/.opencode/agents/active-learning-researcher.md",
+      "bytes": 956,
+      "sha256": "236054df0a437b9d754b2614387c3859433e7eb67c7ab9648367a127e123027e"
+    },
+    {
+      "path": "overlay/.opencode/agents/ai-integration-researcher.md",
+      "bytes": 940,
+      "sha256": "3ddf0a972d7987be0dc21045a0b7b95bb592502b7789b83ece4d4e58e4479768"
+    },
+    {
+      "path": "overlay/.opencode/agents/artefact-accessibility-visual-qa.md",
+      "bytes": 957,
+      "sha256": "530c5bfa230deac23afb82f9c6d99fbd5cfd236dbbbf110c562a631002cab936"
+    },
+    {
+      "path": "overlay/.opencode/agents/assessment-alignment-designer.md",
+      "bytes": 954,
+      "sha256": "e93e8dd6d2469922955aaece282b765305250a355772ec3661858c3f0fd7d7f8"
+    },
+    {
+      "path": "overlay/.opencode/agents/course-mapper.md",
+      "bytes": 929,
+      "sha256": "c2ee42017b6d8b05cc1265c73886a5a582a315fe589e9a53590673e51397e9c3"
+    },
+    {
+      "path": "overlay/.opencode/agents/evidence-feasibility-red-team.md",
+      "bytes": 945,
+      "sha256": "f59b59898b4ad058ae59c0d5db61c8fe3efbaea8eb807ae32a633970e15393e9"
+    },
+    {
+      "path": "overlay/.opencode/agents/learning-designer.md",
+      "bytes": 923,
+      "sha256": "06bea2621ab5f19d4500390b3f59081289b7e0a93d60f017061d7b18bbb02dc6"
+    },
+    {
+      "path": "overlay/.opencode/agents/learning-material-designer.md",
+      "bytes": 930,
+      "sha256": "1b945895c5d473f631ec2d9e394cdea13f5e7d720bc1c51ef34cb71e6d1ec20e"
+    },
+    {
+      "path": "overlay/.opencode/agents/source-verification-citation-auditor.md",
+      "bytes": 956,
+      "sha256": "5538a6f5c3cb772f31b68904336b261ab48a092c68bde46fc0dc29b1377bca68"
+    },
+    {
+      "path": "overlay/.opencode/agents/student-experience-critic.md",
+      "bytes": 966,
+      "sha256": "755b6db74fc56eb7913aa8845faa3f883918bc15b1ac07bd467a9002546b7859"
+    }
+  ],
+  "overlay_files": [
+    ".opencode/agents/active-learning-researcher.md",
+    ".opencode/agents/ai-integration-researcher.md",
+    ".opencode/agents/artefact-accessibility-visual-qa.md",
+    ".opencode/agents/assessment-alignment-designer.md",
+    ".opencode/agents/course-mapper.md",
+    ".opencode/agents/evidence-feasibility-red-team.md",
+    ".opencode/agents/learning-designer.md",
+    ".opencode/agents/learning-material-designer.md",
+    ".opencode/agents/source-verification-citation-auditor.md",
+    ".opencode/agents/student-experience-critic.md"
+  ],
+  "automatic_actions": [],
+  "safe_default": "deny_all_then_read_glob_grep_skill_only",
+  "executable_plugin": {
+    "included": false,
+    "reason": "Static project instructions, skills, and agents are sufficient; the V2 plugin API is beta and executes in-process."
+  },
+  "official_specs": [
+    "https://opencode.ai/v2/docs/instructions",
+    "https://opencode.ai/v2/docs/agents",
+    "https://opencode.ai/v2/docs/skills",
+    "https://opencode.ai/v2/docs/permissions",
+    "https://opencode.ai/v2/docs/build/plugins"
+  ]
+}

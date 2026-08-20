@@ -1,0 +1,47 @@
+# Python caches, environments, and test artefacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+
+# Generated distributions and local validation reports
+dist/
+validation/package-inventory.json
+validation/forward-test-report*.json
+validation/portable-bundle-validation*.json
+validation/local-*.json
+validation/tmp/
+
+# Credentials, secrets, keys, and certificates
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+*.p12
+*.jks
+*.keystore
+*.crt
+*.cer
+secrets.*
+
+# Logs, temporary files, editor state, and Office lock files
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+~$*
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Keep .agents/ and .codex/ tracked: they are part of the public template.

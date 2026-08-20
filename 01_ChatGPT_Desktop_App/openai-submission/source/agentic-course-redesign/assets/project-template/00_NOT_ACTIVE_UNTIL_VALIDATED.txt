@@ -1,0 +1,42 @@
+AGENTIC COURSE-REDESIGN PROJECT - AUTONOMOUS RUNTIME NOT ACTIVE
+
+This project scaffold is ready for a lecturer-guided first run. Its AGENTS.md,
+.codex configuration, custom specialist definitions, control templates and
+skills support the gated manual workflow immediately after Gate 0 approval.
+
+The top-level state `candidate_not_active` means something narrower: no
+autonomous reusable runtime is activated, no standing schedule is registered,
+and no recurrence may run. Installing this scaffold is not activation.
+
+Before any specialist reads protected course files:
+
+1. keep one course only in this project;
+2. place copied current materials in `00_Source_Materials` and contextual
+   evidence in `00_Context`;
+3. exclude student personal data, submissions, grades, credentials and secrets
+   unless a separately authorised institutional workflow explicitly permits
+   them;
+4. create and verify the exact source manifest;
+5. obtain lecturer confirmation of source classes, teacher-only assessment
+   boundaries, role/tool/egress permissions and output audiences;
+6. compute and review the versioned source-access-policy fingerprint; and
+7. record Gate 0 approval with exact matching manifest and policy lineage.
+
+The guided workflow then requires Gate 1, all five preliminary Stage A returns,
+HITL 1, deeper research and reconciliation, HITL 2, an approved production
+blueprint, independent artefact QA and HITL 3. No old gate approval carries to a
+new run, source set, policy version, context version or plan version.
+
+After a successful course run, the lecturer may choose a separate reusable-
+system review. Any proposed change must remain an inactive, versioned candidate
+until its validators and fresh-run simulation pass. A later activation decision
+must name the exact validated proposal ID/version and cite the validation,
+residual-risk and rollback records.
+
+A standing schedule is a still later decision. It may be registered only for
+the exact active runtime and an expiring contract that binds the course/project,
+mission, source-policy version/fingerprint, permitted source classes and output
+audiences, assessment-security boundary, protected root, IANA timezone,
+recurrence, gate ceilings, retries, stop conditions, unique outputs and
+no-immediate-run rule. Registration requires the exact three-line lecturer reply
+defined in state.json. Registration never triggers an immediate content run.
