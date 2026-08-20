@@ -1,7 +1,7 @@
-# Validation report — v0.2.0
+# Validation report — v0.2.1
 
-- Candidate: `agentic-course-redesign` `0.2.0`
-- Proposal: `ACR-SYS-20260820-002`
+- Candidate: `agentic-course-redesign` `0.2.1`
+- Proposal: `ACR-SYS-20260820-003`
 - Status: locally validated candidate; not activated
 - Validation date: 2026-08-20
 - Public repository:
@@ -16,12 +16,12 @@ SHA-256 was measured before and after this implementation and matched exactly:
 
 `A2F550A08D602156C15281C777AB0BFE1681665C061275AB7C87BE2A13CCCD7C`
 
-Within the copied plugin, only the release manifest, participant product-route
-wording, template version field, setup skill, and expanded distribution tests
-changed. The other inherited skills, every `agents/openai.yaml`, all ten custom
-agent definitions, project `AGENTS.md`, control schemas and gate documentation,
-and all four workflow scripts remain byte-identical to v0.1.0. Four release
-assets were added: two square SVGs and two bundled portable setup guides.
+The original validated workflow and all ten specialist definitions remain
+preserved. Version `0.2.1` updates release metadata, template version fields,
+portable distribution controls, and the orchestrator's user-facing metadata
+and entry routing. The orchestrator is now the **Agentic Course Redesign**
+umbrella choice and can route a new course to protected setup without changing
+the established gates or specialist boundaries.
 
 ## Local validation results
 
@@ -29,14 +29,14 @@ assets were added: two square SVGs and two bundled portable setup guides.
 |---|---|
 | Official plugin-structure validator | PASS for custom marketplace plugin and separate OpenAI source |
 | Official installed quick skill validator | PASS for all six skills in both trees: 12 checks |
-| Static format parsing | PASS: 12 JSON, 22 TOML, 13 YAML, 19 Python, 4 SVG |
-| Unit tests | PASS: 16 tests, including every inherited test |
+| Static format parsing | PASS: 12 JSON, 22 TOML, 12 YAML, 19 Python, 4 SVG |
+| Unit tests | PASS: 17 tests, including umbrella-entry and every inherited test |
 | State validator | PASS: `candidate_not_active`, no schedule, no errors |
-| Disposable forward test | PASS: 28 checks covering skills, agents, lineage, gates, setup, hashing, tamper rejection, and scrub |
+| Disposable forward test | PASS: 32 checks covering the umbrella, skills, agents, lineage, gates, setup, hashing, tamper rejection, and scrub |
 | Public source scrub | PASS: 6 custom skills, 6 public skills, 10 custom agents, 10 public agents, no findings |
 | OpenAI-source validation | PASS: 51 files, one manifest, exact six skills, no MCP/app/hook/screenshots, valid 512-square SVG assets |
 | Runtime source synchronisation | PASS: custom and public runtime trees byte-identical |
-| Reviewer material | PASS: three starter prompts, six positive and six negative complete cases |
+| Reviewer material | PASS: three starter prompts, seven positive and six negative complete cases |
 | Portable workshop build | PASS: deterministic ZIP, inventory, sidecar, CRC, safe paths, and package validator |
 | Skills-only OpenAI build | PASS: deterministic ZIP, one top-level plugin root, 51 files, sidecar, and source-hash match |
 
@@ -67,26 +67,32 @@ checks and deterministic Ubuntu release build. A duplicate workflow is
 deliberately not shipped inside this subfolder because GitHub executes
 workflows only from the repository root.
 
-## Post-publication verification
+## Pre-publication verification
 
-- Public verification commit:
-  `1639efe6b3c292bb6d0ac493790809e5ef66173a`.
-- GitHub Actions run:
-  <https://github.com/gpochs/Agentic-Course-Redesign-System/actions/runs/32379795989>
-  — **pass** on 2026-08-20.
-- User-level ChatGPT Desktop/Codex smoke test: version `0.2.0` is enabled in
-  the current app profile, its 50 cached plugin files match the source tree,
-  all six skills are visible in a new supported task, and the bundled state
-  remains `candidate_not_active` with no schedule.
-- Immutable tag, release downloads, checksums and fresh-clone evidence are
-  published with the GitHub `v0.2.0` release. Those checks do not imply an
-  OpenAI universal-directory listing or installation for other users.
+- Candidate commit and immutable `v0.2.1` tag: pending.
+- Candidate GitHub Actions run: pending.
+- User-level ChatGPT Desktop/Codex smoke test: pending the post-publication
+  update from installed `0.2.0` to `0.2.1`. Structural validation confirms the
+  packaged umbrella metadata; the report must not call the current picker
+  verified until a new task loads the `0.2.1` cache.
+- The clean Windows Git clone of `v0.2.0` exposed line-ending-dependent hashes
+  in twelve Antigravity manifest records. System patch `v0.2.1` fixes the
+  checkout rules and adds the umbrella picker entry without changing the gated
+  workflow semantics, permissions, or activation boundary.
+- Immutable tag, release downloads, checksums and successful fresh-clone
+  evidence remain pending for the GitHub `v0.2.1` release. When complete, those
+  checks will not imply an OpenAI universal-directory listing or installation
+  for other users.
 
 ## Residual limits and owner blockers
 
 - Local validation proves package structure and the tested workflow controls;
   it does not prove that an attendee's current account, workspace policy, or app
   build exposes a custom marketplace or permits installation.
+- OpenAI documentation says `@` can invoke a plugin or bundled skill. The tested
+  Desktop build flattened this skills-only plugin, so the same display name is
+  applied to its orchestrator as a reliable full-workflow choice; this does not
+  guarantee that every build will render a separate parent-plugin row.
 - Current OpenAI documentation supports repo marketplaces in Work mode and
   Codex in the ChatGPT desktop app. Some CLI builds may expose marketplace
   commands, but the tested Codex CLI `0.118.0` did not. Plugins are not

@@ -45,7 +45,7 @@ OWNER_BLOCKERS = [
     "publish matching website, support, privacy-policy, and terms HTTPS pages",
     "choose supported countries or regions",
     "complete final policy attestations",
-    "publish and verify the GitHub repository and immutable v0.2.0 ref",
+    "publish and verify the immutable v0.2.1 tag, assets, checksums, CI run, and fresh clone",
     "run OpenAI skill safety/security scans and complete review",
 ]
 
@@ -142,7 +142,7 @@ def main() -> int:
     interface = manifest.get("interface", {})
 
     check("stable package name", manifest.get("name") == "agentic-course-redesign")
-    check("v0.2.0 semantic version", manifest.get("version") == "0.2.0")
+    check("v0.2.1 semantic version", manifest.get("version") == "0.2.1")
     check(
         "valid package name syntax",
         bool(re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,63}", str(manifest.get("name", "")))),
@@ -153,6 +153,7 @@ def main() -> int:
     check("no MCP/app/hook manifest keys", not (set(manifest) & DISALLOWED_MANIFEST_KEYS))
     check("no screenshots in skills-only interface", "screenshots" not in interface)
     check("directory category", interface.get("category") == "Education & Research")
+    check("umbrella plugin display name", interface.get("displayName") == "Agentic Course Redesign")
     check("display name length", 0 < len(interface.get("displayName", "")) <= 30)
     check("short description length", 0 < len(interface.get("shortDescription", "")) <= 30)
     check("long description present", 0 < len(interface.get("longDescription", "")) <= 4000)
@@ -202,6 +203,26 @@ def main() -> int:
     check(
         "custom and public runtime trees are byte-identical",
         runtime_records(CUSTOM_PLUGIN) == runtime_records(PUBLIC_PLUGIN),
+    )
+    umbrella_metadata = (
+        PUBLIC_PLUGIN
+        / "skills"
+        / "course-redesign-orchestrator"
+        / "agents"
+        / "openai.yaml"
+    ).read_text(encoding="utf-8")
+    umbrella_skill = (
+        PUBLIC_PLUGIN
+        / "skills"
+        / "course-redesign-orchestrator"
+        / "SKILL.md"
+    ).read_text(encoding="utf-8")
+    check(
+        "flattened picker has one full-workflow umbrella entry",
+        'display_name: "Agentic Course Redesign"' in umbrella_metadata
+        and "$course-redesign-orchestrator" in umbrella_metadata
+        and "## Umbrella entry routing" in umbrella_skill
+        and "$course-redesign-setup" in umbrella_skill,
     )
 
     cases = json.loads((REVIEW / "test-cases.json").read_text(encoding="utf-8"))

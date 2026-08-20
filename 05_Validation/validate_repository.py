@@ -284,8 +284,30 @@ def scan(private_denylist: list[str] | None = None) -> dict[str, object]:
         findings.append({"path": relative(chatgpt_manifest), "kind": "missing_chatgpt_plugin_manifest"})
     else:
         plugin_data = json.loads(chatgpt_manifest.read_text(encoding="utf-8"))
-        if plugin_data.get("name") != "agentic-course-redesign" or plugin_data.get("version") != "0.2.0":
+        if plugin_data.get("name") != "agentic-course-redesign" or plugin_data.get("version") != "0.2.1":
             findings.append({"path": relative(chatgpt_manifest), "kind": "chatgpt_plugin_identity_mismatch"})
+        if plugin_data.get("interface", {}).get("displayName") != "Agentic Course Redesign":
+            findings.append({"path": relative(chatgpt_manifest), "kind": "chatgpt_plugin_display_name_mismatch"})
+
+    umbrella_metadata = (
+        chatgpt_manifest.parent.parent
+        / "skills"
+        / "course-redesign-orchestrator"
+        / "agents"
+        / "openai.yaml"
+    )
+    umbrella_skill = umbrella_metadata.parent.parent / "SKILL.md"
+    if not umbrella_metadata.is_file() or not umbrella_skill.is_file():
+        findings.append({"path": relative(umbrella_metadata), "kind": "missing_umbrella_entry"})
+    else:
+        metadata_text = umbrella_metadata.read_text(encoding="utf-8")
+        skill_text = umbrella_skill.read_text(encoding="utf-8")
+        if 'display_name: "Agentic Course Redesign"' not in metadata_text:
+            findings.append({"path": relative(umbrella_metadata), "kind": "umbrella_display_name_mismatch"})
+        if "$course-redesign-orchestrator" not in metadata_text:
+            findings.append({"path": relative(umbrella_metadata), "kind": "umbrella_default_prompt_mismatch"})
+        if "## Umbrella entry routing" not in skill_text or "$course-redesign-setup" not in skill_text:
+            findings.append({"path": relative(umbrella_skill), "kind": "umbrella_routing_missing"})
 
     antigravity_overlay = ROOT / "02_Other_Agentic_Systems" / "04_Google_Antigravity" / "workspace-overlay"
     for forbidden in (

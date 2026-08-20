@@ -9,8 +9,8 @@ Run from the repository root with Python 3.11 or newer:
 python 05_Validation/validate_repository.py
 python -m unittest discover -s 05_Validation/tests -v
 python 03_Shared_Workflow_Core/scripts/validate_state.py 03_Shared_Workflow_Core/course-project-template/01_Control/state.json
-python 05_Validation/build_release.py --version 0.2.0
-python 05_Validation/validate_release.py dist/Agentic-Course-Redesign-System_v0.2.0.zip
+python 05_Validation/build_release.py --version 0.2.1
+python 05_Validation/validate_release.py dist/Agentic-Course-Redesign-System_v0.2.1.zip
 ```
 
 The final release gate also runs platform-specific validators documented in

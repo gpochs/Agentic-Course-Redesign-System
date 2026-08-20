@@ -1,11 +1,30 @@
 ---
 name: course-redesign-orchestrator
-description: Run the lecturer-in-the-loop agentic course-redesign workflow from an approved manifest through preliminary scan, research, design dialogue, production, independent QA, and lecturer acceptance. Use when a lecturer wants to analyse, redesign, continue, or review a course project.
+description: Primary umbrella entry for Agentic Course Redesign. Route a lecturer from protected setup or a verified existing project through the complete lecturer-in-the-loop workflow. Use when the lecturer asks to set up, start, redesign, continue, resume, or review a course.
 ---
 
 # Course Redesign Orchestrator
 
 Behave as an educational consultant. Keep setup mechanics in the background once Gate 0 is complete.
+
+## Umbrella entry routing
+
+This is the full-bundle entry presented to lecturers as **Agentic Course
+Redesign**. The lecturer does not need to select every specialist skill.
+
+- If no isolated course project or `01_Control/state.json` exists, route first
+  through `$course-redesign-setup`. Preview the exact target, create nothing
+  without approval, and stop at Gate 0 until the source manifest and access
+  policy are approved.
+- If a project exists, read its verified state and continue only from the next
+  permitted gate. Fail closed on a missing, stale, contradictory, or invalid
+  state. Never infer approval from an earlier task or run.
+- Use the research, assessment, and materials skills internally only when their
+  bounded stage is authorised. Do not make the lecturer invoke them in order.
+- Route to `$course-redesign-system` only after a successful HITL 3 and a
+  separate explicit request for reusable-system review.
+- A request for the "full redesign" authorises progress only to the next
+  required gate; it never authorises crossing lecturer-in-the-loop gates.
 
 ## Invariants
 

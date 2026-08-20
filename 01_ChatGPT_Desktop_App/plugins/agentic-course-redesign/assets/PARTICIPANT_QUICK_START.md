@@ -41,15 +41,18 @@ standing schedules, personal memory or course data with the reusable system.
    instead.
 2. Create or select a project for this one course and open/attach only its
    isolated local or authorised personal-OneDrive folder.
-3. Start a new task and say: `Set up an agentic redesign project for this one course.`
-4. Answer the setup questions conversationally. You do not need to prepare a
+3. Type `@` and choose **Agentic Course Redesign**. On app builds that list the
+   bundled skills rather than a separate plugin row, choose the entry with that
+   exact name; it is the full-workflow umbrella.
+4. Say: `Set up an agentic redesign project for this one course.`
+5. Answer the setup questions conversationally. You do not need to prepare a
    long master prompt.
-5. Review the proposed folder target before any scaffold is created.
-6. Add current course files to `00_Source_Materials` and context files to
+6. Review the proposed folder target before any scaffold is created.
+7. Add current course files to `00_Source_Materials` and context files to
    `00_Context`.
-7. Review the file list, hashes, source classifications, teacher-only boundary,
+8. Review the file list, hashes, source classifications, teacher-only boundary,
    tool/egress permissions and output audiences.
-8. Approve Gate 0 only when those exact records are correct.
+9. Approve Gate 0 only when those exact records are correct.
 
 Current OpenAI documentation supports plugins in Work mode and Codex in the
 ChatGPT desktop app. Workspace policy, account access, and app version can still

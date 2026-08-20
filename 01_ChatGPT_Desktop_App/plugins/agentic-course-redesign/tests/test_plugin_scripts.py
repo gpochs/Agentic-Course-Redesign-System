@@ -179,7 +179,7 @@ class StateTests(unittest.TestCase):
 
 
 class DistributionTests(unittest.TestCase):
-    def test_v020_manifest_and_marketplace_metadata(self):
+    def test_v021_manifest_and_marketplace_metadata(self):
         system_root = PLUGIN.parents[1]
         plugin_manifest = json.loads(
             (PLUGIN / ".codex-plugin/plugin.json").read_text(encoding="utf-8")
@@ -188,12 +188,13 @@ class DistributionTests(unittest.TestCase):
             (system_root / ".agents/plugins/marketplace.json").read_text(encoding="utf-8")
         )
         interface = plugin_manifest["interface"]
-        self.assertEqual(plugin_manifest["version"], "0.2.0")
+        self.assertEqual(plugin_manifest["version"], "0.2.1")
         self.assertEqual(
             plugin_manifest["repository"],
             "https://github.com/gpochs/Agentic-Course-Redesign-System",
         )
         self.assertEqual(interface["category"], "Education & Research")
+        self.assertEqual(interface["displayName"], "Agentic Course Redesign")
         self.assertLessEqual(len(interface["displayName"]), 30)
         self.assertLessEqual(len(interface["shortDescription"]), 30)
         self.assertEqual(len(interface["defaultPrompt"]), 3)
@@ -203,6 +204,28 @@ class DistributionTests(unittest.TestCase):
         self.assertEqual(marketplace["name"], "agentic-course-redesign-system")
         self.assertEqual(marketplace["plugins"][0]["source"]["path"], "./plugins/agentic-course-redesign")
         self.assertEqual(marketplace["plugins"][0]["policy"]["authentication"], "ON_INSTALL")
+
+    def test_orchestrator_is_full_workflow_umbrella_entry(self):
+        orchestrator = PLUGIN / "skills/course-redesign-orchestrator"
+        metadata = (orchestrator / "agents/openai.yaml").read_text(encoding="utf-8")
+        skill = (orchestrator / "SKILL.md").read_text(encoding="utf-8")
+        self.assertIn('display_name: "Agentic Course Redesign"', metadata)
+        self.assertIn("$course-redesign-orchestrator", metadata)
+        self.assertIn("## Umbrella entry routing", skill)
+        self.assertIn("$course-redesign-setup", skill)
+        self.assertIn("$course-redesign-system", skill)
+        self.assertIn("Fail closed on a missing, stale, contradictory, or invalid", skill)
+        self.assertIn("never authorises crossing lecturer-in-the-loop gates", skill)
+
+        display_names = []
+        for yaml_path in sorted((PLUGIN / "skills").glob("*/agents/openai.yaml")):
+            for line in yaml_path.read_text(encoding="utf-8").splitlines():
+                if line.strip().startswith("display_name:"):
+                    display_names.append(line.split(":", 1)[1].strip().strip('"'))
+                    break
+        self.assertEqual(len(display_names), 6)
+        self.assertEqual(display_names.count("Agentic Course Redesign"), 1)
+        self.assertEqual(len(set(display_names)), 6)
 
     def test_public_source_is_skills_only_and_matches_runtime(self):
         system_root = PLUGIN.parents[1]

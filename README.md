@@ -20,10 +20,17 @@ standing automation is included.
 
 ## Installation status
 
-Version `0.2.0` is published in this public repository. The repository package
-and all adapters passed the recorded release checks. This repository release is
-separate from OpenAI's universal Plugins Directory, where the plugin is not
-listed.
+System release candidate `0.2.1` packages the `agentic-course-redesign` plugin
+`0.2.1`. The patch enforces canonical text line endings so manifest validation
+works in Windows and Unix Git checkouts and adds one full-workflow umbrella
+entry for picker surfaces that list bundled skills. The candidate package and
+all adapters pass the recorded local release checks. Until the immutable
+`v0.2.1` tag, CI run, release assets and fresh-clone validation exist, `v0.2.0`
+remains the latest published release. Repository publication is separate from
+OpenAI's universal Plugins Directory, where the plugin is not listed.
+
+The shared workflow core and four project-local adapters remain at `0.2.0`:
+their gate semantics and adapter contracts did not change in this patch.
 
 There are three distinct ChatGPT distribution routes:
 
@@ -39,23 +46,30 @@ There are three distinct ChatGPT distribution routes:
 The other platform folders are project overlays, not claims of one universal
 plugin format. Copy only the adapter for the system you actually use.
 
-On app or CLI builds that expose repository marketplaces, the pinned public
-installation source is:
+After `v0.2.1` has been published and independently verified, app or CLI builds
+that expose repository marketplaces may use this pinned public source:
 
 ```text
-codex plugin marketplace add gpochs/Agentic-Course-Redesign-System --ref v0.2.0
+codex plugin marketplace add gpochs/Agentic-Course-Redesign-System --ref v0.2.1
 ```
 
 Restart ChatGPT Desktop, select **Agentic Course Redesign System** in the
 Plugins Directory, install **Agentic Course Redesign**, and start a new Work or
-Codex task. The tested Codex CLI `0.118.0` did not expose this marketplace
+Codex task. Type `@` and choose **Agentic Course Redesign** to start or continue
+the complete gated workflow. On app builds that flatten a skills-only plugin,
+this label is the plugin's umbrella orchestrator skill; it routes setup and the
+later specialist stages without requiring six manual selections. The tested
+Codex CLI `0.118.0` did not expose this marketplace
 command, so use it only when the installed build actually provides it. If the
 surface does not expose custom marketplaces, use the documented
 project-template fallback instead of assuming installation.
 
-The verified installation is user-level within the current ChatGPT
-Desktop/Codex app profile: all six skills are available to new supported
-Work/Codex tasks without copying the plugin into each course project. This does
+The supported installation scope is user-level within a ChatGPT Desktop/Codex
+app profile. After version `0.2.1` is loaded in a new supported task, the
+expected picker surface is one umbrella entry plus five direct component
+entries, without copying the plugin into each course project. The package-level
+checks verify that structure; a profile-specific picker smoke test is recorded
+only after that profile has loaded the `0.2.1` cache in a new task. This does
 not prove availability for other users, devices, workspaces, products, app or
 CLI versions, or the Codex IDE extension.
 
@@ -85,6 +99,11 @@ CLI versions, or the Codex IDE extension.
 6. Review the proposed source inventory, data and rights boundary, teacher-only
    assessment boundary, permitted tools/egress and output audiences.
 7. Approve Gate 0 only when those exact records are correct.
+
+The plugin intentionally bundles no connector, MCP server, app mapping, or
+hook. Local course files and the host's approved tools are sufficient for the core
+workflow; adding an unrelated connector only to alter picker presentation would
+increase permissions and data-exposure risk without a documented UI guarantee.
 
 The subsequent dialogue should feel like working with an educational
 consultant. The lecturer first approves preliminary focus areas, later decides

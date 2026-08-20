@@ -3,7 +3,7 @@
 ## Candidate values already prepared
 
 - Package name: `agentic-course-redesign`
-- Version: `0.2.0`
+- Version: `0.2.1`
 - Display name: `Agentic Course Redesign`
 - Short description: `Gated evidence-led redesign`
 - Category: `Education & Research`
@@ -11,13 +11,13 @@
 - Submission type: `Skills only`
 - Skills: six
 - Starter prompts: three
-- Positive reviewer cases: six
+- Positive reviewer cases: seven
 - Negative reviewer cases: six
 - MCP server, connector, UI, screenshots, authentication, and demo credentials:
   not applicable
 
-The repository URL is the intended address only. Confirm that it is public and
-resolves to the exact release before using it in a submission.
+The repository is public. Verify that it resolves to the exact immutable
+`v0.2.1` release before using that ref in a submission.
 
 ## Owner-supplied blockers
 
@@ -52,7 +52,8 @@ than populated with invalid placeholder URLs, and treated as release blockers.
 
 ## Final owner actions
 
-- [ ] Publish and verify the GitHub repository and immutable `v0.2.0` ref.
+- [ ] Publish and verify the immutable `v0.2.1` tag, assets, checksums, CI run,
+  and fresh clone.
 - [ ] Replace or confirm publisher fields in both custom and public manifests.
 - [ ] Add the four verified HTTPS URLs to the final public manifest and portal.
 - [ ] Run all local validators against the final file tree.

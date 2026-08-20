@@ -2,9 +2,12 @@
 
 ## Status first
 
-Version `0.2.0` is published at
-<https://github.com/gpochs/Agentic-Course-Redesign-System> and is verified as a
-custom repository marketplace on supported surfaces. The plugin is not in
+Version `0.2.1` is a locally validated release candidate in this working tree.
+The public repository at
+<https://github.com/gpochs/Agentic-Course-Redesign-System> currently publishes
+`v0.2.0`. Do not treat the
+`v0.2.1` installation ref as immutable until that tag and release exist. It is
+a custom repository marketplace candidate for supported surfaces. The plugin is not in
 OpenAI's universal Plugins Directory and has not passed OpenAI review.
 
 ## Supported custom-marketplace route
@@ -29,6 +32,10 @@ For this extracted or checked-out repository:
 4. Open the Plugins Directory in Work mode or Codex, choose **Agentic Course
    Redesign System**, open **Agentic Course Redesign**, and install it.
 5. Start a new Work or Codex chat before invoking a bundled skill.
+6. Type `@` and choose **Agentic Course Redesign** for the complete workflow.
+   If the app lists bundled skills instead of the parent plugin row, choose the
+   entry with that exact name; it is the umbrella orchestrator and routes the
+   remaining skills internally.
 
 On CLI builds that provide marketplace commands, start `codex`, enter
 `/plugins`, choose the configured marketplace, install or enable the plugin,
@@ -40,11 +47,12 @@ route rather than claiming installation succeeded.
 
 ## Public GitHub route
 
-When the installed app or CLI build exposes repository marketplaces, use the
-pinned public source:
+After `v0.2.1` has been published and independently verified, an installed app
+or CLI build that exposes repository marketplaces may use this pinned public
+source:
 
 ```text
-codex plugin marketplace add gpochs/Agentic-Course-Redesign-System --ref v0.2.0
+codex plugin marketplace add gpochs/Agentic-Course-Redesign-System --ref v0.2.1
 ```
 
 Then restart the ChatGPT desktop app, select the new marketplace source, install
@@ -53,8 +61,9 @@ actually exposes `codex plugin marketplace`. Otherwise use the supported
 ChatGPT Desktop marketplace UI or the portable project-template fallback; an
 absent command is not evidence of successful installation.
 
-The release host has a verified user-level installation in its current ChatGPT
-Desktop/Codex profile, with all six skills available in new supported tasks.
+The release host currently has a verified user-level `0.2.0` installation in
+its ChatGPT Desktop/Codex profile. The `0.2.1` umbrella entry is package-tested;
+live picker evidence requires the new cache and a new supported task.
 This does not automatically install the plugin for other users, devices,
 accounts or workspaces.
 

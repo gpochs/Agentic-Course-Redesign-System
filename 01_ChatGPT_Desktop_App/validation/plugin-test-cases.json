@@ -1,9 +1,19 @@
 {
   "schema_version": 1,
   "plugin": "agentic-course-redesign",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "purpose": "Behavioural cases for local validation and any future public-directory submission.",
   "positive_cases": [
+    {
+      "id": "P00_UMBRELLA_ENTRY",
+      "prompt": "Use Agentic Course Redesign for this course. I have not created its protected project yet.",
+      "expected_skill": "course-redesign-orchestrator",
+      "must_do": [
+        "act as the full-workflow umbrella entry",
+        "route first through course-redesign-setup",
+        "preview the isolated target and stop for Gate 0 approval"
+      ]
+    },
     {
       "id": "P01_NEW_COURSE_SETUP",
       "prompt": "Set up a new agentic course-redesign project for one economics course in this empty folder.",

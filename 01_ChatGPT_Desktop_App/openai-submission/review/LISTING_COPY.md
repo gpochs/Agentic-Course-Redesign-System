@@ -5,7 +5,7 @@
 - Display name: Agentic Course Redesign
 - Developer name: use the exact owner-confirmed verified publisher identity
 - Category: Education & Research
-- Version: 0.2.0
+- Version: 0.2.1
 
 ## Descriptions
 
@@ -15,15 +15,17 @@ Short description:
 
 Long description:
 
-> Set up one protected project per course, analyse approved source material with
-> bounded specialist roles, research only lecturer-approved focus areas,
-> discuss concrete options, produce only approved targets, and independently
-> validate every release. The workflow keeps the lecturer in control of every
-> consequential pedagogical decision and keeps reusable-system activation
-> separate from course-material acceptance.
+> Use one full-workflow umbrella entry to set up or continue a protected course
+> project. Analyse approved source material with bounded specialist roles,
+> research only lecturer-approved focus areas, discuss concrete options,
+> produce only approved targets, and independently validate every release. The
+> workflow keeps the lecturer in control of every consequential pedagogical
+> decision and keeps reusable-system activation separate from course-material
+> acceptance.
 
 ## Capabilities
 
+- Full-workflow umbrella entry
 - Protected course setup
 - Evidence-led course redesign
 - Assessment alignment

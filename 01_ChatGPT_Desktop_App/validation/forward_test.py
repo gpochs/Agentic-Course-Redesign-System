@@ -63,6 +63,13 @@ def main() -> int:
         (ROOT / "validation" / "plugin-test-cases.json").read_text(encoding="utf-8")
     )
     checks.append(check(plugin_manifest.get("name") == "agentic-course-redesign", "plugin manifest identity"))
+    checks.append(check(plugin_manifest.get("version") == "0.2.1", "plugin patch version"))
+    checks.append(
+        check(
+            plugin_manifest.get("interface", {}).get("displayName") == "Agentic Course Redesign",
+            "plugin umbrella display name",
+        )
+    )
     checks.append(check(marketplace["plugins"][0]["name"] == plugin_manifest["name"], "marketplace identity match"))
     checks.append(check(len(cases.get("positive_cases", [])) >= 5, "at least five positive cases"))
     checks.append(check(len(cases.get("negative_cases", [])) >= 3, "at least three negative cases"))
@@ -80,6 +87,39 @@ def main() -> int:
         if f"${skill_name}" not in metadata:
             prompt_errors.append(f"{skill_name}: default prompt does not invoke ${skill_name}")
     checks.append(check(not prompt_errors, "each skill default prompt explicitly invokes itself", prompt_errors))
+    umbrella_metadata = (
+        PLUGIN
+        / "skills/course-redesign-orchestrator/agents/openai.yaml"
+    ).read_text(encoding="utf-8")
+    umbrella_skill = (
+        PLUGIN
+        / "skills/course-redesign-orchestrator/SKILL.md"
+    ).read_text(encoding="utf-8")
+    checks.append(
+        check(
+            'display_name: "Agentic Course Redesign"' in umbrella_metadata
+            and "## Umbrella entry routing" in umbrella_skill
+            and "$course-redesign-setup" in umbrella_skill
+            and "Fail closed on a missing, stale, contradictory, or invalid" in umbrella_skill
+            and "never authorises crossing lecturer-in-the-loop gates" in umbrella_skill,
+            "flattened picker exposes full-workflow umbrella entry",
+        )
+    )
+    display_names = []
+    for yaml_path in sorted(PLUGIN.glob("skills/*/agents/openai.yaml")):
+        for line in yaml_path.read_text(encoding="utf-8").splitlines():
+            if line.strip().startswith("display_name:"):
+                display_names.append(line.split(":", 1)[1].strip().strip('"'))
+                break
+    checks.append(
+        check(
+            len(display_names) == 6
+            and display_names.count("Agentic Course Redesign") == 1
+            and len(set(display_names)) == 6,
+            "one umbrella and five unique direct skill entries",
+            display_names,
+        )
+    )
 
     toml_paths = sorted((PLUGIN / "assets/project-template/.codex/agents").glob("*.toml"))
     agent_definitions = []

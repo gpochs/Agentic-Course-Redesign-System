@@ -1,4 +1,6 @@
 * text=auto
+.gitattributes text eol=lf
+.gitignore text eol=lf
 *.md text eol=lf
 *.json text eol=lf
 *.jsonc text eol=lf
@@ -6,10 +8,12 @@
 *.yaml text eol=lf
 *.yml text eol=lf
 *.py text eol=lf
+*.txt text eol=lf
+*.json.example text eol=lf
+LICENSE text eol=lf
 *.ps1 text eol=crlf
 *.png binary
 *.jpg binary
 *.jpeg binary
 *.webp binary
 *.zip binary
-

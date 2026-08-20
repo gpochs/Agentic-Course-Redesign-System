@@ -1,4 +1,4 @@
 interface:
-  display_name: "Course Redesign Orchestrator"
-  short_description: "Run the gated lecturer-in-the-loop redesign."
-  default_prompt: "Use $course-redesign-orchestrator to continue my current course-redesign run from its verified state."
+  display_name: "Agentic Course Redesign"
+  short_description: "Run the complete gated redesign workflow."
+  default_prompt: "Use $course-redesign-orchestrator as the umbrella workflow to set up or continue my course redesign from its verified state."

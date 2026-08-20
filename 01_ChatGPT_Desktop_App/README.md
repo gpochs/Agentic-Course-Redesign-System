@@ -1,16 +1,19 @@
 # Agentic Course Redesign System
 
-Version `0.2.0` is a released skills-only repository plugin for lecturer-controlled,
-evidence-led course redesign. It is course-agnostic: each run adapts to the
+Version `0.2.1` is a release candidate for the skills-only repository plugin
+for lecturer-controlled, evidence-led course redesign. It is course-agnostic:
+each run adapts to the
 approved materials, learner context, institutional rules, and assessment system
 for one course.
 
 Public repository:
 <https://github.com/gpochs/Agentic-Course-Redesign-System>.
 
-The repository, tagged release, release assets and checksums have been verified
-live. This package has **not been submitted to, reviewed by, approved by, or
-published in OpenAI's universal Plugins Directory**.
+The candidate passes the recorded local source and package checks. Until the
+immutable tag, CI run, release assets and fresh-clone checks exist, `v0.2.0`
+remains the latest published release. This package has **not been submitted to,
+reviewed by, approved by, or published in OpenAI's universal Plugins
+Directory**.
 
 ## What is installable now
 
@@ -30,15 +33,22 @@ See `INSTALLATION.md` for the local and public GitHub routes. A GitHub
 repository can distribute this custom marketplace, but GitHub publication alone
 cannot create a universal public-directory listing.
 
-The release host has a verified user-level installation in its current ChatGPT
-Desktop/Codex profile: all six skills appear in new supported Work/Codex tasks.
+The release host currently has a verified user-level installation of version
+`0.2.0`. The version `0.2.1` package structurally validates
+`@Agentic Course Redesign` as the single full-workflow umbrella plus five direct
+component entries; live picker evidence is recorded only after a new supported
+Work/Codex task has loaded the `0.2.1` cache. On builds that flatten skills-only
+plugins, the umbrella is the user-facing name of
+`course-redesign-orchestrator`; it routes a new course to protected setup and an
+existing course to its next verified gate.
 That evidence does not establish availability for every app version, user,
 device, account, workspace or the Codex IDE extension. The tested Codex CLI
 `0.118.0` did not expose a marketplace command.
 
 ## Workflow
 
-The plugin contributes six skills that help a lecturer:
+The plugin contributes six bundled skills: one umbrella entry plus five focused
+component entries. Together they help a lecturer:
 
 1. create one protected project and isolated folder per course;
 2. classify and hash course, context, assessment, and teacher-only sources;
@@ -61,7 +71,7 @@ course files, or grant blanket write access.
 - `.agents/plugins/marketplace.json`: custom repo marketplace for Work mode and
   Codex in the ChatGPT desktop app, and for CLI builds that expose marketplace
   discovery.
-- `plugins/agentic-course-redesign/`: installable v0.2.0 plugin with six skills,
+- `plugins/agentic-course-redesign/`: installable v0.2.1 plugin with six skills,
   scripts, project template, tests, and square SVG branding assets.
 - `openai-submission/source/agentic-course-redesign/`: separate skills-only
   public-submission source tree, with no MCP, app, hook, or screenshot payload.

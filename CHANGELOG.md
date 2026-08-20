@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.2.1 - Unreleased
+
+- Enforces LF checkout rules for extensionless and text-template files so
+  adapter manifest hashes validate identically on Windows and Unix.
+- Updates the ChatGPT repository plugin to `0.2.1` and presents the existing
+  orchestrator as **Agentic Course Redesign**, a single umbrella entry that
+  routes protected setup, continuation, and the complete gated workflow.
+- Keeps the six-skill architecture, inactive runtime state, permissions, data
+  boundaries, HITL gates, and schedule boundary unchanged; no connector or MCP
+  server is added.
+- Keeps the shared workflow core and four project-local adapters at `0.2.0`;
+  their contracts and workflow semantics did not change.
+- Supersedes the repository-install guidance in `v0.2.0` without silently
+  moving its published tag.
+
 ## 0.2.0 - 2026-08-20
 
 - Preserves the validated ChatGPT/Codex 0.1.0 gated workflow.

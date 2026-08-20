@@ -44,6 +44,11 @@ Start a new task in the course project and say:
 
 > Set up an agentic redesign project for this one course.
 
+In ChatGPT Desktop Work/Codex, type `@` first and choose **Agentic Course
+Redesign**. If the app flattens a skills-only plugin, the entry with that name
+is the umbrella orchestrator: it starts protected setup or continues the
+current verified run and calls the bounded specialist skills when authorised.
+
 The system asks only questions that materially change the analysis. Before any
 specialist reads protected files, review the exact source manifest, source
 classes, data and rights statement, teacher-only assessment boundary,
@@ -67,4 +72,3 @@ and an expiring schedule are later, separate decisions.
 At any time you may pause, narrow scope or reject a proposal. Silence, a prior
 approval, installation, a schedule or a tool's availability never authorises a
 later gate, a different course, external egress or a new file target.
-

@@ -1,6 +1,6 @@
 {
   "name": "agentic-course-redesign",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A gated, lecturer-in-the-loop agentic workflow for evidence-grounded course analysis, redesign, production, and improvement.",
   "author": {
     "name": "gpochs"
@@ -18,10 +18,11 @@
   "interface": {
     "displayName": "Agentic Course Redesign",
     "shortDescription": "Gated evidence-led redesign",
-    "longDescription": "Set up one protected project per course, analyse approved source material with bounded specialist roles, research only lecturer-approved focus areas, discuss concrete options, produce only approved targets, and independently validate every release. The workflow keeps the lecturer in control of every consequential pedagogical decision and keeps reusable-system activation separate from course-material acceptance.",
+    "longDescription": "Use one full-workflow umbrella entry to set up or continue a protected course project. Analyse approved source material with bounded specialist roles, research only lecturer-approved focus areas, discuss concrete options, produce only approved targets, and independently validate every release. The workflow keeps the lecturer in control of every consequential pedagogical decision and keeps reusable-system activation separate from course-material acceptance.",
     "developerName": "gpochs",
     "category": "Education & Research",
     "capabilities": [
+      "Full-workflow umbrella entry",
       "Protected course setup",
       "Evidence-led course redesign",
       "Assessment alignment",

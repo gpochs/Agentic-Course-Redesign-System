@@ -1,9 +1,28 @@
 {
   "schema_version": 1,
   "plugin": "agentic-course-redesign",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "fixture_note": "All fixture files are synthetic, public-safe, and require no account or authentication.",
   "positive_cases": [
+    {
+      "id": "P00_UMBRELLA_ENTRY",
+      "user_prompt": "Use Agentic Course Redesign for this course. I have not created its protected project yet.",
+      "expected_skill_or_workflow": "course-redesign-orchestrator as the umbrella, routing first to course-redesign-setup",
+      "expected_behavior": [
+        "present one full-workflow entry rather than requiring six manual skill selections",
+        "route a new course through protected setup",
+        "preview the exact target and stop for Gate 0 approval"
+      ],
+      "expected_result_shape": [
+        "setup questions that materially affect the project boundary",
+        "exact proposed target and no-overwrite preview",
+        "Gate 0 approval request"
+      ],
+      "fixture_data": [
+        "review/fixtures/course-profile.md",
+        "a reviewer-created empty temporary folder"
+      ]
+    },
     {
       "id": "P01_PROTECTED_SETUP",
       "user_prompt": "Set up a protected redesign project for this one course in a new empty folder.",

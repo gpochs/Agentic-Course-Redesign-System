@@ -111,7 +111,7 @@ def build(version: str) -> dict[str, object]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--version", default="0.2.0")
+    parser.add_argument("--version", default="0.2.1")
     args = parser.parse_args()
     result = build(args.version)
     print(json.dumps(result, indent=2))
@@ -120,4 +120,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

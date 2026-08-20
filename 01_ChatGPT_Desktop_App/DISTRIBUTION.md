@@ -2,13 +2,17 @@
 
 ## Current release state
 
-- Package version: `0.2.0`.
+- Package and plugin version: `0.2.1`.
 - Public repository:
   <https://github.com/gpochs/Agentic-Course-Redesign-System>.
 - GitHub repository verified public: **yes**.
-- Immutable `v0.2.0` tag, release assets and checksums verified: **yes**.
-- User-level ChatGPT Desktop/Codex smoke test: **pass** — six skills visible
-  in a new supported task.
+- Current repository release: `v0.2.0`.
+- Candidate `v0.2.1` tag, release assets and checksums: **pending**. The locally
+  validated candidate packages plugin `0.2.1`.
+- User-level ChatGPT Desktop/Codex `0.2.1` picker smoke test: **pending** — the
+  package-level checks pass for the `@Agentic Course Redesign` umbrella and the
+  other five direct component entries; live picker evidence requires the
+  `0.2.1` cache to be loaded in a new supported task.
 - Submitted to OpenAI: **no**.
 - OpenAI safety/security scan completed: **no**.
 - OpenAI review or approval: **no**.
@@ -69,7 +73,7 @@ included as runtime instruction.
 
 Describe this release as:
 
-> a publicly released and locally validated v0.2.0 skills-only repository
+> a locally validated v0.2.1 skills-only repository release candidate
 > plugin, installable from its custom marketplace on supported ChatGPT Desktop
 > Work/Codex surfaces, with a separate prepared—but not submitted—OpenAI
 > directory candidate
