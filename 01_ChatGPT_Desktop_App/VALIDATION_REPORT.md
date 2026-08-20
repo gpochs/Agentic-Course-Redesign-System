@@ -65,8 +65,22 @@ python validation/check_public_submission_build.py
 The repository-root GitHub Actions workflow runs the cross-platform source
 checks and deterministic Ubuntu release build. A duplicate workflow is
 deliberately not shipped inside this subfolder because GitHub executes
-workflows only from the repository root. Exact post-publication commit, run,
-tag, asset and fresh-clone evidence is recorded below.
+workflows only from the repository root.
+
+## Post-publication verification
+
+- Public verification commit:
+  `1639efe6b3c292bb6d0ac493790809e5ef66173a`.
+- GitHub Actions run:
+  <https://github.com/gpochs/Agentic-Course-Redesign-System/actions/runs/32379795989>
+  — **pass** on 2026-08-20.
+- User-level ChatGPT Desktop/Codex smoke test: version `0.2.0` is enabled in
+  the current app profile, its 50 cached plugin files match the source tree,
+  all six skills are visible in a new supported task, and the bundled state
+  remains `candidate_not_active` with no schedule.
+- Immutable tag, release downloads, checksums and fresh-clone evidence are
+  published with the GitHub `v0.2.0` release. Those checks do not imply an
+  OpenAI universal-directory listing or installation for other users.
 
 ## Residual limits and owner blockers
 
