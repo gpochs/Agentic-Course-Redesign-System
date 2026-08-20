@@ -52,7 +52,7 @@ than populated with invalid placeholder URLs, and treated as release blockers.
 
 ## Final owner actions
 
-- [ ] Publish and verify the immutable `v0.2.1` tag, assets, checksums, CI run,
+- [x] Publish and verify the immutable `v0.2.1` tag, assets, checksums, CI run,
   and fresh clone.
 - [ ] Replace or confirm publisher fields in both custom and public manifests.
 - [ ] Add the four verified HTTPS URLs to the final public manifest and portal.

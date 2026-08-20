@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.1 - Unreleased
+## 0.2.1 - 2026-08-20
 
 - Enforces LF checkout rules for extensionless and text-template files so
   adapter manifest hashes validate identically on Windows and Unix.

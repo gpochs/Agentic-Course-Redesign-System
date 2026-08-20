@@ -45,7 +45,6 @@ OWNER_BLOCKERS = [
     "publish matching website, support, privacy-policy, and terms HTTPS pages",
     "choose supported countries or regions",
     "complete final policy attestations",
-    "publish and verify the immutable v0.2.1 tag, assets, checksums, CI run, and fresh clone",
     "run OpenAI skill safety/security scans and complete review",
 ]
 

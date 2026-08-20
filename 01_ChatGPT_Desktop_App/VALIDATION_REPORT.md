@@ -67,10 +67,15 @@ checks and deterministic Ubuntu release build. A duplicate workflow is
 deliberately not shipped inside this subfolder because GitHub executes
 workflows only from the repository root.
 
-## Pre-publication verification
+## Release verification
 
-- Candidate commit and immutable `v0.2.1` tag: pending.
-- Candidate GitHub Actions run: pending.
+- Functional candidate commit:
+  `9e648c2811aa8d56f515bea57f7bda86da65cc0d`.
+- GitHub Actions run:
+  <https://github.com/gpochs/Agentic-Course-Redesign-System/actions/runs/32384549748>
+  — **pass** on 2026-08-20.
+- A fresh Windows clone with automatic CRLF checkout enabled passed repository,
+  shared-state, unit and adapter validation at the same commit.
 - User-level ChatGPT Desktop/Codex smoke test: pending the post-publication
   update from installed `0.2.0` to `0.2.1`. Structural validation confirms the
   packaged umbrella metadata; the report must not call the current picker
@@ -79,10 +84,9 @@ workflows only from the repository root.
   in twelve Antigravity manifest records. System patch `v0.2.1` fixes the
   checkout rules and adds the umbrella picker entry without changing the gated
   workflow semantics, permissions, or activation boundary.
-- Immutable tag, release downloads, checksums and successful fresh-clone
-  evidence remain pending for the GitHub `v0.2.1` release. When complete, those
-  checks will not imply an OpenAI universal-directory listing or installation
-  for other users.
+- Immutable tag, release downloads and checksums are published with the GitHub
+  `v0.2.1` release. Those checks do not imply an OpenAI universal-directory
+  listing or installation for other users.
 
 ## Residual limits and owner blockers
 

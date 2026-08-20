@@ -2,8 +2,8 @@
 
 - Proposal ID: `ACR-SYS-20260820-003`
 - Proposal version: `0.2.1`
-- Status: locally validated pre-publication candidate; release and picker
-  evidence pending; reusable runtime remains inactive
+- Status: validated and released; user-level picker smoke evidence remains
+  separate; reusable runtime remains inactive
 - Base: validated and published `0.2.0`
 
 ## Approved change

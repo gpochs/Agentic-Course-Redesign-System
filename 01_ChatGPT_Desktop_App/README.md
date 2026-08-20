@@ -1,19 +1,18 @@
 # Agentic Course Redesign System
 
-Version `0.2.1` is a release candidate for the skills-only repository plugin
-for lecturer-controlled, evidence-led course redesign. It is course-agnostic:
-each run adapts to the
+Version `0.2.1` is the released skills-only repository plugin for
+lecturer-controlled, evidence-led course redesign. It is course-agnostic: each
+run adapts to the
 approved materials, learner context, institutional rules, and assessment system
 for one course.
 
 Public repository:
 <https://github.com/gpochs/Agentic-Course-Redesign-System>.
 
-The candidate passes the recorded local source and package checks. Until the
-immutable tag, CI run, release assets and fresh-clone checks exist, `v0.2.0`
-remains the latest published release. This package has **not been submitted to,
-reviewed by, approved by, or published in OpenAI's universal Plugins
-Directory**.
+The local source/package checks, public CI and fresh Windows clone pass. The
+immutable tag, release assets and checksums are published with the GitHub
+release. This package has **not been submitted to, reviewed by, approved by, or
+published in OpenAI's universal Plugins Directory**.
 
 ## What is installable now
 

@@ -2,12 +2,9 @@
 
 ## Status first
 
-Version `0.2.1` is a locally validated release candidate in this working tree.
-The public repository at
-<https://github.com/gpochs/Agentic-Course-Redesign-System> currently publishes
-`v0.2.0`. Do not treat the
-`v0.2.1` installation ref as immutable until that tag and release exist. It is
-a custom repository marketplace candidate for supported surfaces. The plugin is not in
+Version `0.2.1` is published at
+<https://github.com/gpochs/Agentic-Course-Redesign-System> as a custom
+repository marketplace for supported surfaces. The plugin is not in
 OpenAI's universal Plugins Directory and has not passed OpenAI review.
 
 ## Supported custom-marketplace route
@@ -47,9 +44,8 @@ route rather than claiming installation succeeded.
 
 ## Public GitHub route
 
-After `v0.2.1` has been published and independently verified, an installed app
-or CLI build that exposes repository marketplaces may use this pinned public
-source:
+An installed app or CLI build that exposes repository marketplaces may use
+this pinned public source:
 
 ```text
 codex plugin marketplace add gpochs/Agentic-Course-Redesign-System --ref v0.2.1

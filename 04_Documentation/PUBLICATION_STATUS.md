@@ -6,10 +6,10 @@ The public repository is available at:
 
 <https://github.com/gpochs/Agentic-Course-Redesign-System>
 
-System release candidate `0.2.1` packages ChatGPT plugin version `0.2.1` and
-passes the recorded local source and package checks. The latest immutable
-published release remains `v0.2.0` until the `v0.2.1` tag, CI result, release
-assets, checksums and fresh-clone validation have been verified.
+System release `0.2.1` packages ChatGPT plugin version `0.2.1`. Its local
+source/package checks, public CI and fresh Windows clone are verified; its
+immutable tag, release assets and checksums are published with the GitHub
+release.
 The shared workflow core and four project-local adapters remain at `0.2.0`
 because their contracts and gated workflow semantics are unchanged.
 

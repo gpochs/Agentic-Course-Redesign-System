@@ -20,14 +20,13 @@ standing automation is included.
 
 ## Installation status
 
-System release candidate `0.2.1` packages the `agentic-course-redesign` plugin
-`0.2.1`. The patch enforces canonical text line endings so manifest validation
-works in Windows and Unix Git checkouts and adds one full-workflow umbrella
-entry for picker surfaces that list bundled skills. The candidate package and
-all adapters pass the recorded local release checks. Until the immutable
-`v0.2.1` tag, CI run, release assets and fresh-clone validation exist, `v0.2.0`
-remains the latest published release. Repository publication is separate from
-OpenAI's universal Plugins Directory, where the plugin is not listed.
+System release `0.2.1` packages the `agentic-course-redesign` plugin `0.2.1`.
+The patch enforces canonical text line endings so manifest validation works in
+Windows and Unix Git checkouts and adds one full-workflow umbrella entry for
+picker surfaces that list bundled skills. The repository package, adapters,
+public CI and fresh Windows clone pass the recorded release checks. Repository
+publication is separate from OpenAI's universal Plugins Directory, where the
+plugin is not listed.
 
 The shared workflow core and four project-local adapters remain at `0.2.0`:
 their gate semantics and adapter contracts did not change in this patch.
@@ -46,8 +45,8 @@ There are three distinct ChatGPT distribution routes:
 The other platform folders are project overlays, not claims of one universal
 plugin format. Copy only the adapter for the system you actually use.
 
-After `v0.2.1` has been published and independently verified, app or CLI builds
-that expose repository marketplaces may use this pinned public source:
+App or CLI builds that expose repository marketplaces may use this pinned
+public source:
 
 ```text
 codex plugin marketplace add gpochs/Agentic-Course-Redesign-System --ref v0.2.1
