@@ -3,9 +3,12 @@
 ## Current release state
 
 - Package version: `0.2.0`.
-- Planned repository:
+- Public repository:
   <https://github.com/gpochs/Agentic-Course-Redesign-System>.
-- GitHub repository created or verified public: **no**.
+- GitHub repository verified public: **yes**.
+- Immutable `v0.2.0` tag, release assets and checksums verified: **yes**.
+- User-level ChatGPT Desktop/Codex smoke test: **pass** — six skills visible
+  in a new supported task.
 - Submitted to OpenAI: **no**.
 - OpenAI safety/security scan completed: **no**.
 - OpenAI review or approval: **no**.
@@ -13,7 +16,7 @@
 
 ## What the repository can enable
 
-A local checkout or future public GitHub repository can provide:
+A verified checkout or the public GitHub repository can provide:
 
 - the custom repo marketplace at `.agents/plugins/marketplace.json`;
 - installation in Work mode or Codex in the ChatGPT desktop app when that source
@@ -28,9 +31,10 @@ publisher identity, policy compliance, support readiness, or directory approval.
 
 ## Custom marketplace versus universal directory
 
-Local and repository marketplaces are authoring, testing, and private/team
-distribution sources. Their availability can vary by surface. OpenAI's
-universal public directory is a separate catalog shared by ChatGPT and Codex.
+Local and repository marketplaces are custom distribution sources and may be
+private, team-scoped or public. Their availability can vary by app version,
+account and workspace policy. OpenAI's universal public directory is a separate
+catalog shared by ChatGPT and Codex.
 
 For a skills-only public listing, the owner must still:
 
@@ -63,14 +67,15 @@ included as runtime instruction.
 
 ## Required workshop wording
 
-Until the external steps are complete, describe this release as:
+Describe this release as:
 
-> a locally validated v0.2.0 skills-only plugin candidate with a supported
-> custom marketplace route and a prepared, not-yet-submitted public package
+> a publicly released and locally validated v0.2.0 skills-only repository
+> plugin, installable from its custom marketplace on supported ChatGPT Desktop
+> Work/Codex surfaces, with a separate prepared—but not submitted—OpenAI
+> directory candidate
 
-Do not describe it as available from GitHub until the repository resolves
-publicly. Do not describe it as available in the universal Plugins Directory
-until OpenAI has approved it and the verified publisher has published it.
+Do not describe it as available in the universal Plugins Directory until OpenAI
+has approved it and the verified publisher has published it.
 
 ## Official references
 

@@ -1,10 +1,10 @@
-# Validation report — v0.2.0 release candidate
+# Validation report — v0.2.0
 
 - Candidate: `agentic-course-redesign` `0.2.0`
 - Proposal: `ACR-SYS-20260820-002`
 - Status: locally validated candidate; not activated
 - Validation date: 2026-08-20
-- Intended repository, not yet published or verified live:
+- Public repository:
   <https://github.com/gpochs/Agentic-Course-Redesign-System>
 - OpenAI submission/review/publication status: not submitted, not reviewed, not
   approved, and not in the universal Plugins Directory
@@ -27,7 +27,7 @@ assets were added: two square SVGs and two bundled portable setup guides.
 
 | Check | Result |
 |---|---|
-| Official installed plugin validator | PASS for custom marketplace plugin and separate OpenAI source |
+| Official plugin-structure validator | PASS for custom marketplace plugin and separate OpenAI source |
 | Official installed quick skill validator | PASS for all six skills in both trees: 12 checks |
 | Static format parsing | PASS: 12 JSON, 22 TOML, 13 YAML, 19 Python, 4 SVG |
 | Unit tests | PASS: 16 tests, including every inherited test |
@@ -62,12 +62,11 @@ python validation/check_release_build.py
 python validation/check_public_submission_build.py
 ```
 
-The repository-root GitHub Actions workflow is configured to run the
-cross-platform source checks on Windows, macOS, and Ubuntu and the deterministic
-builds on Ubuntu. A duplicate workflow is deliberately not shipped inside this
-subfolder because GitHub executes workflows only from the repository root. The
-root workflow has not run because this task did not create or publish the GitHub
-repository.
+The repository-root GitHub Actions workflow runs the cross-platform source
+checks and deterministic Ubuntu release build. A duplicate workflow is
+deliberately not shipped inside this subfolder because GitHub executes
+workflows only from the repository root. Exact post-publication commit, run,
+tag, asset and fresh-clone evidence is recorded below.
 
 ## Residual limits and owner blockers
 
@@ -75,13 +74,15 @@ repository.
   it does not prove that an attendee's current account, workspace policy, or app
   build exposes a custom marketplace or permits installation.
 - Current OpenAI documentation supports repo marketplaces in Work mode and
-  Codex in the ChatGPT desktop app and a plugin browser in Codex CLI. Plugins
-  are not supported in the Codex IDE extension.
+  Codex in the ChatGPT desktop app. Some CLI builds may expose marketplace
+  commands, but the tested Codex CLI `0.118.0` did not. Plugins are not
+  supported in the Codex IDE extension.
 - The Windows project-template fallback was inherited from the validated source.
   The macOS guide remains structurally reviewed but was not executed on macOS in
   this run.
-- No runtime, schedule, repository, workspace publication, Platform submission,
-  external upload, or universal-directory release was created by validation.
+- Validation did not activate a runtime or schedule, publish to a ChatGPT
+  workspace, submit to OpenAI, or create a universal-directory release. GitHub
+  repository and release publication were separately authorised.
 - The verified publisher identity, owning OpenAI organization/project, Apps
   Management Write submitter, public website/support/privacy/terms URLs,
   countries/regions, and attestations remain owner-supplied.

@@ -2,10 +2,11 @@
 
 - Proposal ID: `ACR-SYS-20260820-002`
 - Proposal version: `0.2.0`
-- Status: `candidate under local release validation; not activated`
+- Status: `validated and published after separate owner authorisation;
+  reusable runtime remains not activated`
 - Evidence run: the completed pilot course-redesign run, including its three
   lecturer-in-the-loop decisions, production corrections and independent QA.
-- Intended public repository (not yet published or confirmed live):
+- Public repository:
   `https://github.com/gpochs/Agentic-Course-Redesign-System`.
 
 ## Demonstrated problem
@@ -97,6 +98,8 @@ evidence, residual-risk record and rollback record, and explicitly choose
 activation. Keeping it inactive or revising and revalidating are valid choices.
 No schedule may be proposed until that separate activation is complete.
 
-GitHub publication, OpenAI Platform upload, policy attestation, review, and
-universal-directory publication are also separate owner actions. This proposal
-authorises none of them.
+This proposal itself authorised none of those external actions. GitHub
+repository and release publication were later separately authorised and
+completed. OpenAI submission, review, universal-directory publication,
+workspace publication, runtime activation and scheduling remain separate and
+uncompleted.

@@ -1,15 +1,15 @@
 # Agentic Course Redesign System
 
-Version `0.2.0` is a skills-only plugin candidate for lecturer-controlled,
+Version `0.2.0` is a released skills-only repository plugin for lecturer-controlled,
 evidence-led course redesign. It is course-agnostic: each run adapts to the
 approved materials, learner context, institutional rules, and assessment system
 for one course.
 
-Repository address reserved for this release:
+Public repository:
 <https://github.com/gpochs/Agentic-Course-Redesign-System>.
 
-That repository has **not yet been published or independently verified live**.
-This package has also **not been submitted to, reviewed by, approved by, or
+The repository, tagged release, release assets and checksums have been verified
+live. This package has **not been submitted to, reviewed by, approved by, or
 published in OpenAI's universal Plugins Directory**.
 
 ## What is installable now
@@ -17,17 +17,24 @@ published in OpenAI's universal Plugins Directory**.
 The checked-out or extracted repository is a valid custom marketplace source
 for supported ChatGPT desktop surfaces. In Work mode or Codex in the ChatGPT
 desktop app, a repo marketplace can appear as a selectable source in the Plugins
-Directory. Codex CLI can configure a local or Git-backed marketplace and then
-use `/plugins`; start a new chat or CLI session after installation.
+Directory. Some Codex CLI builds can configure a local or Git-backed
+marketplace; use that route only when the installed CLI exposes marketplace
+commands, then start a new session after installation.
 
 Current OpenAI documentation says plugins work in Chat and Work across supported
 ChatGPT surfaces and in Codex in the ChatGPT desktop app. The Codex IDE extension
 does not support plugins. Workspace policy, product access, app version, and
 administrator controls can still restrict installation or sharing.
 
-See `INSTALLATION.md` for the local route and the future GitHub command. A GitHub
+See `INSTALLATION.md` for the local and public GitHub routes. A GitHub
 repository can distribute this custom marketplace, but GitHub publication alone
 cannot create a universal public-directory listing.
+
+The release host has a verified user-level installation in its current ChatGPT
+Desktop/Codex profile: all six skills appear in new supported Work/Codex tasks.
+That evidence does not establish availability for every app version, user,
+device, account, workspace or the Codex IDE extension. The tested Codex CLI
+`0.118.0` did not expose a marketplace command.
 
 ## Workflow
 
@@ -52,7 +59,8 @@ course files, or grant blanket write access.
 ## Repository layout
 
 - `.agents/plugins/marketplace.json`: custom repo marketplace for Work mode and
-  Codex in the ChatGPT desktop app, and for Codex CLI marketplace discovery.
+  Codex in the ChatGPT desktop app, and for CLI builds that expose marketplace
+  discovery.
 - `plugins/agentic-course-redesign/`: installable v0.2.0 plugin with six skills,
   scripts, project template, tests, and square SVG branding assets.
 - `openai-submission/source/agentic-course-redesign/`: separate skills-only

@@ -2,22 +2,24 @@
 
 ## Status first
 
-Version `0.2.0` can be tested from this local repository as a custom marketplace
-on supported surfaces. The planned GitHub repository is
-<https://github.com/gpochs/Agentic-Course-Redesign-System>, but it is not yet
-published or verified live. The plugin is not in OpenAI's universal Plugins
-Directory and has not passed OpenAI review.
+Version `0.2.0` is published at
+<https://github.com/gpochs/Agentic-Course-Redesign-System> and is verified as a
+custom repository marketplace on supported surfaces. The plugin is not in
+OpenAI's universal Plugins Directory and has not passed OpenAI review.
 
 ## Supported custom-marketplace route
 
 OpenAI documents repo marketplaces for Work mode and Codex in the ChatGPT
-desktop app. Codex CLI can add local or Git-backed marketplace sources. The
-Codex IDE extension does not support plugins.
+desktop app. Some Codex CLI releases expose local or Git-backed marketplace
+commands. The release-validation host's Codex CLI `0.118.0` did not expose that
+command, so no CLI installation is claimed for that build. The Codex IDE
+extension does not support plugins.
 
 For this extracted or checked-out repository:
 
 1. Keep the complete repository together at a short, writable path.
-2. In a terminal, add the repository root as the local marketplace source:
+2. If the installed CLI exposes `codex plugin marketplace`, add the repository
+   root as the local marketplace source:
 
    ```text
    codex plugin marketplace add "C:\path\to\Agentic-Course-Redesign-System"
@@ -28,24 +30,33 @@ For this extracted or checked-out repository:
    Redesign System**, open **Agentic Course Redesign**, and install it.
 5. Start a new Work or Codex chat before invoking a bundled skill.
 
-In Codex CLI, start `codex`, enter `/plugins`, choose the configured marketplace,
-install or enable the plugin, and start a new session.
+On CLI builds that provide marketplace commands, start `codex`, enter
+`/plugins`, choose the configured marketplace, install or enable the plugin,
+and start a new session.
 
 If the CLI command is absent or the custom source does not appear, verify the
 installed app/CLI version and workspace policy. Use the portable project-template
 route rather than claiming installation succeeded.
 
-## Future GitHub route
+## Public GitHub route
 
-Only after the repository and `v0.2.0` ref are actually public and verified:
+When the installed app or CLI build exposes repository marketplaces, use the
+pinned public source:
 
 ```text
 codex plugin marketplace add gpochs/Agentic-Course-Redesign-System --ref v0.2.0
 ```
 
 Then restart the ChatGPT desktop app, select the new marketplace source, install
-the plugin, and start a new chat. Until publication is confirmed, that command
-is documentation for the intended release route, not a working-download claim.
+the plugin, and start a new chat. Use this command only when the installed CLI
+actually exposes `codex plugin marketplace`. Otherwise use the supported
+ChatGPT Desktop marketplace UI or the portable project-template fallback; an
+absent command is not evidence of successful installation.
+
+The release host has a verified user-level installation in its current ChatGPT
+Desktop/Codex profile, with all six skills available in new supported tasks.
+This does not automatically install the plugin for other users, devices,
+accounts or workspaces.
 
 ## Workspace sharing boundary
 

@@ -70,9 +70,9 @@ jobs:
           PYTHONDONTWRITEBYTECODE: "1"
         shell: bash
         run: |
-          python 05_Validation/build_release.py --version 0.2.0 > first.json
-          first=$(python -c "import json; print(json.load(open('first.json'))['archive_sha256'])")
-          python 05_Validation/build_release.py --version 0.2.0 > second.json
-          second=$(python -c "import json; print(json.load(open('second.json'))['archive_sha256'])")
+          python 05_Validation/build_release.py --version 0.2.0 > "$RUNNER_TEMP/first.json"
+          first=$(python -c "import json, os; print(json.load(open(os.path.join(os.environ['RUNNER_TEMP'], 'first.json')))['archive_sha256'])")
+          python 05_Validation/build_release.py --version 0.2.0 > "$RUNNER_TEMP/second.json"
+          second=$(python -c "import json, os; print(json.load(open(os.path.join(os.environ['RUNNER_TEMP'], 'second.json')))['archive_sha256'])")
           test "$first" = "$second"
           python 05_Validation/validate_release.py dist/Agentic-Course-Redesign-System_v0.2.0.zip

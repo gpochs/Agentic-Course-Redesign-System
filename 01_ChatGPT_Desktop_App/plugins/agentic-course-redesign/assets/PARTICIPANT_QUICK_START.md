@@ -34,9 +34,11 @@ standing schedules, personal memory or course data with the reusable system.
 ## In Work mode or Codex
 
 1. Install the plugin from the configured custom marketplace in Work mode or
-   Codex in the ChatGPT desktop app, then start a new chat. In Codex CLI, use
-   `/plugins` and start a new session after installation. If the custom source
-   is unavailable, use the portable setup guide instead.
+   Codex in the ChatGPT desktop app, then start a new chat. On a Codex CLI build
+   that actually exposes marketplace commands, use `/plugins` and start a new
+   session after installation. The tested CLI `0.118.0` did not expose that
+   command. If the custom source is unavailable, use the portable setup guide
+   instead.
 2. Create or select a project for this one course and open/attach only its
    isolated local or authorised personal-OneDrive folder.
 3. Start a new task and say: `Set up an agentic redesign project for this one course.`

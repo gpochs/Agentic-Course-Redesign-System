@@ -20,8 +20,10 @@ standing automation is included.
 
 ## Installation status
 
-Version `0.2.0` is a public-release candidate until the repository package and
-each adapter pass final validation.
+Version `0.2.0` is published in this public repository. The repository package
+and all adapters passed the recorded release checks. This repository release is
+separate from OpenAI's universal Plugins Directory, where the plugin is not
+listed.
 
 There are three distinct ChatGPT distribution routes:
 
@@ -37,7 +39,8 @@ There are three distinct ChatGPT distribution routes:
 The other platform folders are project overlays, not claims of one universal
 plugin format. Copy only the adapter for the system you actually use.
 
-On supported custom-marketplace builds, the intended public installation is:
+On app or CLI builds that expose repository marketplaces, the pinned public
+installation source is:
 
 ```text
 codex plugin marketplace add gpochs/Agentic-Course-Redesign-System --ref v0.2.0
@@ -45,9 +48,16 @@ codex plugin marketplace add gpochs/Agentic-Course-Redesign-System --ref v0.2.0
 
 Restart ChatGPT Desktop, select **Agentic Course Redesign System** in the
 Plugins Directory, install **Agentic Course Redesign**, and start a new Work or
-Codex task. Do not run this command until the public repository and `v0.2.0`
-tag have been verified. If the surface does not expose custom marketplaces, use
-the documented project-template fallback instead of assuming installation.
+Codex task. The tested Codex CLI `0.118.0` did not expose this marketplace
+command, so use it only when the installed build actually provides it. If the
+surface does not expose custom marketplaces, use the documented
+project-template fallback instead of assuming installation.
+
+The verified installation is user-level within the current ChatGPT
+Desktop/Codex app profile: all six skills are available to new supported
+Work/Codex tasks without copying the plugin into each course project. This does
+not prove availability for other users, devices, workspaces, products, app or
+CLI versions, or the Codex IDE extension.
 
 ## Repository map
 
