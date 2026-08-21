@@ -6,6 +6,8 @@
 - Path-scoped safety guidance under `.claude/rules/`.
 - The native project skill location `.claude/skills/course-redesign/` supplied
   by the portable core.
+- The portable core's complete Gate 0-through-HITL3 sequence, verified
+  production handoff, and proposal-only post-HITL3 system-review offer.
 - Ten project subagents under `.claude/agents/`, each with the shared skill
   preloaded and only `Read`, `Glob`, and `Grep` available.
 - Version control of project instructions, rules, skills, and agents.
@@ -25,4 +27,3 @@ profile therefore validates the current capsule and stops before analysis when
 the orchestrator has not assigned that role and stage. Host permission modes
 can affect behavior; the explicit three-tool allowlist is the adapter's primary
 read-only boundary.
-

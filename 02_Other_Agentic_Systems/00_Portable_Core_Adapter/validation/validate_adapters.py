@@ -82,8 +82,10 @@ EXPECTED_GATE_ORDER = [
     "hitl_2_gate_2b",
     "gate_3",
     "named_artefact_gates",
-    "production_completion_and_handoff",
+    "production_declaration",
+    "production_handoff_approval_and_verification",
     "hitl_3",
+    "mandatory_system_improvement_review_offer",
     "optional_system_gate",
     "optional_separate_activation",
     "optional_separate_expiring_schedule",
@@ -142,17 +144,17 @@ def validate(source: Path | None = None) -> list[str]:
         except (OSError, json.JSONDecodeError) as exc:
             fail(errors, f"{folder}: invalid manifest: {exc}")
             continue
-        if manifest.get("adapter_version") != "0.2.0":
-            fail(errors, f"{folder}: adapter_version must be 0.2.0")
+        if manifest.get("adapter_version") != "0.2.2":
+            fail(errors, f"{folder}: adapter_version must be 0.2.2")
         if manifest.get("platform") != PLATFORMS[folder]:
             fail(errors, f"{folder}: incorrect or missing normalized platform")
         if manifest.get("status") not in {"candidate_not_active", "template_not_installed"}:
             fail(errors, f"{folder}: status is not a safe normalized value")
         if manifest.get("overlay_root") != "overlay":
             fail(errors, f"{folder}: overlay_root must be overlay")
-        expected_compose = [] if folder == "00_Portable_Core_Adapter" else ["portable-core@0.2.0"]
+        expected_compose = [] if folder == "00_Portable_Core_Adapter" else ["portable-core@0.2.2"]
         if manifest.get("compose_after") != expected_compose:
-            fail(errors, f"{folder}: compose_after is not aligned to portable core 0.2.0")
+            fail(errors, f"{folder}: compose_after is not aligned to portable core 0.2.2")
         provenance = manifest.get("source_provenance", {})
         if provenance.get("version") != "0.1.0":
             fail(errors, f"{folder}: validated semantic source version must remain 0.1.0")
@@ -313,15 +315,62 @@ def validate(source: Path | None = None) -> list[str]:
         workflow_text = workflow_path.read_text(encoding="utf-8")
         workflow_text_normalized = " ".join(workflow_text.split())
         for required in (
+            "## Gate 0: eligibility and access",
+            "DECLARE PRODUCTION COMPLETE",
+            "APPROVE PRODUCTION HANDOFF",
+            "reopen it and verify",
+            "Do not enter HITL 3 until this saved handoff verification passes",
             "## HITL 3: final lecturer acceptance",
             "all editable deliverables and representative previews",
             "known limitations and rights boundaries",
             "final quality-assurance evidence",
             "accept the package, conditionally accept it with named revisions",
-            "separate explicit request to review the system",
+            "Would you like a separate, read-only system-improvement review",
+            "workflow skills and umbrella entry routing",
+            "plugin or platform adapter",
+            "AGENTS.md and agent configurations",
+            "project template, state schema and migration",
+            "validators, tests and QA",
+            "documentation",
+            "memory or other workflow-owned durable instruction stores",
+            "schedule contracts",
+            "permissions, tools, external egress and automatic behaviour",
+            "compatibility, benefits, regressions, risks, residual risks and rollback",
+            "followed only by a versioned proposal",
+            "A yes authorises only that review and proposal",
+            "does not authorise system-file changes, installation, publication or release, runtime activation, schedule registration or modification, an immediate run",
+            "added MCP server, connector, authentication, permission or external egress",
+            "persist the offer record",
+            "complete question exactly once",
+            "offered_awaiting_response",
+            "idempotency key",
+            "APPROVE SYSTEM FILES",
+            "status=candidate_not_active",
+            "one lecturer reply containing exactly and only these three completed lines",
+            "APPROVE SCHEDULES",
+            "Schedule contract: <exact contract ID and version>",
+            "Expires: <exact local date and time with IANA timezone>",
+            "Registration never triggers an immediate run",
         ):
             if required not in workflow_text_normalized:
-                fail(errors, f"portable workflow omits HITL 3 control: {required}")
+                fail(errors, f"portable workflow omits workflow-completeness control: {required}")
+        ordered_markers = (
+            "## Gate 0: eligibility and access",
+            "## Gate 1: course brief and run contract",
+            "## Stage A and Gate 2A",
+            "## Stage B and Gate 2B",
+            "## Blueprint and Gate 3",
+            "## Gated production and QA",
+            "DECLARE PRODUCTION COMPLETE",
+            "APPROVE PRODUCTION HANDOFF",
+            "Do not enter HITL 3 until this saved handoff verification passes",
+            "## HITL 3: final lecturer acceptance",
+            "Would you like a separate, read-only system-improvement review",
+            "## Separate reusable-system lifecycle",
+        )
+        positions = [workflow_text_normalized.find(marker) for marker in ordered_markers]
+        if -1 not in positions and positions != sorted(positions):
+            fail(errors, "portable workflow completeness controls are reordered")
     opencode_overlay = ROOT / "03_OpenCode/overlay"
     if opencode_overlay.exists():
         executable = [
@@ -345,7 +394,7 @@ if __name__ == "__main__":
         sys.exit(1)
     source_note = "; all declared source hashes match" if source_arg else ""
     print(
-        "PASS: 4 release-0.2.0 adapters, 48 frozen non-manifest files, 39 overlay "
+        "PASS: 4 release-0.2.2 adapters, 48 frozen non-manifest files, 39 overlay "
         "files, and 30 native role wrappers are project-local, fail-closed, and "
         f"hash-consistent{source_note}"
     )

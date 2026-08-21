@@ -21,9 +21,15 @@ Gate 3: coherent blueprint + exact material targets
         |
 Gated production + independent QA of every artefact
         |
+Current-lineage production-complete declaration
+        |
+Separate exact handoff approval + independent verification
+        |
 HITL 3: lecturer accepts, revises or rejects materials
         |
-Optional separate system-improvement proposal
+Mandatory question: separate read-only system-improvement review?
+        | yes grants review/proposal authority only
+Optional versioned system-improvement proposal + System Gate
         |
 Optional later runtime activation
         |
@@ -48,7 +54,15 @@ are independent audit roles, not substitutes for the five perspectives.
 - **Gate 3** approves the integrated blueprint and exact typed material targets
   under `04_Working_Copies/` and `05_Approved/`.
 - Named artefact gates and independent QA govern production.
+- Production cannot enter HITL 3 until a completed current-lineage reply
+  contains standalone `DECLARE PRODUCTION COMPLETE`, a second completed reply
+  repeats the exact handoff target with standalone
+  `APPROVE PRODUCTION HANDOFF`, and the handoff is independently verified.
 - **HITL 3** is the lecturer's decision on the produced files.
+- Only unconditional current-lineage HITL 3 acceptance causes the orchestrator
+  to ask whether the lecturer wants a separate read-only system-improvement
+  review. A yes permits evidence review and a versioned proposal only; it does
+  not permit edits, installation, publication, activation or scheduling.
 
 Every record is bound to a fresh run, run-contract ID/version, task reference,
 shared-context version, source-manifest fingerprint, source-policy
@@ -61,4 +75,3 @@ acceptance, validated system improvement and separate exact-version activation.
 Its contract expires, never triggers an immediate run when approved, creates a
 fresh lineage on every recurrence, stops at lecturer gates and never grants
 standing course-material production authority.
-

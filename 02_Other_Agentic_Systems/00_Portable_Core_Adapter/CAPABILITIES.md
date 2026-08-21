@@ -4,8 +4,9 @@
 
 - A course-agnostic, project-local instruction envelope.
 - A lecturer-controlled Gate 0, Gate 1, Gate 2A, Gate 2B, Gate 3, artefact,
-  production-handoff, final HITL 3 package acceptance, system, activation, and
-  scheduling decision model.
+  production declaration, handoff approval and verification, final HITL 3
+  package acceptance, mandatory proposal-only system-review offer, system,
+  activation, and scheduling decision model.
 - Fail-closed lineage checks, protected-source rules, audience separation, and
   one-retry specialist contracts.
 - A shared ten-role specialist roster and a common return envelope.

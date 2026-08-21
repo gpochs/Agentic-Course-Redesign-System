@@ -1,11 +1,25 @@
 ---
 name: course-redesign-orchestrator
-description: Run the lecturer-in-the-loop agentic course-redesign workflow from an approved manifest through preliminary scan, research, design dialogue, production, independent QA, and lecturer acceptance. Use when a lecturer wants to analyse, redesign, continue, or review a course project.
+description: Primary umbrella entry for the lecturer-in-the-loop course-redesign workflow. Route protected setup or a verified existing project through Gate 0, analysis, research, design dialogue, production, independent QA, handoff, lecturer acceptance, and the separate system-review offer.
 ---
 
 # Course Redesign Orchestrator
 
 Behave as an educational consultant. Keep setup mechanics in the background once Gate 0 is complete.
+
+## Umbrella entry and Gate 0
+
+- If no isolated project or `01_Control/state.json` exists, use
+  `course-redesign-setup`. Preview the exact target, create nothing without
+  approval, and stop at Gate 0 until the manifest and source-access policy are
+  approved.
+- If a project exists, validate its state and continue only from the recorded
+  next permitted action. Missing, stale, contradictory, or invalid state fails
+  closed. Never infer approval from another run or task.
+- Use the research, assessment, and materials skills only for their authorised
+  bounded stages. A request for a full redesign never crosses a human gate.
+- Use `course-redesign-system` only after unconditional current-lineage HITL 3
+  acceptance and a separate yes to the mandatory read-only review offer.
 
 ## Invariants
 
@@ -60,13 +74,36 @@ Produce the coherent approved blueprint, alignment ledger, file-by-file plan, se
 
 First verify that the recorded Gate 3 blueprint, file plan, target types and exact paths still match the lecturer's approval. Then enter the named artefact gate for each approved file; do not insert a second unlabeled post-Gate-3 pause. Create only approved targets in the dated working/output folders. Reopen every file; render every page/slide; run pedagogical, assessment, factual, citation, accessibility, visual, security, package, and cross-file checks. Correct bounded defects and rerun the affected and regression checks. Keep keys and restricted QA out of student-facing folders.
 
+### Production completion and verified handoff
+
+After all named artefact gates and QA pass, require two separate completed
+current-lineage replies. The first must repeat the current run, run-contract,
+task/chat, shared-context, source-manifest, source-access-policy, and plan
+lineage and contain `DECLARE PRODUCTION COMPLETE` as a standalone line. Record
+only the declaration, then show the accepted versions, audience
+classifications, QA evidence, unresolved issues, and exact
+`04_Working_Copies/<approved-run>/Production_Handoff.md` target.
+
+Wait again. Save only after a second completed reply repeats the same lineage
+and exact target and contains `APPROVE PRODUCTION HANDOFF` as a standalone
+line. Either token by itself is invalid. Reopen the saved handoff and verify it
+against the accepted versions, QA evidence, unresolved issues, and approval
+record. Do not enter HITL 3 until that verification passes.
+
 ### HITL 3
 
 Give the lecturer editable files, PDFs/previews, change log, limitations, and QA evidence. Ask the lecturer to accept, request revision, or reject the materials. Conditional acceptance may authorise only the named corrections; verify them before closing HITL 3.
 
 ## After success
 
-Ask whether the lecturer wants a separate system-improvement review. Do not
-silently rewrite `AGENTS.md`, rules, workflows, skills, role references, state,
-validators, or schedules. A system proposal has its own validation and later
-activation decisions; use `course-redesign-system`.
+Persist a system-improvement offer record and ask this complete question exactly
+once:
+
+> Would you like a separate, read-only system-improvement review covering the workflow skills and umbrella entry routing; plugin or platform adapter; AGENTS.md and agent configurations; project template, state schema and migration; validators, tests and QA; documentation; memory or other workflow-owned durable instruction stores; schedule contracts; permissions, tools, external egress and automatic behaviour; and compatibility, benefits, regressions, risks, residual risks and rollback, followed only by a versioned proposal? A yes authorises only that review and proposal; it does not authorise system-file changes, installation, publication or release, runtime activation, schedule registration or modification, an immediate run, or any added MCP server, connector, authentication, permission or external egress.
+
+Use the run ID plus final HITL-3 acceptance reference as the idempotency key.
+Ask only after successful HITL 3; do not ask after conditional acceptance,
+revision, or rejection. On resume, `offered_awaiting_response` means wait
+without asking again; `requested` authorises only the read-only review and one
+versioned proposal; `declined` closes the run without system action. Use
+`course-redesign-system` only after the recorded request.

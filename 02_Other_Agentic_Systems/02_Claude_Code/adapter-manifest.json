@@ -1,11 +1,13 @@
 {
   "schema_version": "1.0",
   "adapter_id": "claude-code",
-  "adapter_version": "0.2.0",
+  "adapter_version": "0.2.2",
   "platform": "claude-code",
   "status": "template_not_installed",
   "overlay_root": "overlay",
-  "compose_after": ["portable-core@0.2.0"],
+  "compose_after": [
+    "portable-core@0.2.2"
+  ],
   "source_provenance": {
     "system_id": "ACR-SYS-20260820-001",
     "version": "0.1.0",
@@ -23,18 +25,20 @@
     "base": "adapter_root",
     "hash_algorithm": "sha256",
     "manifest_self_excluded": true,
-    "excluded_paths": ["adapter-manifest.json"]
+    "excluded_paths": [
+      "adapter-manifest.json"
+    ]
   },
   "files": [
     {
       "path": "CAPABILITIES.md",
-      "bytes": 1316,
-      "sha256": "ddbebd8ed2d6bf45ac08b3253e57529fc1986899917d1ddc2fb2716c6330c9bd"
+      "bytes": 1458,
+      "sha256": "fefce9bde8780b590c206caddca2263ad7a1cbb063345eb94e675e0d495d613c"
     },
     {
       "path": "README.md",
-      "bytes": 1707,
-      "sha256": "12c7c22bc7c31cc652113d09f862db42df0160b8e82e4ef7fa5f20da2f3e2ab5"
+      "bytes": 1960,
+      "sha256": "1217e4aff1b093dd480b8bcedca31e18d7970e109880b23c37fd1cebb4d210ba"
     },
     {
       "path": "overlay/CLAUDE.md",

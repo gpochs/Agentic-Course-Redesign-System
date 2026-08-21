@@ -1,11 +1,13 @@
 {
   "schema_version": "1.0",
   "adapter_id": "opencode-v2",
-  "adapter_version": "0.2.0",
+  "adapter_version": "0.2.2",
   "platform": "opencode-v2",
   "status": "template_not_installed",
   "overlay_root": "overlay",
-  "compose_after": ["portable-core@0.2.0"],
+  "compose_after": [
+    "portable-core@0.2.2"
+  ],
   "source_provenance": {
     "system_id": "ACR-SYS-20260820-001",
     "version": "0.1.0",
@@ -23,18 +25,20 @@
     "base": "adapter_root",
     "hash_algorithm": "sha256",
     "manifest_self_excluded": true,
-    "excluded_paths": ["adapter-manifest.json"]
+    "excluded_paths": [
+      "adapter-manifest.json"
+    ]
   },
   "files": [
     {
       "path": "CAPABILITIES.md",
-      "bytes": 1384,
-      "sha256": "85a9df93525b313348d8994f4766a91c629004781fcae46d167568862e8befb3"
+      "bytes": 1526,
+      "sha256": "342a5c21f0d6956c1d54f3b1b31fdbebedfbf05666898f3ad964486acbdaaeb1"
     },
     {
       "path": "README.md",
-      "bytes": 1918,
-      "sha256": "9adf68feb1a4e33669a2f9031ec3900554a76def79acd44c42c895ca711272d2"
+      "bytes": 2173,
+      "sha256": "37b5070ac1705701ae20cf66ddf288122ca3029d82de383ab6a83710d56204c5"
     },
     {
       "path": "overlay/.opencode/agents/active-learning-researcher.md",

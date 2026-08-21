@@ -1,11 +1,13 @@
 {
   "schema_version": "1.0",
   "adapter_id": "github-copilot",
-  "adapter_version": "0.2.0",
+  "adapter_version": "0.2.2",
   "platform": "github-copilot",
   "status": "template_not_installed",
   "overlay_root": "overlay",
-  "compose_after": ["portable-core@0.2.0"],
+  "compose_after": [
+    "portable-core@0.2.2"
+  ],
   "source_provenance": {
     "system_id": "ACR-SYS-20260820-001",
     "version": "0.1.0",
@@ -23,18 +25,20 @@
     "base": "adapter_root",
     "hash_algorithm": "sha256",
     "manifest_self_excluded": true,
-    "excluded_paths": ["adapter-manifest.json"]
+    "excluded_paths": [
+      "adapter-manifest.json"
+    ]
   },
   "files": [
     {
       "path": "CAPABILITIES.md",
-      "bytes": 1330,
-      "sha256": "7fac58fc93ce7186d8e5611f3caeaa08715c41e2d6ab1fe9d2bb839e9d39028d"
+      "bytes": 1472,
+      "sha256": "e6285746e02fc4ebc36dfe09385db8f18a3aea5abf3df5a51fa636783ee63bc9"
     },
     {
       "path": "README.md",
-      "bytes": 2047,
-      "sha256": "2348fd7019b5527810caeebedb29b61b962332512934a644c6ca1325deae12f7"
+      "bytes": 2302,
+      "sha256": "1512ebc56a18d4e882b322bcc61dd6862ebfa54ad3bb474336f53944bccb9e21"
     },
     {
       "path": "overlay/.github/copilot-instructions.md",

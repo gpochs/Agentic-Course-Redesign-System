@@ -9,7 +9,8 @@ Expected control records include:
 - an approved source-access policy and fingerprint;
 - one unique run contract per run;
 - gate approval records with exact lineage;
-- production and QA handoffs; and
+- production and QA handoffs;
+- durable schema-7 HITL 3 and system-review offer/response receipts; and
 - separate system, activation, and schedule records when used.
 
 Never store teacher-only answers in a student-facing release or public-safe handoff.

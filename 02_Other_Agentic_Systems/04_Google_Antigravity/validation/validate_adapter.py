@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import ast
 import hashlib
+import importlib.util
 import json
 import re
 from pathlib import Path
@@ -53,6 +54,8 @@ REQUIRED_PATHS = {
     "workspace-overlay/PROJECT_SETUP.md",
     "workspace-overlay/01_Control/GATES.md",
     "workspace-overlay/01_Control/state.json",
+    "workspace-overlay/.agents/skills/course-redesign-setup/scripts/migrate_state_v6_to_v7.py",
+    "workspace-overlay/.agents/skills/course-redesign-setup/scripts/validate_state.py",
     "workspace-overlay/.agents/rules/00-trust-and-scope.md",
     "workspace-overlay/.agents/rules/10-gates-and-lineage.md",
     "workspace-overlay/.agents/rules/20-assessment-and-release-security.md",
@@ -61,6 +64,32 @@ REQUIRED_PATHS = {
     "adapter-manifest.json",
 }
 SOURCE_HASH_PATTERN = re.compile(r"^[0-9a-f]{64}$")
+MANDATORY_SYSTEM_REVIEW_QUESTION = (
+    "Would you like a separate, read-only system-improvement review covering "
+    "the workflow skills and umbrella entry routing; plugin or platform "
+    "adapter; AGENTS.md and agent configurations; project template, state "
+    "schema and migration; validators, tests and QA; documentation; memory or "
+    "other workflow-owned durable instruction stores; schedule contracts; "
+    "permissions, tools, external egress and automatic behaviour; and "
+    "compatibility, benefits, regressions, risks, residual risks and rollback, "
+    "followed only by a versioned proposal? A yes authorises only that review "
+    "and proposal; it does not authorise system-file changes, installation, "
+    "publication or release, runtime activation, schedule registration or "
+    "modification, an immediate run, or any added MCP server, connector, "
+    "authentication, permission or external egress."
+)
+REQUIRED_SYSTEM_REVIEW_SCOPE = [
+    "workflow_skills_and_umbrella_entry_routing",
+    "plugin_or_platform_adapter",
+    "AGENTS_md_and_agent_configurations",
+    "project_template_state_schema_and_migration",
+    "validators_tests_and_quality_assurance",
+    "documentation",
+    "memory_or_other_workflow_owned_durable_instruction_stores",
+    "schedule_contracts",
+    "permissions_tools_external_egress_and_automatic_behaviour",
+    "compatibility_benefits_regressions_risks_residual_risks_and_rollback",
+]
 SECRET_PATTERNS = {
     "private-key": re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----"),
     "aws-access-key": re.compile(r"\bAKIA[0-9A-Z]{16}\b"),
@@ -233,8 +262,8 @@ def adapter_files(root: Path = ADAPTER_ROOT) -> list[Path]:
 
 def validate_state_fields(state: dict[str, Any]) -> list[str]:
     errors: list[str] = []
-    if state.get("schema_version") != 6:
-        errors.append("state schema_version must be 6")
+    if state.get("schema_version") != 7:
+        errors.append("state schema_version must be 7")
     if state.get("status") != "candidate_not_active":
         errors.append("adapter state must remain candidate_not_active")
     if state.get("schedules") != []:
@@ -242,6 +271,25 @@ def validate_state_fields(state: dict[str, Any]) -> list[str]:
     activation = state.get("activation", {})
     if activation.get("automatic_activation_forbidden") is not True:
         errors.append("automatic activation must be forbidden")
+    routing = state.get("umbrella_entry_routing", {})
+    if routing != {
+        "entry_name": "Agentic Course Redesign",
+        "entry_skill": "course-redesign-orchestrator",
+        "initial_gate": "GATE_0_AWAITING_BOUNDARY_CONFIRMATION",
+        "missing_project_action": "invoke_course-redesign-setup_preview_only",
+        "gate_0_required_before_course_source_reading": True,
+        "gate_0_required_before_specialist_work": True,
+    }:
+        errors.append("schema 7 umbrella entry must route missing projects through Gate 0")
+    compatibility = state.get("schema_compatibility", {})
+    if (
+        compatibility.get("current_schema_version") != 7
+        or compatibility.get("minimum_preview_migration_source_version") != 6
+        or compatibility.get("migration_helper") != "scripts/migrate_state_v6_to_v7.py"
+        or compatibility.get("migration_mode") != "preview_only"
+        or compatibility.get("automatic_apply_forbidden") is not True
+    ):
+        errors.append("schema 7 compatibility contract or preview-only migration changed")
     run_template = state.get("run_template", {})
     approvals = run_template.get("approvals", {})
     gate_2b = approvals.get("gate_2b", {})
@@ -263,6 +311,228 @@ def validate_state_fields(state: dict[str, Any]) -> list[str]:
     retry = run_template.get("retry_policy", {})
     if retry.get("max_retries_per_specialist_per_stage") != 1:
         errors.append("specialist retry ceiling must remain one")
+    hitl_3 = approvals.get("hitl_3", {})
+    if hitl_3.get("allowed_statuses") != [
+        "not_started",
+        "awaiting_lecturer_decision",
+        "revision_requested",
+        "conditional_acceptance_pending_verification",
+        "accepted",
+        "rejected",
+    ]:
+        errors.append("HITL 3 status contract is incomplete or reordered")
+    if set(hitl_3.get("entry_requires", [])) != {
+        "production_completion.status_is_complete",
+        "production_completion.declaration.completed_reply.validation_status_is_passed",
+        "production_completion.handoff_approval.completed_reply.validation_status_is_passed",
+        "production_completion.handoff_verified_at_is_non_null",
+    }:
+        errors.append("HITL 3 must require declaration, handoff approval, and verification")
+    offer = approvals.get("system_improvement_review_offer", {})
+    if offer.get("allowed_statuses") != [
+        "not_offered",
+        "offered_awaiting_response",
+        "requested",
+        "declined",
+    ]:
+        errors.append("system-review offer status contract is incomplete or reordered")
+    if offer.get("ask_exactly_once") is not True or offer.get("record_offer_before_asking") is not True:
+        errors.append("system-review offer must be durable and idempotent before asking")
+    if offer.get("idempotency_key_fields") != [
+        "run_id",
+        "hitl_3_final_acceptance_reference",
+    ]:
+        errors.append("system-review offer idempotency key changed")
+    if offer.get("mandatory_question") != MANDATORY_SYSTEM_REVIEW_QUESTION:
+        errors.append("mandatory system-review question changed or is incomplete")
+    if offer.get("required_question_scope") != REQUIRED_SYSTEM_REVIEW_SCOPE:
+        errors.append("mandatory system-review question scope changed")
+    authority = offer.get("authority_on_request", {})
+    if authority.get("authorises") != [
+        "read_only_review_of_current_system_and_successful_run_evidence",
+        "prepare_one_versioned_system_improvement_proposal",
+    ]:
+        errors.append("system-review request authority must remain proposal-only")
+    if set(authority.get("does_not_authorise", [])) != {
+        "create_or_modify_system_files",
+        "install_or_update_plugin",
+        "publish_or_release",
+        "activate_runtime",
+        "register_or_modify_schedule",
+        "trigger_immediate_run",
+        "add_mcp_server_connector_authentication_permission_or_external_egress",
+    }:
+        errors.append("system-review request forbidden authority set changed")
+    resume = run_template.get("resume_protocol", {})
+    if resume.get("checkpoint_order") != [
+        "approvals.production_completion.declaration",
+        "approvals.production_completion.handoff_approval",
+        "approvals.production_completion.handoff_verified_at",
+        "approvals.hitl_3",
+        "approvals.system_improvement_review_offer",
+    ]:
+        errors.append("schema 7 resume checkpoint order changed")
+    resume_rules = resume.get("rules", {})
+    if not all(
+        resume_rules.get(key) is True
+        for key in (
+            "persist_receipt_before_advancing_next_permitted_action",
+            "same_receipt_reference_is_idempotent",
+            "completed_checkpoint_must_not_repeat",
+            "resume_from_first_incomplete_checkpoint",
+            "current_lineage_required_before_resume",
+            "lineage_mismatch_fails_closed",
+        )
+    ):
+        errors.append("schema 7 resume protocol must remain durable and fail closed")
+    system_update = activation.get("system_update", {})
+    for required in ("run_id", "system_improvement_review_offer_reference"):
+        if required not in system_update.get("completed_reply_requirements", []):
+            errors.append(f"System Gate approval must require {required}")
+    if state.get("standing_schedule_contract_template", {}).get("no_immediate_run") is not True:
+        errors.append("standing schedule must forbid an immediate run")
+    return errors
+
+
+WORKFLOW_CONTROL_PATHS = {
+    "orchestrator": (
+        OVERLAY_ROOT
+        / ".agents"
+        / "skills"
+        / "course-redesign-orchestrator"
+        / "SKILL.md"
+    ),
+    "system": (
+        OVERLAY_ROOT / ".agents" / "skills" / "course-redesign-system" / "SKILL.md"
+    ),
+    "continue": (
+        OVERLAY_ROOT / ".agents" / "workflows" / "course-redesign-continue.md"
+    ),
+    "system_review": (
+        OVERLAY_ROOT / ".agents" / "workflows" / "course-redesign-system-review.md"
+    ),
+    "gates": OVERLAY_ROOT / "01_Control" / "GATES.md",
+}
+
+
+def validate_workflow_completeness(
+    documents: dict[str, str] | None = None,
+) -> list[str]:
+    errors: list[str] = []
+    if documents is None:
+        documents = {}
+        for name, path in WORKFLOW_CONTROL_PATHS.items():
+            try:
+                documents[name] = path.read_text(encoding="utf-8")
+            except (OSError, UnicodeError) as exc:
+                errors.append(f"cannot read {name} workflow control: {exc}")
+        if errors:
+            return errors
+
+    normalized = {
+        name: " ".join(text.split())
+        for name, text in documents.items()
+    }
+    required_by_document = {
+        "orchestrator": (
+            "## Umbrella entry and Gate 0",
+            "course-redesign-setup",
+            "### Gate 1: course brief and run contract",
+            "### Stage A: concurrent preliminary scan",
+            "### HITL 1 / Gate 2A",
+            "### Stage B/C: deep research and reconciliation",
+            "### HITL 2 / Gate 2B",
+            "### Gate 3: blueprint and exact targets",
+            "enter the named artefact gate for each approved file",
+            "### Production completion and verified handoff",
+            "DECLARE PRODUCTION COMPLETE",
+            "APPROVE PRODUCTION HANDOFF",
+            "Do not enter HITL 3 until that verification passes",
+            "Persist a system-improvement offer record",
+            MANDATORY_SYSTEM_REVIEW_QUESTION,
+            "idempotency key",
+            "offered_awaiting_response",
+            "requested",
+            "declined",
+        ),
+        "system": (
+            "## Required successful-run evidence",
+            "system-improvement review offer whose status is `requested`",
+            "workflow skills and umbrella routing",
+            "plugin or platform adapter",
+            "`AGENTS.md`, rules, workflows, agent configurations",
+            "project template, state schema and migration",
+            "validators, tests and QA",
+            "documentation",
+            "memory or other workflow-owned durable instruction stores",
+            "schedule contracts",
+            "permissions, tools, external egress and automatic behaviour",
+            "compatibility, benefits, regressions, risks, residual risks and rollback",
+            "does not authorise system-file changes, installation, publication, release, activation, schedule registration or modification, an immediate run",
+            "new MCP server, connector, authentication, permission or external egress",
+            "APPROVE SYSTEM FILES",
+            "as a standalone line",
+            "The token alone is invalid",
+        ),
+        "continue": (
+            "production declaration and handoff replies",
+            "reopen it, and verify it before HITL 3",
+            "persist the mandatory complete read-only system-review offer before asking it exactly once",
+            "offered_awaiting_response",
+            "requested",
+            "declined",
+        ),
+        "system_review": (
+            "persisted mandatory system-review offer whose current-run status is `requested`",
+            "workflow skills and umbrella routing",
+            "plugin or platform adapter",
+            "state schema and migration",
+            "validators, tests and QA",
+            "workflow-owned durable instructions",
+            "schedule contracts",
+            "The request authorises only read-only review and one versioned proposal",
+        ),
+        "gates": (
+            "## Gate 0",
+            "DECLARE PRODUCTION COMPLETE",
+            "APPROVE PRODUCTION HANDOFF",
+            "Reopen it and verify",
+            "## HITL 3",
+            "exactly once offer a separate read-only system-improvement review",
+            "workflow skills and umbrella routing",
+            "plugin or platform adapter",
+            "validators/tests/QA",
+            "permissions, tools, external egress and automatic behaviour",
+            "compatibility, benefits, regressions, risks, residual risks and rollback",
+            "A yes authorises only review and one versioned proposal",
+            "## System Gate",
+            "## Separate runtime activation",
+            "## Standing schedule",
+        ),
+    }
+    for name, required_markers in required_by_document.items():
+        text = normalized.get(name, "")
+        for marker in required_markers:
+            if marker not in text:
+                errors.append(f"{name} omits workflow-completeness control: {marker}")
+
+    orchestrator_order = (
+        "## Umbrella entry and Gate 0",
+        "### Gate 1: course brief and run contract",
+        "### Stage A: concurrent preliminary scan",
+        "### HITL 1 / Gate 2A",
+        "### Stage B/C: deep research and reconciliation",
+        "### HITL 2 / Gate 2B",
+        "### Gate 3: blueprint and exact targets",
+        "### Production and independent QA",
+        "### Production completion and verified handoff",
+        "### HITL 3",
+        "## After success",
+    )
+    orchestrator = normalized.get("orchestrator", "")
+    positions = [orchestrator.find(marker) for marker in orchestrator_order]
+    if -1 not in positions and positions != sorted(positions):
+        errors.append("orchestrator workflow completeness controls are reordered")
     return errors
 
 
@@ -374,6 +644,9 @@ def validate(
         if len(path.read_text(encoding="utf-8")) > 12_000:
             errors.append(f"workflow exceeds documented 12,000-character limit: {path.name}")
     checks["workflows"] = len(workflows)
+    workflow_errors = validate_workflow_completeness()
+    errors.extend(workflow_errors)
+    checks["workflow_completeness_controls"] = 0 if workflow_errors else 5
 
     rules_root = OVERLAY_ROOT / ".agents" / "rules"
     rules = sorted(rules_root.glob("*.md"))
@@ -415,8 +688,27 @@ def validate(
     try:
         state = json.loads(state_path.read_text(encoding="utf-8"))
         errors.extend(validate_state_fields(state))
+        validator_path = (
+            skills_root
+            / "course-redesign-setup"
+            / "scripts"
+            / "validate_state.py"
+        )
+        spec = importlib.util.spec_from_file_location(
+            "antigravity_course_redesign_state_validator", validator_path
+        )
+        if spec is None or spec.loader is None:
+            errors.append("cannot load project-local schema-7 state validator")
+        else:
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            errors.extend(
+                f"schema-7 validator: {item}" for item in module.validate(state)
+            )
     except (OSError, UnicodeError, json.JSONDecodeError) as exc:
         errors.append(f"invalid state JSON: {exc}")
+    except Exception as exc:  # pragma: no cover - fail closed on validator load
+        errors.append(f"cannot execute project-local state validator: {exc}")
 
     for path in adapter_files():
         if path.suffix.casefold() == ".py":
@@ -478,22 +770,22 @@ def validate(
     if manifest:
         if manifest.get("platform") != "google-antigravity":
             errors.append("adapter manifest platform must be google-antigravity")
-        if manifest.get("adapter_version") != "0.2.0":
-            errors.append("adapter manifest top-level adapter_version must be 0.2.0")
+        if manifest.get("adapter_version") != "0.2.2":
+            errors.append("adapter manifest top-level adapter_version must be 0.2.2")
         if manifest.get("status") != "candidate_not_active":
             errors.append("adapter manifest top-level status must remain candidate_not_active")
         adapter = manifest.get("adapter", {})
         if adapter.get("platform") != "google-antigravity":
             errors.append("nested adapter platform must be google-antigravity")
-        if adapter.get("version") != "0.2.0":
-            errors.append("nested adapter version must be 0.2.0")
+        if adapter.get("version") != "0.2.2":
+            errors.append("nested adapter version must be 0.2.2")
         if adapter.get("status") != "candidate_not_active":
             errors.append("nested adapter status must remain candidate_not_active")
         provenance = manifest.get("provenance", {})
         if provenance.get("validated_base_version") != "0.1.0":
             errors.append("workflow provenance must retain validated base version 0.1.0")
-        if provenance.get("adapter_release_version") != "0.2.0":
-            errors.append("workflow provenance must identify adapter release version 0.2.0")
+        if provenance.get("adapter_release_version") != "0.2.2":
+            errors.append("workflow provenance must identify adapter release version 0.2.2")
         if manifest.get("source", {}).get("version") != "0.1.0":
             errors.append("source version must retain validated base version 0.1.0")
         source_files = manifest.get("source_files", [])

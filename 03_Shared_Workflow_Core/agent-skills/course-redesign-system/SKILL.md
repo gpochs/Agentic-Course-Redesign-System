@@ -7,9 +7,37 @@ description: Review, validate, activate, schedule, pause, renew, or roll back th
 
 Course-material acceptance and system activation are separate decisions. Never update the live system merely because a course run succeeded.
 
+## Required successful-run evidence
+
+Before any system review, verify one current-lineage run with all of the
+following durable records: valid production declaration; matching Production
+Handoff approval; independently verified handoff; accepted HITL 3 (including
+verification of any named conditional corrections); and a system-improvement
+review offer whose status is `requested`. Reject stale or mixed run, contract,
+task/chat, shared-context, manifest, source-policy or plan lineage.
+
+The offer must have presented the complete mandatory scope and been recorded
+before it was asked. On resume, never ask it again when its status is
+`offered_awaiting_response`, `requested` or `declined`. A request authorises only
+read-only comparison of run evidence with the current reusable system and one
+versioned proposal. It does not authorise system-file changes, installation,
+publication, release, activation, schedule registration or modification, an
+immediate run, or any new MCP server, connector, authentication, permission or
+external egress.
+
+The recorded question must be exactly:
+
+> Would you like a separate, read-only system-improvement review covering the workflow skills and umbrella entry routing; plugin or platform adapter; AGENTS.md and agent configurations; project template, state schema and migration; validators, tests and QA; documentation; memory or other workflow-owned durable instruction stores; schedule contracts; permissions, tools, external egress and automatic behaviour; and compatibility, benefits, regressions, risks, residual risks and rollback, followed only by a versioned proposal? A yes authorises only that review and proposal; it does not authorise system-file changes, installation, publication or release, runtime activation, schedule registration or modification, an immediate run, or any added MCP server, connector, authentication, permission or external egress.
+
 ## Improvement proposal
 
-After HITL 3, compare actual run evidence with the current skills, agents, project template, state schema, validators, and documentation. Propose changes under a unique proposal ID/version with:
+After those prerequisites pass, compare actual run evidence with the current
+skills and umbrella route; plugin or platform adapter; `AGENTS.md` and agent
+configurations; project template, state schema and migration; validators and
+tests; documentation; memory or other workflow-owned durable instruction
+stores; schedule contracts; permissions, tools, egress and automatic behaviour;
+and compatibility and rollback. Propose changes under a unique proposal
+ID/version with:
 
 - problem demonstrated by the run;
 - affected system files;
@@ -24,7 +52,15 @@ Do not include course content, answer keys, personal data, or copyrighted assets
 
 ## System gate and validation
 
-Create changes only in an inactive candidate. Validate manifests, JSON/TOML/YAML, skill structure, setup preview/apply/no-overwrite behaviour, manifest hashing, lineage rejection, gate ceilings, answer-key boundaries, target restrictions, retry rules, and documentation. Forward-test in a disposable course folder and verify the original candidate and test fixtures remain unchanged.
+Create changes only after a separate completed System Gate reply with exact
+current lineage, proposal ID/version, validation evidence and exact targets,
+and `APPROVE SYSTEM FILES` as a standalone line. A token-only reply is invalid.
+Keep the result in an inactive candidate. Validate
+manifests, JSON/TOML/YAML, skill structure, setup preview/apply/no-overwrite
+behaviour, manifest hashing, lineage rejection, gate ceilings, answer-key
+boundaries, target restrictions, retry rules, migration preview behaviour and
+documentation. Forward-test in a disposable course folder and verify the
+original candidate and test fixtures remain unchanged.
 
 The System Gate may approve an activation-ready candidate, but never activates it. Record the exact proposal ID/version, validation run and evidence, residual risk, and rollback reference.
 
@@ -37,6 +73,8 @@ Activation requires a later lecturer decision naming the exact validated proposa
 Do not register a schedule until the runtime is active and the contract binds to that exact activated version. Present a complete versioned contract containing course/project, task type, canonical mission, goals/non-goals, success/stop criteria, tools/actions, source classes, audiences, source-policy version/fingerprint, assessment-security boundary, protected root, timezone, recurrence, gate ceilings, retry/escalation/termination rules, unique output naming, no-immediate-run rule, activation reference, and non-null expiry.
 
 Run a no-write simulation first: no registration, trigger, web call, or file change.
+
+Freeze the complete visible contract before approval. Store its validator-derived canonical SHA-256 as `approved_contract_snapshot_reference`, use offset-bearing `YYYY-MM-DDTHH:MM:SS+HH:MM[IANA/Timezone]` activation and expiry values, and recheck the snapshot, runtime, policy and expiry before registration and every recurrence.
 
 Register only after one lecturer reply containing exactly and only these completed lines with matching values:
 

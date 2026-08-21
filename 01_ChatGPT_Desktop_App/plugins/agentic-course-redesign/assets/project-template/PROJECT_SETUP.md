@@ -21,6 +21,9 @@ submissions, grades, credentials and secrets by default.
 
 - The source manifest proves file integrity; it does not grant access or egress.
 - A course-material decision is not a system activation decision.
+- A post-HITL-3 yes authorises read-only system review and one versioned
+  proposal only; it is not system-file, installation, publication, activation,
+  or schedule authority.
 - A system activation decision is not schedule approval.
 - Schedule approval registers an expiring contract but does not trigger an immediate run.
 - Every scheduled recurrence creates a fresh run and waits at the configured human gate.

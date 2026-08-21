@@ -1,10 +1,15 @@
 # GitHub Copilot adapter
 
-Adapter release: `0.2.0`. Validated semantic base: `0.1.0`.
+Adapter release: `0.2.2`. Validated semantic base: `0.1.0`.
 
 This project-local overlay adds GitHub Copilot repository instructions and ten
 custom-agent profiles to the portable core. It contains no installer, GitHub
 App access, API calls, workflow, MCP server, secret, or plugin.
+
+Release `0.2.2` inherits the portable core's explicit Gate 0, verified
+production handoff before HITL 3, and mandatory proposal-only system-review
+offer. The thin GitHub files add no independent gate, state, automation,
+permission, or schedule behavior.
 
 Compose `../00_Portable_Core_Adapter/overlay/` first, then this `overlay/`,
 relative to the same reviewed project root:

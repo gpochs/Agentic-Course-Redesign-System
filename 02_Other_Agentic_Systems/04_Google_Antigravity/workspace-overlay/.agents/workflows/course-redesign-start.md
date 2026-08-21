@@ -7,7 +7,7 @@ description: Prepare the one-course workspace and Gate 0 boundary without activa
 1. Read root `AGENTS.md`, `PROJECT_SETUP.md`, `01_Control/GATES.md`, and
    `01_Control/state.json`.
 2. Use the `course-redesign-setup` skill.
-3. Verify schema 6, top-level `candidate_not_active`, no registered schedules,
+3. Verify schema 7, top-level `candidate_not_active`, no registered schedules,
    and `setup.next_permitted_action` before doing anything else.
 4. Confirm this workspace contains one course only and ask the minimum intake
    questions needed for source, assessment, rights, tool/egress, and audience

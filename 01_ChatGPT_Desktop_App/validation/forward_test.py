@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import hashlib
 import importlib.util
 import json
@@ -35,6 +36,7 @@ def load_path(name: str, path: Path):
 setup = load("setup_course_project", "scripts/setup_course_project.py")
 manifest = load("source_manifest", "scripts/source_manifest.py")
 state_validator = load("validate_state", "scripts/validate_state.py")
+migration = load("migrate_state_v6_to_v7", "scripts/migrate_state_v6_to_v7.py")
 fingerprinter = load("fingerprint_file", "scripts/fingerprint_file.py")
 public_scrub = load_path("public_scrub", ROOT / "validation" / "public_scrub.py")
 
@@ -45,6 +47,49 @@ def sha256(path: Path) -> str:
 
 def check(condition: bool, label: str, evidence: object = None) -> dict[str, object]:
     return {"check": label, "pass": bool(condition), "evidence": evidence}
+
+
+def downgrade_v7_to_v6(state: dict) -> dict:
+    result = copy.deepcopy(state)
+    result["schema_version"] = 6
+    result["plugin_version"] = "0.2.1"
+    result.pop("umbrella_entry_routing")
+    result.pop("schema_compatibility")
+    for run in [result["run_template"], *result["runs"]]:
+        run["approvals"].pop("hitl_3")
+        run["approvals"].pop("system_improvement_review_offer")
+        run.pop("resume_protocol")
+        rules = run["manual_stage_authority"]["transition_rules"]
+        first = next(
+            index
+            for index, rule in enumerate(rules)
+            if rule["trigger"] == "fresh_hitl3_acceptance_after_verified_production_handoff"
+        )
+        rules[first : first + 2] = [
+            {
+                "trigger": "fresh_hitl3_acceptance_and_system_review_request_after_verified_production_handoff",
+                "authorises_through": "SYSTEM_GATE",
+                "purpose": "reusable_system_proposal_and_system_gate_only",
+                "does_not_authorise_candidate_activation": True,
+            }
+        ]
+    activation = result["activation"]
+    activation["required_before_active"] = [
+        item
+        for item in activation["required_before_active"]
+        if item not in {"hitl_3_accepted", "system_improvement_review_offer_requested"}
+    ]
+    update = activation["system_update"]
+    update.pop("allowed_statuses")
+    update.pop("prerequisites")
+    update["completed_reply_requirements"] = [
+        item
+        for item in update["completed_reply_requirements"]
+        if item not in {"run_id", "system_improvement_review_offer_reference"}
+    ]
+    update["approval"].pop("run_id")
+    update["approval"].pop("system_improvement_review_offer_reference")
+    return result
 
 
 def main() -> int:
@@ -63,7 +108,16 @@ def main() -> int:
         (ROOT / "validation" / "plugin-test-cases.json").read_text(encoding="utf-8")
     )
     checks.append(check(plugin_manifest.get("name") == "agentic-course-redesign", "plugin manifest identity"))
-    checks.append(check(plugin_manifest.get("version") == "0.2.1", "plugin patch version"))
+    checks.append(check(plugin_manifest.get("version") == "0.2.2", "plugin patch version"))
+    checks.append(
+        check(
+            not (
+                set(plugin_manifest)
+                & {"apps", "mcpServers", "hooks", "connectors", "authentication", "permissions"}
+            ),
+            "manifest adds no MCP, app, connector, authentication, hook or permission",
+        )
+    )
     checks.append(
         check(
             plugin_manifest.get("interface", {}).get("displayName") == "Agentic Course Redesign",
@@ -95,13 +149,25 @@ def main() -> int:
         PLUGIN
         / "skills/course-redesign-orchestrator/SKILL.md"
     ).read_text(encoding="utf-8")
+    system_skill = (
+        PLUGIN / "skills/course-redesign-system/SKILL.md"
+    ).read_text(encoding="utf-8")
     checks.append(
         check(
             'display_name: "Agentic Course Redesign"' in umbrella_metadata
             and "## Umbrella entry routing" in umbrella_skill
             and "$course-redesign-setup" in umbrella_skill
             and "Fail closed on a missing, stale, contradictory, or invalid" in umbrella_skill
-            and "never authorises crossing lecturer-in-the-loop gates" in umbrella_skill,
+            and "never authorises crossing lecturer-in-the-loop gates" in umbrella_skill
+            and "DECLARE PRODUCTION COMPLETE" in umbrella_skill
+            and "APPROVE PRODUCTION HANDOFF" in umbrella_skill
+            and migration.MANDATORY_SYSTEM_REVIEW_QUESTION in umbrella_skill
+            and all(
+                status in umbrella_skill
+                for status in ("offered_awaiting_response", "requested", "declined")
+            )
+            and "APPROVE SYSTEM FILES" in system_skill
+            and "A token-only reply is" in system_skill,
             "flattened picker exposes full-workflow umbrella entry",
         )
     )
@@ -155,8 +221,73 @@ def main() -> int:
     state = json.loads(state_text)
     state_errors = state_validator.validate(state)
     checks.append(check(not state_errors, "state fail-closed invariants", state_errors))
+    checks.append(check(state.get("schema_version") == 7, "state schema 7"))
+    checks.append(check(state.get("plugin_version") == "0.2.2", "template version matches candidate"))
     checks.append(check(state.get("status") == "candidate_not_active", "template runtime inactive"))
     checks.append(check(state.get("schedules") == [], "template registers no schedules"))
+    checks.append(
+        check(
+            state.get("umbrella_entry_routing") == migration.umbrella_entry_routing(),
+            "schema records Gate 0 umbrella routing",
+        )
+    )
+    run_template = state.get("run_template", {})
+    checks.append(
+        check(
+            run_template.get("approvals", {}).get("hitl_3") == migration.hitl3_record()
+            and run_template.get("approvals", {}).get("system_improvement_review_offer")
+            == migration.system_improvement_review_offer_record()
+            and run_template.get("resume_protocol") == migration.resume_protocol(),
+            "schema records canonical HITL3, review offer and resume protocol",
+        )
+    )
+    offer_gate = run_template.get("approvals", {}).get("system_improvement_review_offer", {})
+    checks.append(
+        check(
+            offer_gate.get("mandatory_question") == migration.MANDATORY_SYSTEM_REVIEW_QUESTION
+            and offer_gate.get("required_question_scope")
+            == migration.REQUIRED_SYSTEM_REVIEW_SCOPE,
+            "complete mandatory post-HITL3 system-review question",
+        )
+    )
+    checks.append(
+        check(
+            set(offer_gate.get("authority_on_request", {}).get("authorises", []))
+            == {
+                "read_only_review_of_current_system_and_successful_run_evidence",
+                "prepare_one_versioned_system_improvement_proposal",
+            }
+            and "register_or_modify_schedule"
+            in offer_gate.get("authority_on_request", {}).get("does_not_authorise", []),
+            "system-review response grants proposal authority only",
+        )
+    )
+    premature = copy.deepcopy(state)
+    premature["run_template"]["approvals"]["hitl_3"]["status"] = (
+        "awaiting_lecturer_decision"
+    )
+    premature_errors = state_validator.validate(premature)
+    checks.append(
+        check(
+            any("HITL3 cannot open before" in error for error in premature_errors),
+            "HITL3 fails closed before verified production handoff",
+            premature_errors,
+        )
+    )
+    legacy_state = downgrade_v7_to_v6(state)
+    legacy_before = copy.deepcopy(legacy_state)
+    migration_report = migration.preview_migration(legacy_state, source="forward-test-v6")
+    migrated_state = migration_report.get("candidate_state", {})
+    checks.append(
+        check(
+            legacy_state == legacy_before
+            and migration_report.get("mode") == "preview_only"
+            and migration_report.get("would_write") is False
+            and not state_validator.validate(migrated_state),
+            "v6-to-v7 migration is non-mutating preview and validates",
+            migration_report.get("preservation_checks"),
+        )
+    )
     standing = state.get("standing_schedule_contract_template", {})
     checks.append(
         check(

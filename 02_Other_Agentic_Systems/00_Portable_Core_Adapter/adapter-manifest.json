@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "adapter_id": "portable-core",
-  "adapter_version": "0.2.0",
+  "adapter_version": "0.2.2",
   "platform": "portable",
   "status": "template_not_installed",
   "overlay_root": "overlay",
@@ -44,28 +44,30 @@
     "base": "adapter_root",
     "hash_algorithm": "sha256",
     "manifest_self_excluded": true,
-    "excluded_paths": ["adapter-manifest.json"]
+    "excluded_paths": [
+      "adapter-manifest.json"
+    ]
   },
   "files": [
     {
       "path": "CAPABILITIES.md",
-      "bytes": 1891,
-      "sha256": "6c88c77a7ed00a1cf01256787f4778737e1de3756812d4f8edf0162e7160971f"
+      "bytes": 1977,
+      "sha256": "549cac7d63d54b06de6e8beedf3131b8ce367fe3136b2dacc401a2cd07105611"
     },
     {
       "path": "README.md",
-      "bytes": 3597,
-      "sha256": "10ec4935ce67df79fb39a676b165b5b419164114910adfb9539a6632fd6990f8"
+      "bytes": 4167,
+      "sha256": "55afc7e570fa45496f37e25f37a1e34ec4220d4b32f46d64cda58dcef0d290bb"
     },
     {
       "path": "overlay/AGENTS.md",
-      "bytes": 2079,
-      "sha256": "531b95146278479c7a05caf5971e759cd2e4ede73d2ae93b9b4e3872972704d3"
+      "bytes": 2532,
+      "sha256": "c4c4211818173b2b7e414ac6d680f93b2a56aa0e1aed485f934896849d9d5031"
     },
     {
       "path": "overlay/.claude/skills/course-redesign/SKILL.md",
-      "bytes": 2158,
-      "sha256": "0cc06bed4f9cd14da8236f4bcada642952d5a4c87f484b37ac952582b558f2ba"
+      "bytes": 2634,
+      "sha256": "85106195cca4193d8c8ea4f9210cb415ad5afa64df139123fc6325ae2c767ac3"
     },
     {
       "path": "overlay/.claude/skills/course-redesign/references/control-contract.md",
@@ -79,13 +81,13 @@
     },
     {
       "path": "overlay/.claude/skills/course-redesign/references/workflow.md",
-      "bytes": 7092,
-      "sha256": "83254eaa15d47a2fb0ea73215a85d233f01c8dc3c452597b205128e80f88d3a0"
+      "bytes": 9823,
+      "sha256": "cc20b4412d677116feb64270bccbcba787fc4a070edf9245eddeadbe17bf5a61"
     },
     {
       "path": "validation/validate_adapters.py",
-      "bytes": 16136,
-      "sha256": "259b89f159758f1356f1e4133b2849915746a3f9868ab0d7d90ad6b9e859d9ff"
+      "bytes": 18874,
+      "sha256": "17801448a60976382b68cf32e00c32dc59a610c92e83aa791bfba4a2ef118aab"
     }
   ],
   "overlay_files": [

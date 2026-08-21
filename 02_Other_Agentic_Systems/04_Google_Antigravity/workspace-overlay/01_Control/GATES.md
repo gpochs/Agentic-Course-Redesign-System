@@ -44,9 +44,25 @@ After the verified production record and exact handoff target are shown, a secon
 APPROVE PRODUCTION HANDOFF
 ```
 
+Save only the approved exact target. Reopen it and verify the accepted versions,
+audience classifications, QA evidence, unresolved issues, lineage, and approval
+record before HITL 3.
+
 ## HITL 3 — lecturer acceptance
 
 The lecturer reviews editable files/previews, change log, QA evidence, limitations, and preserved-source proof, then accepts, conditionally accepts named corrections, requests revision, or rejects.
+
+After unconditional current-lineage acceptance, the orchestrator must persist
+and exactly once offer a separate read-only system-improvement review covering
+workflow skills and umbrella routing; plugin or platform adapter; `AGENTS.md`
+and agent configurations; project template, state schema and migration;
+validators/tests/QA; documentation; memory or other workflow-owned durable
+instructions; schedule contracts; permissions, tools, external egress and
+automatic behaviour; and compatibility, benefits, regressions, risks, residual
+risks and rollback. A yes authorises only review and one versioned proposal.
+It does not authorise system changes, install/publish/release, activation,
+schedule registration or modification, an immediate run, or added MCP,
+connector, authentication, permission or egress.
 
 ## System Gate
 

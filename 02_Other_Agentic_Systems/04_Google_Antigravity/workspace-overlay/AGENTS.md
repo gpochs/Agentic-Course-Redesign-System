@@ -301,7 +301,20 @@ and show the exact Production Handoff target. Wait again, and
 save it only after a second completed matching reply contains `APPROVE
 PRODUCTION HANDOFF` as an exact standalone line and repeats that exact target.
 A token-only reply is invalid. Do not begin reusable-system work without both
-records and that verified handoff.
+records and that verified handoff. Reopen the saved handoff and verify its
+accepted versions, audience classifications, QA evidence, unresolved issues,
+lineage and approval record before HITL 3.
+
+After final current-lineage HITL 3 acceptance, persist the offer before asking
+this complete question exactly once:
+
+> Would you like a separate, read-only system-improvement review covering the workflow skills and umbrella entry routing; plugin or platform adapter; AGENTS.md and agent configurations; project template, state schema and migration; validators, tests and QA; documentation; memory or other workflow-owned durable instruction stores; schedule contracts; permissions, tools, external egress and automatic behaviour; and compatibility, benefits, regressions, risks, residual risks and rollback, followed only by a versioned proposal? A yes authorises only that review and proposal; it does not authorise system-file changes, installation, publication or release, runtime activation, schedule registration or modification, an immediate run, or any added MCP server, connector, authentication, permission or external egress.
+
+Use the run ID plus final HITL-3 acceptance reference as the idempotency key.
+Do not ask after conditional acceptance, revision or rejection. On resume,
+`offered_awaiting_response` means wait without asking again; `requested` permits
+only read-only review and one versioned proposal; `declined` ends without system
+action. A missing or mismatched offer record fails closed.
 
 ## Reuse and scheduling
 
@@ -343,7 +356,12 @@ and data-egress boundary; source-access-policy version/fingerprint, permitted so
 and output audiences; lecturer-confirmed IANA timezone, recurrence, activation time
 and lecturer-set expiry; Gate 2A first wait and Gate 2B maximum; no-write and
 unique-output rules; one-retry, escalation and terminal rules; no-immediate-run;
-and pause, renewal and rollback procedures. Record the successful simulation.
+and pause, renewal and rollback procedures. Freeze that complete visible
+contract, store its validator-derived canonical SHA-256 as
+`approved_contract_snapshot_reference`, and use offset-bearing
+`YYYY-MM-DDTHH:MM:SS+HH:MM[IANA/Timezone]` values for activation and expiry.
+Record the successful simulation and recheck the snapshot before registration
+and every recurrence.
 Register schedules only after one lecturer reply containing exactly and only
 these three completed lines, with actual values that match the visible contract:
 

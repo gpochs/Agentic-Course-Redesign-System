@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import importlib.util
 import json
 import tempfile
@@ -24,6 +25,65 @@ validator = load_module("antigravity_adapter_validator", VALIDATION_DIR / "valid
 installer = load_module(
     "antigravity_overlay_installer", ADAPTER_ROOT / "scripts" / "install_workspace_overlay.py"
 )
+STATE_PATH = ADAPTER_ROOT / "workspace-overlay" / "01_Control" / "state.json"
+SETUP_SCRIPTS = (
+    ADAPTER_ROOT
+    / "workspace-overlay"
+    / ".agents"
+    / "skills"
+    / "course-redesign-setup"
+    / "scripts"
+)
+state_validator = load_module(
+    "antigravity_state_validator", SETUP_SCRIPTS / "validate_state.py"
+)
+state_migration = load_module(
+    "antigravity_state_migration", SETUP_SCRIPTS / "migrate_state_v6_to_v7.py"
+)
+
+
+def load_state() -> dict:
+    return json.loads(STATE_PATH.read_text(encoding="utf-8"))
+
+
+def schema6_fixture_from_current_state() -> dict:
+    """Invert only the documented schema-7 additions to make a v6 fixture."""
+
+    state = load_state()
+    state["schema_version"] = 6
+    state.pop("umbrella_entry_routing")
+    state.pop("schema_compatibility")
+    split_triggers = {
+        item["trigger"] for item in state_migration.V7_SPLIT_TRANSITIONS
+    }
+    for run in [state["run_template"], *state["runs"]]:
+        run["approvals"].pop("hitl_3")
+        run["approvals"].pop("system_improvement_review_offer")
+        run.pop("resume_protocol")
+        rules = run["manual_stage_authority"]["transition_rules"]
+        first_split = next(
+            index for index, rule in enumerate(rules)
+            if rule.get("trigger") in split_triggers
+        )
+        rules[:] = [rule for rule in rules if rule.get("trigger") not in split_triggers]
+        rules.insert(
+            first_split,
+            {
+                "trigger": state_migration.V6_COMBINED_TRANSITION_TRIGGER,
+                "authorises_through": "SYSTEM_GATE",
+                "purpose": "reusable_system_proposal_and_system_gate_only",
+                "does_not_authorise_candidate_activation": True,
+            },
+        )
+    system_update = state["activation"]["system_update"]
+    system_update.pop("allowed_statuses")
+    system_update.pop("prerequisites")
+    for field in ("run_id", "system_improvement_review_offer_reference"):
+        system_update["completed_reply_requirements"].remove(field)
+        system_update["approval"].pop(field)
+    for field in ("hitl_3_accepted", "system_improvement_review_offer_requested"):
+        state["activation"]["required_before_active"].remove(field)
+    return state
 
 
 class AdapterValidationTests(unittest.TestCase):
@@ -58,6 +118,78 @@ class AdapterValidationTests(unittest.TestCase):
             self.assertEqual(frontmatter["plugins"], [])
             self.assertEqual(validator.validate_agent_definition(path, role), [])
 
+    def test_workflow_completeness_controls_pass(self) -> None:
+        self.assertEqual(validator.validate_workflow_completeness(), [])
+
+    def test_missing_production_handoff_control_is_rejected(self) -> None:
+        documents = {
+            name: path.read_text(encoding="utf-8")
+            for name, path in validator.WORKFLOW_CONTROL_PATHS.items()
+        }
+        documents["orchestrator"] = documents["orchestrator"].replace(
+            "APPROVE PRODUCTION HANDOFF", "REMOVED HANDOFF CONTROL", 1
+        )
+        errors = validator.validate_workflow_completeness(documents)
+        self.assertTrue(any("APPROVE PRODUCTION HANDOFF" in item for item in errors))
+
+    def test_system_review_offer_authority_expansion_is_rejected(self) -> None:
+        documents = {
+            name: path.read_text(encoding="utf-8")
+            for name, path in validator.WORKFLOW_CONTROL_PATHS.items()
+        }
+        documents["system"] = documents["system"].replace(
+            "It does not authorise system-file changes",
+            "It authorises system-file changes",
+            1,
+        )
+        errors = validator.validate_workflow_completeness(documents)
+        self.assertTrue(any("does not authorise system-file changes" in item for item in errors))
+
+    def test_canonical_schema7_state_and_validator_pass(self) -> None:
+        state = load_state()
+        self.assertEqual(state["schema_version"], 7)
+        self.assertEqual(validator.validate_state_fields(state), [])
+        self.assertEqual(state_validator.validate(state), [])
+
+    def test_migration_preview_is_idempotent_for_schema7(self) -> None:
+        state = load_state()
+        original = copy.deepcopy(state)
+        report = state_migration.preview_migration(state, source="unit-test")
+        self.assertTrue(report["ok"])
+        self.assertEqual(report["mode"], "preview_only")
+        self.assertFalse(report["would_write"])
+        self.assertEqual(report["changed_paths"], [])
+        self.assertEqual(report["candidate_state"], original)
+        self.assertEqual(state, original)
+
+    def test_schema6_migration_is_preview_only_and_preserves_boundaries(self) -> None:
+        state = schema6_fixture_from_current_state()
+        original = copy.deepcopy(state)
+        report = state_migration.preview_migration(state, source="unit-test-v6")
+        candidate = report["candidate_state"]
+        self.assertEqual(state, original)
+        self.assertEqual(report["mode"], "preview_only")
+        self.assertFalse(report["would_write"])
+        self.assertEqual(candidate["schema_version"], 7)
+        self.assertEqual(candidate["status"], original["status"])
+        self.assertEqual(candidate["schedules"], original["schedules"])
+        self.assertEqual(
+            candidate["run_template"]["contract"]["permitted_tools"],
+            original["run_template"]["contract"]["permitted_tools"],
+        )
+        self.assertTrue(all(report["preservation_checks"].values()))
+        self.assertEqual(state_validator.validate(candidate), [])
+
+    def test_migration_and_state_validator_fail_closed(self) -> None:
+        with self.assertRaises(state_migration.MigrationError):
+            state_migration.preview_migration({"schema_version": 5})
+        state = load_state()
+        state["run_template"]["approvals"]["system_improvement_review_offer"][
+            "authority_on_request"
+        ]["authorises"].append("modify_system_files")
+        errors = state_validator.validate(state)
+        self.assertTrue(any("authorise only review and proposal" in item for item in errors))
+
     def test_write_capable_custom_agent_is_rejected(self) -> None:
         source = (
             ADAPTER_ROOT
@@ -85,8 +217,7 @@ class AdapterValidationTests(unittest.TestCase):
             self.assertTrue(any(item.startswith("private-key:") for item in findings))
 
     def test_active_or_scheduled_state_is_rejected(self) -> None:
-        state_path = ADAPTER_ROOT / "workspace-overlay" / "01_Control" / "state.json"
-        state = json.loads(state_path.read_text(encoding="utf-8"))
+        state = load_state()
         state["status"] = "active"
         state["schedules"] = [{"id": "forbidden-test"}]
         errors = validator.validate_state_fields(state)

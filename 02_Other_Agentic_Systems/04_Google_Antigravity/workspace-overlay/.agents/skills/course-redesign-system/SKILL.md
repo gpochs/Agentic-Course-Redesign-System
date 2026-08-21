@@ -1,18 +1,40 @@
 ---
 name: course-redesign-system
-description: Review or validate proposed changes to the project-local course-redesign adapter after a successful run. Use for AGENTS.md, rules, workflows, skills, role references, state schemas, validators, activation proposals, or schedule contracts.
+description: Review or validate a versioned improvement proposal for the inactive project-local course-redesign adapter only after verified production handoff, accepted HITL 3 and a recorded separate lecturer request. The request authorises read-only review and one proposal, never file changes, activation or scheduling.
 ---
 
 # Course Redesign System
 
 Course-material acceptance and system activation are separate decisions. Never update the live system merely because a course run succeeded.
 
+## Required successful-run evidence
+
+Before any system review, verify one current-lineage run with all of the
+following durable records: valid production declaration; matching Production
+Handoff approval; independently verified handoff; accepted HITL 3 (including
+verification of any named conditional corrections); and a system-improvement
+review offer whose status is `requested`. Reject stale or mixed run, contract,
+task/chat, shared-context, manifest, source-policy or plan lineage.
+
+The offer must have presented the complete mandatory scope and been recorded
+before it was asked. On resume, never ask it again when its status is
+`offered_awaiting_response`, `requested` or `declined`. A request authorises only
+read-only comparison of run evidence with the current reusable system and one
+versioned proposal. It does not authorise system-file changes, installation,
+publication, release, activation, schedule registration or modification, an
+immediate run, or any new MCP server, connector, authentication, permission or
+external egress.
+
 ## Improvement proposal
 
-After HITL 3, compare actual run evidence with the current `AGENTS.md`, rules,
-workflows, skills, specialist-role reference, project template, state schema,
-validators, and documentation. Propose changes under a unique proposal
-ID/version with:
+After those prerequisites pass, compare actual run evidence with the workflow
+skills and umbrella routing; plugin or platform adapter; `AGENTS.md`, rules,
+workflows, agent configurations and specialist-role reference; project
+template, state schema and migration; validators, tests and QA; documentation;
+memory or other workflow-owned durable instruction stores; schedule contracts;
+permissions, tools, external egress and automatic behaviour; and compatibility,
+benefits, regressions, risks, residual risks and rollback. Propose changes under
+a unique proposal ID/version with:
 
 - problem demonstrated by the run;
 - affected system files;
@@ -26,12 +48,18 @@ ID/version with:
 Do not include course content, answer keys, personal data, or copyrighted assets
 in the reusable adapter.
 
+Do not inspect unrelated personal or global memory.
+
 ## System gate and validation
 
-Create changes only in an inactive candidate. Validate manifests, JSON and
+Create changes only after a separate completed System Gate approval with exact
+current lineage, proposal ID/version, validation run, and exact targets, whose
+reply contains `APPROVE SYSTEM FILES` as a standalone line. The token alone is
+invalid. Keep the result in an inactive candidate. Validate manifests, JSON and
 frontmatter, skill/rule/workflow structure, setup preview/apply/no-overwrite
 behaviour, manifest hashing, lineage rejection, gate ceilings, answer-key
-boundaries, target restrictions, retry rules, and documentation. Forward-test
+boundaries, target restrictions, retry rules, preview-only state migration,
+and documentation. Forward-test
 in a disposable course folder and verify the original candidate and fixtures
 remain unchanged.
 
@@ -46,6 +74,8 @@ Activation requires a later lecturer decision naming the exact validated proposa
 Do not register a schedule until the runtime is active and the contract binds to that exact activated version. Present a complete versioned contract containing course/project, task type, canonical mission, goals/non-goals, success/stop criteria, tools/actions, source classes, audiences, source-policy version/fingerprint, assessment-security boundary, protected root, timezone, recurrence, gate ceilings, retry/escalation/termination rules, unique output naming, no-immediate-run rule, activation reference, and non-null expiry.
 
 Run a no-write simulation first: no registration, trigger, web call, or file change.
+
+Freeze the complete visible contract before approval. Store its validator-derived canonical SHA-256 as `approved_contract_snapshot_reference`, use offset-bearing `YYYY-MM-DDTHH:MM:SS+HH:MM[IANA/Timezone]` activation and expiry values, and recheck the snapshot, runtime, policy and expiry before registration and every recurrence.
 
 Register only after one lecturer reply containing exactly and only these completed lines with matching values:
 

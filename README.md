@@ -20,16 +20,22 @@ standing automation is included.
 
 ## Installation status
 
-System release `0.2.1` packages the `agentic-course-redesign` plugin `0.2.1`.
-The patch enforces canonical text line endings so manifest validation works in
-Windows and Unix Git checkouts and adds one full-workflow umbrella entry for
-picker surfaces that list bundled skills. The repository package, adapters,
-public CI and fresh Windows clone pass the recorded release checks. Repository
-publication is separate from OpenAI's universal Plugins Directory, where the
-plugin is not listed.
+The current repository release is `0.2.2` under proposal
+`ACR-SYS-20260820-004`. Publication supplies validated source and matching
+release evidence; it does not install the plugin, activate a reusable runtime,
+or register a schedule. The packaged project template therefore remains
+`candidate_not_active` with `schedules=[]` until those later, separate actions
+are explicitly completed.
 
-The shared workflow core and four project-local adapters remain at `0.2.0`:
-their gate semantics and adapter contracts did not change in this patch.
+The candidate makes the shared gate sequence explicit in every orchestration
+entry: production must be declared complete, its exact handoff must be
+approved and verified, and only then may HITL 3 occur. After unconditional
+HITL 3 acceptance, the orchestrator asks whether the lecturer wants a separate
+read-only system-improvement review. A yes authorises only that review and a
+versioned proposal. It never authorises system-file edits, installation,
+publication, activation or scheduling. The candidate also adds schema-7
+resume state, preview-only schema migration, release-evidence consistency
+checks and stable SVG line endings.
 
 There are three distinct ChatGPT distribution routes:
 
@@ -49,7 +55,7 @@ App or CLI builds that expose repository marketplaces may use this pinned
 public source:
 
 ```text
-codex plugin marketplace add gpochs/Agentic-Course-Redesign-System --ref v0.2.1
+codex plugin marketplace add gpochs/Agentic-Course-Redesign-System --ref v0.2.2
 ```
 
 Restart ChatGPT Desktop, select **Agentic Course Redesign System** in the
@@ -64,13 +70,12 @@ surface does not expose custom marketplaces, use the documented
 project-template fallback instead of assuming installation.
 
 The supported installation scope is user-level within a ChatGPT Desktop/Codex
-app profile. After version `0.2.1` is loaded in a new supported task, the
-expected picker surface is one umbrella entry plus five direct component
-entries, without copying the plugin into each course project. The package-level
-checks verify that structure; a profile-specific picker smoke test is recorded
-only after that profile has loaded the `0.2.1` cache in a new task. This does
-not prove availability for other users, devices, workspaces, products, app or
-CLI versions, or the Codex IDE extension.
+app profile. Before this release, version `0.2.1` was loaded through the
+supported manager in a new task and its umbrella picker entry plus five direct
+component entries were verified in this profile. Version `0.2.2` requires its
+own post-installation fresh-task picker check; publication alone is not that
+evidence. Neither check proves availability for other users, devices,
+workspaces, products, app or CLI versions, or the Codex IDE extension.
 
 ## Repository map
 
@@ -106,8 +111,10 @@ increase permissions and data-exposure risk without a documented UI guarantee.
 
 The subsequent dialogue should feel like working with an educational
 consultant. The lecturer first approves preliminary focus areas, later decides
-concrete researched changes, then reviews the finished materials before any
-system improvement, activation or schedule is considered.
+concrete researched changes, approves a verified production handoff, and then
+reviews the finished materials. Only after final acceptance does the
+orchestrator offer a separate system-improvement review. Activation and an
+expiring schedule remain later independent decisions.
 
 ## Safety by default
 

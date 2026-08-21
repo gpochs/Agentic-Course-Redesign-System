@@ -25,11 +25,16 @@ Before any specialist reads protected course files:
 
 The guided workflow then requires Gate 1, all five preliminary Stage A returns,
 HITL 1, deeper research and reconciliation, HITL 2, an approved production
-blueprint, independent artefact QA and HITL 3. No old gate approval carries to a
-new run, source set, policy version, context version or plan version.
+blueprint, named artefact gates, independent QA, the separate production
+declaration and handoff approvals, verification of the saved handoff, and HITL
+3. No old gate approval carries to a new run, source set, policy version,
+context version or plan version.
 
-After a successful course run, the lecturer may choose a separate reusable-
-system review. Any proposed change must remain an inactive, versioned candidate
+After unconditional HITL 3 acceptance, the orchestrator must offer a separate
+read-only reusable-system review. A yes permits only review and a versioned
+proposal; it grants no system write, installation, publication, activation,
+schedule, immediate run, or permission. Any later approved change must remain
+an inactive, versioned candidate
 until its validators and fresh-run simulation pass. A later activation decision
 must name the exact validated proposal ID/version and cite the validation,
 residual-risk and rollback records.

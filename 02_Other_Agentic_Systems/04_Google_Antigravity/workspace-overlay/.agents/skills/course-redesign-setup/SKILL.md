@@ -61,10 +61,22 @@ adapter. Read `AGENTS.md` and run the state validator before acting:
 python .agents/skills/course-redesign-setup/scripts/validate_state.py 01_Control/state.json
 ```
 
-The required initial result is schema 6 with top-level
+The required initial result is schema 7 with top-level
 `candidate_not_active`, no registered schedules, and automatic activation
 forbidden. A failing result is a hard stop, not permission to repair state
 silently.
+
+If an existing workspace still has schema 6, use the project-local helper only
+to preview the canonical schema 7 candidate:
+
+```text
+python .agents/skills/course-redesign-setup/scripts/migrate_state_v6_to_v7.py 01_Control/state.json
+```
+
+The helper writes the preview to standard output and has no apply or file-write
+path. Review the complete preview, lineage preservation, inactive status, empty
+schedules, and unchanged permissions before any separately authorised
+migration; never migrate silently.
 
 ## Gate 0
 

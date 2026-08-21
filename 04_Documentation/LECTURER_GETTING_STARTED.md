@@ -60,12 +60,23 @@ The lecturer remains the expert in the loop:
 
 1. **HITL 1:** approve, revise or reject preliminary redesign focus areas.
 2. **HITL 2:** decide the researched, concrete course changes one by one.
-3. **HITL 3:** inspect the redesigned files and QA evidence, then accept,
+3. **Production handoff:** after all named artefact gates and QA, first declare
+   production complete, then separately approve the exact handoff target. The
+   handoff must verify before HITL 3 opens.
+4. **HITL 3:** inspect the redesigned files and QA evidence, then accept,
    request bounded revisions or reject them.
 
-Only after a successful run does the system ask whether its reusable skills or
-configuration should improve. A validated system change, runtime activation
-and an expiring schedule are later, separate decisions.
+Only after unconditional HITL 3 acceptance does the system ask whether the
+lecturer wants a separate read-only review of the workflow skills and umbrella
+entry; plugin or platform adapter; `AGENTS.md` and agent configurations;
+project template, state schema and migration; validators, tests and QA;
+documentation; memory or other workflow-owned durable instruction stores;
+schedule contracts; permissions, tools, external egress and automatic
+behaviour; and compatibility, benefits, regressions, risks, residual risks and
+rollback.
+Saying yes permits only that review and a versioned proposal. A validated
+system change, publication or installation, runtime activation and an expiring
+schedule are later, separate decisions.
 
 ## 6. Keep control
 

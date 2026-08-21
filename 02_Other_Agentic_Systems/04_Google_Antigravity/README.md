@@ -1,16 +1,18 @@
 # Google Antigravity adapter for Agentic Course Redesign
 
-Adapter version `0.2.0` is a project-local, course-agnostic adapter of the
-validated `agentic-course-redesign` base v0.1.0. Its workflow semantics remain
-derived from that validated base; the v0.2.0 release aligns adapter metadata
-and does not activate or change those semantics. It contains one complete
+Adapter version `0.2.2` is a project-local, course-agnostic inactive candidate
+that retains provenance to the validated `agentic-course-redesign` base v0.1.0
+while reconciling the shared v0.2.2 workflow-completeness contract. It makes
+Gate 0 umbrella routing, verified production handoff before HITL 3, durable
+schema-7 recovery, and the mandatory proposal-only system-review offer
+explicit. It does not activate any runtime or schedule. It contains one complete
 one-course workspace overlay with root `AGENTS.md`, native rules, slash
 workflows, six Agent Skills, ten read-only custom subagents, source-integrity
 helpers, and the inactive Gate/state scaffold.
 
 Machine-readable release identity is exposed at the top level of
 `adapter-manifest.json` as platform `google-antigravity`, adapter version
-`0.2.0`, and status `candidate_not_active`.
+`0.2.2`, and status `candidate_not_active`.
 
 It does **not** install or access Antigravity, change global configuration or
 IDE permissions, activate a runtime, register a schedule, connect an MCP
@@ -86,7 +88,9 @@ adapter. It performs no app action or runtime activation.
   wrappers. Each is subagent-only, inherits the selected model, loads the
   orchestrator constraints, permits only `view_file` and `grep_search`, disables
   command execution and MCP inheritance, and has no MCP or plugin dependency.
-- `workspace-overlay/01_Control/`: schema-6 inactive state and gate templates.
+- `workspace-overlay/01_Control/`: schema-7 inactive state and gate templates.
+- `workspace-overlay/.agents/skills/course-redesign-setup/scripts/migrate_state_v6_to_v7.py`:
+  preview-only migration helper with no apply or write path.
 - `optional-privileged-examples/`: disabled hook/MCP examples outside the
   overlay and all auto-discovery paths.
 - `validation/`: static adapter checks and unit tests.
@@ -104,9 +108,11 @@ Validation checks required paths, skill/workflow and custom-agent frontmatter,
 the exact ten-role roster, read-only agent tool allowlists, file-size limits,
 manifest hashes, JSON and Python syntax, secret-like material, absence of active
 hooks/MCP/plugins, inactive state, empty schedules, source/tool/egress controls,
-Gate 2B/Gate 3 target boundaries, installer preview/apply/no-overwrite, and
-optional-example disablement. Static PASS does not prove Antigravity runtime
-behaviour; see `OFFICIAL_LIMITATIONS.md`.
+Gate 2B/Gate 3 target boundaries, production-handoff-before-HITL3 order,
+schema-7 resume and proposal-only review-offer controls, preview-only migration,
+installer preview/apply/no-overwrite, and optional-example disablement. Static
+PASS does not prove Antigravity runtime behaviour; see
+`OFFICIAL_LIMITATIONS.md`.
 
 ## Source and licence
 

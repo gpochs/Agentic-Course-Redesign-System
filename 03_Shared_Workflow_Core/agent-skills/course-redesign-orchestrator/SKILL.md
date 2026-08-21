@@ -18,6 +18,17 @@ Behave as an educational consultant. Keep setup mechanics in the background once
 
 ## Run sequence
 
+### Umbrella entry and Gate 0
+
+The umbrella entry `Agentic Course Redesign` always routes here first and then
+to Gate 0. Read `01_Control/state.json`; if the course scaffold is missing or
+uninitialised, use `course-redesign-setup` in preview-only mode and obtain the
+required setup approval. Gate 0 may inventory and hash candidate sources, but do
+not analyse their content or launch specialists until the exact source manifest
+and versioned source-access policy are approved.
+Never infer Gate 0 from plugin selection, an earlier run, an existing folder or
+an umbrella prompt.
+
 ### Gate 1: course brief and run contract
 
 Inventory the approved sources, summarise current course/level/objectives/assessment/constraints, identify factual unknowns, and propose the full specialist roster. Ask course-specific questions only where different answers would change the analysis. Wait for the lecturer to approve the brief and unique run contract.
@@ -54,10 +65,36 @@ Produce the coherent approved blueprint, alignment ledger, file-by-file plan, se
 
 First verify that the recorded Gate 3 blueprint, file plan, target types and exact paths still match the lecturer's approval. Then enter the named artefact gate for each approved file; do not insert a second unlabeled post-Gate-3 pause. Create only approved targets in the dated working/output folders. Reopen every file; render every page/slide; run pedagogical, assessment, factual, citation, accessibility, visual, security, package, and cross-file checks. Correct bounded defects and rerun the affected and regression checks. Keep keys and restricted QA out of student-facing folders.
 
+### Production declaration and handoff
+
+After all named artefact gates and QA pass, wait for a completed current-lineage
+lecturer reply containing `DECLARE PRODUCTION COMPLETE` as a standalone line. Persist
+that validated declaration before presenting the exact Production Handoff
+target. Wait again for a second, separate completed current-lineage reply
+containing `APPROVE PRODUCTION HANDOFF` as a standalone line and repeating the
+exact target. A token-only, combined, stale-lineage or changed-target reply is
+invalid. Save and independently verify
+the handoff, then persist its verification receipt. Do not open HITL 3 until the
+declaration, handoff approval and handoff verification are all complete.
+
 ### HITL 3
 
-Give the lecturer editable files, PDFs/previews, change log, limitations, and QA evidence. Ask the lecturer to accept, request revision, or reject the materials. Conditional acceptance may authorise only the named corrections; verify them before closing HITL 3.
+Only after the verified Production Handoff, give the lecturer editable files,
+PDFs/previews, change log, limitations, and QA evidence. Ask the lecturer to
+accept, request revision, or reject the materials. Conditional acceptance may
+authorise only the named corrections; verify them before recording current-
+lineage final acceptance and closing HITL 3.
 
 ## After success
 
-Ask whether the lecturer wants a separate system-improvement review. Do not silently rewrite skills, agents, memory, plugins, or schedules. A system proposal has its own validation and activation decisions; use `course-redesign-system`.
+Persist a system-improvement offer record and ask this complete question exactly
+once:
+
+> Would you like a separate, read-only system-improvement review covering the workflow skills and umbrella entry routing; plugin or platform adapter; AGENTS.md and agent configurations; project template, state schema and migration; validators, tests and QA; documentation; memory or other workflow-owned durable instruction stores; schedule contracts; permissions, tools, external egress and automatic behaviour; and compatibility, benefits, regressions, risks, residual risks and rollback, followed only by a versioned proposal? A yes authorises only that review and proposal; it does not authorise system-file changes, installation, publication or release, runtime activation, schedule registration or modification, an immediate run, or any added MCP server, connector, authentication, permission or external egress.
+
+On resume, an `offered_awaiting_response` record means wait without asking
+again. `requested` authorises only the read-only review and one versioned
+proposal; `declined` ends without system action. Do not silently rewrite skills,
+agents, memory, plugins or schedules. Candidate file changes require a separate
+System Gate, and activation and scheduling remain later separate decisions. Use
+`course-redesign-system` only after its prerequisites pass.

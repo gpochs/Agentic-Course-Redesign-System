@@ -9,10 +9,16 @@ Expected control records include:
 - an approved source-access policy and fingerprint;
 - one unique run contract per run;
 - gate approval records with exact lineage;
-- production and QA handoffs; and
+- production declarations, handoff approvals and independent handoff verification;
+- current-lineage HITL 3 decisions and the durable one-time post-run system-review offer/response; and
 - separate system, activation, and schedule records when used.
 
 Never store teacher-only answers in a student-facing release or public-safe handoff.
+
+`state.json` uses schema 7. For an existing schema-6 project,
+`scripts/migrate_state_v6_to_v7.py` is preview-only: it prints a candidate and
+preservation report, never changes the source file, and offers no apply mode.
+Review and separately approve any later exact-target migration.
 
 Compute the source-access-policy fingerprint with the plugin script in policy
 mode, not as a raw file hash:

@@ -1,22 +1,22 @@
 {
   "schema_version": 1,
   "platform": "google-antigravity",
-  "adapter_version": "0.2.0",
+  "adapter_version": "0.2.2",
   "status": "candidate_not_active",
   "adapter": {
     "id": "google-antigravity-course-redesign",
     "platform": "google-antigravity",
     "name": "Google Antigravity adapter for Agentic Course Redesign",
-    "version": "0.2.0",
+    "version": "0.2.2",
     "status": "candidate_not_active",
-    "generated_on": "2026-08-20"
+    "generated_on": "2026-08-21"
   },
   "provenance": {
     "workflow_package_id": "agentic-course-redesign",
     "workflow_proposal_id": "ACR-SYS-20260820-001",
     "validated_base_version": "0.1.0",
-    "adapter_release_version": "0.2.0",
-    "workflow_semantics": "derived from validated base v0.1.0; release alignment does not activate or change workflow semantics"
+    "adapter_release_version": "0.2.2",
+    "workflow_semantics": "derived from validated base v0.1.0 and reconciled to shared workflow-completeness contract v0.2.2; candidate remains inactive and adds no permission, external egress, runtime activation, or schedule registration"
   },
   "source": {
     "package_id": "agentic-course-redesign",
@@ -252,7 +252,7 @@
       "bytes": 3720
     }
   ],
-  "generated_file_count": 54,
+  "generated_file_count": 55,
   "generated_files": [
     {
       "path": "LICENSE",
@@ -265,26 +265,6 @@
       "bytes": 4131
     },
     {
-      "path": "README.md",
-      "sha256": "fc847ee38b4589976deb36d843f51c8fdcb069510b05d64a020b4b2b82283748",
-      "bytes": 5757
-    },
-    {
-      "path": "THIRD_PARTY_NOTICES.md",
-      "sha256": "92e5abbd110e3deaf2d5bf31dcc1c33ee6f0aad9dd7aadfe40ac4d2acfdcb626",
-      "bytes": 762
-    },
-    {
-      "path": "VALIDATION_REPORT.md",
-      "sha256": "fcc1471dfd1eec6b4d0af11a1e467e9badd674525fcdd3181eff8116a0f2c0a2",
-      "bytes": 3743
-    },
-    {
-      "path": "optional-privileged-examples/README.md",
-      "sha256": "88f44f49fb924e604e28e7c543ac3d67196df7ae08007d8d61dee6b44cea2f48",
-      "bytes": 828
-    },
-    {
       "path": "optional-privileged-examples/hooks.json.example",
       "sha256": "68e6e134a77d3a1fcca57ed7318255aaaadfe6066251215ad5f21c6dbc9e14cc",
       "bytes": 390
@@ -295,19 +275,39 @@
       "bytes": 206
     },
     {
+      "path": "optional-privileged-examples/README.md",
+      "sha256": "88f44f49fb924e604e28e7c543ac3d67196df7ae08007d8d61dee6b44cea2f48",
+      "bytes": 828
+    },
+    {
+      "path": "README.md",
+      "sha256": "1ab391cdad7b0eacfd7a7394652abd3f4d14264270eee936e0b9b7cfae72f50a",
+      "bytes": 6190
+    },
+    {
       "path": "scripts/install_workspace_overlay.py",
       "sha256": "f602b247af0bd2c57313344bb5155833884a8e880fe8df5796f9255dee046b19",
       "bytes": 6018
     },
     {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "sha256": "92e5abbd110e3deaf2d5bf31dcc1c33ee6f0aad9dd7aadfe40ac4d2acfdcb626",
+      "bytes": 762
+    },
+    {
+      "path": "VALIDATION_REPORT.md",
+      "sha256": "a5ae7097b42fb50adc85eaa142a2c5af65f73f03e37028a33f06293af244a5f4",
+      "bytes": 5225
+    },
+    {
       "path": "validation/test_validate_adapter.py",
-      "sha256": "306c5341f91a5fc4b9dea715e8293030c911a9a799c43c52981b1c5025172c32",
-      "bytes": 5218
+      "sha256": "4e9db3343cb3c8ddab769b593384bb5de0706a9a50532c7b22dd30aab9ad15d7",
+      "bytes": 10917
     },
     {
       "path": "validation/validate_adapter.py",
-      "sha256": "9cebf5d9c9bd32c28fd7f7f379fdd0eb01c00ae2da4374ceb7223ef1e95af8a0",
-      "bytes": 24062
+      "sha256": "c1774c9551add290fb24a918041a9b52bab497c3b253823be29c3d96c34f87aa",
+      "bytes": 37592
     },
     {
       "path": "workspace-overlay/.agents/agents/active-learning-researcher.md",
@@ -361,13 +361,13 @@
     },
     {
       "path": "workspace-overlay/.agents/rules/00-trust-and-scope.md",
-      "sha256": "75d0fc81ed7aa1b530b8a699e0257383f3c85a91635b0545bc98c8e7b4fd46ca",
-      "bytes": 1180
+      "sha256": "b17f111d6293cf5b41b201998feb7d435a6235b027c0b07317a182a51813554a",
+      "bytes": 1471
     },
     {
       "path": "workspace-overlay/.agents/rules/10-gates-and-lineage.md",
-      "sha256": "6b8f35fe18f45cb7df8e4318182b223fcaa53e07ace459aa3e1aa7399e82e315",
-      "bytes": 1167
+      "sha256": "6b8160b5b77964823091fe545603e3b5f36372eba0319faba52d45ad9e67e540",
+      "bytes": 1629
     },
     {
       "path": "workspace-overlay/.agents/rules/20-assessment-and-release-security.md",
@@ -385,14 +385,14 @@
       "bytes": 3406
     },
     {
-      "path": "workspace-overlay/.agents/skills/course-redesign-orchestrator/SKILL.md",
-      "sha256": "53e91e1dc60e5b07b686a4af630b5c881b7d861b903e979f48586d3f2bac00cd",
-      "bytes": 5496
-    },
-    {
       "path": "workspace-overlay/.agents/skills/course-redesign-orchestrator/references/specialist-role-contracts.md",
       "sha256": "e613575c2c48ceb16e17c6b10f499771428bac79fdd2ba0d2e9c9edb41a66aab",
       "bytes": 5335
+    },
+    {
+      "path": "workspace-overlay/.agents/skills/course-redesign-orchestrator/SKILL.md",
+      "sha256": "49af18e853c325d89f2670f6905c71fc37da5b5bed9361311173710b9a68a388",
+      "bytes": 8253
     },
     {
       "path": "workspace-overlay/.agents/skills/course-redesign-research/SKILL.md",
@@ -400,14 +400,14 @@
       "bytes": 2958
     },
     {
-      "path": "workspace-overlay/.agents/skills/course-redesign-setup/SKILL.md",
-      "sha256": "4c429835659d081e5f92e0dbdb3ee420f351ff231495b91437f354fe7dbbb7fd",
-      "bytes": 5064
-    },
-    {
       "path": "workspace-overlay/.agents/skills/course-redesign-setup/scripts/fingerprint_file.py",
       "sha256": "28da6037dd88f6368dd9f6f43199131cc513573ca22017e92ebe48593c3fcca9",
       "bytes": 2545
+    },
+    {
+      "path": "workspace-overlay/.agents/skills/course-redesign-setup/scripts/migrate_state_v6_to_v7.py",
+      "sha256": "b280a883dd08a06bd89927f26f6fcc3c1816e9c77e1e4904a98194417cc13031",
+      "bytes": 24891
     },
     {
       "path": "workspace-overlay/.agents/skills/course-redesign-setup/scripts/source_manifest.py",
@@ -416,33 +416,38 @@
     },
     {
       "path": "workspace-overlay/.agents/skills/course-redesign-setup/scripts/validate_state.py",
-      "sha256": "42af5d246c7a56cf296ff528e7079d92d250c14059790b06047bbc7d3b397e71",
-      "bytes": 11420
+      "sha256": "4ebfdd48010c5355db05b092832408210f4d722cf4cacc3cb16852779718de80",
+      "bytes": 77949
+    },
+    {
+      "path": "workspace-overlay/.agents/skills/course-redesign-setup/SKILL.md",
+      "sha256": "cca8febb7ce1460ce1aec31c4e6301dcf1fb2963eff628cb6ed046eba2d62195",
+      "bytes": 5568
     },
     {
       "path": "workspace-overlay/.agents/skills/course-redesign-system/SKILL.md",
-      "sha256": "051b19edc76280b7e9475877e605ea2f776e0ac742387f64feaeb7e162213a36",
-      "bytes": 3372
+      "sha256": "d285d124e325dddf9da95625614766dc7cb949ecd456ba64cf778c5e5d6bb5b2",
+      "bytes": 5479
     },
     {
       "path": "workspace-overlay/.agents/workflows/course-redesign-continue.md",
-      "sha256": "39e4996f8b8167d7461da185b8710b5e828d97e4d852889a55eb13497762be33",
-      "bytes": 1198
+      "sha256": "e006f48894168b09619dde400308a00f907184a33f736f06a72f3eebd0efb6fc",
+      "bytes": 1964
     },
     {
       "path": "workspace-overlay/.agents/workflows/course-redesign-start.md",
-      "sha256": "d060c374499f33a978cb36a8c2dd17b1dd97e39a18a645eb16a95a055aab2256",
+      "sha256": "697b7a61b6a76852470a3c5dd19548ba0897c4bdd6485a8982dacec2d952e95d",
       "bytes": 1341
     },
     {
       "path": "workspace-overlay/.agents/workflows/course-redesign-system-review.md",
-      "sha256": "bdea9c772c98e931f60d818c55d75866d015973b3ced321577c3ffe6a8f59e1d",
-      "bytes": 1057
+      "sha256": "3084bc998dcf178a36d67c01217bce9b04e4717a7c94a5145e8e32b3e18dd9f3",
+      "bytes": 1856
     },
     {
       "path": "workspace-overlay/.agents/workflows/course-redesign-validate.md",
-      "sha256": "23e8b45ab48ae052cfd853d4f6aa2533014b4a86df74685f13107400e271e664",
-      "bytes": 903
+      "sha256": "ae8faaffbf56278e2f6ade791d74773470b64c428177578909246998015fb27a",
+      "bytes": 1086
     },
     {
       "path": "workspace-overlay/00_Context/README.txt",
@@ -451,8 +456,8 @@
     },
     {
       "path": "workspace-overlay/00_NOT_ACTIVE_UNTIL_VALIDATED.txt",
-      "sha256": "a2223ac194129d7a10b5b51e49eaefa3346a620c5328da577252b637cd9d6080",
-      "bytes": 2473
+      "sha256": "7742ca0db95d603fbdf1fca59d2d721a9746f0ab82e22187ebc7f1338e239f78",
+      "bytes": 2766
     },
     {
       "path": "workspace-overlay/00_Source_Materials/README.txt",
@@ -461,13 +466,13 @@
     },
     {
       "path": "workspace-overlay/01_Control/GATES.md",
-      "sha256": "62378cfddc9099542877e9c173d68588bcc6030cefbbb88697a2fecf7a8f31ef",
-      "bytes": 3013
+      "sha256": "56b24b578ba558d1df64d9019cfb1ed7c2e675259034fa7fc1b15883b750b5f2",
+      "bytes": 4005
     },
     {
       "path": "workspace-overlay/01_Control/README.md",
-      "sha256": "fdc130bc839807c4ad627f5a996a595c76d8202a600884d2f1f390b5e338c38d",
-      "bytes": 977
+      "sha256": "d81cf0c1a1ca808fa95dbebd786c7249c7f0d8efa1d298495d44235ed80bb42c",
+      "bytes": 1046
     },
     {
       "path": "workspace-overlay/01_Control/run-contract.template.json",
@@ -481,8 +486,8 @@
     },
     {
       "path": "workspace-overlay/01_Control/state.json",
-      "sha256": "1f7a1b9354e21162d34d2d1b9628cf65c88d0211bb436ec64fee756afd9aa759",
-      "bytes": 38601
+      "sha256": "ac5b629fa4fa3ed10f959bac547b9ba3bd5d30636c2f46ea36f30845f5352628",
+      "bytes": 48320
     },
     {
       "path": "workspace-overlay/02_Working_Notes/README.txt",
@@ -511,18 +516,18 @@
     },
     {
       "path": "workspace-overlay/07_System_Improvement/README.txt",
-      "sha256": "f11b12fbc2e2cf46bfe03da42bb038ed5a07eede0500c0cfec4cbc94bc2827f7",
-      "bytes": 199
+      "sha256": "f9d28ad0bdf6e42d821656f6c4b075f62cca3386888e2951887ea76c1d9e8036",
+      "bytes": 834
     },
     {
       "path": "workspace-overlay/AGENTS.md",
-      "sha256": "c8c75c9cf1d4c9482bed7ae2800e02dfab7bb347d38fab9af0146c706a2ae1ee",
-      "bytes": 24383
+      "sha256": "1682ec966d796aab2b9d37ee0419c05bf9af5380044352f50daeea7f4f184fed",
+      "bytes": 26149
     },
     {
       "path": "workspace-overlay/PROJECT_SETUP.md",
-      "sha256": "30e1e0f10a55a27795c3ce51e5f32606f72124f67ecad7d1c978d98cce5693e2",
-      "bytes": 1726
+      "sha256": "f7fbbfb780919dda5ba620a174f65cf73663580132b88ab9d644179569daf25d",
+      "bytes": 1881
     }
   ],
   "integrity_exclusions": [

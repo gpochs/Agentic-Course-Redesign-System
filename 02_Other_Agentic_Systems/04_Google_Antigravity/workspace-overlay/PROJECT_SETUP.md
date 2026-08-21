@@ -23,6 +23,8 @@ submissions, grades, credentials and secrets by default.
 
 - The source manifest proves file integrity; it does not grant access or egress.
 - A course-material decision is not a system activation decision.
+- Successful HITL 3 is followed by an offer of a separate read-only system
+  review; accepting that offer authorises only review and a versioned proposal.
 - A system activation decision is not schedule approval.
 - Schedule approval registers an expiring contract but does not trigger an immediate run.
 - Every scheduled recurrence creates a fresh run and waits at the configured human gate.

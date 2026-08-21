@@ -32,8 +32,13 @@ role, egress, or output permission.
   the orchestrator may persist lecturer-approved workflow metadata.
 - Every consequential pedagogical choice and every gate belongs to the
   lecturer. Silence and approval from another run or stage are not approval.
+- Do not enter HITL 3 until both current-lineage production replies have been
+  recorded and the saved Production Handoff has been reopened and verified.
+- After unconditional current-lineage HITL 3 acceptance, offer the separate
+  read-only system-improvement review required by the workflow. The offer or a
+  lecturer's yes authorizes no system edit, installation, publication,
+  activation, schedule registration, immediate run, or permission change.
 
 Use the project skill at `.claude/skills/course-redesign/SKILL.md` for the gate
 sequence, lineage contract, role roster, output boundary, and escalation rules.
 When a host cannot load that skill, read it and its referenced files directly.
-

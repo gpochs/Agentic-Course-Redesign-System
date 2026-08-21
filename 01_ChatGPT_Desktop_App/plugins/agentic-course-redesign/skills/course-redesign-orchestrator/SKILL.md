@@ -21,8 +21,9 @@ Redesign**. The lecturer does not need to select every specialist skill.
   state. Never infer approval from an earlier task or run.
 - Use the research, assessment, and materials skills internally only when their
   bounded stage is authorised. Do not make the lecturer invoke them in order.
-- Route to `$course-redesign-system` only after a successful HITL 3 and a
-  separate explicit request for reusable-system review.
+- Route to `$course-redesign-system` only after verified production completion
+  and handoff, current-lineage HITL 3 final acceptance, the mandatory review
+  offer, and a separate affirmative response to that offer.
 - A request for the "full redesign" authorises progress only to the next
   required gate; it never authorises crossing lecturer-in-the-loop gates.
 
@@ -73,10 +74,38 @@ Produce the coherent approved blueprint, alignment ledger, file-by-file plan, se
 
 First verify that the recorded Gate 3 blueprint, file plan, target types and exact paths still match the lecturer's approval. Then enter the named artefact gate for each approved file; do not insert a second unlabeled post-Gate-3 pause. Create only approved targets in the dated working/output folders. Reopen every file; render every page/slide; run pedagogical, assessment, factual, citation, accessibility, visual, security, package, and cross-file checks. Correct bounded defects and rerun the affected and regression checks. Keep keys and restricted QA out of student-facing folders.
 
+### Production completion and verified handoff
+
+Do not open HITL 3 immediately after artefact QA. First obtain one completed
+current-lineage lecturer reply containing `DECLARE PRODUCTION COMPLETE` as an
+exact standalone line. Then show the exact
+`04_Working_Copies/<approved-run>/Production_Handoff.md` target and wait for a
+second, separate completed current-lineage reply that repeats that target and
+contains `APPROVE PRODUCTION HANDOFF` as an exact standalone line. Independently
+verify the saved handoff. A token-only reply, combined reply, stale lineage,
+changed target, or unverified file is invalid. HITL 3 remains forbidden until
+`production_completion.status` is `complete` and `handoff_verified_at` is
+recorded.
+
 ### HITL 3
 
 Give the lecturer editable files, PDFs/previews, change log, limitations, and QA evidence. Ask the lecturer to accept, request revision, or reject the materials. Conditional acceptance may authorise only the named corrections; verify them before closing HITL 3.
 
 ## After success
 
-Ask whether the lecturer wants a separate system-improvement review. Do not silently rewrite skills, agents, memory, plugins, or schedules. A system proposal has its own validation and activation decisions; use `course-redesign-system`.
+After current-lineage HITL 3 final acceptance, ask exactly once:
+
+> Would you like a separate, read-only system-improvement review covering the workflow skills and umbrella entry routing; plugin or platform adapter; AGENTS.md and agent configurations; project template, state schema and migration; validators, tests and QA; documentation; memory or other workflow-owned durable instruction stores; schedule contracts; permissions, tools, external egress and automatic behaviour; and compatibility, benefits, regressions, risks, residual risks and rollback, followed only by a versioned proposal? A yes authorises only that review and proposal; it does not authorise system-file changes, installation, publication or release, runtime activation, schedule registration or modification, an immediate run, or any added MCP server, connector, authentication, permission or external egress.
+
+Only a separate affirmative response authorises a read-only system-improvement
+review and versioned proposal. It does not authorise system-file changes,
+installation, publication, runtime activation, schedule registration, or a
+scheduled run. A decline or no response closes the workflow without system
+work. Do not silently rewrite skills, agents, memory, plugins, or schedules. A
+later system proposal has its own validation, System Gate, activation, and
+schedule decisions; use `course-redesign-system`.
+
+Persist the offer before asking. On resume, `offered_awaiting_response` waits
+without asking again, `requested` continues read-only review/proposal work
+without asking again, and `declined` ends without system action or re-asking.
+Any lineage mismatch fails closed and requires reconfirmation.

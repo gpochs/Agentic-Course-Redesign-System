@@ -38,6 +38,8 @@ def main() -> int:
                 ast.parse(path.read_text(encoding="utf-8"), filename=relative)
                 counts["python"] += 1
             elif path.suffix.casefold() == ".svg":
+                if b"\r" in path.read_bytes():
+                    raise ValueError("SVG must use LF line endings for deterministic hashing")
                 ElementTree.parse(path)
                 counts["svg"] += 1
         except Exception as error:  # report every parser failure in one pass

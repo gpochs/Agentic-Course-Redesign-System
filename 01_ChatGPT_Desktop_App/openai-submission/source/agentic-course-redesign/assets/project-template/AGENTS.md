@@ -65,10 +65,10 @@ lecturer retains every consequential pedagogical decision.
 Every manual or scheduled trigger copies `run_template` into `runs[]` before any
 course analysis, sets `template_only` to `false`, and records the unique run ID
 and task/chat reference. Initialise that run's contract,
-source verification, Gate 0, Gate 1, Gate 2A, Gate 2B, Gate 3, artefact and
-production-completion states afresh; no earlier run's approvals or completion
-flags carry over. If another run is non-terminal, stop and ask the lecturer
-which run to continue or cancel.
+source verification, Gate 0, Gate 1, Gate 2A, Gate 2B, Gate 3, artefact,
+production-completion, HITL 3 and system-review-offer states afresh; no earlier
+run's approvals or completion flags carry over. If another run is non-terminal,
+stop and ask the lecturer which run to continue or cancel.
 
 Before specialist work, obtain a lecturer-approved per-run contract containing
 the main goal, non-goals, measurable success criteria, stop conditions,
@@ -247,7 +247,27 @@ source classifications and teacher-only access boundary.
   `04_Working_Copies/<approved-run>/Production_Handoff.md` target. Record a
   second completed reply containing `APPROVE PRODUCTION HANDOFF` as a standalone
   line, the same matching lineage and the repeated exact handoff target before
-  saving it. Either token by itself is incomplete and grants no authority.
+  saving it. Independently verify the saved handoff and record that verification.
+  Either token by itself is incomplete and grants no authority.
+- HITL 3: open only after production completion is `complete`, both production
+  replies are valid and current-lineage, and the saved Production Handoff has a
+  non-null verification timestamp. The lecturer accepts, conditionally accepts
+  named corrections pending verification, requests revision, or rejects. Only
+  a verified current-lineage final acceptance closes HITL 3.
+- System-improvement review offer: after HITL 3 final acceptance, durably record
+  and ask exactly once: `Would you like a separate, read-only system-improvement
+  review covering the workflow skills and umbrella entry routing; plugin or
+  platform adapter; AGENTS.md and agent configurations; project template, state
+  schema and migration; validators, tests and QA; documentation; memory or other
+  workflow-owned durable instruction stores; schedule contracts; permissions,
+  tools, external egress and automatic behaviour; and compatibility, benefits,
+  regressions, risks, residual risks and rollback, followed only by a versioned
+  proposal? A yes authorises only that review and proposal; it does not authorise
+  system-file changes, installation, publication or release, runtime activation,
+  schedule registration or modification, an immediate run, or any added MCP
+  server, connector, authentication, permission or external egress.` A separate
+  affirmative response authorises only read-only system/run review and one
+  versioned proposal. A decline or silence closes without system work.
 
 Stop work at every gate and set the run to non-terminal `waiting_at_gate`. A
 schedule, silence or prior approval for another stage is not approval for the
@@ -258,8 +278,12 @@ through the Gate 2A wait; a fresh Gate 2A approval authorises full research only
 through the Gate 2B wait. A fresh lecturer direction after Gate 2B may extend
 that same run only through Gate 3. A fresh Gate 3 and exact-target approval may
 extend it only through gated production and the verified Production Handoff.
-A separate post-run system-improvement direction may extend it only through the
-reusable-system proposal and SYSTEM GATE; it does not activate the candidate.
+A verified Production Handoff may extend it only through HITL 3. Current-lineage
+HITL 3 final acceptance authorises only the mandatory system-review offer. A
+separate affirmative response to that recorded offer may extend the run only
+through read-only reusable-system review and a versioned proposal; the separate
+SYSTEM GATE is still required for exact system files and never activates the
+candidate.
 Record every maximum-stage transition in that run before acting.
 
 ## Research
@@ -299,13 +323,20 @@ and show the exact Production Handoff target. Wait again, and
 save it only after a second completed matching reply contains `APPROVE
 PRODUCTION HANDOFF` as an exact standalone line and repeats that exact target.
 A token-only reply is invalid. Do not begin reusable-system work without both
-records and that verified handoff.
+records and that verified handoff. Only then open HITL 3. After verified
+current-lineage HITL 3 final acceptance, record and ask the exact mandatory
+system-improvement review question once. Do not begin system review unless a
+separate response affirmatively requests it; that request authorises read-only
+review and a versioned proposal only.
 
 ## Reuse and scheduling
 
-Update live run state after every explicit lecturer gate. Update reusable
-instructions, custom agents, skill or state schema only from a successful run
-and only after a separate SYSTEM GATE: show the exact update plan/diff plus a
+Update live run state after every explicit lecturer gate. Review reusable
+instructions, custom agents, skills or state schema only after the verified
+Production Handoff, current-lineage HITL 3 final acceptance, the recorded exact
+review offer and a separate affirmative response. That response authorises
+read-only review and one versioned proposal only. Create or update reusable
+files only after a separate SYSTEM GATE: show the exact update plan/diff plus a
 plain-language summary of files, permissions, automatic behaviour, risks and
 rollback. Create nothing unless a completed lecturer reply tied to the visible
 system-proposal ID/version and matching validation run, run-contract ID/version, task/chat,
@@ -317,6 +348,7 @@ considered only after Gate 0, Gate 1, Gate 2A and Gate 2B are recorded, the
 source manifest verifies, the versioned source-access policy is lecturer-
 confirmed, an approved Gate 3 blueprint, safely tested
 working-copy run, both valid production replies, a verified Production Handoff,
+current-lineage HITL 3 final acceptance, a separately requested system review,
 the SYSTEM GATE, read-only smoke test and assessment-security/no-answer-leakage
 smoke test all pass.
 The activation reply must name the exact validated system-proposal ID/version,
@@ -340,7 +372,12 @@ and data-egress boundary; source-access-policy version/fingerprint, permitted so
 and output audiences; lecturer-confirmed IANA timezone, recurrence, activation time
 and lecturer-set expiry; Gate 2A first wait and Gate 2B maximum; no-write and
 unique-output rules; one-retry, escalation and terminal rules; no-immediate-run;
-and pause, renewal and rollback procedures. Record the successful simulation.
+and pause, renewal and rollback procedures. Freeze that complete visible
+contract, store its validator-derived canonical SHA-256 as
+`approved_contract_snapshot_reference`, and use offset-bearing
+`YYYY-MM-DDTHH:MM:SS+HH:MM[IANA/Timezone]` values for activation and expiry.
+Record the successful simulation and recheck the snapshot before registration
+and every recurrence.
 Register schedules only after one lecturer reply containing exactly and only
 these three completed lines, with actual values that match the visible contract:
 

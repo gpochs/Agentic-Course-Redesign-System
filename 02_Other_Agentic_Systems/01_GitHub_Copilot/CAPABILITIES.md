@@ -9,6 +9,8 @@
 - Ten project custom agents in `.github/agents/*.agent.md`.
 - The portable skill in `.claude/skills/course-redesign/` supplied by the core
   overlay.
+- The portable core's complete Gate 0-through-HITL3 sequence, verified
+  production handoff, and proposal-only post-HITL3 system-review offer.
 - Read-only specialist discovery and reporting with `read` and `search` tools.
 
 ## Unsupported or intentionally omitted
@@ -27,4 +29,3 @@
 If a later project needs research or exact-target production, define and review
 that course-specific authority separately after the relevant lecturer gate; do
 not widen these shared profiles silently.
-

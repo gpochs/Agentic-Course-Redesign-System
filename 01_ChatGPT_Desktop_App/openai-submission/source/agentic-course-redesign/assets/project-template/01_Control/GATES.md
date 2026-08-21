@@ -46,7 +46,20 @@ APPROVE PRODUCTION HANDOFF
 
 ## HITL 3 — lecturer acceptance
 
-The lecturer reviews editable files/previews, change log, QA evidence, limitations, and preserved-source proof, then accepts, conditionally accepts named corrections, requests revision, or rejects.
+Open only after production completion is `complete`, both production replies
+are valid, and the saved handoff is independently verified. The lecturer
+reviews editable files/previews, change log, QA evidence, limitations, and
+preserved-source proof, then accepts, conditionally accepts named corrections
+pending verification, requests revision, or rejects.
+
+After verified current-lineage final acceptance, record and ask exactly once:
+
+> Would you like a separate, read-only system-improvement review covering the workflow skills and umbrella entry routing; plugin or platform adapter; AGENTS.md and agent configurations; project template, state schema and migration; validators, tests and QA; documentation; memory or other workflow-owned durable instruction stores; schedule contracts; permissions, tools, external egress and automatic behaviour; and compatibility, benefits, regressions, risks, residual risks and rollback, followed only by a versioned proposal? A yes authorises only that review and proposal; it does not authorise system-file changes, installation, publication or release, runtime activation, schedule registration or modification, an immediate run, or any added MCP server, connector, authentication, permission or external egress.
+
+A separate affirmative response authorises read-only review and one versioned
+proposal only. It grants no system-file, installation, publication, activation,
+schedule, immediate-run, MCP, connector, authentication, permission, or egress
+authority. A decline or no response ends without system work.
 
 ## System Gate
 
@@ -56,7 +69,8 @@ System files are a separate proposal. Approval requires exact current lineage, p
 APPROVE SYSTEM FILES
 ```
 
-This creates an activation-ready candidate only.
+This creates an activation-ready candidate only. It does not activate, install,
+publish, register, or run anything.
 
 ## Separate runtime activation
 

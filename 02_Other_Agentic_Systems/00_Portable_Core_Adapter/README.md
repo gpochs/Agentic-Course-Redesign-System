@@ -1,6 +1,6 @@
 # Portable core adapter
 
-Adapter release: `0.2.0`. Validated semantic base: `0.1.0`.
+Adapter release: `0.2.2`. Validated semantic base: `0.1.0`.
 
 This adapter is the platform-neutral safety and workflow layer for a local,
 lecturer-guided course-redesign project. It is a semantic adaptation of the
@@ -28,6 +28,13 @@ workflow contract and uses the portable Agent Skills format. The
 GitHub Copilot, and OpenCode documentation all describe project skill discovery
 there. Platform folders beside this adapter add only native instruction and
 agent wrappers.
+
+Release `0.2.2` makes the complete order explicit: Gate 0, named production
+gates and QA, the two production-completion/handoff replies, verification of
+the saved handoff, HITL 3, and the mandatory proposal-only system-review offer.
+The portable overlay does not duplicate a project state template or migration;
+when a composed project has control state, use canonical schema 7 or the
+canonical preview-only v6-to-v7 migration before continuing.
 
 ## Safe composition
 
@@ -57,7 +64,8 @@ recompute every recorded source SHA-256. The validator checks manifests,
 root-relative inventories, the portable skill contract, all ten native role
 sets, thin-wrapper references, fail-closed escalation, read-only tool or
 permission declarations, absence of an executable OpenCode plugin, and private
-absolute-path leakage.
+absolute-path leakage. It also checks the production-handoff-before-HITL3 order
+and the full post-HITL3 review offer and proposal-only authority.
 
 Each manifest's top-level `files` array freezes every file under that adapter
 root except `adapter-manifest.json` itself. The self-exclusion is explicit in

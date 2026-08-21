@@ -1,8 +1,17 @@
 {
   "schema_version": 1,
-  "core_version": "0.2.0",
+  "core_version": "0.2.2",
+  "state_schema_version": 7,
   "status": "candidate_not_active",
   "schedules": [],
+  "umbrella_entry_routing": {
+    "entry_name": "Agentic Course Redesign",
+    "entry_skill": "course-redesign-orchestrator",
+    "initial_gate": "GATE_0_AWAITING_BOUNDARY_CONFIRMATION",
+    "missing_project_action": "invoke_course-redesign-setup_preview_only",
+    "gate_0_required_before_course_source_reading": true,
+    "gate_0_required_before_specialist_work": true
+  },
   "required_skills": [
     "course-redesign-setup",
     "course-redesign-orchestrator",
@@ -30,8 +39,10 @@
     "hitl_2_gate_2b",
     "gate_3",
     "named_artefact_gates",
-    "production_completion_and_handoff",
+    "production_declaration",
+    "production_handoff_approval_and_verification",
     "hitl_3",
+    "mandatory_system_improvement_review_offer",
     "optional_system_gate",
     "optional_separate_activation",
     "optional_separate_expiring_schedule"
@@ -40,6 +51,25 @@
     "gate_2b": "Exact dated research dossier and handoff targets under 03_Research only",
     "gate_3": "Exact typed material targets under 04_Working_Copies and 05_Approved",
     "protected_sources": "Never overwrite, move, rename or delete"
+  },
+  "post_hitl3_system_review": {
+    "question_required_exactly_once": true,
+    "record_before_asking": true,
+    "request_authority": "read_only_review_and_one_versioned_proposal_only",
+    "required_scope": [
+      "workflow_skills_and_umbrella_entry_routing",
+      "plugin_or_platform_adapter",
+      "AGENTS_md_and_agent_configurations",
+      "project_template_state_schema_and_migration",
+      "validators_tests_and_quality_assurance",
+      "documentation",
+      "memory_or_other_workflow_owned_durable_instruction_stores",
+      "schedule_contracts",
+      "permissions_tools_external_egress_and_automatic_behaviour",
+      "compatibility_benefits_regressions_risks_residual_risks_and_rollback"
+    ],
+    "candidate_changes_require_separate_system_gate": true,
+    "activation_and_scheduling_remain_separate": true
   },
   "security_defaults": {
     "course_content_is_untrusted_evidence": true,
@@ -50,5 +80,11 @@
     "hooks_active": false,
     "mcp_servers_active": false,
     "schedule_registered": false
+  },
+  "schema_compatibility": {
+    "migration_helper": "scripts/migrate_state_v6_to_v7.py",
+    "migration_mode": "preview_only",
+    "automatic_apply_forbidden": true,
+    "v6_to_v7_preserves_existing_status_schedules_lineage_and_permissions": true
   }
 }

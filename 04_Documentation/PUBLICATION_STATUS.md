@@ -6,12 +6,16 @@ The public repository is available at:
 
 <https://github.com/gpochs/Agentic-Course-Redesign-System>
 
-System release `0.2.1` packages ChatGPT plugin version `0.2.1`. Its local
-source/package checks, public CI and fresh Windows clone are verified; its
-immutable tag, release assets and checksums are published with the GitHub
-release.
-The shared workflow core and four project-local adapters remain at `0.2.0`
-because their contracts and gated workflow semantics are unchanged.
+System release `0.2.2` packages ChatGPT plugin version `0.2.2`, shared workflow
+core `0.2.2`, and reconciled platform adapters `0.2.2`. Its tag and exact
+release archives, checksums, inventories and validation evidence are published
+with the GitHub release. Repository publication does not install the plugin,
+activate a reusable runtime, or register a schedule.
+
+The historical `system-release-validation-v0.2.1.json` asset is mislabeled internally: it
+describes the v0.2.0 archive. The v0.2.1 ZIP and checksum remain valid; the
+v0.2.2 evidence guard records the mismatch and makes validation fail when report
+name, archive name, embedded inventory version, digest or byte count disagree.
 
 ## ChatGPT and Codex
 
@@ -19,15 +23,17 @@ A GitHub marketplace can provide an installable custom source on supported
 surfaces. It does not automatically create a listing in OpenAI's universal
 Plugins Directory.
 
-The release host currently has a verified user-level installation of version
-`0.2.0`. Version `0.2.1` structurally validates one full-workflow umbrella named
-`@Agentic Course Redesign` plus five direct component entries; the picker smoke
-test is recorded only after a new supported Work/Codex task has loaded the
-`0.2.1` cache. On surfaces that flatten skills-only bundles, the umbrella is
-shown as the orchestrator skill rather than a separate parent row. This is not
-a global push to other users, devices, accounts or workspaces. App version,
-account access and workspace policy may restrict custom marketplaces, and the
-Codex IDE extension does not support plugins.
+At the pre-release validation checkpoint, the release host had a verified
+user-level installation of version `0.2.1`. A new supported Codex task loaded
+that cache and invoked the
+`@Agentic Course Redesign` umbrella; all six bundled skills were available. On
+surfaces that flatten skills-only bundles, the umbrella is shown as the
+orchestrator skill rather than a separate parent row. Version `0.2.2` needs its
+own exact-version installation and fresh-task picker verification; release
+publication is not that evidence. Installation is not a global push
+to other users, devices, accounts or workspaces. App version, account access
+and workspace policy may restrict custom marketplaces, and the Codex IDE
+extension does not support plugins.
 
 A universal listing requires a separate OpenAI Platform submission, verified
 publisher identity, public metadata and policies, test cases, automated scans,

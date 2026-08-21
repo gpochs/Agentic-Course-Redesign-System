@@ -42,3 +42,10 @@ dependency; an exhausted one-retry allowance; or a lecturer-only trade-off.
 At a gate, report the evidence, decision options, exact consequences, and the
 next permitted action, then wait. A gate pause is non-terminal.
 
+Do not treat completed artefact QA as production completion. Require the two
+current-lineage production decisions and verify the saved Production Handoff
+before HITL 3. After unconditional current-lineage HITL 3 acceptance, make the
+mandatory separate system-review offer in `references/workflow.md`. A yes
+authorizes only a read-only review and versioned proposal; it grants no system
+write, installation, publication, activation, schedule, immediate run, or new
+permission.

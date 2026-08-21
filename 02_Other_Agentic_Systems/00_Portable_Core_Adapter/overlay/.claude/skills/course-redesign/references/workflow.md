@@ -95,12 +95,17 @@ conditionally accepts named corrections, requests revision, or rejects each
 artefact.
 
 Production completion requires two separate, current-lineage decisions. First,
-the lecturer's completed reply must contain `DECLARE PRODUCTION COMPLETE` as a
-standalone line. After the verified accepted-version/QA record and exact
+the lecturer's completed reply must repeat the current run, run-contract,
+task/chat, shared-context, source-manifest, source-access-policy, and plan
+lineage and contain `DECLARE PRODUCTION COMPLETE` as a standalone line. Record
+only that declaration. After the verified accepted-version/QA record and exact
 `04_Working_Copies/<approved-run>/Production_Handoff.md` target are shown, a
-second completed reply must repeat that target and contain
+second completed reply must repeat the same lineage and exact target and contain
 `APPROVE PRODUCTION HANDOFF` as a standalone line. Either token alone is
-insufficient.
+insufficient. Save only that approved target, then reopen it and verify that it
+matches the accepted versions, audience classifications, QA evidence,
+unresolved issues, and approval record. Do not enter HITL 3 until this saved
+handoff verification passes.
 
 ## HITL 3: final lecturer acceptance
 
@@ -115,25 +120,58 @@ revisions, request revision, or reject it. Treat conditional acceptance as
 authority only for the named corrections, rerun proportionate independent QA,
 and return the corrected package for a fresh HITL 3 decision. Do not mark the
 course redesign complete until the lecturer gives current-lineage final
-acceptance. Reusable-system review may begin only after that acceptance and a
-separate explicit request to review the system.
+acceptance.
+
+Immediately after unconditional current-lineage acceptance, persist the offer
+record and ask this complete question exactly once:
+
+> Would you like a separate, read-only system-improvement review covering the workflow skills and umbrella entry routing; plugin or platform adapter; AGENTS.md and agent configurations; project template, state schema and migration; validators, tests and QA; documentation; memory or other workflow-owned durable instruction stores; schedule contracts; permissions, tools, external egress and automatic behaviour; and compatibility, benefits, regressions, risks, residual risks and rollback, followed only by a versioned proposal? A yes authorises only that review and proposal; it does not authorise system-file changes, installation, publication or release, runtime activation, schedule registration or modification, an immediate run, or any added MCP server, connector, authentication, permission or external egress.
+
+Ask only after successful HITL 3, not after conditional acceptance, revision,
+or rejection. Use the run ID plus final HITL-3 acceptance reference as the
+idempotency key. On resume, `offered_awaiting_response` means wait without
+asking again; `requested` authorises only the read-only review and one versioned
+proposal; `declined` closes the run without system work. Reusable-system work
+may begin only after the recorded separate request.
 
 ## Separate reusable-system lifecycle
 
 Course acceptance does not authorize a system change. After a successful run,
 a separately requested improvement review may propose a new proposal ID,
 version, exact diff, tests, risks, permissions, rollback, and plain-language
-behavior summary. Creating system files requires current lineage and a completed
+behaviour summary. Compare the workflow skills and umbrella routing; plugin or
+platform adapter; `AGENTS.md` and agent configurations; project template,
+state schema and migration; validators, tests and QA; documentation; memory or
+other workflow-owned durable instructions; schedule contracts; permissions,
+tools, external egress and automatic behaviour; and compatibility, benefits,
+regressions, risks, residual risks and rollback.
+Creating system files requires current lineage and a completed
 reply containing `APPROVE SYSTEM FILES` as a standalone line. The result remains
-an inactive candidate.
+an inactive candidate with `status=candidate_not_active`.
 
 Activation is a later decision that names the exact validated proposal version,
 passing evidence, residual risks, and rollback. Keeping it inactive remains a
 valid choice.
 
-Do not propose a schedule while inactive. Even after activation, schedule
-registration requires a versioned, expiring standing contract, a no-write
-simulation, and the exact three-line approval specified by the active system.
-Registration must not trigger an immediate run. A scheduled run uses fresh
-lineage, performs at most the approved scan/research sequence, creates no course
-materials, and ends at Gate 2B unless the lecturer manually extends it.
+Do not propose a schedule while inactive. Even after separate activation,
+schedule registration requires a versioned, expiring standing contract and a
+no-write simulation. Freeze that complete contract first, store its
+validator-derived canonical
+SHA-256 snapshot reference, use offset-bearing
+`YYYY-MM-DDTHH:MM:SS+HH:MM[IANA/Timezone]` activation and expiry values, and
+recheck the snapshot, runtime, policy and expiry before registration and every
+recurrence.
+
+Register only after one lecturer reply containing exactly and only these three
+completed lines with actual values matching the visible contract:
+
+```text
+APPROVE SCHEDULES
+Schedule contract: <exact contract ID and version>
+Expires: <exact local date and time with IANA timezone>
+```
+
+The token alone, placeholders, or mismatched values are invalid. Registration
+never triggers an immediate run. A scheduled run uses fresh lineage, performs
+at most the approved scan/research sequence, creates no course materials, and
+ends at Gate 2B unless the lecturer manually extends it.

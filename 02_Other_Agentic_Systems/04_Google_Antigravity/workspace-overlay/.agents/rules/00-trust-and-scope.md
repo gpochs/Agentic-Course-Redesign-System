@@ -18,3 +18,7 @@ action.
   evaluations, small-cell results, and confidential cases by default.
 - Stop and ask the lecturer when state, permissions, rights, audience, or source
   classification is missing, stale, contradictory, or ambiguous.
+- A yes to the post-HITL3 system-review offer authorises only read-only review
+  and a versioned proposal. It does not authorise system writes, access to
+  unrelated personal memory, installation, publication, activation, schedule
+  registration, an immediate run, or any permission change.

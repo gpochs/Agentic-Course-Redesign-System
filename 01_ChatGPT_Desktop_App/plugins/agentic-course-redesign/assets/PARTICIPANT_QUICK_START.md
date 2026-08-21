@@ -73,10 +73,14 @@ storage choice, or tool availability never grants source access or egress.
   targets under `04_Working_Copies/` and `05_Approved/` before production.
 - Independent QA checks pedagogy, assessment, facts, citations, accessibility,
   design, security and packaging.
+- Two separate current-lineage replies declare production complete and approve
+  the exact Production Handoff; the workflow verifies that saved handoff before
+  HITL 3.
 - HITL 3 lets the lecturer accept the finished files or request bounded changes.
-- Only after a successful run may the lecturer choose to validate improvements
-  to the reusable system. Runtime activation and scheduling are later, separate
-  decisions.
+- After final acceptance, the complete system-review question in
+  `01_Control/GATES.md` is recorded and asked once. A separate yes authorises
+  read-only review and one versioned proposal only. System files, installation,
+  publication, activation and scheduling remain later, separate decisions.
 
 Installation alone never reads course files, uploads content, activates a
 runtime or registers a schedule.

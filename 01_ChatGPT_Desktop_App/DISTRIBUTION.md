@@ -1,18 +1,25 @@
 # Distribution and publication boundaries
 
-## Current release state
+## Current candidate and release state
 
-- Package and plugin version: `0.2.1`.
+- Current repository package and plugin release: `0.2.2`, published with
+  matching archive, checksum, inventory and validation evidence; inactive by
+  default and not thereby installed, activated, or scheduled.
 - Public repository:
   <https://github.com/gpochs/Agentic-Course-Redesign-System>.
 - GitHub repository verified public: **yes**.
-- Current repository release: `v0.2.1`.
-- `v0.2.1` tag, release assets and checksums verified: **yes**. It packages
-  plugin `0.2.1`.
-- User-level ChatGPT Desktop/Codex `0.2.1` picker smoke test: **pending** — the
-  package-level checks pass for the `@Agentic Course Redesign` umbrella and the
-  other five direct component entries; live picker evidence requires the
-  `0.2.1` cache to be loaded in a new supported task.
+- Current repository release: `v0.2.2`.
+- `v0.2.1` tag, release assets and checksums remain published. The live release
+  reports `immutable=false`; its attached system validation JSON names and
+  hashes a v0.2.0 archive, so that attachment is not matching v0.2.1 evidence.
+- `v0.2.2` tag and matching release assets: **published**. Installation and its
+  fresh-task picker smoke test remain separate host actions and are not implied
+  by publication.
+- User-level ChatGPT Desktop/Codex `0.2.1` picker smoke test: **complete** — a
+  new supported Codex task loaded the installed cache and invoked the
+  `@Agentic Course Redesign` umbrella; all six bundled skills were available.
+  This is historical evidence for v0.2.1 only, not evidence that v0.2.2 has
+  been installed or loaded.
 - Submitted to OpenAI: **no**.
 - OpenAI safety/security scan completed: **no**.
 - OpenAI review or approval: **no**.
@@ -64,22 +71,28 @@ referenced scripts and project template. They contain no MCP server, connector,
 credential, external-service entitlement, lifecycle hook, screenshot, personal
 memory, or standing automation. Installation alone performs no course action.
 
-The public source is kept separately at
+The v0.2.2 custom and public release runtime trees are kept byte-identical;
+the public source is at
 `openai-submission/source/agentic-course-redesign/`. Reviewer material is kept
 outside that source at `openai-submission/review/`, so it is not accidentally
 included as runtime instruction.
 
 ## Required workshop wording
 
-Describe this release as:
+Describe the current state as:
 
-> a publicly released and locally validated v0.2.1 skills-only repository
-> plugin, installable from its custom marketplace on supported ChatGPT Desktop
-> Work/Codex surfaces, with a separate prepared—but not submitted—OpenAI
-> directory candidate
+> a published v0.2.2 skills-only repository plugin for supported custom-
+> marketplace surfaces, with an inactive-by-default template, explicit
+> production handoff, HITL 3 and proposal-only system-review controls
 
-Do not describe it as available in the universal Plugins Directory until OpenAI
-has approved it and the verified publisher has published it.
+Do not describe v0.2.2 as installed until the exact host installation and
+fresh-task picker verification are complete, or as available in the universal
+Plugins Directory until the separate submission, review and publication steps
+are complete.
+
+Before uploading any later release, run `validation/validate_release_evidence.py`
+against the exact report and archive. Archive name/version, byte count and
+SHA-256 must all match; a passing report for another archive is a failure.
 
 ## Official references
 

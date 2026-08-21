@@ -24,8 +24,12 @@ Before any specialist reads protected course files:
 
 The guided workflow then requires Gate 1, all five preliminary Stage A returns,
 HITL 1, deeper research and reconciliation, HITL 2, an approved production
-blueprint, independent artefact QA and HITL 3. No old gate approval carries to a
-new run, source set, policy version, context version or plan version.
+blueprint, independent artefact QA, two separate current-lineage production
+completion/handoff replies, independent handoff verification and HITL 3. After
+HITL 3 final acceptance the exact system-review question is asked once; only a
+separate affirmative response authorises read-only review and one versioned
+proposal. No old gate approval carries to a new run, source set, policy version,
+context version or plan version.
 
 After a successful course run, the lecturer may choose a separate reusable-
 system review. Any proposed change must remain an inactive, versioned candidate

@@ -26,7 +26,14 @@ EXPECTED_SKILLS = {
     "course-redesign-system",
 }
 RUNTIME_TREES = (".codex-plugin", "assets", "scripts", "skills")
-DISALLOWED_MANIFEST_KEYS = {"apps", "mcpServers", "hooks"}
+DISALLOWED_MANIFEST_KEYS = {
+    "apps",
+    "mcpServers",
+    "hooks",
+    "connectors",
+    "authentication",
+    "permissions",
+}
 DISALLOWED_FILES = {".app.json", ".mcp.json"}
 REQUIRED_OWNER_MARKERS = {
     "[VERIFIED_PUBLISHER_NAME]",
@@ -141,7 +148,7 @@ def main() -> int:
     interface = manifest.get("interface", {})
 
     check("stable package name", manifest.get("name") == "agentic-course-redesign")
-    check("v0.2.1 semantic version", manifest.get("version") == "0.2.1")
+    check("v0.2.2 semantic version", manifest.get("version") == "0.2.2")
     check(
         "valid package name syntax",
         bool(re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,63}", str(manifest.get("name", "")))),
@@ -149,7 +156,10 @@ def main() -> int:
     check("repository URL matches requested release", manifest.get("repository") == EXPECTED_REPOSITORY)
     check("author name present", bool(manifest.get("author", {}).get("name")))
     check("skills path declared", manifest.get("skills") == "./skills/")
-    check("no MCP/app/hook manifest keys", not (set(manifest) & DISALLOWED_MANIFEST_KEYS))
+    check(
+        "no MCP/app/hook/connector/authentication/permission manifest keys",
+        not (set(manifest) & DISALLOWED_MANIFEST_KEYS),
+    )
     check("no screenshots in skills-only interface", "screenshots" not in interface)
     check("directory category", interface.get("category") == "Education & Research")
     check("umbrella plugin display name", interface.get("displayName") == "Agentic Course Redesign")
@@ -161,7 +171,8 @@ def main() -> int:
     check("capability count and shape", isinstance(capabilities, list) and len(capabilities) <= 20 and all(isinstance(item, str) and 0 < len(item) <= 120 for item in capabilities))
 
     prompts_path = REVIEW / "starter-prompts.json"
-    review_prompts = json.loads(prompts_path.read_text(encoding="utf-8"))["prompts"]
+    prompts_payload = json.loads(prompts_path.read_text(encoding="utf-8"))
+    review_prompts = prompts_payload["prompts"]
     manifest_prompts = interface.get("defaultPrompt", [])
     prompts_valid = (
         manifest_prompts == review_prompts
@@ -170,6 +181,7 @@ def main() -> int:
         and all(isinstance(item, str) and "@" not in item and "\n" not in item and 0 < len(item) <= 128 for item in manifest_prompts)
     )
     check("starter prompts match and meet final limits", prompts_valid)
+    check("starter prompt version matches manifest", prompts_payload.get("version") == manifest.get("version"))
 
     for field in ("logo", "composerIcon"):
         declared = interface.get(field, "")
@@ -216,12 +228,52 @@ def main() -> int:
         / "course-redesign-orchestrator"
         / "SKILL.md"
     ).read_text(encoding="utf-8")
+    system_skill = (
+        PUBLIC_PLUGIN / "skills/course-redesign-system/SKILL.md"
+    ).read_text(encoding="utf-8")
     check(
         "flattened picker has one full-workflow umbrella entry",
         'display_name: "Agentic Course Redesign"' in umbrella_metadata
         and "$course-redesign-orchestrator" in umbrella_metadata
         and "## Umbrella entry routing" in umbrella_skill
-        and "$course-redesign-setup" in umbrella_skill,
+        and "$course-redesign-setup" in umbrella_skill
+        and all(
+            status in umbrella_skill
+            for status in ("offered_awaiting_response", "requested", "declined")
+        )
+        and "APPROVE SYSTEM FILES" in system_skill
+        and "A token-only reply is" in system_skill,
+    )
+    public_state = json.loads(
+        (
+            PUBLIC_PLUGIN
+            / "assets/project-template/01_Control/state.json"
+        ).read_text(encoding="utf-8")
+    )
+    offer_gate = public_state.get("run_template", {}).get("approvals", {}).get(
+        "system_improvement_review_offer", {}
+    )
+    check("public template uses state schema 7", public_state.get("schema_version") == 7)
+    check("public template remains inactive", public_state.get("status") == "candidate_not_active")
+    check("public template registers no schedule", public_state.get("schedules") == [])
+    check(
+        "preview-only migration helper is bundled",
+        public_state.get("schema_compatibility", {}).get("migration_mode") == "preview_only"
+        and (
+            PUBLIC_PLUGIN / "scripts/migrate_state_v6_to_v7.py"
+        ).is_file(),
+    )
+    check(
+        "complete post-HITL3 review question and proposal-only authority",
+        offer_gate.get("ask_exactly_once") is True
+        and "schedule_contracts" in offer_gate.get("required_question_scope", [])
+        and set(offer_gate.get("authority_on_request", {}).get("authorises", []))
+        == {
+            "read_only_review_of_current_system_and_successful_run_evidence",
+            "prepare_one_versioned_system_improvement_proposal",
+        }
+        and "register_or_modify_schedule"
+        in offer_gate.get("authority_on_request", {}).get("does_not_authorise", []),
     )
 
     cases = json.loads((REVIEW / "test-cases.json").read_text(encoding="utf-8"))
@@ -233,6 +285,16 @@ def main() -> int:
     check("at least three complete negative cases", len(negatives) >= 3 and all(negative_fields <= set(case) for case in negatives))
     ids = [case["id"] for case in positives + negatives]
     check("unique reviewer case IDs", len(ids) == len(set(ids)))
+    check("reviewer case version matches manifest", cases.get("version") == manifest.get("version"))
+    check(
+        "reviewer cases cover final sequence and authority",
+        {
+            "P07_PRODUCTION_CLOSE_AND_HITL3",
+            "P08_POST_HITL3_SYSTEM_REVIEW_OFFER",
+            "N07_SKIP_PRODUCTION_HANDOFF",
+            "N08_REVIEW_YES_IS_NOT_WRITE_AUTHORITY",
+        }.issubset(ids),
+    )
 
     checklist = (REVIEW / "LISTING_METADATA_CHECKLIST.md").read_text(encoding="utf-8")
     check("all owner markers are explicit", all(marker in checklist for marker in REQUIRED_OWNER_MARKERS))

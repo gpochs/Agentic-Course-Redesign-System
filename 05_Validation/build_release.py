@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import zipfile
 from pathlib import Path
 
@@ -13,6 +14,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DIST = ROOT / "dist"
 ARCHIVE_ROOT = "Agentic-Course-Redesign-System"
+VERSION_PATH = ROOT / "03_Shared_Workflow_Core" / "VERSION"
+SEMVER = re.compile(r"^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$")
 EXCLUDED_PARTS = {
     ".git",
     ".mypy_cache",
@@ -33,6 +36,13 @@ def sha256_bytes(data: bytes) -> str:
 
 def sha256(path: Path) -> str:
     return sha256_bytes(path.read_bytes())
+
+
+def current_version() -> str:
+    version = VERSION_PATH.read_text(encoding="utf-8").strip()
+    if not SEMVER.fullmatch(version):
+        raise ValueError(f"invalid current version in {VERSION_PATH}: {version!r}")
+    return version
 
 
 def source_files() -> list[Path]:
@@ -78,6 +88,11 @@ def add_bytes(archive: zipfile.ZipFile, data: bytes, arcname: str) -> None:
 
 
 def build(version: str) -> dict[str, object]:
+    expected_version = current_version()
+    if version != expected_version:
+        raise ValueError(
+            f"release version {version!r} does not match canonical core version {expected_version!r}"
+        )
     paths = source_files()
     inventory = inventory_bytes(paths, version)
     DIST.mkdir(parents=True, exist_ok=True)
@@ -98,6 +113,7 @@ def build(version: str) -> dict[str, object]:
     return {
         "schema_version": 1,
         "pass": bad_member is None,
+        "release_version": version,
         "archive": archive_path.relative_to(ROOT).as_posix(),
         "archive_bytes": archive_path.stat().st_size,
         "archive_sha256": archive_hash,
@@ -111,9 +127,12 @@ def build(version: str) -> dict[str, object]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--version", default="0.2.1")
+    parser.add_argument("--version", default=current_version())
     args = parser.parse_args()
-    result = build(args.version)
+    try:
+        result = build(args.version)
+    except ValueError as exc:
+        parser.error(str(exc))
     print(json.dumps(result, indent=2))
     return 0 if result["pass"] else 1
 

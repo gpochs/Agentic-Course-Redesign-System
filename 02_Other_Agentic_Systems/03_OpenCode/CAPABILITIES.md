@@ -4,6 +4,8 @@
 
 - Active project instructions through root `AGENTS.md`.
 - Portable skill discovery from `.claude/skills/course-redesign/`.
+- The portable core's complete Gate 0-through-HITL3 sequence, verified
+  production handoff, and proposal-only post-HITL3 system-review offer.
 - Ten project-local subagents in `.opencode/agents/`.
 - Ordered agent permissions that deny every action first and then allow only
   `read`, `glob`, `grep`, and the `course-redesign` skill.
@@ -25,4 +27,3 @@ The permission rules are defense in depth; the shared state capsule, source
 policy, gate sequence, and lecturer decision rights remain mandatory. If a host
 version does not recognize these current V2 fields, do not fall back to a
 broader agent—stop and review the version-specific documentation.
-

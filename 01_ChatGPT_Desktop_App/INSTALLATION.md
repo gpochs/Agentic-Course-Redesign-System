@@ -2,10 +2,15 @@
 
 ## Status first
 
-Version `0.2.1` is published at
+Version `0.2.2` is the current repository release at
 <https://github.com/gpochs/Agentic-Course-Redesign-System> as a custom
 repository marketplace for supported surfaces. The plugin is not in
 OpenAI's universal Plugins Directory and has not passed OpenAI review.
+
+The `v0.2.2` release source is inactive by default. Publishing it does not
+install or enable the plugin, activate a reusable runtime, register a schedule,
+or begin a course run. Report an installation only after the supported plugin
+manager and a fresh-task picker check confirm that exact version.
 
 ## Supported custom-marketplace route
 
@@ -48,7 +53,7 @@ An installed app or CLI build that exposes repository marketplaces may use
 this pinned public source:
 
 ```text
-codex plugin marketplace add gpochs/Agentic-Course-Redesign-System --ref v0.2.1
+codex plugin marketplace add gpochs/Agentic-Course-Redesign-System --ref v0.2.2
 ```
 
 Then restart the ChatGPT desktop app, select the new marketplace source, install
@@ -57,9 +62,10 @@ actually exposes `codex plugin marketplace`. Otherwise use the supported
 ChatGPT Desktop marketplace UI or the portable project-template fallback; an
 absent command is not evidence of successful installation.
 
-The release host currently has a verified user-level `0.2.0` installation in
-its ChatGPT Desktop/Codex profile. The `0.2.1` umbrella entry is package-tested;
-live picker evidence requires the new cache and a new supported task.
+The last verified pre-release session exposed the user-level `0.2.1` plugin
+cache. That historical umbrella test is not evidence that `0.2.2` is installed.
+After installing `0.2.2`, start a fresh task and verify the umbrella plus all six
+bundled skills before reporting the installation complete.
 This does not automatically install the plugin for other users, devices,
 accounts or workspaces.
 

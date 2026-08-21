@@ -70,9 +70,11 @@ jobs:
           PYTHONDONTWRITEBYTECODE: "1"
         shell: bash
         run: |
-          python 05_Validation/build_release.py --version 0.2.1 > "$RUNNER_TEMP/first.json"
+          python 05_Validation/build_release.py --version 0.2.2 > "$RUNNER_TEMP/first.json"
           first=$(python -c "import json, os; print(json.load(open(os.path.join(os.environ['RUNNER_TEMP'], 'first.json')))['archive_sha256'])")
-          python 05_Validation/build_release.py --version 0.2.1 > "$RUNNER_TEMP/second.json"
+          python 05_Validation/build_release.py --version 0.2.2 > "$RUNNER_TEMP/second.json"
           second=$(python -c "import json, os; print(json.load(open(os.path.join(os.environ['RUNNER_TEMP'], 'second.json')))['archive_sha256'])")
           test "$first" = "$second"
-          python 05_Validation/validate_release.py dist/Agentic-Course-Redesign-System_v0.2.1.zip
+          report="$RUNNER_TEMP/system-release-validation-v0.2.2.json"
+          python 05_Validation/validate_release.py --expected-version 0.2.2 --report "$report" dist/Agentic-Course-Redesign-System_v0.2.2.zip
+          python 01_ChatGPT_Desktop_App/validation/validate_release_evidence.py --report "$report" --archive dist/Agentic-Course-Redesign-System_v0.2.2.zip --expected-version 0.2.2

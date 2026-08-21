@@ -9,7 +9,13 @@ Course-material acceptance and system activation are separate decisions. Never u
 
 ## Improvement proposal
 
-After HITL 3, compare actual run evidence with the current skills, agents, project template, state schema, validators, and documentation. Propose changes under a unique proposal ID/version with:
+Begin only after the current run records verified production completion, a
+verified Production Handoff, HITL 3 final acceptance, the orchestrator's exact
+post-run review question, and a separate affirmative lecturer response. That
+response authorises only a read-only comparison of actual run evidence with the
+current skills, agents, project template, state schema, validators, schedule
+contracts, and documentation, followed by a versioned proposal under a unique
+proposal ID/version with:
 
 - problem demonstrated by the run;
 - affected system files;
@@ -22,9 +28,18 @@ After HITL 3, compare actual run evidence with the current skills, agents, proje
 
 Do not include course content, answer keys, personal data, or copyrighted assets in the reusable plugin.
 
+An affirmative review response does not authorise system-file creation or
+editing, installation, publication, runtime activation, schedule registration,
+or any scheduled run. Those remain separate later decisions.
+
 ## System gate and validation
 
 Create changes only in an inactive candidate. Validate manifests, JSON/TOML/YAML, skill structure, setup preview/apply/no-overwrite behaviour, manifest hashing, lineage rejection, gate ceilings, answer-key boundaries, target restrictions, retry rules, and documentation. Forward-test in a disposable course folder and verify the original candidate and test fixtures remain unchanged.
+
+Candidate system files require a completed current-lineage lecturer reply bound
+to the visible proposal ID/version, validation evidence and exact targets, with
+`APPROVE SYSTEM FILES` as an exact standalone line. A token-only reply is
+invalid.
 
 The System Gate may approve an activation-ready candidate, but never activates it. Record the exact proposal ID/version, validation run and evidence, residual risk, and rollback reference.
 
@@ -37,6 +52,8 @@ Activation requires a later lecturer decision naming the exact validated proposa
 Do not register a schedule until the runtime is active and the contract binds to that exact activated version. Present a complete versioned contract containing course/project, task type, canonical mission, goals/non-goals, success/stop criteria, tools/actions, source classes, audiences, source-policy version/fingerprint, assessment-security boundary, protected root, timezone, recurrence, gate ceilings, retry/escalation/termination rules, unique output naming, no-immediate-run rule, activation reference, and non-null expiry.
 
 Run a no-write simulation first: no registration, trigger, web call, or file change.
+
+Freeze the complete visible contract before approval. Store its validator-derived canonical SHA-256 as `approved_contract_snapshot_reference`, use offset-bearing `YYYY-MM-DDTHH:MM:SS+HH:MM[IANA/Timezone]` activation and expiry values, and recheck the snapshot, runtime, policy and expiry before registration and every recurrence.
 
 Register only after one lecturer reply containing exactly and only these completed lines with matching values:
 

@@ -15,6 +15,13 @@ Use @../../01_Control/GATES.md together with @../../AGENTS.md.
   `03_Research/YYYY-MM-DD_<run-id>/`.
 - Only Gate 3 can approve typed exact material targets under
   `04_Working_Copies/` or `05_Approved/`.
+- After every named artefact gate and QA check, require the current-lineage
+  `DECLARE PRODUCTION COMPLETE` reply, then the separately completed matching
+  `APPROVE PRODUCTION HANDOFF` reply with the repeated exact target. Reopen and
+  verify the saved handoff before HITL 3.
+- Only unconditional current-lineage HITL 3 acceptance permits the mandatory
+  separate system-review offer. Conditional acceptance returns for correction
+  and a fresh HITL 3 decision.
 - Stop at every lecturer gate. Never create a second unlabeled approval pause or
   infer authority from a planned workflow step.
 - The orchestrator alone may persist approved workflow metadata. Specialist

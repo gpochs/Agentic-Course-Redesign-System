@@ -1,5 +1,8 @@
 # Validation
 
+The aggregate inactive-candidate evidence is recorded in
+`VALIDATION_REPORT_v0.2.2.md`.
+
 These checks treat the repository and generated archive as a public software
 release, not as a private course workspace.
 
@@ -9,8 +12,9 @@ Run from the repository root with Python 3.11 or newer:
 python 05_Validation/validate_repository.py
 python -m unittest discover -s 05_Validation/tests -v
 python 03_Shared_Workflow_Core/scripts/validate_state.py 03_Shared_Workflow_Core/course-project-template/01_Control/state.json
-python 05_Validation/build_release.py --version 0.2.1
-python 05_Validation/validate_release.py dist/Agentic-Course-Redesign-System_v0.2.1.zip
+python 05_Validation/build_release.py --version 0.2.2
+python 05_Validation/validate_release.py --expected-version 0.2.2 --report dist/system-release-validation-v0.2.2.json dist/Agentic-Course-Redesign-System_v0.2.2.zip
+python 01_ChatGPT_Desktop_App/validation/validate_release_evidence.py --report dist/system-release-validation-v0.2.2.json --archive dist/Agentic-Course-Redesign-System_v0.2.2.zip --expected-version 0.2.2
 ```
 
 The final release gate also runs platform-specific validators documented in
@@ -24,3 +28,13 @@ course names, project paths and unique content markers with
 `build_release.py` creates a deterministic source ZIP, SHA-256 sidecar and
 machine-readable inventory under ignored `dist/`. It never installs an adapter,
 publishes a repository, submits a plugin or activates a runtime.
+
+`validate_release.py` binds the archive filename, requested release version,
+embedded inventory schema/version/membership/hashes, sidecar digest and
+versioned report name. It creates a report exclusively: the destination must
+not already exist, collide with the archive, sidecar or external inventory, or
+be a source-tree path outside ignored `dist/`. Use a fresh report path, or
+explicitly remove a disposable generated report only after verifying its exact
+target. `validate_release_evidence.py` then compares the generated report with
+the selected archive's name, version, byte count and SHA-256 so stale evidence
+cannot be attached under a newer filename.
