@@ -173,6 +173,25 @@ class RepositorySemanticTests(unittest.TestCase):
             },
         )
 
+    def test_ci_fetches_tags_and_builds_the_canonical_release_version(self) -> None:
+        workflow = (ROOT / ".github" / "workflows" / "validate.yml").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("fetch-depth: 0", workflow)
+        self.assertIn(
+            "version=$(tr -d '\\r\\n' < 03_Shared_Workflow_Core/VERSION)",
+            workflow,
+        )
+        self.assertIn('--version "$version"', workflow)
+        self.assertIn('--expected-version "$version"', workflow)
+        for stale_release_reference in (
+            "--version 0.2.2",
+            "--expected-version 0.2.2",
+            "Agentic-Course-Redesign-System_v0.2.2.zip",
+            "system-release-validation-v0.2.2.json",
+        ):
+            self.assertNotIn(stale_release_reference, workflow)
+
 
 if __name__ == "__main__":
     unittest.main()
