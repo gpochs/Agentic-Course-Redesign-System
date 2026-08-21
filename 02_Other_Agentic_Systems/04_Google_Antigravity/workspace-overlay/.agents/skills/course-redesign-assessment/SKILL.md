@@ -5,7 +5,11 @@ description: Design and audit constructively aligned, valid, fair, feasible, tra
 
 # Course Redesign Assessment
 
-Do not assume a national scale, pass threshold, language level, or assessment format. Capture and preserve the current course's approved rules.
+Do not assume a national scale, pass threshold, language level, academic level,
+grade-based model or assessment format. Adapt to school, vocational,
+professional, higher-education or other supplied contexts and capture the
+current course's approved rules, including competency/pass/fail systems where
+applicable.
 
 ## Live alignment ledger
 
@@ -16,7 +20,7 @@ From the first specialist scan, map every stated or inferred outcome to:
 - student evidence;
 - assessment component and criterion;
 - cognitive demand;
-- points/weight and grade conversion;
+- points/weight and grade, competency or completion conversion;
 - AI/non-AI condition;
 - accessibility/accommodation; and
 - learner and marker workload.
@@ -25,7 +29,7 @@ Separate current, proposed, superseded, incomplete, teacher-only, and student-fa
 
 ## Assessment design
 
-For each component define purpose, stakes, construct, task, conditions, duration, permitted resources, AI boundary, evidence of individual learning, authentication, submission, criteria, raw marks, partial credit, weighting, grade conversion, moderation, and fallback/accommodation route.
+For each component define purpose, stakes, construct, task, conditions, duration, permitted resources, AI boundary, evidence of individual learning, authentication, submission, criteria, raw marks or competency evidence, partial credit where applicable, weighting, grade/competency/completion conversion, moderation or verification, and fallback/accommodation route.
 
 When group work is graded, require individually attributable evidence and an individual final grade unless the lecturer explicitly approves another policy.
 
@@ -51,4 +55,4 @@ Do not treat AI output as evidence of student competence. Where AI is permitted,
 - Calibrate markers before and during marking; record boundary decisions.
 - Audit reliability, fairness, language demand, accessibility, time pressure, security, and marking workload.
 
-Return the updated ledger, student-facing assessment overview, detailed rubrics, teacher marking guidance, grade-conversion evidence, validity risks, and decisions requiring lecturer approval.
+Return the updated ledger, learner-facing assessment overview, detailed rubrics or competency criteria, assessor/facilitator guidance, conversion evidence where applicable, validity risks, and decisions requiring lecturer approval.

@@ -8,7 +8,13 @@ course-redesign workflow contract. The project subagents under
 contracts. Do not infer that the presence of these files activates a runtime,
 authorizes a gate, permits network access, or grants a write target.
 
+Apply the portable Gate 0A before source discovery. Public availability alone
+is not AI-processing authority; route institution-internal/restricted material
+without revealing paths, filenames, or content unless this exact environment,
+scope, and expiry are approved. Never resume a terminal `complete_dormant` run;
+only a fresh trigger creates new lineage, and trigger guidance creates no task
+or automation.
+
 If the import or skill cannot be resolved, state that limitation and read the
 project files directly. Never replace the portable safety boundary with a
 weaker implicit default.
-

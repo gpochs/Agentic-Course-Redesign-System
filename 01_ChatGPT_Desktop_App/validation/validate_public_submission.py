@@ -148,7 +148,7 @@ def main() -> int:
     interface = manifest.get("interface", {})
 
     check("stable package name", manifest.get("name") == "agentic-course-redesign")
-    check("v0.2.2 semantic version", manifest.get("version") == "0.2.2")
+    check("v0.2.3 semantic version", manifest.get("version") == "0.2.3")
     check(
         "valid package name syntax",
         bool(re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,63}", str(manifest.get("name", "")))),
@@ -235,8 +235,10 @@ def main() -> int:
         "flattened picker has one full-workflow umbrella entry",
         'display_name: "Agentic Course Redesign"' in umbrella_metadata
         and "$course-redesign-orchestrator" in umbrella_metadata
-        and "## Umbrella entry routing" in umbrella_skill
-        and "$course-redesign-setup" in umbrella_skill
+        and "### Umbrella entry, Gate 0A and Gate 0" in umbrella_skill
+        and "course-redesign-setup" in umbrella_skill
+        and "public availability alone is" in umbrella_skill
+        and "complete_dormant" in umbrella_skill
         and all(
             status in umbrella_skill
             for status in ("offered_awaiting_response", "requested", "declined")
@@ -253,14 +255,60 @@ def main() -> int:
     offer_gate = public_state.get("run_template", {}).get("approvals", {}).get(
         "system_improvement_review_offer", {}
     )
-    check("public template uses state schema 7", public_state.get("schema_version") == 7)
+    check("public template uses state schema 8", public_state.get("schema_version") == 8)
     check("public template remains inactive", public_state.get("status") == "candidate_not_active")
     check("public template registers no schedule", public_state.get("schedules") == [])
+    eligibility = public_state.get("material_processing_eligibility", {})
+    check(
+        "pre-source Gate 0A blocks every source-detail operation",
+        eligibility.get("status") == "awaiting_lecturer_declaration"
+        and eligibility.get("gate") == "GATE_0A_MATERIAL_ENVIRONMENT_ELIGIBILITY"
+        and set(eligibility.get("must_precede", []))
+        == {
+            "course_source_path_or_filename_disclosure",
+            "course_source_listing",
+            "course_source_read",
+            "course_source_copy",
+            "course_source_hash",
+            "course_source_or_context_intake",
+        }
+        and eligibility.get("material_scope", {}).get(
+            "public_availability_alone_is_insufficient"
+        )
+        is True
+        and eligibility.get("material_scope", {}).get(
+            "allowed_sensitivity_classifications"
+        )
+        == [
+            "non_sensitive",
+            "institution_internal_or_restricted",
+            "student_personal_data",
+            "institution_internal_or_restricted_and_student_personal_data",
+            "mixed_or_uncertain",
+        ]
+        and eligibility.get("material_scope", {}).get(
+            "allowed_assessment_security_classifications"
+        )
+        == [
+            "no_protected_assessment_material",
+            "contains_protected_assessment_or_answer_key_material",
+            "mixed_or_uncertain",
+        ],
+    )
+    adaptive = public_state.get("adaptive_course_scope", {})
+    check(
+        "course-independent adaptive scope is explicit",
+        adaptive.get("adapt_to_supplied_material_context_level_learners_objectives_assessment_language_and_constraints")
+        is True
+        and adaptive.get("subject_level_qualification_and_institutional_policy_assumptions_forbidden")
+        is True
+        and len(adaptive.get("supported_contexts", [])) == 5,
+    )
     check(
         "preview-only migration helper is bundled",
         public_state.get("schema_compatibility", {}).get("migration_mode") == "preview_only"
         and (
-            PUBLIC_PLUGIN / "scripts/migrate_state_v6_to_v7.py"
+            PUBLIC_PLUGIN / "scripts/migrate_state_v7_to_v8.py"
         ).is_file(),
     )
     check(
@@ -274,6 +322,32 @@ def main() -> int:
         }
         and "register_or_modify_schedule"
         in offer_gate.get("authority_on_request", {}).get("does_not_authorise", []),
+    )
+    run_template = public_state.get("run_template", {})
+    closeout = next(
+        (
+            item
+            for item in run_template.get("manual_stage_authority", {}).get(
+                "transition_rules", []
+            )
+            if item.get("trigger") == "explicit_system_improvement_review_response"
+        ),
+        {},
+    )
+    trigger_guidance = run_template.get("approvals", {}).get(
+        "trigger_guidance_offer", {}
+    )
+    check(
+        "explicit response closes terminal and guidance never automates",
+        closeout.get("requires_explicit_response") is True
+        and closeout.get("silence_behavior") == "remain_waiting_without_decision"
+        and "complete_dormant" in run_template.get("allowed_run_statuses", [])
+        and run_template.get("termination", {}).get("never_resume_after_terminal") is True
+        and trigger_guidance.get("informational_only") is True
+        and trigger_guidance.get("optional_schedule_guidance", {}).get(
+            "no_immediate_run"
+        )
+        is True,
     )
 
     cases = json.loads((REVIEW / "test-cases.json").read_text(encoding="utf-8"))
@@ -293,6 +367,12 @@ def main() -> int:
             "P08_POST_HITL3_SYSTEM_REVIEW_OFFER",
             "N07_SKIP_PRODUCTION_HANDOFF",
             "N08_REVIEW_YES_IS_NOT_WRITE_AUTHORITY",
+            "P09_GATE0A_PRIVATE_AUTHORISED",
+            "P10_APPROVED_INSTITUTIONAL_ENVIRONMENT",
+            "P11_ADAPTIVE_COURSE_SCOPE",
+            "N09_PUBLIC_ACCESS_ALONE",
+            "N10_INTERNAL_PERSONAL_ROUTE_ONLY",
+            "N11_MIXED_OR_UNCERTAIN_GATE0A",
         }.issubset(ids),
     )
 

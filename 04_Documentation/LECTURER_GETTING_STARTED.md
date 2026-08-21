@@ -3,7 +3,23 @@
 You do not need to write a master prompt. The installed skill or project
 adapter should guide the setup conversationally.
 
-## 1. Create one project per course
+## 1. Confirm the processing environment before sharing a path
+
+The orchestrator first asks Gate 0A questions without requesting a course path.
+State whether the material is privately owned, rightsholder-authorised,
+appropriately licensed/public, institution-internal/restricted, mixed or
+uncertain; also confirm AI-processing authority for the selected provider,
+sensitivity and assessment security.
+
+On a personal or unmanaged system, public availability alone is not enough.
+Proceed only for privately owned/rightsholder-authorised or appropriately
+licensed/public material with explicit processing authority. For internal or
+restricted institutional material, use only an institution-approved exact
+environment and record its current policy reference, scope and expiry. Product
+availability and institutional policy can change, so verify them at the time
+of use. Mixed or uncertain material must be segregated or the run stops.
+
+## 2. Create one project per course
 
 In ChatGPT Desktop, Codex or another supported agentic workspace, create a new
 project for one course. Create or select a short isolated folder on your
@@ -17,7 +33,7 @@ Store protected, copyrighted or assessment material there only if the relevant
 institutional and rights rules permit it. Do not point the system at a broad
 home, drive or multi-course folder.
 
-## 2. Install or copy the correct adapter
+## 3. Install or copy the correct adapter
 
 - ChatGPT Desktop/Work/Codex: follow `01_ChatGPT_Desktop_App/README.md`.
 - GitHub Copilot, Claude Code, OpenCode or Antigravity: use only the matching
@@ -27,7 +43,7 @@ An adapter is not activated merely because its source exists in this
 repository. Review its overlay and copy it into the one course workspace using
 the documented preview-first route.
 
-## 3. Add course evidence
+## 4. Add course evidence
 
 Put copied current materials in `00_Source_Materials/`, including relevant
 plans, slides, workbooks, assessments and keys. Put programme requirements,
@@ -38,7 +54,7 @@ Keep originals elsewhere. Add no unrelated course. Exclude student personal
 data, identifiable submissions, grades, credentials and secrets unless a
 separately approved institutional workflow explicitly permits them.
 
-## 4. Start the guided run
+## 5. Start the guided run
 
 Start a new task in the course project and say:
 
@@ -54,7 +70,7 @@ specialist reads protected files, review the exact source manifest, source
 classes, data and rights statement, teacher-only assessment boundary,
 permitted roles/tools/egress, output audiences and actual workspace.
 
-## 5. Make the decisions
+## 6. Make the decisions
 
 The lecturer remains the expert in the loop:
 
@@ -78,7 +94,14 @@ Saying yes permits only that review and a versioned proposal. A validated
 system change, publication or installation, runtime activation and an expiring
 schedule are later, separate decisions.
 
-## 6. Keep control
+The lecturer must explicitly accept or decline the review offer. After that
+answer, an accepted course run is closed as complete and dormant and cannot be
+resumed. The orchestrator then offers one short explanation of how to start a
+fresh run manually and how an optional schedule can be planned for a named
+course, timezone, recurrence and expiry. The offer itself neither starts a run
+nor creates automation.
+
+## 7. Keep control
 
 At any time you may pause, narrow scope or reject a proposal. Silence, a prior
 approval, installation, a schedule or a tool's availability never authorises a

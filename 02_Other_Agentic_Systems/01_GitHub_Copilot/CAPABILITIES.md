@@ -9,8 +9,9 @@
 - Ten project custom agents in `.github/agents/*.agent.md`.
 - The portable skill in `.claude/skills/course-redesign/` supplied by the core
   overlay.
-- The portable core's complete Gate 0-through-HITL3 sequence, verified
-  production handoff, and proposal-only post-HITL3 system-review offer.
+- The portable core's pre-source Gate 0A and complete Gate 0-through-HITL3
+  sequence, verified production handoff, explicit terminal dormant lifecycle,
+  and proposal-only post-HITL3 system-review offer.
 - Read-only specialist discovery and reporting with `read` and `search` tools.
 
 ## Unsupported or intentionally omitted
@@ -25,6 +26,8 @@
   surface-dependent.
 - Course-material writes, publication, schedule registration, or reusable
   runtime activation.
+- Any source discovery before Gate 0A, or any automatic continuation of a
+  `complete_dormant` run. Trigger guidance is informational only.
 
 If a later project needs research or exact-target production, define and review
 that course-specific authority separately after the relevant lecturer gate; do

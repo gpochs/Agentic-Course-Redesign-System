@@ -1,18 +1,19 @@
 # Google Antigravity adapter for Agentic Course Redesign
 
-Adapter version `0.2.2` is a project-local, course-agnostic inactive candidate
-that retains provenance to the validated `agentic-course-redesign` base v0.1.0
-while reconciling the shared v0.2.2 workflow-completeness contract. It makes
-Gate 0 umbrella routing, verified production handoff before HITL 3, durable
-schema-7 recovery, and the mandatory proposal-only system-review offer
-explicit. It does not activate any runtime or schedule. It contains one complete
+Adapter version `0.2.3` is a project-local, course-independent inactive
+candidate reconciled to shared candidate `ACR-SYS-20260821-005` v0.2.3. It
+adapts to the lecturer-supplied subject, educational level, learners,
+objectives, assessment, language, constraints, and material formats. It makes
+pre-source Gate 0A, verified production handoff before HITL 3, durable schema-8
+recovery, terminal `complete_dormant` closeout, and the proposal-only system-
+review lifecycle explicit. It does not activate any runtime or schedule. It contains one complete
 one-course workspace overlay with root `AGENTS.md`, native rules, slash
 workflows, six Agent Skills, ten read-only custom subagents, source-integrity
 helpers, and the inactive Gate/state scaffold.
 
 Machine-readable release identity is exposed at the top level of
 `adapter-manifest.json` as platform `google-antigravity`, adapter version
-`0.2.2`, and status `candidate_not_active`.
+`0.2.3`, and status `candidate_not_active`.
 
 It does **not** install or access Antigravity, change global configuration or
 IDE permissions, activate a runtime, register a schedule, connect an MCP
@@ -68,8 +69,11 @@ overlay contents into one exact new course-workspace root.
    workflows, skills, and custom subagents. Confirm that each custom subagent
    exposes only `view_file` and `grep_search`. Do not enable global
    customizations or optional privileged examples.
-8. Add authorised copies, then invoke `/course-redesign-start`. Review Gate 0
-   before substantive protected-file reading or specialist analysis.
+8. Invoke `/course-redesign-start` before disclosing source paths or filenames.
+   Review and fingerprint Gate 0A using only category-level declarations. Add
+   authorised copies only after that gate permits this exact environment, then
+   review Gate 0 before substantive protected-file reading or specialist
+   analysis.
 
 The installer is copy-only, verifies SHA-256 after each copy, and refuses
 conflicts, broad targets, symlink targets, and targets within or above this
@@ -88,8 +92,9 @@ adapter. It performs no app action or runtime activation.
   wrappers. Each is subagent-only, inherits the selected model, loads the
   orchestrator constraints, permits only `view_file` and `grep_search`, disables
   command execution and MCP inheritance, and has no MCP or plugin dependency.
-- `workspace-overlay/01_Control/`: schema-7 inactive state and gate templates.
-- `workspace-overlay/.agents/skills/course-redesign-setup/scripts/migrate_state_v6_to_v7.py`:
+- `workspace-overlay/01_Control/`: schema-8 inactive state, Gate-0A eligibility
+  template, and gate templates.
+- `workspace-overlay/.agents/skills/course-redesign-setup/scripts/migrate_state_v7_to_v8.py`:
   preview-only migration helper with no apply or write path.
 - `optional-privileged-examples/`: disabled hook/MCP examples outside the
   overlay and all auto-discovery paths.
@@ -109,14 +114,15 @@ the exact ten-role roster, read-only agent tool allowlists, file-size limits,
 manifest hashes, JSON and Python syntax, secret-like material, absence of active
 hooks/MCP/plugins, inactive state, empty schedules, source/tool/egress controls,
 Gate 2B/Gate 3 target boundaries, production-handoff-before-HITL3 order,
-schema-7 resume and proposal-only review-offer controls, preview-only migration,
+schema-8 Gate-0A, dormant-run, trigger-guidance, and proposal-only review-offer
+controls, preview-only migration,
 installer preview/apply/no-overwrite, and optional-example disablement. Static
 PASS does not prove Antigravity runtime behaviour; see
 `OFFICIAL_LIMITATIONS.md`.
 
 ## Source and licence
 
-`adapter-manifest.json` records the actual SHA-256 values of every validated
-v0.1.0 source file used and every adapter output covered by integrity checks.
-The source was read only. Adapted material remains under the included MIT
+`adapter-manifest.json` records the actual SHA-256 values of the shared v0.2.3
+canonical files used and every adapter output covered by integrity checks. The
+shared source was read only. Adapted material remains under the included MIT
 licence; third-party and data boundaries are in `THIRD_PARTY_NOTICES.md`.

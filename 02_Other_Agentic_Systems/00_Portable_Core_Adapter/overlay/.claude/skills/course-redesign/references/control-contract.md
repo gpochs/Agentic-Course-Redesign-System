@@ -11,11 +11,30 @@ decision names its proposal ID and version.
 The orchestrator alone persists approved workflow metadata. Specialists never
 edit project state, course sources, research dossiers, or materials.
 
+## Pre-source processing eligibility
+
+Gate 0A precedes source enumeration, filename/path disclosure, opening,
+hashing, copying, or analysis. Record a versioned eligibility decision and its
+canonical SHA-256 fingerprint for the intended environment and processing
+scope. In a personal or unmanaged environment, permit only privately owned or
+rightsholder-authorised material, or appropriately licensed/public material
+whose licence or other authority explicitly covers the intended AI processing.
+Public availability, classroom use, or a link alone is not sufficient.
+
+Institution-internal or restricted material is route-only unless the record
+contains an exact institution-approved environment reference, authorised
+scope, and non-expired approval. Route-only handling may state the required
+environment class but must not expose a source path, filename, title, excerpt,
+manifest, or content. Any mixed or uncertain collection is blocked until every
+component has one eligible route. Eligibility does not grant source-class,
+role, tool, egress, audience, or write permission; Gate 0 still governs those.
+
 ## Required state capsule
 
 Before specialist work, issue one current capsule containing:
 
 - `run_id`, `run_contract_id`, and `run_contract_version`;
+- `material_processing_eligibility_fingerprint`;
 - `task_chat_reference`, or explicit `null` plus the limitation;
 - `shared_context_version`;
 - `source_manifest_fingerprint`;
@@ -52,6 +71,7 @@ bounded replan or lecturer escalation.
 Every return must include:
 
 `return_id`, `run_id`, `run_contract_id`, `run_contract_version`,
+`material_processing_eligibility_fingerprint`,
 `task_chat_reference`, `shared_context_version`,
 `source_manifest_fingerprint`, `source_access_policy_version`,
 `source_access_policy_fingerprint`, `source_classes_used`,
@@ -83,3 +103,10 @@ Default specialist definitions remain read-only. If a host cannot enforce a
 course-specific exact writable root, use a reviewed manual or interactive write
 step. Never modify protected sources or publish from this workflow.
 
+After accepted HITL 3, silence on the recorded improvement-review offer keeps
+the run waiting. An explicit requested or declined response completes the
+course run as `complete_dormant`, records its terminal reason and timestamp,
+and clears it as the active run. A requested review creates or continues only
+separate system-proposal state; it never reopens the course run. A new course
+run requires a fresh manual or separately authorised scheduled trigger and
+fresh eligibility, source, policy, contract, and gate lineage.

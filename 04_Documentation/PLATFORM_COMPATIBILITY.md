@@ -21,3 +21,10 @@ No adapter commits a fixed model ID, account entitlement, credential, MCP
 server, hook, external connector or schedule. Users may select the strongest
 available model in their own account, but model selection is a user/platform
 setting rather than a portable repository guarantee.
+
+Gate 0A is platform-independent. A consumer or personal account is not assumed
+to be suitable for institution-internal material. Institution-provisioned AI,
+institution-managed coding assistants and institution-approved self-hosted or
+API deployments with appropriate contractual controls are conditional routing
+examples only; their availability, cost, scope and policy approval must be
+verified from current institutional and provider sources.

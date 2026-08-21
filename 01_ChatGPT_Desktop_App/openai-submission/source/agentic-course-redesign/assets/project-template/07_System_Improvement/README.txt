@@ -1,6 +1,5 @@
-Use this area only after verified production handoff, current-lineage HITL 3
-final acceptance, the recorded one-time complete-scope review offer, and a
-separate affirmative response. That response authorises read-only review and
-one versioned proposal only. Course acceptance or review consent does not
-authorise system-file changes, installation, publication, activation, or a
-schedule. Exact candidate files still require the separate System Gate.
+Store separately authorised proposed changes to skills, agents, schemas,
+validators, or plugin files here only after the successful course run is
+terminal `complete_dormant` and its explicit review response requested system
+work. The closed course run never resumes. Course acceptance and review request
+do not themselves authorise file changes or activate the system.

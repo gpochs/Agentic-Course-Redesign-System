@@ -1,21 +1,22 @@
 {
-  "schema_version": 7,
+  "schema_version": 8,
   "plugin_id": "agentic-course-redesign",
-  "plugin_version": "0.2.2",
+  "plugin_version": "0.2.3",
   "status": "candidate_not_active",
   "state_owner": "course_design_orchestrator",
   "umbrella_entry_routing": {
     "entry_name": "Agentic Course Redesign",
     "entry_skill": "course-redesign-orchestrator",
-    "initial_gate": "GATE_0_AWAITING_BOUNDARY_CONFIRMATION",
+    "initial_gate": "GATE_0A_AWAITING_MATERIAL_ENVIRONMENT_ELIGIBILITY",
     "missing_project_action": "invoke_course-redesign-setup_preview_only",
+    "gate_0a_required_before_any_course_source_path_filename_list_read_copy_hash_or_intake": true,
     "gate_0_required_before_course_source_reading": true,
     "gate_0_required_before_specialist_work": true
   },
   "schema_compatibility": {
-    "current_schema_version": 7,
-    "minimum_preview_migration_source_version": 6,
-    "migration_helper": "scripts/migrate_state_v6_to_v7.py",
+    "current_schema_version": 8,
+    "minimum_preview_migration_source_version": 7,
+    "migration_helper": "scripts/migrate_state_v7_to_v8.py",
     "migration_mode": "preview_only",
     "automatic_apply_forbidden": true,
     "preserve_during_preview": [
@@ -24,9 +25,110 @@
       "active_run_id",
       "existing_run_ids_and_lineage",
       "source_manifest_and_access_policy",
+      "run_and_schedule_history",
       "permissions_and_tool_egress_boundaries",
       "activation_and_schedule_registration_status"
+    ],
+    "migration_reconfirmation_requirements": [
+      "material_processing_eligibility",
+      "every_nonterminal_run",
+      "every_schedule_before_future_trigger"
     ]
+  },
+  "adaptive_course_scope": {
+    "supported_contexts": [
+      "school",
+      "vocational_education_and_training",
+      "professional_learning",
+      "higher_education",
+      "other_lecturer_defined"
+    ],
+    "adapt_to_supplied_material_context_level_learners_objectives_assessment_language_and_constraints": true,
+    "subject_level_qualification_and_institutional_policy_assumptions_forbidden": true
+  },
+  "material_processing_eligibility": {
+    "schema_version": 1,
+    "eligibility_id": null,
+    "eligibility_version": 1,
+    "status": "awaiting_lecturer_declaration",
+    "allowed_statuses": [
+      "awaiting_lecturer_declaration",
+      "approved",
+      "route_only",
+      "failed_closed"
+    ],
+    "gate": "GATE_0A_MATERIAL_ENVIRONMENT_ELIGIBILITY",
+    "must_precede": [
+      "course_source_path_or_filename_disclosure",
+      "course_source_listing",
+      "course_source_read",
+      "course_source_copy",
+      "course_source_hash",
+      "course_source_or_context_intake"
+    ],
+    "source_detail_prohibition_before_approval": [
+      "no_source_paths",
+      "no_source_filenames",
+      "no_source_lists",
+      "no_source_content",
+      "no_source_hashes"
+    ],
+    "environment": {
+      "category": null,
+      "allowed_categories": [
+        "personal_or_unmanaged",
+        "approved_institutional_exact_environment"
+      ],
+      "exact_environment_reference": null,
+      "institutional_policy_reference": null,
+      "approved_scope": null,
+      "policy_expires_at": null
+    },
+    "material_scope": {
+      "declared_category": null,
+      "allowed_categories": [
+        "privately_owned_or_rightsholder_authorised",
+        "appropriately_licensed_or_public_with_explicit_ai_processing_authority",
+        "institution_internal_or_restricted",
+        "mixed",
+        "uncertain"
+      ],
+      "ai_processing_authority_confirmed": false,
+      "public_availability_alone_is_insufficient": true,
+      "contains_institution_internal_or_restricted_material": null,
+      "contains_student_personal_data": null,
+      "sensitivity_classification": null,
+      "allowed_sensitivity_classifications": [
+        "non_sensitive",
+        "institution_internal_or_restricted",
+        "student_personal_data",
+        "institution_internal_or_restricted_and_student_personal_data",
+        "mixed_or_uncertain"
+      ],
+      "assessment_security_classification": null,
+      "allowed_assessment_security_classifications": [
+        "no_protected_assessment_material",
+        "contains_protected_assessment_or_answer_key_material",
+        "mixed_or_uncertain"
+      ],
+      "assessment_security_handling_authorised": null
+    },
+    "decision": {
+      "outcome": null,
+      "allowed_outcomes": [
+        "proceed",
+        "route_only",
+        "fail_closed_until_segregated",
+        "fail_closed_until_clarified"
+      ],
+      "reason": null,
+      "approved_processing_scope": null
+    },
+    "fingerprint_method": "sha256_utf8_canonical_json_sorted_keys_no_insignificant_whitespace_excluding_fingerprint_and_approval_metadata",
+    "fingerprint": null,
+    "lecturer_declaration_reference": null,
+    "recorded_at": null,
+    "reconfirmation_required": true
   },
   "course": {
     "title": null,
@@ -36,15 +138,20 @@
     "course_language": null,
     "grading_system": null,
     "timezone": null,
-    "canonical_sources_confirmed": false
+    "canonical_sources_confirmed": false,
+    "educational_context_type": null,
+    "discipline_or_subject": null,
+    "qualification_or_framework": null,
+    "adaptation_inputs_confirmed": false
   },
   "source_manifest": null,
   "source_access_policy": {
     "status": "pending_lecturer_confirmation",
     "version": 0,
+    "material_processing_eligibility_fingerprint": null,
     "fingerprint": null,
     "fingerprint_method": "sha256_utf8_canonical_json_sorted_keys_no_insignificant_whitespace",
-    "fingerprint_payload": "version_plus_per_source_classifications_role_tool_egress_permissions_output_audiences_and_exclusions_without_the_fingerprint_or_approval_metadata",
+    "fingerprint_payload": "material_processing_eligibility_fingerprint_plus_version_per_source_classifications_role_tool_egress_permissions_output_audiences_and_exclusions_without_the_fingerprint_or_approval_metadata",
     "manifest_is_integrity_not_access_control": true,
     "allowed_source_classes": [
       "student_safe",
@@ -74,8 +181,8 @@
   },
   "setup": {
     "mode": "linear_guided",
-    "current_gate": "GATE_0_AWAITING_BOUNDARY_CONFIRMATION",
-    "next_permitted_action": "collect_candidate_gate_0_boundaries"
+    "current_gate": "GATE_0A_AWAITING_MATERIAL_ENVIRONMENT_ELIGIBILITY",
+    "next_permitted_action": "collect_category_only_gate_0a_declaration_without_source_paths_filenames_lists_content_or_hashes"
   },
   "activation": {
     "allowed_statuses": [
@@ -85,6 +192,7 @@
     ],
     "validation_run_id": null,
     "required_before_active": [
+      "gate_0a_recorded",
       "gate_0_recorded",
       "gate_1_recorded",
       "gate_2a_recorded",
@@ -98,6 +206,7 @@
       "production_handoff_verified",
       "hitl_3_accepted",
       "system_improvement_review_offer_requested",
+      "matching_course_run_terminal_complete_dormant",
       "system_update_approved",
       "read_only_smoke_test_passed",
       "assessment_security_smoke_test_passed",
@@ -116,7 +225,8 @@
         "matching_run_production_completion_complete",
         "matching_run_production_handoff_verified",
         "matching_run_hitl_3_accepted",
-        "matching_run_system_improvement_review_offer_requested"
+        "matching_run_system_improvement_review_offer_requested",
+        "matching_run_terminal_complete_dormant_and_not_active"
       ],
       "proposal_id": null,
       "proposal_version": null,
@@ -130,6 +240,7 @@
         "run_contract_version",
         "task_chat_reference",
         "shared_context_version",
+        "material_processing_eligibility_fingerprint",
         "source_manifest_fingerprint",
         "source_access_policy_version",
         "source_access_policy_fingerprint",
@@ -147,6 +258,7 @@
         "run_contract_version": null,
         "task_chat_reference": null,
         "shared_context_version": null,
+        "material_processing_eligibility_fingerprint": null,
         "source_manifest_fingerprint": null,
         "source_access_policy_version": null,
         "source_access_policy_fingerprint": null,
@@ -208,6 +320,11 @@
       "activation_decision_reference": null,
       "match_rule": "top_level_status_must_be_active_and_schedule_contract_runtime_id_and_version_must_match_the_separately_activated_validated_runtime"
     },
+    "required_material_processing_eligibility": {
+      "fingerprint": null,
+      "match_rule": "must_be_non_null_and_match_current_approved_gate_0a_before_simulation_registration_and_every_trigger",
+      "change_requires_schedule_reconfirmation": true
+    },
     "required_completed_approval_lines": [
       "APPROVE SCHEDULES",
       "Schedule contract: <exact contract ID and version>",
@@ -242,12 +359,24 @@
       "manual",
       "scheduled"
     ],
-    "trigger": null,
+    "trigger": {
+      "trigger_id": null,
+      "trigger_type": null,
+      "allowed_trigger_types": [
+        "manual",
+        "scheduled"
+      ],
+      "created_at": null,
+      "creates_fresh_run_and_lineage": true,
+      "material_processing_eligibility_fingerprint": null,
+      "standing_schedule_contract_reference": null
+    },
     "status": "not_started",
     "allowed_run_statuses": [
       "not_started",
       "active",
       "waiting_at_gate",
+      "complete_dormant",
       "completed",
       "handed_off",
       "failed_safe",
@@ -280,14 +409,17 @@
         },
         {
           "trigger": "fresh_hitl3_acceptance_after_verified_production_handoff",
-          "authorises_through": "SYSTEM_REVIEW_OFFER",
-          "purpose": "materials_acceptance_and_mandatory_system_review_question_only",
+          "authorises_through": "SYSTEM_REVIEW_RESPONSE",
+          "purpose": "materials_acceptance_and_mandatory_system_review_question_and_explicit_response_only",
           "does_not_authorise_candidate_activation": true
         },
         {
-          "trigger": "fresh_system_improvement_review_request",
-          "authorises_through": "SYSTEM_GATE",
-          "purpose": "read_only_system_review_and_versioned_proposal_only",
+          "trigger": "explicit_system_improvement_review_response",
+          "authorises_through": "RUN_CLOSEOUT",
+          "purpose": "record_requested_or_declined_then_close_course_run_complete_dormant",
+          "requires_explicit_response": true,
+          "silence_behavior": "remain_waiting_without_decision",
+          "system_improvement_work_is_separate": true,
           "does_not_authorise_system_file_changes": true,
           "does_not_authorise_candidate_activation": true
         }
@@ -301,7 +433,7 @@
       },
       "history": []
     },
-    "current_gate": "GATE_0_AWAITING_BOUNDARY_CONFIRMATION",
+    "current_gate": "GATE_0A_AWAITING_MATERIAL_ENVIRONMENT_ELIGIBILITY",
     "execution_authority": {
       "current": null,
       "allowed": [
@@ -310,6 +442,8 @@
         "none"
       ],
       "standing_contract_reference": null,
+      "fresh_lineage_required_for_every_trigger": true,
+      "terminal_complete_dormant_never_resumes": true,
       "scheduled_authority_ends_at": "GATE_2B",
       "manual_continuation": {
         "status": "not_approved",
@@ -323,6 +457,7 @@
       "contract_id": null,
       "version": 0,
       "standing_contract_reference": null,
+      "material_processing_eligibility_fingerprint": null,
       "canonical_mission": "Together with the lecturer, produce the strongest defensible, evidence-informed, constructively aligned and feasible redesign of this specific course for its stated learners and context—improving meaningful learning and participation, purposeful AI competence, student experience and valid assessment while preserving worthwhile existing elements and respecting accessibility, workload, rights, privacy and institutional constraints. The lecturer retains every consequential pedagogical decision.",
       "main_goal": null,
       "non_goals": [],
@@ -333,6 +468,16 @@
       "permitted_actions": [],
       "approved_source_classes": [],
       "approved_output_audiences": [],
+      "adaptation_inputs": {
+        "educational_context_type": null,
+        "discipline_or_subject": null,
+        "learner_level": null,
+        "objectives_framework": null,
+        "assessment_model": null,
+        "course_language": null,
+        "constraints": []
+      },
+      "course_context_assumptions_forbidden": true,
       "source_access_policy_version": null,
       "source_access_policy_fingerprint": null,
       "lecturer_reserved_assessment_decisions": [
@@ -365,6 +510,7 @@
         "00_Source_Materials",
         "00_Context"
       ],
+      "material_processing_eligibility_fingerprint": null,
       "source_manifest_fingerprint": null,
       "source_access_policy_version": null,
       "source_access_policy_fingerprint": null,
@@ -373,15 +519,26 @@
       "changes_since_contract_approval": []
     },
     "approvals": {
+      "gate_0a": {
+        "approval_id": null,
+        "status": "pending",
+        "basis": "category_only_material_and_exact_processing_environment_declaration",
+        "material_processing_eligibility_fingerprint": null,
+        "lecturer_declaration_reference": null,
+        "validation_status": "not_run",
+        "recorded_at": null
+      },
       "gate_0": {
         "approval_id": null,
         "status": "pending",
         "basis": null,
+        "material_processing_eligibility_fingerprint": null,
         "source_manifest_fingerprint": null,
         "source_access_policy_version": null,
         "source_access_policy_fingerprint": null,
         "lecturer_reply": null,
-        "recorded_at": null
+        "recorded_at": null,
+        "approval_receipt": {"run_id": null, "run_contract_id": null, "run_contract_version": null, "task_chat_reference": null, "shared_context_version": null, "material_processing_eligibility_fingerprint": null, "source_manifest_fingerprint": null, "source_access_policy_version": null, "source_access_policy_fingerprint": null, "plan_version": null, "reply_reference": null, "validation_status": "not_run", "recorded_at": null}
       },
       "gate_1": {
         "approval_id": null,
@@ -389,13 +546,16 @@
         "basis": null,
         "run_contract_id": null,
         "run_contract_version": null,
+        "material_processing_eligibility_fingerprint": null,
         "source_manifest_fingerprint": null,
         "source_access_policy_version": null,
         "source_access_policy_fingerprint": null,
         "lecturer_reply": null,
-        "recorded_at": null
+        "recorded_at": null,
+        "approval_receipt": {"run_id": null, "run_contract_id": null, "run_contract_version": null, "task_chat_reference": null, "shared_context_version": null, "material_processing_eligibility_fingerprint": null, "source_manifest_fingerprint": null, "source_access_policy_version": null, "source_access_policy_fingerprint": null, "plan_version": null, "reply_reference": null, "validation_status": "not_run", "recorded_at": null}
       },
       "gate_2a": {
+        "approval_id": null,
         "status": "not_started",
         "entry_preconditions_reference": "coordination.gate_2a_entry_requires",
         "lecturer_reply": null,
@@ -410,9 +570,11 @@
           "lecturer_decision"
         ],
         "role_contracts": [],
-        "recorded_at": null
+        "recorded_at": null,
+        "approval_receipt": {"run_id": null, "run_contract_id": null, "run_contract_version": null, "task_chat_reference": null, "shared_context_version": null, "material_processing_eligibility_fingerprint": null, "source_manifest_fingerprint": null, "source_access_policy_version": null, "source_access_policy_fingerprint": null, "plan_version": null, "reply_reference": null, "validation_status": "not_run", "recorded_at": null}
       },
       "gate_2b": {
+        "approval_id": null,
         "status": "not_started",
         "lecturer_reply": null,
         "selected_change_cards": [],
@@ -440,9 +602,11 @@
           ],
           "course_material_production_authorised": false
         },
-        "recorded_at": null
+        "recorded_at": null,
+        "approval_receipt": {"run_id": null, "run_contract_id": null, "run_contract_version": null, "task_chat_reference": null, "shared_context_version": null, "material_processing_eligibility_fingerprint": null, "source_manifest_fingerprint": null, "source_access_policy_version": null, "source_access_policy_fingerprint": null, "plan_version": null, "reply_reference": null, "validation_status": "not_run", "recorded_at": null}
       },
       "gate_3": {
+        "approval_id": null,
         "status": "not_started",
         "lecturer_reply": null,
         "approved_blueprint_reference": null,
@@ -463,11 +627,14 @@
           "exact_targets_required_before_production": true,
           "gate_2b_research_target_approval_is_not_material_write_authority": true
         },
-        "recorded_at": null
+        "recorded_at": null,
+        "approval_receipt": {"run_id": null, "run_contract_id": null, "run_contract_version": null, "task_chat_reference": null, "shared_context_version": null, "material_processing_eligibility_fingerprint": null, "source_manifest_fingerprint": null, "source_access_policy_version": null, "source_access_policy_fingerprint": null, "plan_version": null, "reply_reference": null, "validation_status": "not_run", "recorded_at": null}
       },
       "artefact_gate": {
+        "approval_id": null,
         "status": "not_started",
-        "artefacts": []
+        "artefacts": [],
+        "approval_receipt": {"run_id": null, "run_contract_id": null, "run_contract_version": null, "task_chat_reference": null, "shared_context_version": null, "material_processing_eligibility_fingerprint": null, "source_manifest_fingerprint": null, "source_access_policy_version": null, "source_access_policy_fingerprint": null, "plan_version": null, "reply_reference": null, "validation_status": "not_run", "recorded_at": null}
       },
       "production_completion": {
         "status": "not_started",
@@ -484,6 +651,7 @@
           "run_contract_version",
           "task_chat_reference",
           "shared_context_version",
+          "material_processing_eligibility_fingerprint",
           "source_manifest_fingerprint",
           "source_access_policy_version",
           "source_access_policy_fingerprint",
@@ -497,6 +665,7 @@
             "run_contract_version": null,
             "task_chat_reference": null,
             "shared_context_version": null,
+            "material_processing_eligibility_fingerprint": null,
             "source_manifest_fingerprint": null,
             "source_access_policy_version": null,
             "source_access_policy_fingerprint": null,
@@ -516,6 +685,7 @@
             "run_contract_version": null,
             "task_chat_reference": null,
             "shared_context_version": null,
+            "material_processing_eligibility_fingerprint": null,
             "source_manifest_fingerprint": null,
             "source_access_policy_version": null,
             "source_access_policy_fingerprint": null,
@@ -551,6 +721,7 @@
           "run_contract_version",
           "task_chat_reference",
           "shared_context_version",
+          "material_processing_eligibility_fingerprint",
           "source_manifest_fingerprint",
           "source_access_policy_version",
           "source_access_policy_fingerprint",
@@ -562,6 +733,7 @@
           "run_contract_version": null,
           "task_chat_reference": null,
           "shared_context_version": null,
+          "material_processing_eligibility_fingerprint": null,
           "source_manifest_fingerprint": null,
           "source_access_policy_version": null,
           "source_access_policy_fingerprint": null,
@@ -621,6 +793,7 @@
           "run_contract_version": null,
           "task_chat_reference": null,
           "shared_context_version": null,
+          "material_processing_eligibility_fingerprint": null,
           "source_manifest_fingerprint": null,
           "source_access_policy_version": null,
           "source_access_policy_fingerprint": null,
@@ -638,6 +811,7 @@
           "run_contract_version": null,
           "task_chat_reference": null,
           "shared_context_version": null,
+          "material_processing_eligibility_fingerprint": null,
           "source_manifest_fingerprint": null,
           "source_access_policy_version": null,
           "source_access_policy_fingerprint": null,
@@ -654,8 +828,9 @@
         "resume_behavior": {
           "not_offered": "ask_once_only_after_prerequisites_pass_and_persist_offer_first",
           "offered_awaiting_response": "resume_wait_without_reasking",
-          "requested": "continue_read_only_review_and_versioned_proposal_only_without_reasking",
-          "declined": "end_without_system_action_and_do_not_reask",
+          "requested": "close_course_run_complete_dormant_then_continue_separate_read_only_system_work_without_reasking",
+          "declined": "close_course_run_complete_dormant_without_system_action_and_do_not_reask",
+          "silence": "remain_waiting_and_record_no_decision",
           "lineage_mismatch": "fail_closed_and_request_reconfirmation"
         },
         "authority_on_request": {
@@ -674,7 +849,44 @@
           ],
           "candidate_file_changes_require": "separate_system_gate_with_APPROVE SYSTEM FILES",
           "activation_requires": "later_separate_activation_decision",
-          "schedule_requires": "active_matching_runtime_plus_no_write_simulation_and_separate_expiring_schedule_approval"
+          "schedule_requires": "active_matching_runtime_plus_no_write_simulation_and_separate_expiring_schedule_approval",
+          "course_run_must_close_before_separate_system_work": true
+        }
+      },
+      "trigger_guidance_offer": {
+        "status": "not_offered",
+        "allowed_statuses": [
+          "not_offered",
+          "offered"
+        ],
+        "entry_requires": [
+          "system_improvement_review_offer.status_is_requested_or_declined",
+          "run.status_is_complete_dormant",
+          "termination.status_is_complete_dormant",
+          "top_level_active_run_id_is_cleared"
+        ],
+        "offer_exactly_once": true,
+        "informational_only": true,
+        "manual_trigger_guidance": "manual_trigger_available_and_always_creates_fresh_run_and_lineage_bound_to_current_eligibility_fingerprint",
+        "optional_schedule_guidance": {
+          "requires_exact_fields": [
+            "course",
+            "project",
+            "iana_timezone",
+            "recurrence",
+            "non_null_expiry"
+          ],
+          "requires_separate_system_activation_simulation_and_schedule_gates": true,
+          "no_immediate_run": true,
+          "each_recurrence_creates_fresh_run_and_lineage": true
+        },
+        "offer": {
+          "offer_id": null,
+          "run_id": null,
+          "system_improvement_response_reference": null,
+          "offer_reference": null,
+          "offered_at": null,
+          "validation_status": "not_run"
         }
       }
     },
@@ -685,7 +897,9 @@
         "approvals.production_completion.handoff_approval",
         "approvals.production_completion.handoff_verified_at",
         "approvals.hitl_3",
-        "approvals.system_improvement_review_offer"
+        "approvals.system_improvement_review_offer",
+        "termination.status",
+        "approvals.trigger_guidance_offer"
       ],
       "receipt_reference_fields": [
         "approvals.production_completion.declaration.completed_reply.reply_reference",
@@ -693,7 +907,9 @@
         "approvals.production_completion.handoff_verified_at",
         "approvals.hitl_3.decision.final_acceptance_reference",
         "approvals.system_improvement_review_offer.offer.offer_reference",
-        "approvals.system_improvement_review_offer.response.reply_reference"
+        "approvals.system_improvement_review_offer.response.reply_reference",
+        "termination.recorded_at",
+        "approvals.trigger_guidance_offer.offer.offer_reference"
       ],
       "rules": {
         "persist_receipt_before_advancing_next_permitted_action": true,
@@ -701,7 +917,9 @@
         "completed_checkpoint_must_not_repeat": true,
         "resume_from_first_incomplete_checkpoint": true,
         "current_lineage_required_before_resume": true,
-        "lineage_mismatch_fails_closed": true
+        "lineage_mismatch_fails_closed": true,
+        "silence_is_not_a_system_improvement_decision": true,
+        "complete_dormant_is_terminal_and_never_resumable": true
       }
     },
     "shared_context": {
@@ -715,6 +933,7 @@
       "missing_assessment_artifacts_or_rules": [],
       "alignment_ledger_reference": null,
       "lecturer_only_assessment_questions": [],
+      "material_processing_eligibility_fingerprint": null,
       "source_access_policy_version": null,
       "source_access_policy_fingerprint": null,
       "lecturer_decisions": [],
@@ -822,7 +1041,7 @@
         {
           "id": "SOURCE_VERIFICATION",
           "owner": "source_verification_citation_auditor",
-          "role_goal": "Independently verify consequential claims, primary texts, dates, citations, links and the separate rights boundary before Gate 2B and after consequential source corrections.",
+          "role_goal": "Independently verify consequential claims, primary source artefacts, dates, citations, links and the separate rights boundary before Gate 2B and after consequential source corrections.",
           "status": "not_started",
           "depends_on": [
             "COURSE_MAPPING",
@@ -917,6 +1136,7 @@
         "run_contract_version",
         "task_chat_reference",
         "shared_context_version",
+        "material_processing_eligibility_fingerprint",
         "source_manifest_fingerprint",
         "source_access_policy_version",
         "source_access_policy_fingerprint",
@@ -962,6 +1182,7 @@
         "run_contract_version",
         "task_chat_reference_when_present",
         "shared_context_version",
+        "material_processing_eligibility_fingerprint",
         "source_manifest_fingerprint",
         "source_access_policy_version",
         "source_access_policy_fingerprint",
@@ -975,6 +1196,7 @@
         "run_contract_version": null,
         "task_chat_reference": null,
         "shared_context_version": null,
+        "material_processing_eligibility_fingerprint": null,
         "source_manifest_fingerprint": null,
         "source_access_policy_version": null,
         "source_access_policy_fingerprint": null,
@@ -1031,6 +1253,7 @@
         "retry_number": 1,
         "reason": null,
         "shared_context_version": null,
+        "material_processing_eligibility_fingerprint": null,
         "source_manifest_fingerprint": null,
         "source_access_policy_version": null,
         "source_access_policy_fingerprint": null,
@@ -1054,7 +1277,7 @@
       "residual_risks": [],
       "last_evaluated_at": null
     },
-    "next_permitted_action": "obtain_run_contract_and_gate_0_boundaries",
+    "next_permitted_action": "validate_current_gate_0a_eligibility_fingerprint_before_any_source_disclosure_or_access",
     "awaited_lecturer_decision": null,
     "handoff": {
       "latest_path": null,
@@ -1062,6 +1285,7 @@
     },
     "termination": {
       "allowed_statuses": [
+        "complete_dormant",
         "completed",
         "handed_off",
         "failed_safe",
@@ -1070,7 +1294,12 @@
       ],
       "status": null,
       "reason": null,
-      "recorded_at": null
+      "recorded_at": null,
+      "system_improvement_response_reference": null,
+      "active_run_id_cleared_at": null,
+      "never_resume_after_terminal": true,
+      "closeout_requires_explicit_system_improvement_response": true,
+      "silence_remains_waiting": true
     }
   },
   "runs": [],
@@ -1105,8 +1334,10 @@
       "match_rule": "values_must_match_activation.separate_activation_decision_and_top_level_status_active"
     },
     "baseline_approvals": {
+      "gate_0a_approval_id": null,
       "gate_0_approval_id": null,
       "gate_1_approval_id": null,
+      "material_processing_eligibility_fingerprint": null,
       "source_manifest_path": null,
       "source_manifest_fingerprint": null,
       "source_access_policy_version": null,
@@ -1125,6 +1356,8 @@
     "data_egress_boundary": null,
     "permitted_source_classes": [],
     "permitted_output_audiences": [],
+    "material_processing_eligibility_fingerprint": null,
+    "material_processing_eligibility_match_rule": "must_be_non_null_and_match_current_approved_gate_0a_before_simulation_registration_and_every_recurrence",
     "source_access_policy_version": null,
     "source_access_policy_fingerprint": null,
     "source_access_policy_match_rule": "version_and_fingerprint_must_be_non_null_and_match_current_lecturer_confirmed_policy_before_registration_and_every_recurrence",
@@ -1138,6 +1371,8 @@
     "recurrence": [],
     "permitted_actions_before_gate_2a": [
       "create_fresh_run_metadata",
+      "create_fresh_trigger_id_run_id_and_lineage_with_current_material_processing_eligibility_fingerprint",
+      "validate_current_gate_0a_material_processing_eligibility",
       "validate_standing_contract_and_reconfirmation_triggers",
       "verify_source_manifest",
       "verify_current_lecturer_confirmed_source_access_policy",
@@ -1175,6 +1410,7 @@
     ],
     "terminal_rules": {
       "allowed": [
+        "complete_dormant",
         "completed",
         "handed_off",
         "failed_safe",
@@ -1200,6 +1436,7 @@
     "stale_baseline_context_or_manifest_behavior": "mark_triggered_run_failed_safe_stop_and_request_lecturer_reconfirmation",
     "reconfirmation_triggers": [
       "contract_expiry",
+      "material_processing_eligibility_fingerprint_or_environment_policy_scope_expiry_change",
       "canonical_source_or_hash_change",
       "course_context_outcome_or_assessment_change",
       "objective_test_key_rubric_or_source_classification_change",
@@ -1235,7 +1472,8 @@
       "active_runtime_status_and_matching_validated_system_proposal_id_version",
       "project_course_and_standalone_task_type",
       "prompt_and_skill_versions",
-      "still_valid_gate_0_and_gate_1_approval_ids",
+      "still_valid_gate_0a_gate_0_and_gate_1_approval_ids",
+      "non_null_current_material_processing_eligibility_fingerprint",
       "timezone_recurrence_activation_time_and_expiry",
       "permitted_tools_actions_and_data_egress_boundary",
       "non_null_matching_source_access_policy_version_fingerprint_source_classes_output_audiences_and_assessment_security_boundary",
@@ -1255,9 +1493,26 @@
       "completed_reply_reference": null,
       "validation_status": "not_run",
       "recorded_at": null
-    }
+    },
+    "status_transition_receipt": {
+      "status": null,
+      "allowed_statuses": [
+        "paused",
+        "expired",
+        "cancelled"
+      ],
+      "reason": null,
+      "decision_or_detection_reference": null,
+      "recorded_at": null,
+      "future_triggers_disabled": null,
+      "no_course_action": null,
+      "triggered_run_id": null,
+      "preserved_contract_snapshot_reference": null
+    },
+    "status_history": []
   },
   "open_questions": [
+    "Before disclosing any source detail, which material category and exact processing-environment category apply for Gate 0A?",
     "Which learning-objectives file/version is authoritative and current?",
     "What is the current assessment status, purpose, stakes, weighting, grading conversion and pass rule?",
     "Are all supplied assessment files complete, and which are student-facing versus lecturer-only?",

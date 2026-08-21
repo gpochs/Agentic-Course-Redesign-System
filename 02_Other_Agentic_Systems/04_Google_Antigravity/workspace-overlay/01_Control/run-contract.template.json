@@ -24,6 +24,7 @@
       "overturn_or_reopen_a_settled_lecturer_decision_without_new_material_conflict"
     ]
   },
+  "material_processing_eligibility_fingerprint": null,
   "source_manifest_fingerprint": null,
   "source_access_policy_version": null,
   "source_access_policy_fingerprint": null,

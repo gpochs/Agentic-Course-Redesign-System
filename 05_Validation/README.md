@@ -1,7 +1,8 @@
 # Validation
 
-The aggregate inactive-candidate evidence is recorded in
-`VALIDATION_REPORT_v0.2.2.md`.
+The latest published aggregate evidence is
+`VALIDATION_REPORT_v0.2.3.md`. Historical v0.2.2 evidence remains preserved for
+rollback and comparison.
 
 These checks treat the repository and generated archive as a public software
 release, not as a private course workspace.
@@ -12,9 +13,9 @@ Run from the repository root with Python 3.11 or newer:
 python 05_Validation/validate_repository.py
 python -m unittest discover -s 05_Validation/tests -v
 python 03_Shared_Workflow_Core/scripts/validate_state.py 03_Shared_Workflow_Core/course-project-template/01_Control/state.json
-python 05_Validation/build_release.py --version 0.2.2
-python 05_Validation/validate_release.py --expected-version 0.2.2 --report dist/system-release-validation-v0.2.2.json dist/Agentic-Course-Redesign-System_v0.2.2.zip
-python 01_ChatGPT_Desktop_App/validation/validate_release_evidence.py --report dist/system-release-validation-v0.2.2.json --archive dist/Agentic-Course-Redesign-System_v0.2.2.zip --expected-version 0.2.2
+python 05_Validation/build_release.py --version 0.2.3
+python 05_Validation/validate_release.py --expected-version 0.2.3 --report dist/system-release-validation-v0.2.3.json dist/Agentic-Course-Redesign-System_v0.2.3.zip
+python 01_ChatGPT_Desktop_App/validation/validate_release_evidence.py --report dist/system-release-validation-v0.2.3.json --archive dist/Agentic-Course-Redesign-System_v0.2.3.zip --expected-version 0.2.3
 ```
 
 The final release gate also runs platform-specific validators documented in

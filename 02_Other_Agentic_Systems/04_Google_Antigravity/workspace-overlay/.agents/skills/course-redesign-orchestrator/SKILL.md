@@ -1,18 +1,33 @@
 ---
 name: course-redesign-orchestrator
-description: Primary umbrella entry for the lecturer-in-the-loop course-redesign workflow. Route protected setup or a verified existing project through Gate 0, analysis, research, design dialogue, production, independent QA, handoff, lecturer acceptance, and the separate system-review offer.
+description: Primary umbrella entry for the course-independent lecturer-in-the-loop redesign workflow, from pre-source eligibility through approved intake, analysis, research, design, production, QA, acceptance, and terminal closeout.
 ---
 
 # Course Redesign Orchestrator
 
 Behave as an educational consultant. Keep setup mechanics in the background once Gate 0 is complete.
+Adapt to the supplied material, educational context, learner level, objectives,
+assessment, language, and constraints. Do not carry subject, level, or
+institution assumptions from the adapter or an earlier course.
 
-## Umbrella entry and Gate 0
+## Umbrella entry, Gate 0A and Gate 0
 
 - If no isolated project or `01_Control/state.json` exists, use
   `course-redesign-setup`. Preview the exact target, create nothing without
-  approval, and stop at Gate 0 until the manifest and source-access policy are
-  approved.
+  approval, and stop at pre-source Gate 0A.
+- Before any course-source path, filename, list, read, copy, hash, or intake,
+  validate a fingerprinted Gate-0A material/environment eligibility record.
+  Personal/unmanaged processing permits only privately owned/rightsholder-
+  authorised material or appropriately licensed/public material with explicit
+  AI-processing authority. Public availability alone is insufficient. Route
+  institution-internal/restricted material without source/path leakage, and
+  fail closed on mixed/uncertain material until segregated or clarified. An
+  approved institutional exact environment requires policy reference, approved
+  scope, and non-expired expiry.
+- Only after Gate 0A permits this exact processing environment may Gate 0
+  inventory and hash candidate sources. Do not analyse source content or launch
+  specialists until the manifest and source-access policy are approved and
+  bound to the eligibility fingerprint.
 - If a project exists, validate its state and continue only from the recorded
   next permitted action. Missing, stale, contradictory, or invalid state fails
   closed. Never infer approval from another run or task.
@@ -24,7 +39,10 @@ Behave as an educational consultant. Keep setup mechanics in the background once
 ## Invariants
 
 - Read `AGENTS.md` and `01_Control/state.json` before acting.
-- Require matching run ID, run-contract ID/version, task reference, context version, plan version, manifest fingerprint, and source-policy version/fingerprint on every specialist return and gate record.
+- Require matching run ID, run-contract ID/version, task reference, context
+  version, plan version, material-processing eligibility fingerprint, manifest
+  fingerprint, and source-policy version/fingerprint on every specialist return
+  and gate record.
 - The orchestrator alone updates workflow state.
 - Specialists receive bounded subgoals, dependencies, completion criteria, permitted source classes/tools/actions, and audience/security boundaries.
 - Only one corrective retry is allowed for the same role and stage; replanning does not reset it.
@@ -104,6 +122,17 @@ once:
 Use the run ID plus final HITL-3 acceptance reference as the idempotency key.
 Ask only after successful HITL 3; do not ask after conditional acceptance,
 revision, or rejection. On resume, `offered_awaiting_response` means wait
-without asking again; `requested` authorises only the read-only review and one
-versioned proposal; `declined` closes the run without system action. Use
-`course-redesign-system` only after the recorded request.
+silently without asking again or inferring a choice. Once an explicit current-
+lineage `requested` or `declined` response is recorded, atomically mark the
+course run terminal `complete_dormant`, record its termination receipt, clear
+top-level `active_run_id`, and never resume that run. `requested` authorises
+only a separate read-only system review and one versioned proposal; `declined`
+ends system action.
+
+Persist one informational trigger-guidance offer after closeout: a manual
+trigger creates a fresh run and lineage; optional scheduling requires an exact
+course/project, active matching runtime, current eligibility fingerprint,
+timezone, recurrence, non-null expiry, no-write simulation, and separate
+approval, and never triggers an immediate run. The guidance creates or
+registers no task, schedule, hook, connector, permission, or automation. Use
+`course-redesign-system` only after its prerequisites pass.

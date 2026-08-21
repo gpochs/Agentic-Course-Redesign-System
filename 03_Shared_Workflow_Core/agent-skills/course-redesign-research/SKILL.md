@@ -5,7 +5,9 @@ description: Conduct verification-first educational and disciplinary research fo
 
 # Course Redesign Research
 
-Research only an approved focus and only within the current source-access policy.
+Research only an approved focus and only within the current Gate-0A eligibility
+fingerprint and source-access policy. If either lineage value is missing,
+changed or expired, stop before accessing course sources or sending a query.
 
 ## Evidence protocol
 
@@ -41,7 +43,7 @@ Prefer primary and authoritative sources: original texts/editions, official inst
 
 ## Synthesis
 
-Connect evidence to the exact course level, discipline, outcomes, assessment construct, workload, accessibility, and local constraints. Label evidence from another discipline/age group as indirect. Report disagreements and open controls instead of forcing consensus.
+Connect evidence to the exact supplied educational context, course level, discipline, outcomes, assessment construct, workload, accessibility, and local constraints. Treat school, vocational, professional and higher-education contexts as equally valid; label evidence from another context, discipline or learner group as indirect. Report disagreements and open controls instead of forcing consensus.
 
 Finish with a source ledger, claim table, decision implications, limitations, and exact items requiring lecturer judgement or specialist reconciliation.
 

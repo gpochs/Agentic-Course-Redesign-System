@@ -18,12 +18,23 @@ local storage.
 
 ## Lecturer responsibilities
 
+Before the system asks for or inspects a source path, complete Gate 0A. Confirm
+the material basis, explicit authority to process with the selected provider,
+sensitivity, assessment security and any required institution-approved
+environment. Public availability is not by itself processing permission.
+
 Use one isolated project per course. Exclude student personal data,
 submissions, grades, credentials and secrets by default. Before specialist
 analysis, classify source material, confirm processing rights, separate
 teacher-only assessment content, approve permitted tools and egress, and define
 student-facing, lecturer-only and public-safe audiences.
 
+On a personal or unmanaged environment, process only privately owned or
+rightsholder-authorised material, or appropriately licensed/public material
+with explicit AI-processing authority. Do not disclose even paths or filenames
+for institution-internal or restricted content until the exact approved
+institutional environment and policy scope are confirmed. Segregate mixed
+collections; uncertainty blocks processing.
+
 The public repository contains only synthetic validation fixtures. Do not file
 course content or personal data in GitHub issues.
-

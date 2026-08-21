@@ -22,7 +22,7 @@ email address or response-time promise.
 
 Accurately cover at least:
 
-- that this v0.2.2 repository release is skills-only and bundles no publisher-run MCP
+- that the v0.2.3 release is skills-only and bundles no publisher-run MCP
   server, authentication, account, telemetry, or connector;
 - what local or cloud-synchronised course files the host may access when the
   lecturer authorises them;

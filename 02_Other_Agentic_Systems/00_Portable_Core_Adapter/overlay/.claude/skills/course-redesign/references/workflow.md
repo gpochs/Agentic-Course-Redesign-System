@@ -16,11 +16,34 @@ version for consequential replanning. Never use replanning to change the main
 goal, widen permissions, cross a gate, create write authority, reopen a settled
 choice, or weaken a stop condition.
 
-## Gate 0: eligibility and access
+## Gate 0A: pre-source processing eligibility
 
-Inventory sources read-only. Confirm integrity, source classes, rights, role and
-tool access, data egress, output audiences, exclusions, and the versioned source
-access policy. Bind the lecturer's approval to the manifest and policy
+Before source discovery, ask only non-identifying questions needed to classify
+ownership/authorisation, licence and AI-processing authority, institutional
+sensitivity, intended environment, and whether the collection is mixed or
+uncertain. Do not enumerate, open, hash, copy, upload, or describe any course
+file, and do not reveal a path, filename, title, excerpt, or manifest.
+
+In a personal or unmanaged environment, allow privately owned or
+rightsholder-authorised material. Appropriately licensed or public material may
+proceed only when its licence or other explicit authority covers the intended
+AI processing; public availability, classroom use, or a link alone is
+insufficient. Institution-internal or restricted material is route-only unless
+the record names an exact institution-approved environment reference, scope,
+and non-expired approval. Mixed or uncertain material is blocked until every
+component has an eligible route.
+
+Persist the decision as a versioned processing-eligibility record with a
+canonical SHA-256 fingerprint. A pass permits only the next source-boundary
+step; it grants no source, role, tool, egress, audience, write, or gate
+authority. A blocked or route-only result is a hard stop in this environment.
+
+## Gate 0: source access and integrity
+
+Only after a matching Gate 0A pass, inventory sources read-only. Confirm
+integrity, source classes, rights, role and tool access, data egress, output
+audiences, exclusions, and the versioned source-access policy. Bind the
+lecturer's approval to the processing-eligibility, manifest, and policy
 fingerprints. Gate 0 authorizes only preparation of the Gate 1 brief.
 
 ## Gate 1: course brief and run contract
@@ -129,15 +152,26 @@ record and ask this complete question exactly once:
 
 Ask only after successful HITL 3, not after conditional acceptance, revision,
 or rejection. Use the run ID plus final HITL-3 acceptance reference as the
-idempotency key. On resume, `offered_awaiting_response` means wait without
-asking again; `requested` authorises only the read-only review and one versioned
-proposal; `declined` closes the run without system work. Reusable-system work
-may begin only after the recorded separate request.
+idempotency key. On resume, `offered_awaiting_response` means wait silently
+without asking again, completing the run, or inferring a choice. A current-
+lineage explicit `requested` or `declined` response closes the course run as
+terminal `complete_dormant`, records the terminal reason and timestamp, and
+clears `active_run_id`. `requested` authorises only a separate read-only review
+and one versioned proposal; `declined` creates no system work. Reusable-system
+work may begin only after the recorded separate request, and it never reopens
+the completed course run.
+
+After recording `complete_dormant`, offer this informational trigger guidance
+once: future redesign work starts only from a fresh manual trigger, or from a
+fresh scheduled trigger under a separately activated runtime and separately
+approved, unexpired schedule contract. The offer creates or registers no task,
+automation, schedule, hook, connector, permission, or immediate run. Silence on
+the guidance offer requires no follow-up. Never continue the dormant run.
 
 ## Separate reusable-system lifecycle
 
-Course acceptance does not authorize a system change. After a successful run,
-a separately requested improvement review may propose a new proposal ID,
+Course acceptance does not authorize a system change. After a successful,
+terminal dormant run, a separately requested improvement review may propose a new proposal ID,
 version, exact diff, tests, risks, permissions, rollback, and plain-language
 behaviour summary. Compare the workflow skills and umbrella routing; plugin or
 platform adapter; `AGENTS.md` and agent configurations; project template,
@@ -154,8 +188,8 @@ passing evidence, residual risks, and rollback. Keeping it inactive remains a
 valid choice.
 
 Do not propose a schedule while inactive. Even after separate activation,
-schedule registration requires a versioned, expiring standing contract and a
-no-write simulation. Freeze that complete contract first, store its
+schedule registration requires a versioned standing contract with a non-null
+expiry and a no-write simulation. Freeze that complete contract first, store its
 validator-derived canonical
 SHA-256 snapshot reference, use offset-bearing
 `YYYY-MM-DDTHH:MM:SS+HH:MM[IANA/Timezone]` activation and expiry values, and
@@ -172,6 +206,8 @@ Expires: <exact local date and time with IANA timezone>
 ```
 
 The token alone, placeholders, or mismatched values are invalid. Registration
-never triggers an immediate run. A scheduled run uses fresh lineage, performs
-at most the approved scan/research sequence, creates no course materials, and
-ends at Gate 2B unless the lecturer manually extends it.
+never triggers an immediate run. A later scheduled trigger creates a fresh run
+and fresh Gate 0A, source, policy, contract, and gate lineage; it never resumes
+the dormant run. A scheduled run performs at most the approved scan/research
+sequence, creates no course materials, and ends at Gate 2B unless the lecturer
+manually extends it.

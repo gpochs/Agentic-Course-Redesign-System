@@ -1,11 +1,12 @@
 # Agentic Course Redesign System
 
-Version `0.2.2` is the current repository release for lecturer-controlled,
-evidence-led course redesign. Release publication distributes the validated
-skills-only source and matching evidence; it does not install the plugin,
-activate a runtime, register a schedule, or start a course run. The plugin is
-course-agnostic: each run adapts to the approved materials, learner context,
-institutional rules, and assessment system for one course.
+Version `0.2.3` is the validated repository release for lecturer-controlled,
+evidence-led course redesign. Published `v0.2.2` remains the rollback base.
+Publication or installation does not activate a course runtime, register a
+schedule, or start a course run. The system is course-independent: every fresh
+run adapts to the supplied subject,
+level, programme, language, learners, objectives, assessment, delivery mode and
+constraints.
 
 Public repository:
 <https://github.com/gpochs/Agentic-Course-Redesign-System>.
@@ -14,7 +15,7 @@ The historical `v0.2.1` tag, assets and checksums remain unchanged. Its live
 release reports `immutable=false`, and its attached system validation JSON
 describes the older v0.2.0 archive, so that attachment is not accepted as
 matching release evidence. Version `0.2.2` uses an exact-version archive,
-checksum, inventory and validation report. This package has **not been
+checksum, inventory and validation report. The v0.2.3 release has **not been
 submitted to, reviewed by, approved by, or
 published in OpenAI's universal Plugins Directory**.
 
@@ -32,16 +33,16 @@ ChatGPT surfaces and in Codex in the ChatGPT desktop app. The Codex IDE extensio
 does not support plugins. Workspace policy, product access, app version, and
 administrator controls can still restrict installation or sharing.
 
-See `INSTALLATION.md` for the current v0.2.2 local and public GitHub routes. A GitHub
+See `INSTALLATION.md` for the current v0.2.3 local and public GitHub routes. A GitHub
 repository can distribute this custom marketplace, but GitHub publication alone
 cannot create a universal public-directory listing.
 
-The last verified pre-release session exposed the user-level v0.2.1 plugin
-cache. That version structurally validates
-`@Agentic Course Redesign` as the single full-workflow umbrella plus five direct
-component entries; live picker evidence is recorded only after a new supported
-Work/Codex task has loaded the installed cache. Version `0.2.2` needs its own
-post-installation fresh-task smoke test. On builds that flatten skills-only
+Version `0.2.2` was installed and enabled at user level, then verified after a
+desktop restart in a fresh supported task: `@Agentic Course Redesign` loaded as
+the single full-workflow umbrella and all six bundled skills were available.
+That host evidence is the rollback baseline; v0.2.3 requires its own exact-
+version installation and fresh-task check.
+On builds that flatten skills-only
 plugins, the umbrella is the user-facing name of
 `course-redesign-orchestrator`; it routes a new course to protected setup and an
 existing course to its next verified gate.
@@ -55,8 +56,12 @@ The plugin contributes six bundled skills: one umbrella entry plus five focused
 component entries. Together they help a lecturer:
 
 1. create one protected project and isolated folder per course;
-2. classify and hash course, context, assessment, and teacher-only sources;
-3. approve a versioned source-access policy and per-run contract;
+2. complete pre-source Gate 0A before any course path, filename, listing, read,
+   copy or hash, distinguishing material ownership/authority, sensitivity,
+   student personal data, protected assessment/answer-key handling, exact
+   processing environment, and mixed/uncertain cases;
+3. classify and hash eligible course, context, assessment, and teacher-only
+   sources, then approve a versioned source-access policy and per-run contract;
 4. run all five preliminary specialist perspectives before Gate 2A;
 5. research only lecturer-approved focus areas;
 6. reconcile evidence, feasibility, accessibility, workload, AI, and assessment;
@@ -65,21 +70,27 @@ component entries. Together they help a lecturer:
 9. produce one approved artefact at a time with independent QA;
 10. declare production complete, separately approve and verify the exact
     Production Handoff, then accept, revise, or reject at HITL 3;
-11. answer the one-time post-HITL-3 system-review offer, where yes authorises
-    read-only review and one versioned proposal only; and
-12. consider system files, installation, publication, reusable-system activation
+11. answer the one-time post-HITL-3 system-review offer; silence waits, while an
+    explicit request or decline closes the course run terminal
+    `complete_dormant` and it never resumes;
+12. receive one informational manual-fresh-trigger and optional staged-schedule
+    guidance offer, with no registration or trigger; and
+13. consider system files, installation, publication, reusable-system activation
     or scheduling only through later,
     exact-version decisions.
 
 Installing the plugin does not activate a runtime, register a schedule, upload
 course files, or grant blanket write access.
+The repository marketplace's pre-existing `policy.authentication: ON_INSTALL`
+value is host installation-policy metadata, not a bundled authentication
+provider, credential or account integration.
 
 ## Repository layout
 
 - `.agents/plugins/marketplace.json`: custom repo marketplace for Work mode and
   Codex in the ChatGPT desktop app, and for CLI builds that expose marketplace
   discovery.
-- `plugins/agentic-course-redesign/`: v0.2.2 release source with six skills,
+- `plugins/agentic-course-redesign/`: v0.2.3 release source with six skills,
   scripts, project template, tests, and square SVG branding assets.
 - `openai-submission/source/agentic-course-redesign/`: separate skills-only
   public-submission source tree, with no MCP, app, hook, or screenshot payload.
@@ -91,7 +102,14 @@ course files, or grant blanket write access.
 
 ## Privacy and assessment security
 
-The default system remains `candidate_not_active`. Protected sources become
+The default system remains `candidate_not_active` with `schedules=[]`. Gate 0A
+allows personal/unmanaged processing only for owned/rightsholder-authorised or
+appropriately licensed/public material with explicit AI-processing authority;
+public accessibility alone is insufficient. Institution-internal or restricted
+material and student personal data are route-only there; protected assessment
+or answer-key material requires explicit handling authority. Mixed or uncertain
+material, sensitivity or assessment-security classification fails closed.
+Protected sources become
 immutable after the approved manifest; answer keys and unreleased assessments
 remain lecturer-only; data egress requires an exact approved source/role/tool/
 audience policy; and production may write only to typed, lecturer-approved

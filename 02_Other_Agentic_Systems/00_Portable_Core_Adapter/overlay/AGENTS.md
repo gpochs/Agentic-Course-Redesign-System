@@ -20,6 +20,15 @@ role, egress, or output permission.
 ## Default operating boundary
 
 - Start read-only and local to this project.
+- Before enumerating, opening, hashing, copying, or describing course sources,
+  require a current Gate 0A processing-eligibility record and fingerprint.
+  Personal or unmanaged processing may proceed for privately owned or
+  rightsholder-authorised material, or for appropriately licensed/public
+  material only when explicit authority covers the intended AI processing.
+  Public availability alone is insufficient. Mixed or uncertain material is
+  blocked. Institution-internal or restricted material is route-only unless an
+  exact institution-approved environment reference, scope, and expiry match;
+  while routing, reveal no source path, filename, or content.
 - Read `01_Control/state.json` before course analysis when it exists. Perform
   only the current run's `next_permitted_action`.
 - If required control state or lineage is absent, stale, contradictory, or
@@ -38,6 +47,13 @@ role, egress, or output permission.
   read-only system-improvement review required by the workflow. The offer or a
   lecturer's yes authorizes no system edit, installation, publication,
   activation, schedule registration, immediate run, or permission change.
+- Silence after that offer waits without repeating it. Once the lecturer
+  explicitly requests or declines the review, record the response and make the
+  course run terminal `complete_dormant`; a requested review continues only as
+  the separate reusable-system lifecycle. Clear the active course run and do
+  not resume it. Offer manual/optional-automation trigger guidance once for
+  information only; create no task, schedule, hook, or registration. Only a
+  fresh manual or separately authorised scheduled trigger creates a new run.
 
 Use the project skill at `.claude/skills/course-redesign/SKILL.md` for the gate
 sequence, lineage contract, role roster, output boundary, and escalation rules.

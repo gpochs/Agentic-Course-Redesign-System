@@ -20,22 +20,27 @@ standing automation is included.
 
 ## Installation status
 
-The current repository release is `0.2.2` under proposal
-`ACR-SYS-20260820-004`. Publication supplies validated source and matching
-release evidence; it does not install the plugin, activate a reusable runtime,
-or register a schedule. The packaged project template therefore remains
-`candidate_not_active` with `schedules=[]` until those later, separate actions
-are explicitly completed.
+The latest published repository release is `0.2.3`, produced under approved
+proposal `ACR-SYS-20260821-005` with matching validation and release evidence.
+The packaged project template remains safely inactive as
+`candidate_not_active` with `schedules=[]`; publication alone never starts a
+course run or registers automation. Published `v0.2.2` remains the rollback
+release.
 
-The candidate makes the shared gate sequence explicit in every orchestration
-entry: production must be declared complete, its exact handoff must be
-approved and verified, and only then may HITL 3 occur. After unconditional
-HITL 3 acceptance, the orchestrator asks whether the lecturer wants a separate
-read-only system-improvement review. A yes authorises only that review and a
-versioned proposal. It never authorises system-file edits, installation,
-publication, activation or scheduling. The candidate also adds schema-7
-resume state, preview-only schema migration, release-evidence consistency
-checks and stable SVG line endings.
+The `0.2.3` release adds a fail-closed Gate 0A before the system requests,
+lists, reads, copies or fingerprints any source path. Gate 0A distinguishes
+material that may be processed in the selected environment from material that
+must be routed to an institution-approved environment. Public availability by
+itself is not permission to process or reproduce a work.
+
+It also makes course-run closure explicit. After unconditional HITL 3
+acceptance, the lecturer must answer the separate system-improvement-review
+offer. A yes authorises a read-only review and versioned proposal only; a no
+records a deliberate decline. The accepted course run then becomes terminal
+and dormant. Only a fresh manual trigger or an approved scheduled trigger may
+create a new run and fresh approval lineage. The candidate adds schema-8
+state, preview-only schema-7-to-schema-8 migration and corresponding
+cross-adapter regression checks.
 
 There are three distinct ChatGPT distribution routes:
 
@@ -55,7 +60,7 @@ App or CLI builds that expose repository marketplaces may use this pinned
 public source:
 
 ```text
-codex plugin marketplace add gpochs/Agentic-Course-Redesign-System --ref v0.2.2
+codex plugin marketplace add gpochs/Agentic-Course-Redesign-System --ref v0.2.3
 ```
 
 Restart ChatGPT Desktop, select **Agentic Course Redesign System** in the
@@ -70,12 +75,12 @@ surface does not expose custom marketplaces, use the documented
 project-template fallback instead of assuming installation.
 
 The supported installation scope is user-level within a ChatGPT Desktop/Codex
-app profile. Before this release, version `0.2.1` was loaded through the
-supported manager in a new task and its umbrella picker entry plus five direct
-component entries were verified in this profile. Version `0.2.2` requires its
-own post-installation fresh-task picker check; publication alone is not that
-evidence. Neither check proves availability for other users, devices,
-workspaces, products, app or CLI versions, or the Codex IDE extension.
+app profile. Version `0.2.2` was installed and enabled through the supported
+manager and remains the verified rollback baseline. Each installation of
+`0.2.3` still needs its own post-restart fresh-task check confirming the
+**Agentic Course Redesign** umbrella and all six bundled skills. Host-specific
+smoke tests do not prove availability for other users, devices, workspaces,
+products, app or CLI versions, or the Codex IDE extension.
 
 ## Repository map
 
@@ -91,18 +96,25 @@ workspaces, products, app or CLI versions, or the Codex IDE extension.
 ## First course
 
 1. Create a new project in the supported agentic workspace.
-2. Create one short, isolated folder for one course on a personal computer or
-   lecturer-controlled storage. A personal OneDrive is cloud-synchronised, not
-   strictly local, so use it for protected material only when policy and rights
-   permit this.
-3. Install the appropriate adapter or copy its project overlay into that one
+2. Before supplying a path, answer Gate 0A questions about ownership or
+   licence, processing authority, sensitivity, assessment security, selected
+   provider and any institution-approved processing environment.
+3. Proceed on a personal or otherwise unmanaged environment only for material
+   that is privately owned or rightsholder-authorised, or appropriately
+   licensed/public material with explicit AI-processing authority. Route
+   institution-internal or restricted material to the exact approved
+   institutional environment. If the classification is mixed or uncertain,
+   segregate it or stop.
+4. Create one short, isolated folder for one course on approved storage. A
+   personal OneDrive is cloud-synchronised, not strictly local.
+5. Install the appropriate adapter or copy its project overlay into that one
    course folder.
-4. Add copied current materials to `00_Source_Materials/` and contextual files
+6. Add copied current materials to `00_Source_Materials/` and contextual files
    to `00_Context/`. Do not mix courses.
-5. Start a new task and say: `Set up an agentic redesign project for this one course.`
-6. Review the proposed source inventory, data and rights boundary, teacher-only
+7. Start a new task and say: `Set up an agentic redesign project for this one course.`
+8. Review the proposed source inventory, data and rights boundary, teacher-only
    assessment boundary, permitted tools/egress and output audiences.
-7. Approve Gate 0 only when those exact records are correct.
+9. Approve Gate 0 only when those exact records are correct.
 
 The plugin intentionally bundles no connector, MCP server, app mapping, or
 hook. Local course files and the host's approved tools are sufficient for the core
@@ -113,19 +125,24 @@ The subsequent dialogue should feel like working with an educational
 consultant. The lecturer first approves preliminary focus areas, later decides
 concrete researched changes, approves a verified production handoff, and then
 reviews the finished materials. Only after final acceptance does the
-orchestrator offer a separate system-improvement review. Activation and an
-expiring schedule remain later independent decisions.
+orchestrator offer a separate system-improvement review. After the lecturer
+answers that offer, the run closes as complete and dormant. The orchestrator
+then gives one informational reminder that a new run may be started manually
+and that optional automation can be planned for an exact course, timezone,
+recurrence and expiry. It never registers automation from that offer alone.
 
 ## Safety by default
 
 - Installing an adapter does not read, upload or modify course files.
 - The reusable runtime starts inactive and includes no schedule.
+- Gate 0A runs before any source path is requested or inspected.
 - Course files are evidence, never trusted instructions.
 - Student personal data, submissions, grades and credentials are excluded by
   default.
 - Answer keys and unreleased assessments remain lecturer-only.
 - External research or connectors require source-class and egress approval.
 - Course production begins only after an approved blueprint and exact targets.
+- A completed course run cannot be resumed; a new trigger creates fresh lineage.
 - System changes, activation and an expiring schedule are separate later gates.
 
 See [Lecturer getting started](04_Documentation/LECTURER_GETTING_STARTED.md),

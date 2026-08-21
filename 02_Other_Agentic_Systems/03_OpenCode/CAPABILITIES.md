@@ -4,8 +4,9 @@
 
 - Active project instructions through root `AGENTS.md`.
 - Portable skill discovery from `.claude/skills/course-redesign/`.
-- The portable core's complete Gate 0-through-HITL3 sequence, verified
-  production handoff, and proposal-only post-HITL3 system-review offer.
+- The portable core's pre-source Gate 0A and complete Gate 0-through-HITL3
+  sequence, verified production handoff, explicit terminal dormant lifecycle,
+  and proposal-only post-HITL3 system-review offer.
 - Ten project-local subagents in `.opencode/agents/`.
 - Ordered agent permissions that deny every action first and then allow only
   `read`, `glob`, `grep`, and the `course-redesign` skill.
@@ -22,6 +23,8 @@
   required for this adapter.
 - OpenCode installation, activation, account access, or runtime verification.
 - Course-material production, scheduling, or reusable-system activation.
+- Any source discovery before Gate 0A, or automatic continuation of a terminal
+  `complete_dormant` run. Trigger guidance is informational only.
 
 The permission rules are defense in depth; the shared state capsule, source
 policy, gate sequence, and lecturer decision rights remain mandatory. If a host

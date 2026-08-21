@@ -29,7 +29,9 @@ independently executed on a macOS machine.
    default. `--allow-nonempty` is conditional: use it only after the lecturer
    reviews the preview, confirms every existing top-level entry, and approves
    adding the scaffold to that exact folder. It does not permit overwriting;
-   any existing template path still causes a hard failure.
+   any existing template path still causes a hard failure. Existing targets
+   also require the approved Gate-0A record through `--eligibility-record`;
+   without it the helper does not enumerate target contents and refuses apply.
 
 5. Open `~/Courses/Biology/Year2` as a separate Codex project. In Work mode,
    use the same folder and gates only when the current surface can access that
@@ -37,9 +39,10 @@ independently executed on a macOS machine.
    plugin skills. The copied
    `AGENTS.md`, `.codex/config.toml`, custom agent files, state template and
    folder guidance provide the portable workflow even without plugin install.
-6. Copy current course materials into `00_Source_Materials`; put programme,
-   learner, accessibility, assessment and style context in `00_Context`.
-7. Start a task with: `Set up the gated agentic redesign workflow for this one course. Do not read protected files until I approve the manifest and source-access policy.`
+6. Start a task with: `Set up the gated agentic redesign workflow for this one course. Before asking for any source path or filename, complete Gate 0A from the material category, sensitivity and assessment-security classifications and authority, and exact processing environment only.` Public accessibility alone is insufficient; personal/unmanaged processing requires privately owned/rightsholder-authorised or appropriately licensed/public material with explicit AI-processing authority and no internal or student-personal data. Route internal, student-data and unauthorised protected-assessment material without path leakage and fail closed on mixed/uncertain classifications.
+7. Only after Gate 0A permits processing, copy current course materials into
+   `00_Source_Materials`; put programme, learner, accessibility, assessment and
+   style context in `00_Context`.
 8. Review the generated manifest, classifications, policy, tool/egress rules
    and Gate 0 record. Do not paste approval tokens supplied by someone else.
 

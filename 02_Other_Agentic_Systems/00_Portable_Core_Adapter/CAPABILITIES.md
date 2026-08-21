@@ -3,7 +3,8 @@
 ## Supported by the files
 
 - A course-agnostic, project-local instruction envelope.
-- A lecturer-controlled Gate 0, Gate 1, Gate 2A, Gate 2B, Gate 3, artefact,
+- A pre-source Gate 0A processing-eligibility hard stop followed by lecturer-
+  controlled Gate 0, Gate 1, Gate 2A, Gate 2B, Gate 3, artefact,
   production declaration, handoff approval and verification, final HITL 3
   package acceptance, mandatory proposal-only system-review offer, system,
   activation, and scheduling decision model.
@@ -12,6 +13,11 @@
 - A shared ten-role specialist roster and a common return envelope.
 - Manual, read-only first use. A host may analyze local project files only
   within its own available and approved capabilities.
+- A terminal `complete_dormant` course-run state after accepted HITL 3 and an
+  explicit requested or declined improvement-review response. Silence waits;
+  only a fresh trigger creates another run.
+- One informational offer explaining fresh manual triggering and the optional
+  separately governed automation path. It registers and triggers nothing.
 - Git sharing of the templates after human review.
 
 ## Not supported or authorized
@@ -35,5 +41,9 @@
 - Protected sources are immutable.
 - Missing or stale state, lineage, source classification, rights, grading
   rules, or approval causes a stop and lecturer escalation.
+- Public availability alone never proves AI-processing authority. Mixed or
+  uncertain collections fail closed; institution-internal or restricted
+  material is route-only without an exact approved environment reference,
+  scope, and expiry, and routing must not reveal paths, filenames, or content.
 - Specialists are read-only and return proposals to the orchestrator.
 - The lecturer retains every consequential pedagogical and activation decision.

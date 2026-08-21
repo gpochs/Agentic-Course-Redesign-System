@@ -37,16 +37,20 @@ ROLES = {
 }
 SHA256 = re.compile(r"^[0-9a-f]{64}$")
 SOURCE_PATHS = {
-    "SYSTEM_PROPOSAL_v0.1.0.md": "SYSTEM_PROPOSAL_v0.1.0.md",
-    "VALIDATION_REPORT.md": "VALIDATION_REPORT.md",
-    "project-template/AGENTS.md": (
-        "plugins/agentic-course-redesign/assets/project-template/AGENTS.md"
+    "VERSION": "VERSION",
+    "adapter-contract.json": "adapter-contract.json",
+    "course-project-template/AGENTS.md": "course-project-template/AGENTS.md",
+    "course-project-template/01_Control/GATES.md": (
+        "course-project-template/01_Control/GATES.md"
     ),
-    "project-template/01_Control/GATES.md": (
-        "plugins/agentic-course-redesign/assets/project-template/01_Control/GATES.md"
+    "course-project-template/01_Control/material-processing-eligibility.template.json": (
+        "course-project-template/01_Control/material-processing-eligibility.template.json"
+    ),
+    "course-project-template/01_Control/state.json": (
+        "course-project-template/01_Control/state.json"
     ),
     **{
-        f"skills/{name}/SKILL.md": f"plugins/agentic-course-redesign/skills/{name}/SKILL.md"
+        f"agent-skills/{name}/SKILL.md": f"agent-skills/{name}/SKILL.md"
         for name in (
             "course-redesign-assessment",
             "course-redesign-materials",
@@ -56,26 +60,9 @@ SOURCE_PATHS = {
             "course-redesign-system",
         )
     },
-    **{
-        f"agents/{name}.toml": (
-            "plugins/agentic-course-redesign/assets/project-template/.codex/agents/"
-            f"{name}.toml"
-        )
-        for name in (
-            "active-learning-researcher",
-            "ai-integration-researcher",
-            "artefact-accessibility-visual-qa",
-            "assessment-alignment-designer",
-            "course-mapper",
-            "evidence-feasibility-red-team",
-            "learning-designer",
-            "learning-material-designer",
-            "source-verification-citation-auditor",
-            "student-experience-critic",
-        )
-    },
 }
 EXPECTED_GATE_ORDER = [
+    "gate_0a",
     "gate_0",
     "gate_1",
     "hitl_1_gate_2a",
@@ -85,7 +72,8 @@ EXPECTED_GATE_ORDER = [
     "production_declaration",
     "production_handoff_approval_and_verification",
     "hitl_3",
-    "mandatory_system_improvement_review_offer",
+    "mandatory_system_improvement_review_offer_and_explicit_response",
+    "terminal_complete_dormant_closeout_and_trigger_guidance",
     "optional_system_gate",
     "optional_separate_activation",
     "optional_separate_expiring_schedule",
@@ -130,6 +118,37 @@ def validate(source: Path | None = None) -> list[str]:
     else:
         if contract.get("gate_order") != EXPECTED_GATE_ORDER:
             fail(errors, "shared adapter contract gate order is incomplete or reordered")
+        if contract.get("core_version") != "0.2.3":
+            fail(errors, "shared adapter contract core_version must be 0.2.3")
+        if contract.get("state_schema_version") != 8:
+            fail(errors, "shared adapter contract state_schema_version must be 8")
+        routing = contract.get("umbrella_entry_routing", {})
+        if (
+            routing.get("initial_gate")
+            != "GATE_0A_AWAITING_MATERIAL_ENVIRONMENT_ELIGIBILITY"
+            or routing.get(
+                "gate_0a_required_before_any_course_source_path_filename_list_read_copy_hash_or_intake"
+            )
+            is not True
+        ):
+            fail(errors, "shared adapter contract must hard-stop at pre-source Gate 0A")
+        eligibility = contract.get("pre_source_processing_eligibility", {})
+        if (
+            eligibility.get("fingerprinted") is not True
+            or eligibility.get("public_availability_alone_is_insufficient") is not True
+            or eligibility.get("mixed_or_uncertain")
+            != "fail_closed_until_segregated_or_clarified"
+        ):
+            fail(errors, "shared adapter contract weakens processing eligibility")
+        closeout = contract.get("course_run_closeout", {})
+        if (
+            closeout.get("silence_means_waiting") is not True
+            or closeout.get("terminal_status") != "complete_dormant"
+            or closeout.get("never_resume_terminal_run") is not True
+            or closeout.get("manual_or_scheduled_trigger_creates_fresh_run_and_lineage")
+            is not True
+        ):
+            fail(errors, "shared adapter contract weakens terminal dormant closeout")
 
     for folder, agent_dir in ADAPTERS.items():
         base = ROOT / folder
@@ -144,20 +163,22 @@ def validate(source: Path | None = None) -> list[str]:
         except (OSError, json.JSONDecodeError) as exc:
             fail(errors, f"{folder}: invalid manifest: {exc}")
             continue
-        if manifest.get("adapter_version") != "0.2.2":
-            fail(errors, f"{folder}: adapter_version must be 0.2.2")
+        if manifest.get("adapter_version") != "0.2.3":
+            fail(errors, f"{folder}: adapter_version must be 0.2.3")
         if manifest.get("platform") != PLATFORMS[folder]:
             fail(errors, f"{folder}: incorrect or missing normalized platform")
         if manifest.get("status") not in {"candidate_not_active", "template_not_installed"}:
             fail(errors, f"{folder}: status is not a safe normalized value")
         if manifest.get("overlay_root") != "overlay":
             fail(errors, f"{folder}: overlay_root must be overlay")
-        expected_compose = [] if folder == "00_Portable_Core_Adapter" else ["portable-core@0.2.2"]
+        expected_compose = [] if folder == "00_Portable_Core_Adapter" else ["portable-core@0.2.3"]
         if manifest.get("compose_after") != expected_compose:
-            fail(errors, f"{folder}: compose_after is not aligned to portable core 0.2.2")
+            fail(errors, f"{folder}: compose_after is not aligned to portable core 0.2.3")
         provenance = manifest.get("source_provenance", {})
-        if provenance.get("version") != "0.1.0":
-            fail(errors, f"{folder}: validated semantic source version must remain 0.1.0")
+        if provenance.get("system_id") != "ACR-SYS-20260821-005":
+            fail(errors, f"{folder}: source proposal ID must be ACR-SYS-20260821-005")
+        if provenance.get("version") != "0.2.3":
+            fail(errors, f"{folder}: shared semantic source version must be 0.2.3")
         hashes = provenance.get("hashes", {})
         if not hashes or any(
             not isinstance(value, str) or not SHA256.fullmatch(value)
@@ -315,7 +336,12 @@ def validate(source: Path | None = None) -> list[str]:
         workflow_text = workflow_path.read_text(encoding="utf-8")
         workflow_text_normalized = " ".join(workflow_text.split())
         for required in (
-            "## Gate 0: eligibility and access",
+            "## Gate 0A: pre-source processing eligibility",
+            "public availability, classroom use, or a link alone is insufficient",
+            "Institution-internal or restricted material is route-only",
+            "Mixed or uncertain material is blocked",
+            "canonical SHA-256 fingerprint",
+            "## Gate 0: source access and integrity",
             "DECLARE PRODUCTION COMPLETE",
             "APPROVE PRODUCTION HANDOFF",
             "reopen it and verify",
@@ -343,6 +369,12 @@ def validate(source: Path | None = None) -> list[str]:
             "persist the offer record",
             "complete question exactly once",
             "offered_awaiting_response",
+            "wait silently",
+            "terminal `complete_dormant`",
+            "clears `active_run_id`",
+            "informational trigger guidance",
+            "The offer creates or registers no task, automation, schedule, hook, connector, permission, or immediate run",
+            "Never continue the dormant run",
             "idempotency key",
             "APPROVE SYSTEM FILES",
             "status=candidate_not_active",
@@ -351,11 +383,13 @@ def validate(source: Path | None = None) -> list[str]:
             "Schedule contract: <exact contract ID and version>",
             "Expires: <exact local date and time with IANA timezone>",
             "Registration never triggers an immediate run",
+            "A later scheduled trigger creates a fresh run",
         ):
             if required not in workflow_text_normalized:
                 fail(errors, f"portable workflow omits workflow-completeness control: {required}")
         ordered_markers = (
-            "## Gate 0: eligibility and access",
+            "## Gate 0A: pre-source processing eligibility",
+            "## Gate 0: source access and integrity",
             "## Gate 1: course brief and run contract",
             "## Stage A and Gate 2A",
             "## Stage B and Gate 2B",
@@ -393,8 +427,21 @@ if __name__ == "__main__":
             print(f"FAIL: {problem}")
         sys.exit(1)
     source_note = "; all declared source hashes match" if source_arg else ""
+    non_manifest_count = sum(
+        1
+        for folder in ADAPTERS
+        for path in (ROOT / folder).rglob("*")
+        if path.is_file() and path.name != "adapter-manifest.json"
+    )
+    overlay_count = sum(
+        1
+        for folder in ADAPTERS
+        for path in (ROOT / folder / "overlay").rglob("*")
+        if path.is_file()
+    )
     print(
-        "PASS: 4 release-0.2.2 adapters, 48 frozen non-manifest files, 39 overlay "
-        "files, and 30 native role wrappers are project-local, fail-closed, and "
+        f"PASS: 4 release-0.2.3 adapters, {non_manifest_count} frozen non-manifest "
+        f"files, {overlay_count} overlay files, and 30 native role wrappers are "
+        "project-local, fail-closed, and "
         f"hash-consistent{source_note}"
     )

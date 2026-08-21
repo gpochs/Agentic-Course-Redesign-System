@@ -4,10 +4,12 @@ description: Propose and validate course-redesign adapter improvements after a s
 
 # Review the reusable system separately
 
-1. Start only after a valid production declaration, matching handoff approval
+1. Start only after a closed terminal `complete_dormant` run with a valid production declaration, matching handoff approval
    and independent verification, accepted current-lineage HITL 3, and a
-   persisted mandatory system-review offer whose current-run status is
-   `requested`. A stale, missing or mixed-lineage receipt fails closed.
+   persisted mandatory system-review offer whose explicit response is
+   `requested`, a termination receipt, and cleared `active_run_id`. A stale,
+   missing or mixed eligibility/run lineage receipt fails closed. System work
+   is separate and never resumes the course run.
 2. Read root `AGENTS.md` and use the `course-redesign-system` skill.
 3. Compare actual run evidence with workflow skills and umbrella routing;
    plugin or platform adapter; `AGENTS.md`, rules, workflows, agent

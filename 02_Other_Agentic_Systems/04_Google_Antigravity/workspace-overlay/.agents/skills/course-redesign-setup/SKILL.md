@@ -1,12 +1,15 @@
 ---
 name: course-redesign-setup
-description: Set up and verify one protected, project-local Antigravity workspace for the gated course-redesign workflow. Use for the one-course scaffold, source manifest, access policy, control state, or Gate 0.
+description: Set up and verify one protected, project-local Antigravity workspace for the course-independent gated redesign workflow, beginning with pre-source material and processing-environment eligibility.
 ---
 
 # Course Redesign Setup
 
 Set up one course only. Do not combine unrelated courses in one workspace,
 source manifest, access policy, run, or approval record.
+Adapt to the supplied school, vocational, professional, higher-education, or
+other stated context. Assume no discipline, learner level, qualification
+framework, or assessment model.
 
 ## Deployment boundary
 
@@ -32,9 +35,39 @@ target.
   control system, redirecting links/junctions in protected roots, or stale or
   contradictory state.
 
+## Gate 0A before source disclosure
+
+Before asking for, listing, or inspecting any course source path, filename,
+list, content, or hash, ask only for the declared material category and exact
+processing-environment category. Record and fingerprint the eligibility
+decision.
+
+- A personal/unmanaged environment may proceed only for privately owned or
+  rightsholder-authorised material, or appropriately licensed/public material
+  with explicit AI-processing authority. Public availability alone is not
+  authority.
+- Institution-internal/restricted material in that environment is route-only.
+  Reveal no source path, filename, list, content, or hash while routing.
+- Mixed material fails closed until segregated; uncertain material fails closed
+  until clarified.
+- An approved institutional exact environment requires a policy reference,
+  approved scope, and non-expired expiry.
+
+Do not begin course/context intake, copying, inventory, or hashing before the
+approved Gate-0A fingerprint exists.
+
+Create the lecturer-declared record from
+`01_Control/material-processing-eligibility.template.json` without source
+details, then review its canonical payload before recording the fingerprint:
+
+```text
+python .agents/skills/course-redesign-setup/scripts/fingerprint_file.py 01_Control/material-processing-eligibility.json --mode eligibility --show-canonical-payload
+```
+
 ## Conversational intake
 
-Ask only questions that materially affect setup or the first analysis. Establish:
+Ask only questions that materially affect setup or the first analysis. Only
+after Gate 0A permits processing, establish:
 
 1. course title, discipline, level, programme, language, learner profile, and
    group size;
@@ -61,32 +94,31 @@ adapter. Read `AGENTS.md` and run the state validator before acting:
 python .agents/skills/course-redesign-setup/scripts/validate_state.py 01_Control/state.json
 ```
 
-The required initial result is schema 7 with top-level
+The required initial result is schema 8 with top-level
 `candidate_not_active`, no registered schedules, and automatic activation
 forbidden. A failing result is a hard stop, not permission to repair state
 silently.
 
-If an existing workspace still has schema 6, use the project-local helper only
-to preview the canonical schema 7 candidate:
+If an existing workspace still has schema 7, use the project-local helper only
+to preview the canonical schema 8 candidate:
 
 ```text
-python .agents/skills/course-redesign-setup/scripts/migrate_state_v6_to_v7.py 01_Control/state.json
+python .agents/skills/course-redesign-setup/scripts/migrate_state_v7_to_v8.py 01_Control/state.json
 ```
 
 The helper writes the preview to standard output and has no apply or file-write
-path. Review the complete preview, lineage preservation, inactive status, empty
-schedules, and unchanged permissions before any separately authorised
-migration; never migrate silently.
+path. Review the complete preview, run/schedule history preservation, inactive
+status, and unchanged permissions. Gate-0A eligibility and every schedule
+require fresh reconfirmation; never migrate or invent them silently.
 
 ## Gate 0
 
-Before Gate 0, inspect only the minimum needed to prepare the boundary: paths,
-file types, sizes, hashes, lecturer-supplied classifications, and obvious
-filename-based security candidates. Do not open protected substantive content
-for specialist analysis.
-
-After the lecturer places copies in `00_Source_Materials/` and context in
-`00_Context/`:
+Only after the current Gate-0A fingerprint permits this exact processing
+environment may the lecturer place copies in `00_Source_Materials/` and context
+in `00_Context/`. Gate 0 may inspect only the minimum needed to prepare the
+boundary: paths, file types, sizes, hashes, lecturer-supplied classifications,
+and obvious filename-based security candidates. Do not open protected
+substantive content for specialist analysis.
 
 1. create the proposed manifest without replacing an existing one:
 
@@ -94,26 +126,29 @@ After the lecturer places copies in `00_Source_Materials/` and context in
    python .agents/skills/course-redesign-setup/scripts/source_manifest.py create --project . --manifest 01_Control/source-hashes.csv
    ```
 
-2. require the lecturer to correct and confirm every source class, audience,
+2. bind the manifest process to the current Gate-0A eligibility fingerprint;
+   a missing, stale, or non-proceeding eligibility record must fail before
+   source enumeration;
+3. require the lecturer to correct and confirm every source class, audience,
    teacher-only assessment boundary, tool/egress permission, and output
    audience; filename classification is only a candidate;
-3. create a versioned `01_Control/source-access-policy.json` from the supplied
+4. create a versioned `01_Control/source-access-policy.json` from the supplied
    template, then compute and review its canonical payload:
 
    ```text
    python .agents/skills/course-redesign-setup/scripts/fingerprint_file.py 01_Control/source-access-policy.json --mode policy --show-canonical-payload
    ```
 
-4. verify the manifest against the unchanged protected copies:
+5. verify the manifest against the unchanged protected copies:
 
    ```text
    python .agents/skills/course-redesign-setup/scripts/source_manifest.py verify --project . --manifest 01_Control/source-hashes.csv
    ```
 
-5. present the exact manifest target and fingerprint, policy version and
-   fingerprint, classifications, capabilities, rights/data statement, actual
-   workspace, egress boundary, and output audiences; and
-6. wait for explicit Gate 0 approval with matching lineage.
+6. present the exact eligibility, manifest, and policy fingerprints,
+   classifications, capabilities, rights/data statement, actual workspace,
+   egress boundary, and output audiences; and
+7. wait for explicit Gate 0 approval with matching lineage.
 
 Use `--replace` only after the lecturer explicitly approves replacing that exact
 manifest following an authorised source-set change. Gate 0 permits only the

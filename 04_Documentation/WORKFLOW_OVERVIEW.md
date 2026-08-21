@@ -5,6 +5,9 @@
 ```text
 One isolated course project
         |
+Gate 0A: material basis + provider/environment eligibility
+        | eligible here, or route/segregate/stop before source paths
+        |
 Gate 0: sources, data, rights, tools, egress, audiences
         |
 Gate 1: course brief and fresh run contract
@@ -28,12 +31,17 @@ Separate exact handoff approval + independent verification
 HITL 3: lecturer accepts, revises or rejects materials
         |
 Mandatory question: separate read-only system-improvement review?
-        | yes grants review/proposal authority only
-Optional versioned system-improvement proposal + System Gate
+        | explicit yes or no required; silence waits
+Record the explicit response; yes authorises later review only
         |
-Optional later runtime activation
+Close accepted course run as terminal complete_dormant
         |
-Optional still-later expiring schedule contract
+One informational trigger-guidance offer
+        |
+Optional separate system review/change/activation lifecycle
+        |
+Fresh manual trigger, or separately approved expiring schedule trigger
+        | always creates a new run and lineage
 ```
 
 ## Specialist team
@@ -46,6 +54,11 @@ are independent audit roles, not substitutes for the five perspectives.
 
 ## Gate semantics
 
+- **Gate 0A** occurs before a source path is requested, listed, read, copied or
+  fingerprinted. It records the material basis, AI-processing authority,
+  sensitivity, assessment security, selected provider and approved environment.
+  Institution-internal/restricted, mixed or uncertain material routes or blocks
+  without leaking path or filename metadata.
 - **Gate 0** permits only the bounded inventory and Gate 1 brief.
 - **Gate 1** permits the five-role preliminary scan through the HITL 1 wait.
 - **Gate 2A** permits deeper research through the HITL 2 wait.
@@ -63,15 +76,22 @@ are independent audit roles, not substitutes for the five perspectives.
   to ask whether the lecturer wants a separate read-only system-improvement
   review. A yes permits evidence review and a versioned proposal only; it does
   not permit edits, installation, publication, activation or scheduling.
+- The lecturer must explicitly accept or decline that offer. Silence is not a
+  decision. After the answer is recorded, the accepted course run becomes
+  terminal `complete_dormant`, clears its active run ID and cannot resume.
+- The orchestrator then makes one informational offer explaining manual and
+  optional scheduled triggers. It does not register a schedule or start a run.
 
 Every record is bound to a fresh run, run-contract ID/version, task reference,
 shared-context version, source-manifest fingerprint, source-policy
-version/fingerprint and plan version. Stale lineage is rejected.
+version/fingerprint, material-processing-eligibility fingerprint and plan
+version. Stale lineage is rejected.
 
 ## Scheduled work
 
-The first run is manual. A schedule is considered only after successful course
-acceptance, validated system improvement and separate exact-version activation.
-Its contract expires, never triggers an immediate run when approved, creates a
-fresh lineage on every recurrence, stops at lecturer gates and never grants
-standing course-material production authority.
+Manual triggering is always available. An optional schedule is planned only
+for an exact course and control workspace after successful closeout. Its
+contract records timezone, recurrence, eligibility fingerprint and a non-null
+expiry; it is simulated without writes and separately approved. Registration
+never triggers an immediate run. Every recurrence creates fresh lineage, stops
+at lecturer gates and grants no standing course-material production authority.

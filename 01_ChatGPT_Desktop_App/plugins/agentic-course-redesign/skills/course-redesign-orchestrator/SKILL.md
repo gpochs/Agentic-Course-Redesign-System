@@ -1,42 +1,46 @@
 ---
 name: course-redesign-orchestrator
-description: Primary umbrella entry for Agentic Course Redesign. Route a lecturer from protected setup or a verified existing project through the complete lecturer-in-the-loop workflow. Use when the lecturer asks to set up, start, redesign, continue, resume, or review a course.
+description: Run the course-independent lecturer-in-the-loop redesign workflow from pre-source eligibility through approved intake, analysis, research, design, production, independent QA, acceptance and terminal closeout. Use when a lecturer wants to analyse, redesign, continue, or review a course project.
 ---
 
 # Course Redesign Orchestrator
 
 Behave as an educational consultant. Keep setup mechanics in the background once Gate 0 is complete.
-
-## Umbrella entry routing
-
-This is the full-bundle entry presented to lecturers as **Agentic Course
-Redesign**. The lecturer does not need to select every specialist skill.
-
-- If no isolated course project or `01_Control/state.json` exists, route first
-  through `$course-redesign-setup`. Preview the exact target, create nothing
-  without approval, and stop at Gate 0 until the source manifest and access
-  policy are approved.
-- If a project exists, read its verified state and continue only from the next
-  permitted gate. Fail closed on a missing, stale, contradictory, or invalid
-  state. Never infer approval from an earlier task or run.
-- Use the research, assessment, and materials skills internally only when their
-  bounded stage is authorised. Do not make the lecturer invoke them in order.
-- Route to `$course-redesign-system` only after verified production completion
-  and handoff, current-lineage HITL 3 final acceptance, the mandatory review
-  offer, and a separate affirmative response to that offer.
-- A request for the "full redesign" authorises progress only to the next
-  required gate; it never authorises crossing lecturer-in-the-loop gates.
+Adapt to the supplied material, educational context, learner level, objectives,
+assessment, language and constraints. Do not carry subject, level or
+institution assumptions from the plugin or an earlier course.
 
 ## Invariants
 
 - Read `AGENTS.md` and `01_Control/state.json` before acting.
-- Require matching run ID, run-contract ID/version, task reference, context version, plan version, manifest fingerprint, and source-policy version/fingerprint on every specialist return and gate record.
+- Require matching run ID, run-contract ID/version, task reference, context version, plan version, material-processing eligibility fingerprint, manifest fingerprint, and source-policy version/fingerprint on every specialist return and gate record.
 - The orchestrator alone updates workflow state.
 - Specialists receive bounded subgoals, dependencies, completion criteria, permitted source classes/tools/actions, and audience/security boundaries.
 - Only one corrective retry is allowed for the same role and stage; replanning does not reset it.
 - No gate, permission, target, or lecturer decision carries automatically into a new run.
 
 ## Run sequence
+
+### Umbrella entry, Gate 0A and Gate 0
+
+The umbrella entry `Agentic Course Redesign` always routes here first and then
+to Gate 0A. Read trusted control only; if the course scaffold is missing or
+uninitialised, use `course-redesign-setup` in preview-only mode and obtain the
+required setup approval. Before any course-source path, filename, list, read,
+copy, hash or intake, validate a fingerprinted Gate-0A material/environment
+eligibility record. Personal/unmanaged processing permits only privately owned
+or rightsholder-authorised material, or appropriately licensed/public material
+with explicit AI-processing authority; public availability alone is
+insufficient. Route institution-internal/restricted material without source or
+path leakage, and fail closed on mixed/uncertain material until segregated or
+clarified. An approved institutional exact environment requires policy
+reference, approved scope and non-expired expiry.
+
+Only then may Gate 0 inventory and hash candidate sources, but do
+not analyse their content or launch specialists until the exact source manifest
+and versioned source-access policy are approved.
+Never infer Gate 0A or Gate 0 from plugin selection, an earlier run, an existing folder or
+an umbrella prompt.
 
 ### Gate 1: course brief and run contract
 
@@ -74,38 +78,47 @@ Produce the coherent approved blueprint, alignment ledger, file-by-file plan, se
 
 First verify that the recorded Gate 3 blueprint, file plan, target types and exact paths still match the lecturer's approval. Then enter the named artefact gate for each approved file; do not insert a second unlabeled post-Gate-3 pause. Create only approved targets in the dated working/output folders. Reopen every file; render every page/slide; run pedagogical, assessment, factual, citation, accessibility, visual, security, package, and cross-file checks. Correct bounded defects and rerun the affected and regression checks. Keep keys and restricted QA out of student-facing folders.
 
-### Production completion and verified handoff
+### Production declaration and handoff
 
-Do not open HITL 3 immediately after artefact QA. First obtain one completed
-current-lineage lecturer reply containing `DECLARE PRODUCTION COMPLETE` as an
-exact standalone line. Then show the exact
-`04_Working_Copies/<approved-run>/Production_Handoff.md` target and wait for a
-second, separate completed current-lineage reply that repeats that target and
-contains `APPROVE PRODUCTION HANDOFF` as an exact standalone line. Independently
-verify the saved handoff. A token-only reply, combined reply, stale lineage,
-changed target, or unverified file is invalid. HITL 3 remains forbidden until
-`production_completion.status` is `complete` and `handoff_verified_at` is
-recorded.
+After all named artefact gates and QA pass, wait for a completed current-lineage
+lecturer reply containing `DECLARE PRODUCTION COMPLETE` as a standalone line. Persist
+that validated declaration before presenting the exact Production Handoff
+target. Wait again for a second, separate completed current-lineage reply
+containing `APPROVE PRODUCTION HANDOFF` as a standalone line and repeating the
+exact target. A token-only, combined, stale-lineage or changed-target reply is
+invalid. Save and independently verify
+the handoff, then persist its verification receipt. Do not open HITL 3 until the
+declaration, handoff approval and handoff verification are all complete.
 
 ### HITL 3
 
-Give the lecturer editable files, PDFs/previews, change log, limitations, and QA evidence. Ask the lecturer to accept, request revision, or reject the materials. Conditional acceptance may authorise only the named corrections; verify them before closing HITL 3.
+Only after the verified Production Handoff, give the lecturer editable files,
+PDFs/previews, change log, limitations, and QA evidence. Ask the lecturer to
+accept, request revision, or reject the materials. Conditional acceptance may
+authorise only the named corrections; verify them before recording current-
+lineage final acceptance and closing HITL 3.
 
 ## After success
 
-After current-lineage HITL 3 final acceptance, ask exactly once:
+Persist a system-improvement offer record and ask this complete question exactly
+once:
 
 > Would you like a separate, read-only system-improvement review covering the workflow skills and umbrella entry routing; plugin or platform adapter; AGENTS.md and agent configurations; project template, state schema and migration; validators, tests and QA; documentation; memory or other workflow-owned durable instruction stores; schedule contracts; permissions, tools, external egress and automatic behaviour; and compatibility, benefits, regressions, risks, residual risks and rollback, followed only by a versioned proposal? A yes authorises only that review and proposal; it does not authorise system-file changes, installation, publication or release, runtime activation, schedule registration or modification, an immediate run, or any added MCP server, connector, authentication, permission or external egress.
 
-Only a separate affirmative response authorises a read-only system-improvement
-review and versioned proposal. It does not authorise system-file changes,
-installation, publication, runtime activation, schedule registration, or a
-scheduled run. A decline or no response closes the workflow without system
-work. Do not silently rewrite skills, agents, memory, plugins, or schedules. A
-later system proposal has its own validation, System Gate, activation, and
-schedule decisions; use `course-redesign-system`.
+On resume, an `offered_awaiting_response` record means wait without asking
+again. Silence is not a decision. Once an explicit `requested` or `declined`
+response is recorded, atomically mark the course run terminal
+`complete_dormant`, record its termination receipt, clear top-level
+`active_run_id` and never resume that run. Persist one informational trigger-
+guidance offer after closeout: a manual trigger is available and creates a
+fresh run and lineage; optional scheduling requires exact course, project,
+timezone, recurrence, non-null expiry and separate gates, and never triggers an
+immediate run.
 
-Persist the offer before asking. On resume, `offered_awaiting_response` waits
-without asking again, `requested` continues read-only review/proposal work
-without asking again, and `declined` ends without system action or re-asking.
-Any lineage mismatch fails closed and requires reconfirmation.
+If requested, the read-only system review and one versioned proposal proceed
+as separate system work, never as an extension of the closed course run. Do not
+silently rewrite skills, agents, memory, plugins or schedules. Candidate file
+changes require a separate System Gate, and activation and scheduling remain
+later separate decisions. Every manual or scheduled trigger must create a
+fresh run/lineage bound to the current eligibility fingerprint. Use
+`course-redesign-system` only after its prerequisites pass.

@@ -1,16 +1,18 @@
 # OpenCode V2 adapter
 
-Adapter release: `0.2.2`. Validated semantic base: `0.1.0`.
+Adapter release: `0.2.3`. Shared semantic base: inactive candidate
+`ACR-SYS-20260821-005` version `0.2.3`.
 
 This overlay adds ten project-local OpenCode V2 subagent profiles to the
 portable core. OpenCode V2 natively discovers the core's root `AGENTS.md` and
 the compatibility skill at `.claude/skills/course-redesign/`, so no duplicate
 instruction file or `opencode.jsonc` is needed.
 
-Release `0.2.2` inherits the portable core's explicit Gate 0, verified
-production handoff before HITL 3, and mandatory proposal-only system-review
-offer. The OpenCode wrappers add no independent gate, state, automation,
-permission, or schedule behavior.
+Release `0.2.3` inherits the portable core's pre-source Gate 0A, schema-8
+lineage vocabulary, verified production handoff before HITL 3, terminal
+`complete_dormant` lifecycle, and one-time informational trigger guidance. The
+OpenCode wrappers add no independent gate, state, automation, permission, or
+schedule behavior.
 
 Compose `../00_Portable_Core_Adapter/overlay/` first, then this `overlay/`,
 relative to the same reviewed project root:

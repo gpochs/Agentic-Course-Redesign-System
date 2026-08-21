@@ -13,9 +13,9 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent.parent
-CURRENT_VERSION = "0.2.2"
-CURRENT_STATE_SCHEMA = 7
-CURRENT_PROPOSAL = "ACR-SYS-20260820-004"
+CURRENT_VERSION = "0.2.3"
+CURRENT_STATE_SCHEMA = 8
+CURRENT_PROPOSAL = "ACR-SYS-20260821-005"
 EXPECTED_TOP_LEVEL = {
     "01_ChatGPT_Desktop_App",
     "02_Other_Agentic_Systems",
@@ -109,6 +109,12 @@ SCRIPT_MIRROR_PATHS = {
         "01_ChatGPT_Desktop_App/plugins/agentic-course-redesign/scripts/migrate_state_v6_to_v7.py",
         "01_ChatGPT_Desktop_App/openai-submission/source/agentic-course-redesign/scripts/migrate_state_v6_to_v7.py",
         "02_Other_Agentic_Systems/04_Google_Antigravity/workspace-overlay/.agents/skills/course-redesign-setup/scripts/migrate_state_v6_to_v7.py",
+    ),
+    "migrate_state_v7_to_v8.py": (
+        "03_Shared_Workflow_Core/scripts/migrate_state_v7_to_v8.py",
+        "01_ChatGPT_Desktop_App/plugins/agentic-course-redesign/scripts/migrate_state_v7_to_v8.py",
+        "01_ChatGPT_Desktop_App/openai-submission/source/agentic-course-redesign/scripts/migrate_state_v7_to_v8.py",
+        "02_Other_Agentic_Systems/04_Google_Antigravity/workspace-overlay/.agents/skills/course-redesign-setup/scripts/migrate_state_v7_to_v8.py",
     ),
 }
 REQUIRED_ROOT_FILES = {
@@ -382,7 +388,7 @@ def validate_system_lifecycle_entry(path: Path) -> list[dict[str, str]]:
                     "detail": marker,
                 }
             )
-    for marker in ("candidate_not_active", "no-write simulation"):
+    for marker in ("candidate_not_active", "no-write simulation", "complete_dormant"):
         if marker not in text:
             findings.append(
                 {
@@ -391,6 +397,22 @@ def validate_system_lifecycle_entry(path: Path) -> list[dict[str, str]]:
                     "detail": marker,
                 }
             )
+    if "fresh" not in text or "trigger" not in text:
+        findings.append(
+            {
+                "path": display_path(path),
+                "kind": "system_lifecycle_safety_control_missing",
+                "detail": "fresh trigger",
+            }
+        )
+    if "non-null" not in text or "expir" not in text:
+        findings.append(
+            {
+                "path": display_path(path),
+                "kind": "system_lifecycle_safety_control_missing",
+                "detail": "non-null expiry",
+            }
+        )
     if not any(
         marker in text
         for marker in (
@@ -512,7 +534,11 @@ def scan(private_denylist: list[str] | None = None) -> dict[str, object]:
                     if (
                         routing.get("entry_name") != "Agentic Course Redesign"
                         or routing.get("entry_skill") != "course-redesign-orchestrator"
-                        or routing.get("initial_gate") != "GATE_0_AWAITING_BOUNDARY_CONFIRMATION"
+                        or routing.get("initial_gate")
+                        != "GATE_0A_AWAITING_MATERIAL_ENVIRONMENT_ELIGIBILITY"
+                        or not routing.get(
+                            "gate_0a_required_before_any_course_source_path_filename_list_read_copy_hash_or_intake"
+                        )
                         or not routing.get("gate_0_required_before_course_source_reading")
                         or not routing.get("gate_0_required_before_specialist_work")
                     ):
@@ -520,12 +546,53 @@ def scan(private_denylist: list[str] | None = None) -> dict[str, object]:
                     compatibility = data.get("schema_compatibility", {})
                     if (
                         compatibility.get("current_schema_version") != CURRENT_STATE_SCHEMA
+                        or compatibility.get("minimum_preview_migration_source_version") != 7
                         or compatibility.get("migration_helper")
-                        != "scripts/migrate_state_v6_to_v7.py"
+                        != "scripts/migrate_state_v7_to_v8.py"
                         or compatibility.get("migration_mode") != "preview_only"
                         or compatibility.get("automatic_apply_forbidden") is not True
                     ):
                         findings.append({"path": rel, "kind": "state_migration_contract_invalid"})
+                    adaptive = data.get("adaptive_course_scope", {})
+                    if (
+                        adaptive.get("supported_contexts")
+                        != [
+                            "school",
+                            "vocational_education_and_training",
+                            "professional_learning",
+                            "higher_education",
+                            "other_lecturer_defined",
+                        ]
+                        or adaptive.get(
+                            "adapt_to_supplied_material_context_level_learners_objectives_assessment_language_and_constraints"
+                        )
+                        is not True
+                        or adaptive.get(
+                            "subject_level_qualification_and_institutional_policy_assumptions_forbidden"
+                        )
+                        is not True
+                    ):
+                        findings.append({"path": rel, "kind": "state_course_scope_not_adaptive"})
+                    eligibility = data.get("material_processing_eligibility", {})
+                    must_precede = set(eligibility.get("must_precede", []))
+                    material_scope = eligibility.get("material_scope", {})
+                    if (
+                        eligibility.get("status") != "awaiting_lecturer_declaration"
+                        or eligibility.get("gate")
+                        != "GATE_0A_MATERIAL_ENVIRONMENT_ELIGIBILITY"
+                        or material_scope.get("public_availability_alone_is_insufficient") is not True
+                        or material_scope.get("ai_processing_authority_confirmed") is not False
+                        or not {
+                            "course_source_path_or_filename_disclosure",
+                            "course_source_listing",
+                            "course_source_read",
+                            "course_source_copy",
+                            "course_source_hash",
+                            "course_source_or_context_intake",
+                        }.issubset(must_precede)
+                        or eligibility.get("fingerprint") is not None
+                    ):
+                        findings.append({"path": rel, "kind": "state_gate_0a_not_fail_closed"})
                     activation = data.get("activation", {})
                     if (
                         activation.get("automatic_activation_forbidden") is not True
@@ -542,11 +609,35 @@ def scan(private_denylist: list[str] | None = None) -> dict[str, object]:
                         or schedule.get("approved_standing_contract_versions") != []
                     ):
                         findings.append({"path": rel, "kind": "state_schedule_not_fail_closed"})
+                    standing = data.get("standing_schedule_contract_template", {})
+                    standing_baseline = standing.get("baseline_approvals", {})
+                    if (
+                        standing.get("activation_requires_non_null_expires_at") is not True
+                        or standing.get("no_immediate_run") is not True
+                        or standing_baseline.get("gate_0a_approval_id") is not None
+                        or standing_baseline.get(
+                            "material_processing_eligibility_fingerprint"
+                        )
+                        is not None
+                        or standing.get("material_processing_eligibility_fingerprint") is not None
+                        or standing.get("material_processing_eligibility_match_rule")
+                        != "must_be_non_null_and_match_current_approved_gate_0a_before_simulation_registration_and_every_recurrence"
+                    ):
+                        findings.append(
+                            {"path": rel, "kind": "state_schedule_gate_0a_or_expiry_invalid"}
+                        )
                     run_template = data.get("run_template", {})
                     contract = run_template.get("contract", {})
                     if contract.get("permitted_tools") != [] or contract.get("permitted_actions") != []:
                         findings.append({"path": rel, "kind": "state_default_permission_expansion"})
                     approvals = run_template.get("approvals", {})
+                    gate_0a = approvals.get("gate_0a", {})
+                    if (
+                        gate_0a.get("status") != "pending"
+                        or gate_0a.get("material_processing_eligibility_fingerprint") is not None
+                        or run_template.get("material_processing_eligibility_fingerprint") is not None
+                    ):
+                        findings.append({"path": rel, "kind": "state_run_gate_0a_not_fail_closed"})
                     offer = approvals.get("system_improvement_review_offer", {})
                     if (
                         offer.get("required_question_scope") != MANDATORY_REVIEW_SCOPE_IDS
@@ -570,11 +661,34 @@ def scan(private_denylist: list[str] | None = None) -> dict[str, object]:
                         or authority.get("does_not_authorise") != EXPECTED_REVIEW_DENIALS
                     ):
                         findings.append({"path": rel, "kind": "state_review_response_expands_authority"})
+                    termination = run_template.get("termination", {})
+                    trigger_offer = approvals.get("trigger_guidance_offer", {})
+                    schedule_guidance = trigger_offer.get("optional_schedule_guidance", {})
+                    if (
+                        termination.get("never_resume_after_terminal") is not True
+                        or termination.get("closeout_requires_explicit_system_improvement_response")
+                        is not True
+                        or termination.get("silence_remains_waiting") is not True
+                        or "complete_dormant" not in termination.get("allowed_statuses", [])
+                        or trigger_offer.get("status") != "not_offered"
+                        or trigger_offer.get("offer_exactly_once") is not True
+                        or trigger_offer.get("informational_only") is not True
+                        or schedule_guidance.get("requires_exact_fields")
+                        != ["course", "project", "iana_timezone", "recurrence", "non_null_expiry"]
+                        or schedule_guidance.get("no_immediate_run") is not True
+                        or schedule_guidance.get("each_recurrence_creates_fresh_run_and_lineage")
+                        is not True
+                    ):
+                        findings.append({"path": rel, "kind": "state_closeout_or_trigger_guidance_invalid"})
                     system_update = activation.get("system_update", {})
                     if (
                         "matching_run_system_improvement_review_offer_requested"
                         not in system_update.get("prerequisites", [])
+                        or "matching_run_terminal_complete_dormant_and_not_active"
+                        not in system_update.get("prerequisites", [])
                         or "run_id" not in system_update.get("completed_reply_requirements", [])
+                        or "material_processing_eligibility_fingerprint"
+                        not in system_update.get("completed_reply_requirements", [])
                         or "system_improvement_review_offer_reference"
                         not in system_update.get("completed_reply_requirements", [])
                     ):
@@ -798,7 +912,10 @@ def scan(private_denylist: list[str] | None = None) -> dict[str, object]:
             findings.append({"path": relative(umbrella_metadata), "kind": "umbrella_display_name_mismatch"})
         if "$course-redesign-orchestrator" not in metadata_text:
             findings.append({"path": relative(umbrella_metadata), "kind": "umbrella_default_prompt_mismatch"})
-        if "## Umbrella entry routing" not in skill_text or "$course-redesign-setup" not in skill_text:
+        if (
+            "### Umbrella entry, Gate 0A and Gate 0" not in skill_text
+            or "`course-redesign-setup`" not in skill_text
+        ):
             findings.append({"path": relative(umbrella_skill), "kind": "umbrella_routing_missing"})
 
     antigravity_overlay = ROOT / "02_Other_Agentic_Systems" / "04_Google_Antigravity" / "workspace-overlay"
@@ -856,30 +973,30 @@ def scan(private_denylist: list[str] | None = None) -> dict[str, object]:
                     {"path": relative(adapter_contract_path), "kind": "unsafe_adapter_contract"}
                 )
 
-    proposal_path = ROOT / "01_ChatGPT_Desktop_App" / "SYSTEM_PROPOSAL_v0.2.2.md"
-    rollback_path = ROOT / "01_ChatGPT_Desktop_App" / "ROLLBACK_v0.2.2.md"
-    validation_report_path = ROOT / "05_Validation" / "VALIDATION_REPORT_v0.2.2.md"
+    proposal_path = ROOT / "01_ChatGPT_Desktop_App" / "SYSTEM_PROPOSAL_v0.2.3.md"
+    rollback_path = ROOT / "01_ChatGPT_Desktop_App" / "ROLLBACK_v0.2.3.md"
+    validation_report_path = ROOT / "05_Validation" / "VALIDATION_REPORT_v0.2.3.md"
     control_expectations = {
         proposal_path: (
             f"proposal id: `{CURRENT_PROPOSAL.casefold()}`",
             f"proposal version: `{CURRENT_VERSION}`",
-            "system-file candidate approved; repository publication separately authorised",
-            "runtime not installed, activated, or scheduled by that publication",
-            "base: published `v0.2.1`",
+            "system-file candidate approved",
+            "base: published `v0.2.2`",
             "`03_shared_workflow_core/**`",
             "`01_chatgpt_desktop_app/**`",
             "`02_other_agentic_systems/**`",
             "`04_documentation/**`",
             "`05_validation/**`",
             "exactly six bundled skills",
-            "preview-only `scripts/migrate_state_v6_to_v7.py`",
+            "preview-only `scripts/migrate_state_v7_to_v8.py`",
+            "gate 0a",
+            "complete_dormant",
             "no mcp/app/hook/auth/permission/schedule payload",
             "`schedules=[]`",
         ),
         rollback_path: (
             f"release: `{CURRENT_PROPOSAL.casefold()}` version `{CURRENT_VERSION}`",
-            "repository source and matching evidence are published",
-            "release publication does not install the plugin",
+            "rollback source: published `v0.2.2`",
             "`03_shared_workflow_core/**`",
             "`01_chatgpt_desktop_app/**`",
             "`02_other_agentic_systems/**`",
@@ -888,18 +1005,17 @@ def scan(private_denylist: list[str] | None = None) -> dict[str, object]:
             "do not delete or rewrite course projects",
             "do not delete, move, or rewrite the published v0.2.2 tag",
             "keep the published v0.2.1 tag and release assets unchanged",
-            "rollback never authorises publication, activation, migration application, or schedule registration",
+            "rollback never authorises migration application or a course-material run",
         ),
         validation_report_path: (
             f"proposal: `{CURRENT_PROPOSAL.casefold()}`",
             f"release version: `{CURRENT_VERSION}`",
             "pass — validated repository release source",
             "no course-material path was changed",
-            "repository unit suite | pass: 47/47",
+            "repository unit suite | pass:",
             "exactly six skills remain available",
             "no mcp server, app, connector, hook, authentication, permission, schedule",
-            "repository publication does not install, activate, or schedule v0.2.2",
-            "31 may/31 december cadence has not been registered",
+            "the public package contains no registered schedule",
         ),
     }
     for path, expected_phrases in control_expectations.items():

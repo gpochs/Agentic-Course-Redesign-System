@@ -147,9 +147,9 @@ class RepositorySemanticTests(unittest.TestCase):
                 encoding="utf-8",
             )
             expected = (
-                "proposal id: `acr-sys-20260820-004`",
-                "proposal version: `0.2.2`",
-                "system-file candidate approved; repository publication separately authorised",
+                "proposal id: `acr-sys-20260821-005`",
+                "proposal version: `0.2.3`",
+                "system-file candidate approved",
             )
             findings = self.validator.validate_candidate_control_record(path, expected)
             self.assertEqual(

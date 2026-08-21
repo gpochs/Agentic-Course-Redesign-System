@@ -1,7 +1,7 @@
 {
   "name": "agentic-course-redesign",
-  "version": "0.2.2",
-  "description": "A gated, lecturer-in-the-loop agentic workflow for evidence-grounded course analysis, redesign, production, and improvement.",
+  "version": "0.2.3",
+  "description": "A gated, lecturer-in-the-loop workflow that adapts evidence-grounded redesign to the supplied course and processing environment.",
   "author": {
     "name": "gpochs"
   },
@@ -18,19 +18,21 @@
   "interface": {
     "displayName": "Agentic Course Redesign",
     "shortDescription": "Gated evidence-led redesign",
-    "longDescription": "Use one full-workflow umbrella entry to set up or continue a protected course project. Analyse approved source material with bounded specialist roles, research only lecturer-approved focus areas, discuss concrete options, produce only approved targets, and independently validate every release. Production completion, the exact handoff, final acceptance, and any later read-only system-review proposal are separately recorded. The workflow keeps the lecturer in control of every consequential pedagogical decision and keeps system files, installation, publication, activation, and scheduling as later separate decisions.",
+    "longDescription": "Use one full-workflow umbrella entry for course material across subjects, educational levels, programmes, languages, assessment contexts, and delivery modes. A pre-source Gate 0A establishes material authority, sensitivity, student-data and protected-assessment handling, and exact-environment processing eligibility before any course path or source is requested or accessed. The workflow then adapts bounded specialist analysis, research, redesign, production, and QA to the lecturer-confirmed course. After final acceptance and an explicit requested/declined system-review response, the course run becomes complete and dormant; future manual or optional scheduled triggers always create a fresh run. No automation is registered or triggered by the plugin itself.",
     "developerName": "gpochs",
     "category": "Education & Research",
     "capabilities": [
       "Full-workflow umbrella entry",
       "Protected course setup",
+      "Pre-source processing eligibility",
+      "Course-adaptive workflow",
       "Evidence-led course redesign",
       "Assessment alignment",
       "Gated material production"
     ],
     "defaultPrompt": [
-      "Set up a protected redesign project for one course.",
-      "Audit an approved course for evidence-based redesign priorities.",
+      "Check processing eligibility, then set up a protected redesign project for one course.",
+      "Audit an eligible, approved course for evidence-based redesign priorities.",
       "Continue the active course-redesign run at its next approved gate."
     ],
     "composerIcon": "./assets/composer-icon.svg",

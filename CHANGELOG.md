@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.2.3 - 2026-08-21
+
+- Adds Gate 0A before any source-path disclosure or access, with fail-closed
+  routing by ownership/licence, explicit AI-processing authority, sensitivity,
+  assessment security, provider and institution-approved environment.
+- Clarifies that publicly available material is not automatically authorised;
+  personal or unmanaged processing is limited to privately owned,
+  rightsholder-authorised or appropriately licensed/public material with the
+  required processing authority.
+- Makes a successfully accepted course run terminal only after the lecturer
+  explicitly accepts or declines the post-HITL3 system-improvement review.
+  Silence remains a wait state; a closed run becomes `complete_dormant` and
+  cannot be resumed.
+- Adds one post-closeout trigger-guidance offer. Manual triggering remains
+  available; any automation requires an exact course, timezone, recurrence,
+  non-null expiry, simulation and separate approval. A trigger always creates
+  a fresh run and never grants standing production authority.
+- Adds schema-8 state, preview-only schema-7-to-schema-8 migration, eligibility
+  fingerprints bound to run and schedule lineage, and cross-adapter regression
+  tests across synthetic course levels and disciplines.
+- Keeps the public package course-independent, inactive and free of real course
+  data, credentials, connectors, MCP servers, plugin/provider authentication
+  payloads, permissions, hooks and registered schedules. The unchanged
+  marketplace `policy.authentication: ON_INSTALL` value is host installation-
+  policy metadata, not a bundled authentication provider.
+
 ## 0.2.2 - 2026-08-21
 
 - Makes Gate 0 routing and the complete gate order explicit across the shared
@@ -22,8 +48,8 @@
   without moving or rewriting the v0.2.1 tag or release.
 - Publishes the validated repository source and matching release evidence while
   keeping the runtime inactive by default. No course materials, connector, MCP
-  server, authentication, permission, installation, activation or schedule is
-  added by publication.
+  server, plugin/provider authentication capability, permission, installation,
+  activation or schedule is added by publication.
 
 ## 0.2.1 - 2026-08-20
 

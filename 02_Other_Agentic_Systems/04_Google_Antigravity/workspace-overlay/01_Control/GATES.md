@@ -1,10 +1,33 @@
 # Lecturer decision gates
 
-Every approval belongs to one run and records the run ID, run-contract ID/version, task/chat reference, shared-context version, source-manifest fingerprint, source-access-policy version/fingerprint, and plan version.
+Every approval belongs to one run and records the run ID, run-contract ID/version, task/chat reference, shared-context version, material-processing-eligibility fingerprint, source-manifest fingerprint, source-access-policy version/fingerprint, and plan version.
+
+## Gate 0A — material and processing-environment eligibility
+
+This gate precedes any course-source path, filename, list, read, copy, hash or
+other intake. Ask only for the material category, environment category,
+internal/restricted and student-data flags, sensitivity classification,
+assessment-security classification and authority to handle that assessment
+security class, then record a canonical fingerprint. Null, inconsistent,
+mixed or uncertain declarations fail closed. An approved record with
+`reconfirmation_required=true` does not permit source intake. Do not ask the
+lecturer to disclose source details before the gate passes.
+
+In a personal/unmanaged environment, proceed only for privately owned or
+rightsholder-authorised material, or appropriately licensed/public material
+with explicit AI-processing authority. Public availability alone is
+insufficient. Institution-internal/restricted material is route-only with zero
+source/path leakage. Mixed material fails closed until segregated; uncertain
+material fails closed until clarified. An approved institutional exact
+environment must record its policy reference, approved scope and non-expired
+expiry.
 
 ## Gate 0 — source, data, rights, tools, egress, audiences
 
-Approve the exact source manifest and policy before specialist reading. Gate 0 allows the Gate 1 brief only.
+Only after approved Gate 0A, inventory and hash sources. Approve the exact source manifest and policy before specialist reading. Gate 0 allows the Gate 1 brief only.
+The `Agentic Course Redesign` umbrella entry always routes here; selecting it is
+not approval and does not authorise course-content analysis. Gate 0 may inventory
+and hash candidate sources only to present the exact manifest and policy.
 
 ## Gate 1 — course brief and run contract
 
@@ -44,29 +67,35 @@ After the verified production record and exact handoff target are shown, a secon
 APPROVE PRODUCTION HANDOFF
 ```
 
-Save only the approved exact target. Reopen it and verify the accepted versions,
-audience classifications, QA evidence, unresolved issues, lineage, and approval
-record before HITL 3.
-
 ## HITL 3 — lecturer acceptance
 
-The lecturer reviews editable files/previews, change log, QA evidence, limitations, and preserved-source proof, then accepts, conditionally accepts named corrections, requests revision, or rejects.
+HITL 3 opens only after both production replies and independent verification of
+the saved Production Handoff. The lecturer reviews editable files/previews,
+change log, QA evidence, limitations, and preserved-source proof, then accepts,
+conditionally accepts named corrections, requests revision, or rejects.
 
-After unconditional current-lineage acceptance, the orchestrator must persist
-and exactly once offer a separate read-only system-improvement review covering
-workflow skills and umbrella routing; plugin or platform adapter; `AGENTS.md`
-and agent configurations; project template, state schema and migration;
-validators/tests/QA; documentation; memory or other workflow-owned durable
-instructions; schedule contracts; permissions, tools, external egress and
-automatic behaviour; and compatibility, benefits, regressions, risks, residual
-risks and rollback. A yes authorises only review and one versioned proposal.
-It does not authorise system changes, install/publish/release, activation,
-schedule registration or modification, an immediate run, or added MCP,
-connector, authentication, permission or egress.
+## Mandatory system-improvement review offer
+
+After current-lineage HITL-3 acceptance, record the offer before asking the
+complete system-improvement question exactly once. A request authorises only a
+read-only review and one versioned proposal. It grants no authority to change
+files, install, publish, activate, schedule, add permissions/connectors/auth or
+trigger a run. On resume, wait on an existing offer rather than asking again.
+Silence is `offered_awaiting_response`, never a request or decline.
+
+After an explicit requested or declined response, atomically close the course
+run as terminal `complete_dormant`, clear `active_run_id`, and never resume that
+run. If requested, system-improvement work proceeds as a separate system
+record, not as an extension of the course run. Persist one informational
+trigger-guidance offer after closeout: manual triggering is available and
+always creates a fresh run; optional scheduling needs exact course, project,
+timezone, recurrence, non-null expiry and its own gates, with no immediate run.
 
 ## System Gate
 
-System files are a separate proposal. Approval requires exact current lineage, proposal ID/version, exact targets, validation evidence, risks, and rollback, plus:
+System files are a separate proposal, available only after the recorded offer
+was requested. Approval requires exact current lineage, proposal ID/version,
+exact targets, validation evidence, risks, and rollback, plus:
 
 ```text
 APPROVE SYSTEM FILES
@@ -89,3 +118,9 @@ Expires: <exact local date and time with IANA timezone>
 ```
 
 Registration never triggers an immediate content run.
+Every scheduled trigger records a fresh trigger/run/lineage, the current
+eligibility fingerprint, the approved immutable contract-snapshot reference
+and a valid offset timestamp. An active trigger must fall on or after contract
+activation and before expiry. Pausing, expiry or cancellation disables future
+triggers but preserves contract and run history; an on/after-expiry trigger
+records an expired no-course-action receipt rather than analysing the course.

@@ -8,7 +8,11 @@ Use @../../01_Control/GATES.md together with @../../AGENTS.md.
   schedule. Installation and validation do not alter that status.
 - Every gate record and specialist return must match the current run,
   run-contract ID/version, conversation reference, context version, plan
-  version, source-manifest fingerprint, and source-policy version/fingerprint.
+  version, material-processing eligibility fingerprint, source-manifest
+  fingerprint, and source-policy version/fingerprint.
+- Gate 0A is a hard stop before any course-source path/filename disclosure,
+  listing, read, copy, hash, or intake. Gate 0 begins only after a current
+  eligibility fingerprint permits this exact environment and processing scope.
 - Silence, enthusiasm, a token by itself, an earlier run, or approval for a
   different stage or target is not approval.
 - Gate 2B can approve only the exact dated research dossier and handoff under
@@ -22,6 +26,10 @@ Use @../../01_Control/GATES.md together with @../../AGENTS.md.
 - Only unconditional current-lineage HITL 3 acceptance permits the mandatory
   separate system-review offer. Conditional acceptance returns for correction
   and a fresh HITL 3 decision.
+- `offered_awaiting_response` waits silently. A recorded explicit `requested`
+  or `declined` response atomically closes the course run as terminal
+  `complete_dormant`, records termination, clears `active_run_id`, and forbids
+  resumption. One informational trigger-guidance offer registers nothing.
 - Stop at every lecturer gate. Never create a second unlabeled approval pause or
   infer authority from a planned workflow step.
 - The orchestrator alone may persist approved workflow metadata. Specialist

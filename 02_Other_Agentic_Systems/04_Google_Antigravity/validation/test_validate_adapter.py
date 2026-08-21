@@ -38,7 +38,7 @@ state_validator = load_module(
     "antigravity_state_validator", SETUP_SCRIPTS / "validate_state.py"
 )
 state_migration = load_module(
-    "antigravity_state_migration", SETUP_SCRIPTS / "migrate_state_v6_to_v7.py"
+    "antigravity_state_migration", SETUP_SCRIPTS / "migrate_state_v7_to_v8.py"
 )
 
 
@@ -46,43 +46,52 @@ def load_state() -> dict:
     return json.loads(STATE_PATH.read_text(encoding="utf-8"))
 
 
-def schema6_fixture_from_current_state() -> dict:
-    """Invert only the documented schema-7 additions to make a v6 fixture."""
+def schema7_fixture_from_current_state() -> dict:
+    """Remove schema-8 eligibility bindings to make a synthetic schema-7 fixture."""
 
     state = load_state()
-    state["schema_version"] = 6
-    state.pop("umbrella_entry_routing")
-    state.pop("schema_compatibility")
-    split_triggers = {
-        item["trigger"] for item in state_migration.V7_SPLIT_TRANSITIONS
+    state["schema_version"] = 7
+    state["plugin_version"] = "0.2.2"
+    state.pop("adaptive_course_scope")
+    state.pop("material_processing_eligibility")
+    state["umbrella_entry_routing"] = {
+        "entry_name": "Agentic Course Redesign",
+        "entry_skill": "course-redesign-orchestrator",
+        "initial_gate": "GATE_0_AWAITING_BOUNDARY_CONFIRMATION",
+        "missing_project_action": "invoke_course-redesign-setup_preview_only",
+        "gate_0_required_before_course_source_reading": True,
+        "gate_0_required_before_specialist_work": True,
     }
-    for run in [state["run_template"], *state["runs"]]:
-        run["approvals"].pop("hitl_3")
-        run["approvals"].pop("system_improvement_review_offer")
-        run.pop("resume_protocol")
-        rules = run["manual_stage_authority"]["transition_rules"]
-        first_split = next(
-            index for index, rule in enumerate(rules)
-            if rule.get("trigger") in split_triggers
-        )
-        rules[:] = [rule for rule in rules if rule.get("trigger") not in split_triggers]
-        rules.insert(
-            first_split,
-            {
-                "trigger": state_migration.V6_COMBINED_TRANSITION_TRIGGER,
-                "authorises_through": "SYSTEM_GATE",
-                "purpose": "reusable_system_proposal_and_system_gate_only",
-                "does_not_authorise_candidate_activation": True,
-            },
-        )
+    state["schema_compatibility"] = {
+        "current_schema_version": 7,
+        "minimum_preview_migration_source_version": 6,
+        "migration_helper": "scripts/migrate_state_v6_to_v7.py",
+        "migration_mode": "preview_only",
+        "automatic_apply_forbidden": True,
+    }
+    for field in (
+        "educational_context_type",
+        "discipline_or_subject",
+        "qualification_or_framework",
+        "adaptation_inputs_confirmed",
+    ):
+        state["course"].pop(field)
+    state["source_access_policy"].pop(
+        "material_processing_eligibility_fingerprint"
+    )
     system_update = state["activation"]["system_update"]
-    system_update.pop("allowed_statuses")
-    system_update.pop("prerequisites")
-    for field in ("run_id", "system_improvement_review_offer_reference"):
-        system_update["completed_reply_requirements"].remove(field)
-        system_update["approval"].pop(field)
-    for field in ("hitl_3_accepted", "system_improvement_review_offer_requested"):
-        state["activation"]["required_before_active"].remove(field)
+    state["activation"]["required_before_active"].remove("gate_0a_recorded")
+    state["activation"]["required_before_active"].remove(
+        "matching_course_run_terminal_complete_dormant"
+    )
+    system_update["prerequisites"].remove(
+        "matching_run_terminal_complete_dormant_and_not_active"
+    )
+    system_update["completed_reply_requirements"].remove(
+        "material_processing_eligibility_fingerprint"
+    )
+    system_update["approval"].pop("material_processing_eligibility_fingerprint")
+    state["schedule_registration"].pop("required_material_processing_eligibility")
     return state
 
 
@@ -145,13 +154,13 @@ class AdapterValidationTests(unittest.TestCase):
         errors = validator.validate_workflow_completeness(documents)
         self.assertTrue(any("does not authorise system-file changes" in item for item in errors))
 
-    def test_canonical_schema7_state_and_validator_pass(self) -> None:
+    def test_canonical_schema8_state_and_validator_pass(self) -> None:
         state = load_state()
-        self.assertEqual(state["schema_version"], 7)
+        self.assertEqual(state["schema_version"], 8)
         self.assertEqual(validator.validate_state_fields(state), [])
         self.assertEqual(state_validator.validate(state), [])
 
-    def test_migration_preview_is_idempotent_for_schema7(self) -> None:
+    def test_migration_preview_is_idempotent_for_schema8(self) -> None:
         state = load_state()
         original = copy.deepcopy(state)
         report = state_migration.preview_migration(state, source="unit-test")
@@ -162,27 +171,29 @@ class AdapterValidationTests(unittest.TestCase):
         self.assertEqual(report["candidate_state"], original)
         self.assertEqual(state, original)
 
-    def test_schema6_migration_is_preview_only_and_preserves_boundaries(self) -> None:
-        state = schema6_fixture_from_current_state()
+    def test_schema7_migration_is_preview_only_and_requires_reconfirmation(self) -> None:
+        state = schema7_fixture_from_current_state()
         original = copy.deepcopy(state)
-        report = state_migration.preview_migration(state, source="unit-test-v6")
+        report = state_migration.preview_migration(state, source="unit-test-v7")
         candidate = report["candidate_state"]
         self.assertEqual(state, original)
         self.assertEqual(report["mode"], "preview_only")
         self.assertFalse(report["would_write"])
-        self.assertEqual(candidate["schema_version"], 7)
+        self.assertEqual(candidate["schema_version"], 8)
         self.assertEqual(candidate["status"], original["status"])
         self.assertEqual(candidate["schedules"], original["schedules"])
+        self.assertTrue(report["reconfirmation_required"])
+        self.assertFalse(report["candidate_activation_ready"])
         self.assertEqual(
-            candidate["run_template"]["contract"]["permitted_tools"],
-            original["run_template"]["contract"]["permitted_tools"],
+            candidate["schema_8_migration_hold"]["status"],
+            "blocked_pending_reconfirmation",
         )
         self.assertTrue(all(report["preservation_checks"].values()))
         self.assertEqual(state_validator.validate(candidate), [])
 
     def test_migration_and_state_validator_fail_closed(self) -> None:
         with self.assertRaises(state_migration.MigrationError):
-            state_migration.preview_migration({"schema_version": 5})
+            state_migration.preview_migration({"schema_version": 6})
         state = load_state()
         state["run_template"]["approvals"]["system_improvement_review_offer"][
             "authority_on_request"
@@ -206,6 +217,20 @@ class AdapterValidationTests(unittest.TestCase):
             )
             errors = validator.validate_agent_definition(path, "course_mapper")
             self.assertTrue(any("tools must be exactly" in item for item in errors))
+
+    def test_gate0a_source_disclosure_weakening_is_rejected(self) -> None:
+        state = load_state()
+        state["material_processing_eligibility"][
+            "source_detail_prohibition_before_approval"
+        ].remove("no_source_filenames")
+        errors = validator.validate_state_fields(state)
+        self.assertTrue(any("source-detail prohibition" in item for item in errors))
+
+    def test_terminal_dormant_resumption_is_rejected(self) -> None:
+        state = load_state()
+        state["run_template"]["termination"]["never_resume_after_terminal"] = False
+        errors = validator.validate_state_fields(state)
+        self.assertTrue(any("complete_dormant closeout" in item for item in errors))
 
     def test_secret_detector_catches_private_key(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

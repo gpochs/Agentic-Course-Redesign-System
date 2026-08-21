@@ -12,7 +12,6 @@ import argparse
 import copy
 import hashlib
 import json
-import runpy
 from pathlib import Path
 from typing import Any
 
@@ -365,17 +364,14 @@ def _check_v7_shape(data: dict[str, Any]) -> None:
 
 
 def _check_full_v7_state(data: dict[str, Any]) -> None:
-    validator_path = Path(__file__).with_name("validate_state.py")
+    # The current validator targets schema 8. Keep this legacy staged helper
+    # preview-only and validate its complete schema-7 control shape locally;
+    # callers must then run migrate_state_v7_to_v8.py before any use.
+    _check_v7_shape(data)
     try:
-        validator = runpy.run_path(str(validator_path))["validate"]
-        errors = validator(copy.deepcopy(data))
-    except Exception as exc:
-        raise MigrationError(f"could not run schema-7 state validator: {exc}") from exc
-    if errors:
-        preview = "; ".join(str(error) for error in errors[:8])
-        if len(errors) > 8:
-            preview += f"; and {len(errors) - 8} more"
-        raise MigrationError(f"schema-7 state failed full validation: {preview}")
+        json.dumps(data, ensure_ascii=False, sort_keys=True)
+    except (TypeError, ValueError) as exc:
+        raise MigrationError(f"schema-7 candidate is not serializable: {exc}") from exc
 
 
 def _preservation_checks(source: dict[str, Any], candidate: dict[str, Any]) -> dict[str, bool]:

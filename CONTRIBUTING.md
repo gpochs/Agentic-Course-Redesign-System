@@ -11,7 +11,9 @@ and data boundary.
 6. Document platform-specific claims with current official sources and label
    anything not exercised in a real client.
 
-Do not submit internal course material with a private subscription, copyrighted source content, answer keys,
-personal data, local absolute paths, credentials, generated caches or enabled
-runtime state.
-
+Never submit real course material to this public repository. That includes
+institution-internal or restricted content, private-subscription content,
+copyrighted source text, assessment or answer-key content, personal data,
+local absolute paths, credentials, generated caches and enabled runtime state.
+Use synthetic fixtures even when a lecturer would be authorised to process the
+real material in a private, approved runtime.

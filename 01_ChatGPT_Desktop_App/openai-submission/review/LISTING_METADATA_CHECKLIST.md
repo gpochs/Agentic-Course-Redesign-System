@@ -3,7 +3,8 @@
 ## Repository release values prepared for a future directory submission
 
 - Package name: `agentic-course-redesign`
-- Version: `0.2.2` repository release; inactive-by-default runtime
+- Version: `0.2.3` repository release and inactive universal-directory
+  submission candidate; published `v0.2.2` remains rollback source
 - Display name: `Agentic Course Redesign`
 - Short description: `Gated evidence-led redesign`
 - Category: `Education & Research`
@@ -16,14 +17,14 @@
 - MCP server, connector, UI, screenshots, authentication, and demo credentials:
   not applicable
 
-Repository release `v0.2.2` uses matching exact-version archives, checksums,
+Repository release `v0.2.3` uses matching exact-version archives, checksums,
 inventories and validation evidence. The historical `v0.2.1` live release
 reports `immutable=false`, and its attached
 `system-release-validation-v0.2.1.json` internally identifies the earlier
-v0.2.0 archive, so it must not be used as v0.2.1 or v0.2.2 archive evidence.
-Any later OpenAI Platform upload must use the exact validated v0.2.2
-skills-only archive and must not infer directory publication from the GitHub
-release.
+v0.2.0 archive, so it must not be used as later-version archive evidence.
+Any later OpenAI Platform upload must use an exact validated candidate archive
+whose manifest, tests and release notes match. It must not infer directory
+publication from the GitHub release.
 
 ## Owner-supplied blockers
 
@@ -61,6 +62,8 @@ than populated with invalid placeholder URLs, and treated as release blockers.
 - [x] Preserve the published `v0.2.1` base, tag, assets and checksums unchanged.
 - [x] Build and validate exact `v0.2.2` repository assets whose archive name,
   byte count and SHA-256 match their report; publish them with the matching tag.
+- [x] Complete v0.2.3 validation and obtain separate commit and GitHub
+  publication authorisation.
 - [ ] Replace or confirm publisher fields in both custom and public manifests.
 - [ ] Add the four verified HTTPS URLs to the final public manifest and portal.
 - [ ] Run all local validators against the final file tree.

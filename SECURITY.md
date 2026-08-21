@@ -18,10 +18,18 @@ the affected version, platform and minimal synthetic reproduction.
 The main risks are prompt injection in course files, unintended egress of
 protected material, answer-key leakage, overly broad filesystem writes,
 stale approval lineage, adapter drift, malicious dependencies and accidental
-publication. The workflow therefore starts read-only, treats course content as
-untrusted evidence, records exact source/access lineage, restricts writes to
-approved targets, separates audiences and requires human decisions at gates.
+publication. The workflow therefore starts with Gate 0A before requesting or
+inspecting a source path, treats course content as untrusted evidence, records
+exact eligibility and source/access lineage, restricts writes to approved
+targets, separates audiences and requires human decisions at gates.
+
+In a personal or otherwise unmanaged environment, Gate 0A permits source
+processing only when the lecturer has both a valid material basis—private
+ownership, rightsholder authorisation or an appropriate licence/public-use
+basis—and authority to process it with the selected provider. Public
+availability alone is insufficient. Institution-internal or restricted
+material is route-only until the exact approved environment, scope and policy
+reference are confirmed. Mixed or uncertain collections fail closed.
 
 Users remain responsible for institutional policy, lawful processing, storage,
 copyright, platform permissions and reviewing executable scripts before use.
-

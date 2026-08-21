@@ -1,16 +1,19 @@
 ---
 name: course-redesign-orchestrator
-description: Run the lecturer-in-the-loop agentic course-redesign workflow from an approved manifest through preliminary scan, research, design dialogue, production, independent QA, and lecturer acceptance. Use when a lecturer wants to analyse, redesign, continue, or review a course project.
+description: Run the course-independent lecturer-in-the-loop redesign workflow from pre-source eligibility through approved intake, analysis, research, design, production, independent QA, acceptance and terminal closeout. Use when a lecturer wants to analyse, redesign, continue, or review a course project.
 ---
 
 # Course Redesign Orchestrator
 
 Behave as an educational consultant. Keep setup mechanics in the background once Gate 0 is complete.
+Adapt to the supplied material, educational context, learner level, objectives,
+assessment, language and constraints. Do not carry subject, level or
+institution assumptions from the plugin or an earlier course.
 
 ## Invariants
 
 - Read `AGENTS.md` and `01_Control/state.json` before acting.
-- Require matching run ID, run-contract ID/version, task reference, context version, plan version, manifest fingerprint, and source-policy version/fingerprint on every specialist return and gate record.
+- Require matching run ID, run-contract ID/version, task reference, context version, plan version, material-processing eligibility fingerprint, manifest fingerprint, and source-policy version/fingerprint on every specialist return and gate record.
 - The orchestrator alone updates workflow state.
 - Specialists receive bounded subgoals, dependencies, completion criteria, permitted source classes/tools/actions, and audience/security boundaries.
 - Only one corrective retry is allowed for the same role and stage; replanning does not reset it.
@@ -18,15 +21,25 @@ Behave as an educational consultant. Keep setup mechanics in the background once
 
 ## Run sequence
 
-### Umbrella entry and Gate 0
+### Umbrella entry, Gate 0A and Gate 0
 
 The umbrella entry `Agentic Course Redesign` always routes here first and then
-to Gate 0. Read `01_Control/state.json`; if the course scaffold is missing or
+to Gate 0A. Read trusted control only; if the course scaffold is missing or
 uninitialised, use `course-redesign-setup` in preview-only mode and obtain the
-required setup approval. Gate 0 may inventory and hash candidate sources, but do
+required setup approval. Before any course-source path, filename, list, read,
+copy, hash or intake, validate a fingerprinted Gate-0A material/environment
+eligibility record. Personal/unmanaged processing permits only privately owned
+or rightsholder-authorised material, or appropriately licensed/public material
+with explicit AI-processing authority; public availability alone is
+insufficient. Route institution-internal/restricted material without source or
+path leakage, and fail closed on mixed/uncertain material until segregated or
+clarified. An approved institutional exact environment requires policy
+reference, approved scope and non-expired expiry.
+
+Only then may Gate 0 inventory and hash candidate sources, but do
 not analyse their content or launch specialists until the exact source manifest
 and versioned source-access policy are approved.
-Never infer Gate 0 from plugin selection, an earlier run, an existing folder or
+Never infer Gate 0A or Gate 0 from plugin selection, an earlier run, an existing folder or
 an umbrella prompt.
 
 ### Gate 1: course brief and run contract
@@ -93,8 +106,19 @@ once:
 > Would you like a separate, read-only system-improvement review covering the workflow skills and umbrella entry routing; plugin or platform adapter; AGENTS.md and agent configurations; project template, state schema and migration; validators, tests and QA; documentation; memory or other workflow-owned durable instruction stores; schedule contracts; permissions, tools, external egress and automatic behaviour; and compatibility, benefits, regressions, risks, residual risks and rollback, followed only by a versioned proposal? A yes authorises only that review and proposal; it does not authorise system-file changes, installation, publication or release, runtime activation, schedule registration or modification, an immediate run, or any added MCP server, connector, authentication, permission or external egress.
 
 On resume, an `offered_awaiting_response` record means wait without asking
-again. `requested` authorises only the read-only review and one versioned
-proposal; `declined` ends without system action. Do not silently rewrite skills,
-agents, memory, plugins or schedules. Candidate file changes require a separate
-System Gate, and activation and scheduling remain later separate decisions. Use
+again. Silence is not a decision. Once an explicit `requested` or `declined`
+response is recorded, atomically mark the course run terminal
+`complete_dormant`, record its termination receipt, clear top-level
+`active_run_id` and never resume that run. Persist one informational trigger-
+guidance offer after closeout: a manual trigger is available and creates a
+fresh run and lineage; optional scheduling requires exact course, project,
+timezone, recurrence, non-null expiry and separate gates, and never triggers an
+immediate run.
+
+If requested, the read-only system review and one versioned proposal proceed
+as separate system work, never as an extension of the closed course run. Do not
+silently rewrite skills, agents, memory, plugins or schedules. Candidate file
+changes require a separate System Gate, and activation and scheduling remain
+later separate decisions. Every manual or scheduled trigger must create a
+fresh run/lineage bound to the current eligibility fingerprint. Use
 `course-redesign-system` only after its prerequisites pass.

@@ -1,110 +1,123 @@
-# Validation report — v0.2.2 release source
+# Validation report — v0.2.3 release source
 
-- Candidate: `agentic-course-redesign` `0.2.2`
-- Proposal: `ACR-SYS-20260820-004`
-- Status: locally validated repository release source with disposable
-  validation bundles; publication does not install, activate, or schedule it
+- Release source: `agentic-course-redesign` `0.2.3`
+- Proposal: `ACR-SYS-20260821-005`
 - Validation date: 2026-08-21
-- Base release: public `v0.2.1`
-- OpenAI submission/review/publication status: not submitted, not reviewed, not
-  approved, and not in the universal Plugins Directory
+- Base release: published and separately installed `v0.2.2`
+- Runtime-template status: locally validated, `candidate_not_active`,
+  `submission_ready=false`
+- Repository status: authorised for exact-version commit, publication and
+  installation; universal-directory submission remains separate
 
-## Candidate scope and canonical parity
+## Scope and canonical parity
 
-This report covers the ChatGPT Desktop/Codex implementation and its separate
-OpenAI skills-only source under `01_ChatGPT_Desktop_App/**`. The full proposal
-also covers the shared core and every other platform adapter; repository-level
-validation reports their combined result separately.
+This report covers only `01_ChatGPT_Desktop_App/**`. The frozen shared core is
+the semantic source of truth for the project template, scripts, participant
+quick start, and exactly six skills.
 
-The final ChatGPT schema trio is byte-identical to the frozen shared core and to
-the public runtime mirror:
+- Shared core to custom plugin: PASS, 30/30 canonical files byte-identical.
+- Custom plugin to OpenAI source mirror: PASS, 52/52 runtime files
+  byte-identical.
+- Public source: 54 files including the public-only licence and notice files.
+- Skill count: exactly six in both plugin trees.
+- Runtime defaults: `candidate_not_active` and `schedules=[]`.
 
-| File | Bytes | SHA-256 |
+| Canonical file | Bytes | SHA-256 |
 |---|---:|---|
-| `state.json` | 48,320 | `AC5B629FA4FA3ED10F959BAC547B9BA3BD5D30636C2F46EA36F30845F5352628` |
-| `migrate_state_v6_to_v7.py` | 24,891 | `B280A883DD08A06BD89927F26F6FCC3C1816E9C77E1E4904A98194417CC13031` |
-| `validate_state.py` | 77,949 | `4EBFDD48010C5355DB05B092832408210F4D722CF4CACC3CB16852779718DE80` |
+| `state.json` | 61,104 | `931E7C22F62B015846D4F2CD30C4434010111144B0E8C8477C69FFB4E91E0E78` |
+| `material-processing-eligibility.template.json` | 2,595 | `EFE8B8D8D6E7BA3CD9B0DC21E1F014AD65206AAA609468555974949E4496FBED` |
+| `migrate_state_v7_to_v8.py` | 27,496 | `9C84FF55367319DFE8E406D85CFB6768C46F273096E79F3EE74E5C1589D5A52A` |
+| `source_manifest.py` | 18,019 | `4E8B0E89BD53D4966987B816B8DF7AE57C831A736B71C934A8BD10B82556767C` |
+| `validate_state.py` | 154,885 | `0CA9EBAF4E63C95411712C55060FB18128879B1E60BC4B8A43B3F7E31052ED55` |
 
-The complete custom and public runtime trees (`.codex-plugin`, `assets`,
-`scripts`, and `skills`) are byte-identical. Both contain exactly six skills.
+## Behaviour verified
 
-## Local validation results
+- Gate 0A is a hard pre-source boundary. The implementation validates material
+  ownership or licence, explicit AI-processing authority, environment approval,
+  sensitivity, student-data presence, and assessment security before any course
+  source path is requested, resolved, listed, copied, read, or hashed.
+- Public accessibility alone is insufficient. Private or rightsholder-authorised
+  material and appropriately licensed/public material with explicit processing
+  authority can proceed; mixed or uncertain material fails closed; restricted
+  institutional material in a personal/unmanaged environment is route-only.
+- Approved institutional processing requires an exact environment reference,
+  policy reference, scope, and expiry.
+- The adaptive contract supports course material across subject, educational
+  level, programme, language, assessment, delivery, and lecturer constraints.
+- Schema 8 binds the material-processing-eligibility fingerprint through source
+  policy, run lineage, trigger, and schedule contracts.
+- The v7-to-v8 helper is preview-only, never writes its input, preserves valid
+  terminal run and inactive schedule history using canonical indexed SHA-256
+  receipts, and requires reconfirmation before nonterminal continuation or a
+  future schedule trigger.
+- After verified production handoff and HITL 3 acceptance, the workflow asks the
+  complete system-improvement question and waits for an explicit requested or
+  declined response. Silence remains waiting. A response closes the run as
+  `complete_dormant`; that run cannot resume.
+- One post-closeout guidance offer may explain a fresh manual trigger or optional
+  schedule setup. It is informational only and never registers or triggers
+  anything. Every later trigger creates a fresh run.
+
+## Final local validation
 
 | Check | Result |
 |---|---|
-| Frozen schema-7 state validator | PASS: inactive, `schedules=[]`, no errors |
+| Custom and public schema-8 state validators | PASS: no errors |
+| Plugin unit tests | PASS: 25/25 |
+| Disposable forward test | PASS: 42/42 |
+| Public source scrub | PASS: 152 scoped files, no findings |
+| OpenAI-source validation | PASS: 40/40; 12 positive and 11 negative cases |
+| Static format parsing | PASS: 14 JSON, 22 TOML, 12 YAML, 24 Python, 4 SVG |
 | Official plugin and quick-skill validators | PASS: 14/14 across both plugin trees |
-| Static format parsing | PASS: 12 JSON, 22 TOML, 12 YAML, 22 Python, 4 SVG |
-| SVG deterministic line-ending rule | PASS: all SVG sources use LF |
-| Unit tests | PASS: 22/22 |
-| Disposable forward test | PASS: 41/41 checks |
-| Public source scrub | PASS: 145 scoped source files, no findings |
-| OpenAI-source validation | PASS: 37/37 checks, 52 runtime files, exactly six skills |
-| Reviewer material | PASS: three starter prompts, nine positive and eight negative cases |
-| Runtime source synchronisation | PASS: custom and public runtime trees byte-identical |
-| Privilege boundary | PASS: no MCP, app, hook, connector, authentication or permission manifest payload; no registered schedule |
-| v6-to-v7 migration | PASS: preview-only, source unchanged, proposal validates, preservation checks pass |
-| Final workflow sequence | PASS: declaration → separate exact handoff approval → verification → current-lineage HITL 3 → persisted one-time offer/response |
-| Review authority | PASS: yes authorises read-only review and one versioned proposal only |
-| Stale release-evidence guard | PASS: rejects the historical mismatched v0.2.1 report/archive pair |
+| Direct official custom-plugin validator | PASS |
+| Shared-core parity | PASS: 30/30 |
+| Runtime/public mirror parity | PASS: 52/52 |
+| Whitespace validation | PASS: `git diff --check -- 01_ChatGPT_Desktop_App` |
+| Runtime defaults | PASS: inactive, no schedules |
+| Privilege surface | PASS: no MCP/app/hook/provider-auth/permission/schedule payload |
 
-The installed official validator scripts require PyYAML, which is absent from
-the default interpreter. Validation reused the existing ignored
-`dist/local-validation/official-validator-deps/packages` folder; no package was
-installed and no account, connector or network service was added.
+The unchanged marketplace record retains the pre-existing
+`policy.authentication: ON_INSTALL` host install-policy metadata. It is not a
+bundled authentication provider, credential surface, or provider-auth payload.
+No MCP server, app, connector, hook, account sign-in, API key, permission grant,
+runtime activation, or schedule was added.
 
-Generated Python bytecode was moved into the existing ignored
-`dist/local-validation/` quarantine area and all final Python runs used
-`PYTHONDONTWRITEBYTECODE=1`. No cache artefact remains in the source tree.
+The official validator scripts used the existing ignored local PyYAML dependency
+folder under `dist/local-validation`. Nothing was installed and no network
+service or account was added. All Python runs used `-B` and
+`PYTHONDONTWRITEBYTECODE=1`; no generated cache remains in the source scope.
 
-## Commands
+## Reproduction commands
 
-Run from the repository root with Python 3. For the official/static validators,
-point `PYTHONPATH` at the existing local PyYAML folder when present.
+Run from the repository root with Python 3:
 
 ```text
-python 01_ChatGPT_Desktop_App/plugins/agentic-course-redesign/scripts/validate_state.py 01_ChatGPT_Desktop_App/plugins/agentic-course-redesign/assets/project-template/01_Control/state.json
-python -m unittest discover -s 01_ChatGPT_Desktop_App/plugins/agentic-course-redesign/tests -p "test_*.py" -v
-python 01_ChatGPT_Desktop_App/validation/forward_test.py
-python 01_ChatGPT_Desktop_App/validation/public_scrub.py
-python 01_ChatGPT_Desktop_App/validation/validate_public_submission.py
-python 01_ChatGPT_Desktop_App/validation/validate_static_formats.py
-python 01_ChatGPT_Desktop_App/validation/run_official_validators.py
-python 01_ChatGPT_Desktop_App/validation/validate_release_evidence.py --report <report.json> --archive <exact.zip> --expected-version <version>
+python -B 01_ChatGPT_Desktop_App/plugins/agentic-course-redesign/scripts/validate_state.py 01_ChatGPT_Desktop_App/plugins/agentic-course-redesign/assets/project-template/01_Control/state.json
+python -B -m unittest discover -s 01_ChatGPT_Desktop_App/plugins/agentic-course-redesign/tests -p "test_*.py" -v
+python -B 01_ChatGPT_Desktop_App/validation/forward_test.py
+python -B 01_ChatGPT_Desktop_App/validation/public_scrub.py
+python -B 01_ChatGPT_Desktop_App/validation/validate_public_submission.py
+python -B 01_ChatGPT_Desktop_App/validation/validate_static_formats.py
+python -B 01_ChatGPT_Desktop_App/validation/run_official_validators.py
 ```
 
-Portable and skills-only ZIPs were built locally to test deterministic
-packaging, checksums and archive validation. Only the exact archives selected
-for the v0.2.2 GitHub release become release assets; ignored local copies remain
-validation artifacts. Publication performs no installation, activation, or
-schedule registration.
+For the official/static validators, `PYTHONPATH` points at the existing
+`dist/local-validation/official-validator-deps/packages` folder.
 
-## Historical release-evidence limitation
+## Current release boundary and residual limits
 
-The published v0.2.1 system archive is 490,203 bytes with SHA-256
-`77F44DB57FB70A6FF6906AF4A5DC11E2EB115C68B0E78EBF01C7C0B882B7AE70`.
-The attached `system-release-validation-v0.2.1.json`, however, records the
-earlier v0.2.0 archive: 481,578 bytes and SHA-256
-`257ADE8C2205306252CE0F9BBFDE149DDC5ACA794497EB9548F0A247F8369632`.
-The live v0.2.1 GitHub release also reports `immutable=false`.
+The installed `v0.2.2` base separately passed a post-restart fresh-task picker,
+umbrella-entry, and all-six-skills smoke test. That is base-release evidence, not
+proof that `v0.2.3` has been installed.
 
-The new read-only evidence guard correctly returned failure for that mismatched
-pair on archive name/version, byte count and SHA-256. Historical v0.2.1 files
-were not modified. The v0.2.2 release must attach only its matching
-exact-version evidence.
+The `v0.2.3` release source is complete and validated. These remain separate
+actions from repository publication:
 
-## Residual limits and later decisions
+- install or activate `v0.2.3` and run its fresh-task picker smoke test;
+- submit the OpenAI source after publisher identity, organisation, legal/support
+  pages, territories, attestations, safety scans, review, and owner approval;
+- configure any optional schedule through its separate course-specific gates.
 
-- Source validation and repository publication do not install v0.2.2 or prove
-  picker behaviour for an installed runtime.
-- The last verified pre-release user-level plugin was v0.2.1. Version v0.2.2
-  requires its own supported installation and fresh-task picker check.
-- OpenAI directory owner fields, legal/support URLs, territory choices,
-  attestations, safety scans and review remain unresolved owner actions.
-- Workspace policy, account access and app version may restrict a custom
-  marketplace even when source validation passes.
-- OneDrive is cloud-synchronised rather than strictly local; protected material
-  may be stored there only when authorised.
-- Repository publication, installation, runtime activation and schedule
-  registration remain separate decisions. The release creates no installation,
-  activation, or schedule.
+No course-material file was read or changed during this system implementation.
+Rollback remains the preserved `v0.2.2` release and does not rewrite its tag,
+delete course projects, or erase run or schedule history.

@@ -10,8 +10,9 @@ capsule.
 
 Before a role acts, supply one current state capsule containing: `return_id`
 placeholder; run ID; run-contract ID/version; conversation reference or explicit
-null with its limitation; shared-context version; source-manifest fingerprint;
-source-access-policy version/fingerprint; plan version; current gate and next
+null with its limitation; shared-context version; material-processing
+eligibility fingerprint; source-manifest fingerprint; source-access-policy
+version/fingerprint; plan version; current gate and next
 permitted action; role and stage IDs; two to five bounded subgoals with
 dependencies and completion criteria; retry history; permitted source classes,
 tools, actions, egress and audiences; lecturer decisions; assumptions; and open

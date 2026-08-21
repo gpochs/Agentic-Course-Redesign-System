@@ -2,6 +2,7 @@
   "schema_version": 1,
   "policy_id": null,
   "policy_version": 1,
+  "material_processing_eligibility_fingerprint": null,
   "source_manifest_fingerprint": null,
   "per_source_entries": [],
   "role_tool_egress_permissions": [],

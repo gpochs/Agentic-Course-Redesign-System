@@ -36,7 +36,7 @@ def load_path(name: str, path: Path):
 setup = load("setup_course_project", "scripts/setup_course_project.py")
 manifest = load("source_manifest", "scripts/source_manifest.py")
 state_validator = load("validate_state", "scripts/validate_state.py")
-migration = load("migrate_state_v6_to_v7", "scripts/migrate_state_v6_to_v7.py")
+migration = load("migrate_state_v7_to_v8", "scripts/migrate_state_v7_to_v8.py")
 fingerprinter = load("fingerprint_file", "scripts/fingerprint_file.py")
 public_scrub = load_path("public_scrub", ROOT / "validation" / "public_scrub.py")
 
@@ -49,46 +49,26 @@ def check(condition: bool, label: str, evidence: object = None) -> dict[str, obj
     return {"check": label, "pass": bool(condition), "evidence": evidence}
 
 
-def downgrade_v7_to_v6(state: dict) -> dict:
+def downgrade_v8_to_v7(state: dict) -> dict:
     result = copy.deepcopy(state)
-    result["schema_version"] = 6
-    result["plugin_version"] = "0.2.1"
-    result.pop("umbrella_entry_routing")
-    result.pop("schema_compatibility")
-    for run in [result["run_template"], *result["runs"]]:
-        run["approvals"].pop("hitl_3")
-        run["approvals"].pop("system_improvement_review_offer")
-        run.pop("resume_protocol")
-        rules = run["manual_stage_authority"]["transition_rules"]
-        first = next(
-            index
-            for index, rule in enumerate(rules)
-            if rule["trigger"] == "fresh_hitl3_acceptance_after_verified_production_handoff"
-        )
-        rules[first : first + 2] = [
-            {
-                "trigger": "fresh_hitl3_acceptance_and_system_review_request_after_verified_production_handoff",
-                "authorises_through": "SYSTEM_GATE",
-                "purpose": "reusable_system_proposal_and_system_gate_only",
-                "does_not_authorise_candidate_activation": True,
-            }
-        ]
-    activation = result["activation"]
-    activation["required_before_active"] = [
-        item
-        for item in activation["required_before_active"]
-        if item not in {"hitl_3_accepted", "system_improvement_review_offer_requested"}
-    ]
-    update = activation["system_update"]
-    update.pop("allowed_statuses")
-    update.pop("prerequisites")
-    update["completed_reply_requirements"] = [
-        item
-        for item in update["completed_reply_requirements"]
-        if item not in {"run_id", "system_improvement_review_offer_reference"}
-    ]
-    update["approval"].pop("run_id")
-    update["approval"].pop("system_improvement_review_offer_reference")
+    result["schema_version"] = 7
+    result["plugin_version"] = "0.2.2"
+    result.pop("adaptive_course_scope")
+    result.pop("material_processing_eligibility")
+    for field in (
+        "educational_context_type",
+        "discipline_or_subject",
+        "qualification_or_framework",
+        "adaptation_inputs_confirmed",
+    ):
+        result["course"].pop(field, None)
+    result["source_access_policy"].pop(
+        "material_processing_eligibility_fingerprint", None
+    )
+    result["schedule_registration"].pop(
+        "required_material_processing_eligibility", None
+    )
+    result.pop("schema_8_migration_hold", None)
     return result
 
 
@@ -108,7 +88,7 @@ def main() -> int:
         (ROOT / "validation" / "plugin-test-cases.json").read_text(encoding="utf-8")
     )
     checks.append(check(plugin_manifest.get("name") == "agentic-course-redesign", "plugin manifest identity"))
-    checks.append(check(plugin_manifest.get("version") == "0.2.2", "plugin patch version"))
+    checks.append(check(plugin_manifest.get("version") == "0.2.3", "plugin patch version"))
     checks.append(
         check(
             not (
@@ -155,13 +135,13 @@ def main() -> int:
     checks.append(
         check(
             'display_name: "Agentic Course Redesign"' in umbrella_metadata
-            and "## Umbrella entry routing" in umbrella_skill
-            and "$course-redesign-setup" in umbrella_skill
-            and "Fail closed on a missing, stale, contradictory, or invalid" in umbrella_skill
-            and "never authorises crossing lecturer-in-the-loop gates" in umbrella_skill
+            and "### Umbrella entry, Gate 0A and Gate 0" in umbrella_skill
+            and "course-redesign-setup" in umbrella_skill
+            and "fail closed on mixed/uncertain material" in umbrella_skill
+            and "No gate, permission, target, or lecturer decision carries" in umbrella_skill
             and "DECLARE PRODUCTION COMPLETE" in umbrella_skill
             and "APPROVE PRODUCTION HANDOFF" in umbrella_skill
-            and migration.MANDATORY_SYSTEM_REVIEW_QUESTION in umbrella_skill
+            and "Would you like a separate, read-only system-improvement review" in umbrella_skill
             and all(
                 status in umbrella_skill
                 for status in ("offered_awaiting_response", "requested", "declined")
@@ -221,32 +201,38 @@ def main() -> int:
     state = json.loads(state_text)
     state_errors = state_validator.validate(state)
     checks.append(check(not state_errors, "state fail-closed invariants", state_errors))
-    checks.append(check(state.get("schema_version") == 7, "state schema 7"))
-    checks.append(check(state.get("plugin_version") == "0.2.2", "template version matches candidate"))
+    checks.append(check(state.get("schema_version") == 8, "state schema 8"))
+    checks.append(check(state.get("plugin_version") == "0.2.3", "template version matches candidate"))
     checks.append(check(state.get("status") == "candidate_not_active", "template runtime inactive"))
     checks.append(check(state.get("schedules") == [], "template registers no schedules"))
     checks.append(
         check(
-            state.get("umbrella_entry_routing") == migration.umbrella_entry_routing(),
-            "schema records Gate 0 umbrella routing",
+            state.get("umbrella_entry_routing", {}).get("initial_gate")
+            == "GATE_0A_AWAITING_MATERIAL_ENVIRONMENT_ELIGIBILITY",
+            "schema records pre-source Gate 0A umbrella routing",
         )
     )
     run_template = state.get("run_template", {})
     checks.append(
         check(
-            run_template.get("approvals", {}).get("hitl_3") == migration.hitl3_record()
-            and run_template.get("approvals", {}).get("system_improvement_review_offer")
-            == migration.system_improvement_review_offer_record()
-            and run_template.get("resume_protocol") == migration.resume_protocol(),
-            "schema records canonical HITL3, review offer and resume protocol",
+            run_template.get("approvals", {}).get("trigger_guidance_offer", {}).get(
+                "informational_only"
+            )
+            is True
+            and run_template.get("resume_protocol", {}).get("rules", {}).get(
+                "complete_dormant_is_terminal_and_never_resumable"
+            )
+            is True,
+            "schema records terminal closeout and informational trigger guidance",
         )
     )
     offer_gate = run_template.get("approvals", {}).get("system_improvement_review_offer", {})
     checks.append(
         check(
-            offer_gate.get("mandatory_question") == migration.MANDATORY_SYSTEM_REVIEW_QUESTION
-            and offer_gate.get("required_question_scope")
-            == migration.REQUIRED_SYSTEM_REVIEW_SCOPE,
+            offer_gate.get("mandatory_question", "").startswith(
+                "Would you like a separate, read-only system-improvement review"
+            )
+            and "schedule_contracts" in offer_gate.get("required_question_scope", []),
             "complete mandatory post-HITL3 system-review question",
         )
     )
@@ -274,17 +260,20 @@ def main() -> int:
             premature_errors,
         )
     )
-    legacy_state = downgrade_v7_to_v6(state)
+    legacy_state = downgrade_v8_to_v7(state)
     legacy_before = copy.deepcopy(legacy_state)
-    migration_report = migration.preview_migration(legacy_state, source="forward-test-v6")
+    migration_report = migration.preview_migration(legacy_state, source="forward-test-v7")
     migrated_state = migration_report.get("candidate_state", {})
     checks.append(
         check(
             legacy_state == legacy_before
             and migration_report.get("mode") == "preview_only"
             and migration_report.get("would_write") is False
-            and not state_validator.validate(migrated_state),
-            "v6-to-v7 migration is non-mutating preview and validates",
+            and not state_validator.validate(migrated_state)
+            and migration_report.get("source_schema_version") == 7
+            and migration_report.get("target_schema_version") == 8
+            and migration_report.get("reconfirmation_required") is True,
+            "v7-to-v8 migration is non-mutating preview and requires reconfirmation",
             migration_report.get("preservation_checks"),
         )
     )
@@ -325,20 +314,8 @@ def main() -> int:
     checks.append(check("ready for a lecturer-guided first run" in warning, "inactive warning permits guided first run"))
     checks.append(check("no standing schedule is registered" in warning, "inactive warning forbids schedule activation"))
 
-    policy_path = PLUGIN / "assets/project-template/01_Control/source-access-policy.template.json"
-    digest_one, payload_one = fingerprinter.fingerprint(policy_path, "policy")
-    policy_copy = json.loads(policy_path.read_text(encoding="utf-8"))
-    policy_copy["fingerprint"] = "IGNORED"
-    policy_copy["lecturer_decision"] = "approved"
-    policy_copy["approved_at"] = "2099-01-01T00:00:00Z"
-
     with tempfile.TemporaryDirectory(prefix="agentic-course-redesign-forward-") as temporary:
         temporary_root = Path(temporary)
-        altered = temporary_root / "policy.json"
-        altered.write_text(json.dumps(policy_copy, indent=4), encoding="utf-8")
-        digest_two, payload_two = fingerprinter.fingerprint(altered, "policy")
-        checks.append(check(digest_one == digest_two and payload_one == payload_two, "canonical policy fingerprint stable", digest_one))
-
         project = temporary_root / "One_Course_Project"
         preview = setup.build_report(project)
         checks.append(check(not preview["would_overwrite"], "setup preview is non-destructive"))
@@ -350,12 +327,106 @@ def main() -> int:
         (project / "00_Source_Materials" / "workbook.txt").write_text("safe course content", encoding="utf-8")
         (project / "00_Source_Materials" / "test_answer_key.txt").write_text("teacher only", encoding="utf-8")
         (project / "00_Context" / "programme-policy.txt").write_text("local policy", encoding="utf-8")
+        eligibility = json.loads(
+            (
+                PLUGIN
+                / "assets/project-template/01_Control/material-processing-eligibility.template.json"
+            ).read_text(encoding="utf-8")
+        )
+        eligibility.update(
+            {
+                "eligibility_id": "ELIG-FORWARD-001",
+                "status": "approved",
+                "lecturer_declaration_reference": "REPLY-ELIGIBILITY-FORWARD-001",
+                "recorded_at": "2026-08-21T12:00:00Z",
+                "reconfirmation_required": False,
+            }
+        )
+        eligibility["environment"].update(
+            {
+                "category": "personal_or_unmanaged",
+                "exact_environment_reference": "SYNTHETIC-FORWARD-ENVIRONMENT",
+            }
+        )
+        eligibility["material_scope"].update(
+            {
+                "declared_category": "privately_owned_or_rightsholder_authorised",
+                "ai_processing_authority_confirmed": True,
+                "contains_institution_internal_or_restricted_material": False,
+                "contains_student_personal_data": False,
+                "sensitivity_classification": "non_sensitive",
+                "assessment_security_classification": "no_protected_assessment_material",
+                "assessment_security_handling_authorised": True,
+            }
+        )
+        eligibility["decision"].update(
+            {
+                "outcome": "proceed",
+                "reason": "synthetic authorised forward-test fixture",
+                "approved_processing_scope": "synthetic forward-test files only",
+            }
+        )
+        eligibility["fingerprint"] = manifest.canonical_eligibility_fingerprint(
+            eligibility
+        )
+        eligibility_path = project / "01_Control/material-processing-eligibility.json"
+        eligibility_path.write_text(json.dumps(eligibility, indent=2), encoding="utf-8")
+        policy_path = project / "01_Control/source-access-policy.json"
+        policy_copy = json.loads(
+            (
+                PLUGIN
+                / "assets/project-template/01_Control/source-access-policy.template.json"
+            ).read_text(encoding="utf-8")
+        )
+        policy_copy["material_processing_eligibility_fingerprint"] = eligibility[
+            "fingerprint"
+        ]
+        policy_path.write_text(json.dumps(policy_copy), encoding="utf-8")
+        digest_one, payload_one = fingerprinter.fingerprint(
+            policy_path, "policy", eligibility_record=eligibility_path
+        )
+        policy_copy.update(
+            {
+                "fingerprint": "IGNORED",
+                "lecturer_decision": "approved",
+                "approved_at": "2099-01-01T00:00:00Z",
+            }
+        )
+        policy_path.write_text(json.dumps(policy_copy, indent=4), encoding="utf-8")
+        digest_two, payload_two = fingerprinter.fingerprint(
+            policy_path, "policy", eligibility_record=eligibility_path
+        )
+        checks.append(
+            check(
+                digest_one == digest_two and payload_one == payload_two,
+                "canonical policy fingerprint stable",
+                digest_one,
+            )
+        )
+        try:
+            fingerprinter.fingerprint(policy_path, "policy")
+        except PermissionError:
+            missing_eligibility_is_blocked = True
+        else:
+            missing_eligibility_is_blocked = False
+        checks.append(
+            check(
+                missing_eligibility_is_blocked,
+                "policy fingerprint requires approved Gate-0A eligibility",
+            )
+        )
         manifest_path = Path("01_Control/source-hashes.csv")
-        created = manifest.create(project, manifest_path, replace=False)
-        verified = manifest.verify(project, manifest_path)
+        created = manifest.create(
+            project, manifest_path, replace=False, eligibility_record=eligibility_path
+        )
+        verified = manifest.verify(
+            project, manifest_path, eligibility_record=eligibility_path
+        )
         checks.append(check(created["ok"] and verified["ok"], "source manifest create and verify", created.get("manifest_fingerprint")))
         (project / "00_Source_Materials" / "workbook.txt").write_text("tampered", encoding="utf-8")
-        tampered = manifest.verify(project, manifest_path)
+        tampered = manifest.verify(
+            project, manifest_path, eligibility_record=eligibility_path
+        )
         checks.append(check(not tampered["ok"], "source tampering fails verification"))
 
         synthetic_home = "C:" + "\\Users\\SampleLecturer\\OneDrive\\Course\\file.txt"

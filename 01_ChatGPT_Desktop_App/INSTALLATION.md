@@ -2,12 +2,16 @@
 
 ## Status first
 
-Version `0.2.2` is the current repository release at
+Version `0.2.3` is the current published repository release at
 <https://github.com/gpochs/Agentic-Course-Redesign-System> as a custom
 repository marketplace for supported surfaces. The plugin is not in
 OpenAI's universal Plugins Directory and has not passed OpenAI review.
 
-The `v0.2.2` release source is inactive by default. Publishing it does not
+The `v0.2.3` release source is inactive by default. Rollback version `v0.2.2`
+was installed and passed a post-restart fresh-task smoke test on the tested
+host; v0.2.3 requires its own exact-version installation check. Host evidence
+does not generalise to other users, devices, accounts or workspaces.
+Publishing any release does not
 install or enable the plugin, activate a reusable runtime, register a schedule,
 or begin a course run. Report an installation only after the supported plugin
 manager and a fresh-task picker check confirm that exact version.
@@ -53,7 +57,7 @@ An installed app or CLI build that exposes repository marketplaces may use
 this pinned public source:
 
 ```text
-codex plugin marketplace add gpochs/Agentic-Course-Redesign-System --ref v0.2.2
+codex plugin marketplace add gpochs/Agentic-Course-Redesign-System --ref v0.2.3
 ```
 
 Then restart the ChatGPT desktop app, select the new marketplace source, install
@@ -62,12 +66,10 @@ actually exposes `codex plugin marketplace`. Otherwise use the supported
 ChatGPT Desktop marketplace UI or the portable project-template fallback; an
 absent command is not evidence of successful installation.
 
-The last verified pre-release session exposed the user-level `0.2.1` plugin
-cache. That historical umbrella test is not evidence that `0.2.2` is installed.
-After installing `0.2.2`, start a fresh task and verify the umbrella plus all six
-bundled skills before reporting the installation complete.
-This does not automatically install the plugin for other users, devices,
-accounts or workspaces.
+The rollback evidence confirms installed/enabled user-level `0.2.2` after a
+desktop restart and fresh-task picker/umbrella check, with all six bundled
+skills available. Confirm `0.2.3` separately after installation and do not use
+either result as evidence for another host.
 
 ## Workspace sharing boundary
 
@@ -82,10 +84,19 @@ the unresolved owner-supplied fields.
 
 ## Start one isolated course
 
-Before setup:
+Before source intake:
 
 - create one project and one short folder for one course only;
-- confirm that local or OneDrive storage is permitted for every source class;
+- complete Gate 0A using material category and exact processing environment
+  plus sensitivity and assessment-security classifications/authority only,
+  without disclosing paths, filenames, source lists, content or hashes;
+- confirm explicit AI-processing authority; public accessibility alone is not
+  enough;
+- route institution-internal/restricted material to an approved institutional
+  environment; separately classify student personal data and protected
+  assessment/answer-key handling; and segregate or clarify mixed/uncertain
+  material or security classifications;
+- confirm that local or OneDrive storage is permitted for every eligible source class;
 - exclude student personal data, submissions, grades, credentials, and secrets;
 - decide which approved source classes may leave the device, if any; and
 - have Python 3 available for scaffold and validation helpers.
@@ -96,7 +107,7 @@ Then:
 2. Ask: **Set up a protected redesign project for one course.**
 3. Review the exact target and no-overwrite preview.
 4. Approve scaffold creation only for that target.
-5. Add current course files under `00_Source_Materials/` and contextual evidence
+5. Only after Gate 0A permits processing, add current course files under `00_Source_Materials/` and contextual evidence
    under `00_Context/`.
 6. Review and approve the source manifest and versioned source-access policy
    before specialist analysis.

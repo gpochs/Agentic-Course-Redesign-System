@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "eligibility_id": null,
+  "eligibility_version": 1,
+  "status": "awaiting_lecturer_declaration",
+  "allowed_statuses": [
+    "awaiting_lecturer_declaration",
+    "approved",
+    "route_only",
+    "failed_closed"
+  ],
+  "gate": "GATE_0A_MATERIAL_ENVIRONMENT_ELIGIBILITY",
+  "must_precede": [
+    "course_source_path_or_filename_disclosure",
+    "course_source_listing",
+    "course_source_read",
+    "course_source_copy",
+    "course_source_hash",
+    "course_source_or_context_intake"
+  ],
+  "source_detail_prohibition_before_approval": [
+    "no_source_paths",
+    "no_source_filenames",
+    "no_source_lists",
+    "no_source_content",
+    "no_source_hashes"
+  ],
+  "environment": {
+    "category": null,
+    "allowed_categories": [
+      "personal_or_unmanaged",
+      "approved_institutional_exact_environment"
+    ],
+    "exact_environment_reference": null,
+    "institutional_policy_reference": null,
+    "approved_scope": null,
+    "policy_expires_at": null
+  },
+  "material_scope": {
+    "declared_category": null,
+    "allowed_categories": [
+      "privately_owned_or_rightsholder_authorised",
+      "appropriately_licensed_or_public_with_explicit_ai_processing_authority",
+      "institution_internal_or_restricted",
+      "mixed",
+      "uncertain"
+    ],
+    "ai_processing_authority_confirmed": false,
+    "public_availability_alone_is_insufficient": true,
+    "contains_institution_internal_or_restricted_material": null,
+    "contains_student_personal_data": null,
+    "sensitivity_classification": null,
+    "allowed_sensitivity_classifications": [
+      "non_sensitive",
+      "institution_internal_or_restricted",
+      "student_personal_data",
+      "institution_internal_or_restricted_and_student_personal_data",
+      "mixed_or_uncertain"
+    ],
+    "assessment_security_classification": null,
+    "allowed_assessment_security_classifications": [
+      "no_protected_assessment_material",
+      "contains_protected_assessment_or_answer_key_material",
+      "mixed_or_uncertain"
+    ],
+    "assessment_security_handling_authorised": null
+  },
+  "decision": {
+    "outcome": null,
+    "allowed_outcomes": [
+      "proceed",
+      "route_only",
+      "fail_closed_until_segregated",
+      "fail_closed_until_clarified"
+    ],
+    "reason": null,
+    "approved_processing_scope": null
+  },
+  "fingerprint_method": "sha256_utf8_canonical_json_sorted_keys_no_insignificant_whitespace_excluding_fingerprint_and_approval_metadata",
+  "fingerprint": null,
+  "lecturer_declaration_reference": null,
+  "recorded_at": null,
+  "reconfirmation_required": true
+}

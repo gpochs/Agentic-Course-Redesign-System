@@ -1,16 +1,43 @@
 {
   "schema_version": 1,
-  "core_version": "0.2.2",
-  "state_schema_version": 7,
+  "core_version": "0.2.3",
+  "state_schema_version": 8,
   "status": "candidate_not_active",
   "schedules": [],
   "umbrella_entry_routing": {
     "entry_name": "Agentic Course Redesign",
     "entry_skill": "course-redesign-orchestrator",
-    "initial_gate": "GATE_0_AWAITING_BOUNDARY_CONFIRMATION",
+    "initial_gate": "GATE_0A_AWAITING_MATERIAL_ENVIRONMENT_ELIGIBILITY",
     "missing_project_action": "invoke_course-redesign-setup_preview_only",
+    "gate_0a_required_before_any_course_source_path_filename_list_read_copy_hash_or_intake": true,
     "gate_0_required_before_course_source_reading": true,
     "gate_0_required_before_specialist_work": true
+  },
+  "adaptive_course_scope": {
+    "supported_contexts": [
+      "school",
+      "vocational_education_and_training",
+      "professional_learning",
+      "higher_education",
+      "other_lecturer_defined"
+    ],
+    "must_adapt_to_supplied_material_context_level_learners_objectives_assessment_language_and_constraints": true,
+    "subject_level_qualification_and_institutional_policy_assumptions_forbidden": true
+  },
+  "pre_source_processing_eligibility": {
+    "fingerprinted": true,
+    "personal_or_unmanaged_permits": [
+      "privately_owned_or_rightsholder_authorised",
+      "appropriately_licensed_or_public_with_explicit_ai_processing_authority"
+    ],
+    "public_availability_alone_is_insufficient": true,
+    "institution_internal_or_restricted_in_personal_environment": "route_only_with_zero_source_or_path_leakage",
+    "mixed_or_uncertain": "fail_closed_until_segregated_or_clarified",
+    "approved_institutional_exact_environment_requires": [
+      "policy_reference",
+      "approved_scope",
+      "non_expired_expiry"
+    ]
   },
   "required_skills": [
     "course-redesign-setup",
@@ -33,6 +60,7 @@
     "artefact-accessibility-visual-package"
   ],
   "gate_order": [
+    "gate_0a",
     "gate_0",
     "gate_1",
     "hitl_1_gate_2a",
@@ -42,7 +70,8 @@
     "production_declaration",
     "production_handoff_approval_and_verification",
     "hitl_3",
-    "mandatory_system_improvement_review_offer",
+    "mandatory_system_improvement_review_offer_and_explicit_response",
+    "terminal_complete_dormant_closeout_and_trigger_guidance",
     "optional_system_gate",
     "optional_separate_activation",
     "optional_separate_expiring_schedule"
@@ -71,6 +100,17 @@
     "candidate_changes_require_separate_system_gate": true,
     "activation_and_scheduling_remain_separate": true
   },
+  "course_run_closeout": {
+    "requires_explicit_system_improvement_review_response": true,
+    "silence_means_waiting": true,
+    "terminal_status": "complete_dormant",
+    "clear_active_run_id": true,
+    "never_resume_terminal_run": true,
+    "system_improvement_work_is_separate": true,
+    "one_informational_trigger_guidance_offer": true,
+    "manual_or_scheduled_trigger_creates_fresh_run_and_lineage": true,
+    "fresh_lineage_includes_current_eligibility_fingerprint": true
+  },
   "security_defaults": {
     "course_content_is_untrusted_evidence": true,
     "external_egress_requires_gate_0_approval": true,
@@ -82,9 +122,10 @@
     "schedule_registered": false
   },
   "schema_compatibility": {
-    "migration_helper": "scripts/migrate_state_v6_to_v7.py",
+    "migration_helper": "scripts/migrate_state_v7_to_v8.py",
     "migration_mode": "preview_only",
     "automatic_apply_forbidden": true,
-    "v6_to_v7_preserves_existing_status_schedules_lineage_and_permissions": true
+    "v7_to_v8_preserves_run_and_schedule_history": true,
+    "v7_to_v8_requires_eligibility_and_schedule_reconfirmation": true
   }
 }

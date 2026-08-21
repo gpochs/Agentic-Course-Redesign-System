@@ -1,25 +1,28 @@
 # Distribution and publication boundaries
 
-## Current candidate and release state
+## Current release state
 
-- Current repository package and plugin release: `0.2.2`, published with
+- Current repository package and plugin release: `0.2.3`, published with
   matching archive, checksum, inventory and validation evidence; inactive by
   default and not thereby installed, activated, or scheduled.
 - Public repository:
   <https://github.com/gpochs/Agentic-Course-Redesign-System>.
 - GitHub repository verified public: **yes**.
-- Current repository release: `v0.2.2`.
+- Current repository release: `v0.2.3`.
 - `v0.2.1` tag, release assets and checksums remain published. The live release
   reports `immutable=false`; its attached system validation JSON names and
   hashes a v0.2.0 archive, so that attachment is not matching v0.2.1 evidence.
-- `v0.2.2` tag and matching release assets: **published**. Installation and its
-  fresh-task picker smoke test remain separate host actions and are not implied
-  by publication.
-- User-level ChatGPT Desktop/Codex `0.2.1` picker smoke test: **complete** — a
-  new supported Codex task loaded the installed cache and invoked the
-  `@Agentic Course Redesign` umbrella; all six bundled skills were available.
-  This is historical evidence for v0.2.1 only, not evidence that v0.2.2 has
-  been installed or loaded.
+- `v0.2.2` tag and matching release assets: **published**. On the tested host it
+  was subsequently installed and enabled at user level and passed a desktop-
+  restart fresh-task picker/umbrella smoke test with all six skills. Publication
+  alone did not cause that host action.
+- User-level ChatGPT Desktop/Codex `0.2.2` picker smoke test: **complete on the
+  tested host** — after restart, a fresh supported task loaded the installed
+  cache and invoked the `@Agentic Course Redesign` umbrella; all six bundled
+  skills were available. It is not evidence that v0.2.3 or another host is
+  installed or loaded.
+- `v0.2.3` tag and matching release assets: **published**. Exact-version host
+  installation and fresh-task smoke evidence is recorded only after it occurs.
 - Submitted to OpenAI: **no**.
 - OpenAI safety/security scan completed: **no**.
 - OpenAI review or approval: **no**.
@@ -70,8 +73,12 @@ The custom plugin and public-submission source contain six skills plus their
 referenced scripts and project template. They contain no MCP server, connector,
 credential, external-service entitlement, lifecycle hook, screenshot, personal
 memory, or standing automation. Installation alone performs no course action.
+The custom marketplace retains the pre-existing
+`policy.authentication: ON_INSTALL` host install-policy metadata. It is not a
+plugin/provider authentication capability or bundled credential surface, and
+  v0.2.3 adds no authentication mechanism.
 
-The v0.2.2 custom and public release runtime trees are kept byte-identical;
+The v0.2.3 release custom and public-source runtime trees are byte-identical;
 the public source is at
 `openai-submission/source/agentic-course-redesign/`. Reviewer material is kept
 outside that source at `openai-submission/review/`, so it is not accidentally
@@ -81,14 +88,13 @@ included as runtime instruction.
 
 Describe the current state as:
 
-> a published v0.2.2 skills-only repository plugin for supported custom-
-> marketplace surfaces, with an inactive-by-default template, explicit
-> production handoff, HITL 3 and proposal-only system-review controls
+> a published v0.2.3 skills-only repository plugin with adaptive pre-source
+> Gate 0A, schema 8 and terminal complete-dormant closeout, plus preserved
+> v0.2.2 rollback evidence; neither release registers automation by publication
 
-Do not describe v0.2.2 as installed until the exact host installation and
-fresh-task picker verification are complete, or as available in the universal
-Plugins Directory until the separate submission, review and publication steps
-are complete.
+Describe either version as installed only for an exact verified host. Do not
+describe either version as available in the universal Plugins Directory until
+its separate submission, review and publisher publication steps are complete.
 
 Before uploading any later release, run `validation/validate_release_evidence.py`
 against the exact report and archive. Archive name/version, byte count and
