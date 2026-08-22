@@ -17,4 +17,6 @@ discover or disclose source paths, filenames, manifests, or content. Preserve pr
 audience labels, current lineage, and assessment security. The shared agents are
 read-only; do not create or modify any target without the exact approval
 required by the portable course-redesign contract. Do not resume a terminal
-`complete_dormant` run.
+`complete_dormant` run. Keep specialist findings behind the orchestrator's
+single lecturer-facing decision flow; blank, skipped, ambiguous, or uncertain
+answers cannot advance a gate.

@@ -88,7 +88,7 @@ def main() -> int:
         (ROOT / "validation" / "plugin-test-cases.json").read_text(encoding="utf-8")
     )
     checks.append(check(plugin_manifest.get("name") == "agentic-course-redesign", "plugin manifest identity"))
-    checks.append(check(plugin_manifest.get("version") == "0.2.3", "plugin patch version"))
+    checks.append(check(plugin_manifest.get("version") == "0.2.4", "plugin patch version"))
     checks.append(
         check(
             not (
@@ -111,8 +111,18 @@ def main() -> int:
     skills = sorted(PLUGIN.glob("skills/*/SKILL.md"))
     skill_names = {path.parent.name for path in skills}
     checks.append(check(skill_names == public_scrub.EXPECTED_SKILLS, "exact six bounded plugin skills", sorted(skill_names)))
-    non_ascii_skills = [path.relative_to(PLUGIN).as_posix() for path in skills if not path.read_text(encoding="utf-8").isascii()]
-    checks.append(check(not non_ascii_skills, "validator-portable ASCII skill files", non_ascii_skills))
+    non_ascii_skills = [
+        path.relative_to(PLUGIN).as_posix()
+        for path in skills
+        if not path.read_text(encoding="utf-8").isascii()
+    ]
+    checks.append(
+        check(
+            not non_ascii_skills,
+            "validator-portable ASCII skill files",
+            non_ascii_skills,
+        )
+    )
     checks.append(check((PLUGIN / "assets/PARTICIPANT_QUICK_START.md").is_file(), "participant onboarding asset present"))
     prompt_errors = []
     for skill_path in skills:
@@ -149,6 +159,37 @@ def main() -> int:
             and "APPROVE SYSTEM FILES" in system_skill
             and "A token-only reply is" in system_skill,
             "flattened picker exposes full-workflow umbrella entry",
+        )
+    )
+    strong_prompt_markers = (
+        "live host contract can show the complete option set plus a custom answer",
+        "verified Codex supports exactly two or three explicit choices plus automatic Other",
+        "capacity is unknown, unavailable or exceeded",
+        "show every valid numbered option plus Other",
+        "Never prune, hide or combine valid choices to fit cards",
+        "keep every option visible in dependency chunks",
+        "let the lecturer control grouping",
+    )
+    checks.append(
+        check(
+            all(marker in umbrella_metadata for marker in strong_prompt_markers),
+            "umbrella prompt preserves every option and lecturer-controlled grouping",
+        )
+    )
+    capacity_docs = "\n".join(
+        (ROOT / name).read_text(encoding="utf-8")
+        for name in ("README.md", "INSTALLATION.md", "VALIDATION_REPORT.md")
+    )
+    checks.append(
+        check(
+            "current verified Codex" in capacity_docs
+            and "exactly two or three explicit" in capacity_docs
+            and "free-form `Other`" in capacity_docs
+            and "available only in Plan mode" in capacity_docs
+            and "Outside\n  Plan mode the card is unavailable" in capacity_docs
+            and "Work's exact maximum is not independently documented" in capacity_docs
+            and "capacity is unknown, unavailable or exceeded" in capacity_docs,
+            "adapter docs separate verified Codex capacity from unknown Work capacity",
         )
     )
     display_names = []
@@ -202,7 +243,7 @@ def main() -> int:
     state_errors = state_validator.validate(state)
     checks.append(check(not state_errors, "state fail-closed invariants", state_errors))
     checks.append(check(state.get("schema_version") == 8, "state schema 8"))
-    checks.append(check(state.get("plugin_version") == "0.2.3", "template version matches candidate"))
+    checks.append(check(state.get("plugin_version") == "0.2.4", "template version matches candidate"))
     checks.append(check(state.get("status") == "candidate_not_active", "template runtime inactive"))
     checks.append(check(state.get("schedules") == [], "template registers no schedules"))
     checks.append(
@@ -308,6 +349,36 @@ def main() -> int:
         check(
             not any(token in state_text.casefold() for token in legacy_prompt_tokens),
             "state uses conversational gates rather than numbered prompts",
+        )
+    )
+    normalized_umbrella_skill = " ".join(umbrella_skill.split())
+    dialogue_markers = (
+        "Ask one unresolved",
+        "Before using a native choice card, follow the live host tool contract",
+        "complete, mutually exclusive option set and a custom-answer path without omission",
+        "Never prune, hide or combine valid choices merely to fit a card",
+        "If a native card is unavailable or unsupported, its capacity is unknown",
+        "complete set exceeds that capacity",
+        "ordinary chat with every valid numbered option plus `Other - type your answer`, then wait",
+        "Every valid option remains visible",
+        "adaptive dependency-based",
+        "keep every valid option visible",
+        "lecturer split, merge, reorder or rename",
+        "Preserve a custom answer exactly",
+        "editable recap",
+        "never preselected",
+        "dialogue choice never substitutes",
+    )
+    checks.append(
+        check(
+            all(marker in normalized_umbrella_skill for marker in dialogue_markers),
+            "orchestrator exposes the complete host-adaptive dialogue contract",
+        )
+    )
+    checks.append(
+        check(
+            (PLUGIN / "scripts/create_material_processing_eligibility.py").is_file(),
+            "deterministic Gate-0A record generator is bundled",
         )
     )
     warning = (PLUGIN / "assets/project-template/00_NOT_ACTIVE_UNTIL_VALIDATED.txt").read_text(encoding="utf-8")

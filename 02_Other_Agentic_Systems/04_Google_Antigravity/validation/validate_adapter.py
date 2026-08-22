@@ -58,6 +58,7 @@ REQUIRED_PATHS = {
     "workspace-overlay/01_Control/source-access-policy.template.json",
     "workspace-overlay/01_Control/state.json",
     "workspace-overlay/.agents/skills/course-redesign-setup/scripts/fingerprint_file.py",
+    "workspace-overlay/.agents/skills/course-redesign-setup/scripts/create_material_processing_eligibility.py",
     "workspace-overlay/.agents/skills/course-redesign-setup/scripts/source_manifest.py",
     "workspace-overlay/.agents/skills/course-redesign-setup/scripts/migrate_state_v6_to_v7.py",
     "workspace-overlay/.agents/skills/course-redesign-setup/scripts/migrate_state_v7_to_v8.py",
@@ -490,6 +491,9 @@ WORKFLOW_CONTROL_PATHS = {
     "system": (
         OVERLAY_ROOT / ".agents" / "skills" / "course-redesign-system" / "SKILL.md"
     ),
+    "setup": (
+        OVERLAY_ROOT / ".agents" / "skills" / "course-redesign-setup" / "SKILL.md"
+    ),
     "continue": (
         OVERLAY_ROOT / ".agents" / "workflows" / "course-redesign-continue.md"
     ),
@@ -545,6 +549,25 @@ def validate_workflow_completeness(
             "clear top-level `active_run_id`",
             "informational trigger-guidance offer",
             "trigger creates a fresh run and lineage",
+            "## Lecturer interaction",
+            "exactly one unresolved decision",
+            "live host can show the complete",
+            "mutually exclusive option set and a custom-answer path",
+            "capacity is unknown",
+            "complete set exceeds its capacity",
+            "listing every valid numbered option plus `Other - type your answer`",
+            "Never prune, hide or combine valid choices",
+            "Every valid option remains visible",
+            "keep every valid option visible",
+            "split, merge, reorder, or rename",
+            "safest truthful, evidence-aligned, reversible",
+            "never preselect",
+            "Preserve every custom answer verbatim",
+            "Blank, skipped, partial, or ambiguous answers do not advance",
+            "Before each gate, recap",
+            "Specialists are evidence lenses",
+            "an outcome change requires rechecking implications for assessment evidence",
+            "a student-experience or accessibility concern",
         ),
         "system": (
             "## Required successful-run evidence",
@@ -567,6 +590,17 @@ def validate_workflow_completeness(
             "The token alone is invalid",
             "current Gate-0A eligibility fingerprint",
             "Each later recurrence creates a fresh run and lineage",
+        ),
+        "setup": (
+            "create_material_processing_eligibility.py",
+            "Run its preview first",
+            "must refuse every overwrite",
+            "generic host fallback",
+            "one unresolved decision at a time",
+            "exact no-overwrite approval",
+            "Never invent a value",
+            "add an MCP dependency",
+            "Preserve custom answers verbatim",
         ),
         "continue": (
             "production declaration and handoff replies",
@@ -742,7 +776,7 @@ def validate(
     checks["workflows"] = len(workflows)
     workflow_errors = validate_workflow_completeness()
     errors.extend(workflow_errors)
-    checks["workflow_completeness_controls"] = 0 if workflow_errors else 5
+    checks["workflow_completeness_controls"] = 0 if workflow_errors else 6
 
     rules_root = OVERLAY_ROOT / ".agents" / "rules"
     rules = sorted(rules_root.glob("*.md"))
@@ -866,26 +900,26 @@ def validate(
     if manifest:
         if manifest.get("platform") != "google-antigravity":
             errors.append("adapter manifest platform must be google-antigravity")
-        if manifest.get("adapter_version") != "0.2.3":
-            errors.append("adapter manifest top-level adapter_version must be 0.2.3")
+        if manifest.get("adapter_version") != "0.2.4":
+            errors.append("adapter manifest top-level adapter_version must be 0.2.4")
         if manifest.get("status") != "candidate_not_active":
             errors.append("adapter manifest top-level status must remain candidate_not_active")
         adapter = manifest.get("adapter", {})
         if adapter.get("platform") != "google-antigravity":
             errors.append("nested adapter platform must be google-antigravity")
-        if adapter.get("version") != "0.2.3":
-            errors.append("nested adapter version must be 0.2.3")
+        if adapter.get("version") != "0.2.4":
+            errors.append("nested adapter version must be 0.2.4")
         if adapter.get("status") != "candidate_not_active":
             errors.append("nested adapter status must remain candidate_not_active")
         provenance = manifest.get("provenance", {})
-        if provenance.get("workflow_proposal_id") != "ACR-SYS-20260821-005":
-            errors.append("workflow provenance must identify ACR-SYS-20260821-005")
-        if provenance.get("validated_base_version") != "0.2.3":
-            errors.append("workflow provenance must identify shared base version 0.2.3")
-        if provenance.get("adapter_release_version") != "0.2.3":
-            errors.append("workflow provenance must identify adapter release version 0.2.3")
-        if manifest.get("source", {}).get("version") != "0.2.3":
-            errors.append("source version must identify shared candidate 0.2.3")
+        if provenance.get("workflow_proposal_id") != "ACR-SYS-20260822-007":
+            errors.append("workflow provenance must identify ACR-SYS-20260822-007")
+        if provenance.get("validated_base_version") != "0.2.4":
+            errors.append("workflow provenance must identify shared base version 0.2.4")
+        if provenance.get("adapter_release_version") != "0.2.4":
+            errors.append("workflow provenance must identify adapter release version 0.2.4")
+        if manifest.get("source", {}).get("version") != "0.2.4":
+            errors.append("source version must identify shared candidate 0.2.4")
         source_files = manifest.get("source_files", [])
         if not source_files:
             errors.append("adapter manifest has no source-file hashes")

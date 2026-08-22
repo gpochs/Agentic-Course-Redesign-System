@@ -16,6 +16,46 @@ version for consequential replanning. Never use replanning to change the main
 goal, widen permissions, cross a gate, create write authority, reopen a settled
 choice, or weaken a stop condition.
 
+## Lecturer interaction contract
+
+Keep exactly one unresolved decision before the lecturer at a time. Build
+adaptive clusters from real dependencies rather than a fixed questionnaire;
+the lecturer may split, merge, reorder, or rename clusters at any time. Keep
+every valid option visible in its cluster. Never prune, hide or combine valid
+choices merely to fit a card.
+
+Use a native choice card only when the live host tool can show the complete
+mutually exclusive option set plus a custom-answer path. If the control is
+unavailable or unsupported, its capacity is unknown, or the complete set
+exceeds its capacity, ask the same single ordinary-chat question listing every
+valid numbered option plus `Other - type your answer`, then wait. Every valid
+option remains visible; do not divide or truncate the set to force a card. Preserve
+custom answers verbatim in the decision record, propose any normalized mapping,
+and obtain confirmation before using that mapping.
+
+Recommendations must be the safest truthful, evidence-aligned, reversible
+option available and are never preselected. Make a factual declaration only
+when it is true; missing or uncertain facts fail closed and become a question
+or explicit blocker. Blank, skipped, partial, or ambiguous answers do not
+resolve a decision or advance a gate.
+
+Before every gate, recap the resolved decisions, current dependency clusters,
+custom answers, uncertainty, and the exact authority about to be requested.
+At a major pedagogical gate, the orchestrator may first ask for the lecturer's
+criteria or preliminary view before offering advice. Keep this elicitation
+separate from the exact authority gate; criteria, a preliminary view, or
+agreement with advice never counts as gate approval.
+
+Specialist roles are evidence lenses. They communicate through the
+orchestrator, which remains the lecturer's single workflow interface and owns
+questions, recaps, recommendations, mapping confirmations, and gate requests.
+Track interdependencies explicitly. For example, an outcome change requires
+rechecking assessment evidence, permitted AI use, and learning activities; an
+assessment change requires rechecking outcomes, AI conditions, and practice;
+an AI-use change requires rechecking validity, accessibility, and activity
+design; and a student-experience or accessibility concern may require changes
+to active-learning format, workload, support, or alternatives.
+
 ## Gate 0A: pre-source processing eligibility
 
 Before source discovery, ask only non-identifying questions needed to classify
@@ -37,6 +77,17 @@ Persist the decision as a versioned processing-eligibility record with a
 canonical SHA-256 fingerprint. A pass permits only the next source-boundary
 step; it grants no source, role, tool, egress, audience, write, or gate
 authority. A blocked or route-only result is a hard stop in this environment.
+
+When the canonical shared helper is present, use
+`scripts/create_material_processing_eligibility.py` in preview mode to produce
+the deterministic candidate record, inspect the complete payload and target,
+and write only after the exact no-overwrite action is separately approved. If
+the host cannot run that helper, use the generic host fallback: collect the
+same category-level declarations one unresolved decision at a time, render the
+complete candidate JSON deterministically from the canonical template, show it
+for review, and wait for exact-target approval before creating a new file.
+Never overwrite an eligibility record, invent an answer, or add an MCP,
+connector, authentication, or egress dependency.
 
 ## Gate 0: source access and integrity
 
@@ -87,7 +138,8 @@ Reconcile findings, then let Assessment integrate last. Run the Source
 Verification and Citation Auditor and the Evidence and Feasibility Red Team.
 Separate factual accuracy, citation mechanics, and rights review.
 
-At Gate 2B, present concrete decision cards one decision at a time. The
+At Gate 2B, present concrete decisions one at a time using the lecturer
+interaction contract above. The
 lecturer may approve only the exact dated dossier and research-handoff targets
 under `03_Research/YYYY-MM-DD_<run-id>/`. Write nothing before that approval.
 Gate 2B never authorizes course-material production.
@@ -96,8 +148,9 @@ Gate 2B never authorizes course-material production.
 
 After Gate 2B, the Learning Designer integrates the selected decisions into one
 coherent blueprint and tests alignment, feasibility, accessibility, assessment
-security, workload, rights, and citations. Keep decisions in the interaction
-until the lecturer approves the blueprint and a typed, exact file plan.
+security, workload, rights, and citations. Keep every valid option in the
+interaction until the lecturer resolves it, and preserve the resulting decision
+record until the lecturer approves the blueprint and a typed, exact file plan.
 
 Gate 3 may name exact working-copy targets under `04_Working_Copies/` and exact
 accepted targets under `05_Approved/`. Verify the approved blueprint and file

@@ -1,5 +1,34 @@
 # Changelog
 
+## 0.2.4 - 2026-08-22
+
+- Adds one shared Lecturer Decision Dialogue Contract across every
+  human-in-the-loop phase without changing gate order, substantive option sets,
+  specialist authority, course semantics, schema 8 or lifecycle transitions.
+- Keeps one unresolved consequential question in view. A native card is used
+  only when the live host can show the complete mutually exclusive option set
+  plus a custom-answer path. If the control is unavailable or unsupported, its
+  capacity is unknown, or the complete set exceeds its capacity, the workflow
+  shows every valid option as one numbered chat question plus Other. Valid
+  choices are never pruned, hidden or combined merely to fit a card.
+- Makes long decision clusters adaptive and dependency-based rather than fixed
+  pedagogical silos. The lecturer may split, merge, rename, reorder or defer a
+  cluster while every valid option remains visible, and receives an editable
+  recap before continuation.
+- Preserves custom answers verbatim, confirms their canonical interpretation,
+  labels only the safest truthful evidence-aligned reversible option as
+  recommended, never preselects it, and treats blank, skipped or uncertain
+  required decisions as unresolved.
+- Adds a deterministic preview-first/no-overwrite Gate-0A eligibility-record
+  generator for local PowerShell/Python invocation. It addresses an observed
+  GitHub Copilot BYOK `apply_patch` history-serialization defect without adding
+  an MCP server, connector, hook, authentication, telemetry, permission or
+  publisher-run service.
+- Prepares matching `0.2.4` ChatGPT/OpenAI, portable, Claude Code, OpenCode and
+  Antigravity sources and `0.2.4-copilot.1` GitHub Copilot package metadata as
+  inactive candidates. Published OpenAI/Codex 0.2.3 and Copilot
+  0.2.3-copilot.1 remain rollback versions until separately replaced.
+
 ## 0.2.3 - 2026-08-21
 
 - Adds Gate 0A before any source-path disclosure or access, with fail-closed

@@ -1,11 +1,11 @@
 # Portable core adapter
 
-Adapter release: `0.2.3`. Shared semantic base: inactive candidate
-`ACR-SYS-20260821-005` version `0.2.3`.
+Adapter release: `0.2.4`. Shared semantic base: inactive candidate
+`ACR-SYS-20260822-007` version `0.2.4`.
 
 This adapter is the platform-neutral safety and workflow layer for a local,
 lecturer-guided course-redesign project. It is a semantic adaptation of the
-approved inactive candidate `ACR-SYS-20260821-005` version `0.2.3`; it is not that
+approved inactive candidate `ACR-SYS-20260822-007` version `0.2.4`; it is not that
 candidate's runtime, installer, or activation mechanism.
 
 The `overlay/` directory is laid out relative to a future project root:
@@ -30,9 +30,14 @@ GitHub Copilot, and OpenCode documentation all describe project skill discovery
 there. Platform folders beside this adapter add only native instruction and
 agent wrappers.
 
-Release `0.2.3` adds a pre-source Gate 0A processing-eligibility hard stop,
-course-independent ownership and institutional-routing semantics, schema-8
-lineage vocabulary, and an explicit terminal `complete_dormant` state. After
+Release `0.2.4` retains the pre-source Gate 0A processing-eligibility hard stop,
+course-independent ownership and institutional-routing semantics, and schema-8
+lineage vocabulary. It adds the host-neutral one-decision interaction contract,
+adaptive dependency clusters with every valid option visible, a four-or-more
+full-option chat fallback that leaves card mode, no pruning/hiding/combining to
+fit a card, verbatim custom-answer
+mapping, pre-gate recaps, and deterministic preview-first Gate-0A candidate
+generation with a generic no-overwrite host fallback. After
 HITL 3, silence waits; an explicit requested or declined system-improvement
 response closes the course run. Only a fresh manual trigger or a separately
 authorised scheduled trigger creates another run. One informational trigger-
@@ -78,12 +83,13 @@ python 00_Portable_Core_Adapter/validation/validate_adapters.py
 
 Pass the validated canonical source root as the optional sole argument to also
 recompute every recorded source SHA-256. The validator checks manifests,
-root-relative inventories, the portable skill contract, all ten native role
+root-relative inventories, the portable skill contract, the twenty Claude Code
+and OpenCode native role
 sets, thin-wrapper references, fail-closed escalation, read-only tool or
 permission declarations, absence of an executable OpenCode plugin, and private
 absolute-path leakage. It also checks the production-handoff-before-HITL3
-order, terminal dormant lifecycle, and the full post-HITL3 review offer and
-proposal-only authority.
+order, terminal dormant lifecycle, the interaction contract and Gate-0A helper
+fallback, and the full post-HITL3 review offer and proposal-only authority.
 
 Each manifest's top-level `files` array freezes every file under that adapter
 root except `adapter-manifest.json` itself. The self-exclusion is explicit in

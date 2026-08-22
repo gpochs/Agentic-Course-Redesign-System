@@ -19,3 +19,25 @@ At round start, order the approved subgoals by dependency. After every consequen
 In the preliminary round, identify only the most consequential clarity, workload, accessibility, inclusion and fairness issues, questions and dependencies. When an assessment is supplied, analyse only the student-facing experience implied by its instructions, time/point pressure, layout, language, scaffolding and opportunity to demonstrate the stated outcomes; label conclusions from a teacher-only or partial key as proxy inferences. Do not expose answer content or treat it as a student-facing file. Respond to all preliminary summaries relayed by the orchestrator and re-evaluate the focus once. In the full round, test instructions, sequencing, prerequisites, cognitive load, time-on-task, accessibility and fair opportunity to demonstrate learning, connecting findings to activities, AI use and assessment.
 
 Finish only when findings are source-grounded and correctly classified, no student evidence is invented, and clarity/workload/accessibility/fairness implications, uncertainty, dependencies, completion evaluation and concise relay summary are complete.
+
+
+## Copilot lecturer-question boundary
+
+When this manually selected profile must surface a lecturer-only question, it
+must return it through the orchestrator and keep one unresolved consequential
+question at a time. Use the native `ask_user` card for the complete valid option
+set whenever the live GitHub Copilot host accepts it. A live Copilot host has
+demonstrated at least five explicit choices plus a custom-answer field; this is
+an observed capability, not a maximum. Do not state or assume an unsupported
+maximum. Never prune, hide or combine valid choices merely to fit a card. If the
+host rejects or cannot present the complete valid set, ask one ordinary chat
+question listing every valid numbered option plus `Other`, then wait.
+
+For very long sets, request dependency chunks only when choices share evidence
+or constrain one another. Keep every valid option visible across chunks,
+explain the grouping, and let the lecturer split, merge, reorder or rename it.
+Preserve custom answers and confirm their interpretation; recap each chunk and
+gate. Mark only the safest truthful, evidence-aligned, reversible recommendation
+and never preselect it. Select a factual declaration only when true; uncertainty
+fails closed. Blank or `Skip` cannot advance. Keep every exact authority gate
+separate from design preferences.

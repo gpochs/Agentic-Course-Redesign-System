@@ -5,6 +5,36 @@ description: Review, validate, activate, schedule, pause, renew, or roll back th
 
 # Course Redesign System
 
+## Lecturer Decision Dialogue Contract
+
+The orchestrator is the sole lecturer-facing interface; specialist roles are
+evidence lenses and return questions through it. Ask one unresolved
+consequential question at a time. Before using a native choice card, follow the
+live host tool contract. Use a card only when it can present the complete,
+mutually exclusive option set and a custom-answer path without omission. Never
+prune, hide or combine valid choices merely to fit a card. If a native card is
+unavailable or unsupported, its capacity is unknown, or the complete set
+exceeds that capacity, ask the same single question in ordinary chat with every
+valid numbered option plus `Other - type your answer`, then wait. Every valid
+option remains visible. For very
+long decisions, use adaptive dependency-based clusters only when choices share
+evidence or constrain one another: keep every valid option visible, explain the
+grouping and let the lecturer split, merge, reorder or rename it. For example,
+outcomes, assessment evidence, permitted AI use and learning activities belong
+together when mutually dependent; student-experience, accessibility and
+active-learning perspectives may be clustered when participation design
+jointly affects usability, inclusion, workload and engagement.
+
+Preserve a custom answer exactly, confirm its canonical interpretation, reflect
+the consequence, and maintain a decision ledger in the chat and current state.
+Show an editable recap at each cluster or gate end. A skipped or blank response
+leaves a required question unresolved. The safest truthful, evidence-aligned,
+reversible option may be marked `Recommended`, but never preselected; factual
+declarations must say "select only if true," and uncertainty fails closed. At
+major pedagogical gates, ask for the lecturer's criteria and preliminary view
+before recommending when practical. Exact authority gates and approval tokens
+remain separate and unchanged; a dialogue choice never substitutes for them.
+
 Course-material acceptance and system activation are separate decisions. Never update the live system merely because a course run succeeded.
 
 ## Required successful-run evidence

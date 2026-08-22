@@ -1,9 +1,9 @@
 {
   "name": "agentic-course-redesign",
-  "version": "0.2.3",
-  "description": "A gated, lecturer-in-the-loop workflow that adapts evidence-grounded redesign to the supplied course and processing environment.",
+  "version": "0.2.4",
+  "description": "A gated, lecturer-in-the-loop workflow with guided, course-adaptive evidence-grounded redesign.",
   "author": {
-    "name": "gpochs"
+    "name": "GIAN PETER OCHSNER"
   },
   "repository": "https://github.com/gpochs/Agentic-Course-Redesign-System",
   "license": "MIT",
@@ -18,8 +18,11 @@
   "interface": {
     "displayName": "Agentic Course Redesign",
     "shortDescription": "Gated evidence-led redesign",
-    "longDescription": "Use one full-workflow umbrella entry for course material across subjects, educational levels, programmes, languages, assessment contexts, and delivery modes. A pre-source Gate 0A establishes material authority, sensitivity, student-data and protected-assessment handling, and exact-environment processing eligibility before any course path or source is requested or accessed. The workflow then adapts bounded specialist analysis, research, redesign, production, and QA to the lecturer-confirmed course. After final acceptance and an explicit requested/declined system-review response, the course run becomes complete and dormant; future manual or optional scheduled triggers always create a fresh run. No automation is registered or triggered by the plugin itself.",
-    "developerName": "gpochs",
+    "longDescription": "LECTURER / TEACHER CONTROL\n- You retain every consequential decision. The Course Redesign Orchestrator is the sole lecturer-facing interface.\n\nSPECIALIST TEAM (10)\n- Course Mapper and Learning-Outcomes Auditor; Active-Learning Researcher; AI Integration and AI-Competence Researcher; Student Experience, Accessibility and Workload Proxy Critic; Assessment and Constructive-Alignment Designer.\n- Source Verification and Citation Auditor; Evidence and Feasibility Red Team; Learning Designer; Learning Material Designer; Artefact Accessibility and Visual QA Auditor. The student-experience role is a design-review proxy and never authorises identifiable student data.\n\nGATED WORKFLOW\n- Gate 0A: verify ownership/processing authority, sensitivity, student data, protected assessment and environment before any source path or content.\n- Gate 0: confirm sources, rights, tools and egress. Gate 1: confirm the course brief and a fresh run.\n- HITL 1: approve focus after preliminary mapping. Research, source verification, cross-specialist synthesis, assessment integration and red-team review lead to HITL 2.\n- Gate 3: approve the integrated blueprint and file plan. Material production creates only approved working copies, followed by evidence, accessibility, visual, alignment and assessment-security QA.\n- Verify production handoff before HITL 3; accept, revise or reject each artefact.\n- Request or decline final system review; the accepted run becomes complete and dormant until a later manual or separately approved scheduled trigger creates a fresh run.\n\nDECISION DIALOGUE\n- One unresolved question at a time.\n- Use a card only if the live host can show the complete option set plus custom answer. Verified current Codex in Plan mode: 2–3 explicit choices plus automatic Other.\n- If capacity is unknown, unavailable or exceeded, use ordinary chat with every valid numbered option plus Other, then wait. Never prune, hide or combine valid options to fit a card.\n- Long sets may use dependency-based chunks with every option visible; the lecturer may split, merge, reorder or rename them.\n- Preserve custom answers verbatim, show editable recaps, never preselect recommendations and fail closed on uncertainty.\n\nBOUNDARY\n- The plugin does not register schedules, start runs, publish content, add connectors or change permissions.",
+    "developerName": "GIAN PETER OCHSNER",
+    "websiteURL": "https://github.com/gpochs/Agentic-Course-Redesign-System",
+    "privacyPolicyURL": "https://github.com/gpochs/Agentic-Course-Redesign-System/blob/v0.2.4/docs/PRIVACY.md",
+    "termsOfServiceURL": "https://github.com/gpochs/Agentic-Course-Redesign-System/blob/v0.2.4/docs/TERMS.md",
     "category": "Education & Research",
     "capabilities": [
       "Full-workflow umbrella entry",
@@ -31,7 +34,7 @@
       "Gated material production"
     ],
     "defaultPrompt": [
-      "Check processing eligibility, then set up a protected redesign project for one course.",
+      "Guide me through processing eligibility one question at a time, then set up one protected course.",
       "Audit an eligible, approved course for evidence-based redesign priorities.",
       "Continue the active course-redesign run at its next approved gate."
     ],

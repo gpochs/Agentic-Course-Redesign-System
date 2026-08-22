@@ -1,19 +1,23 @@
 # Google Antigravity adapter for Agentic Course Redesign
 
-Adapter version `0.2.3` is a project-local, course-independent inactive
-candidate reconciled to shared candidate `ACR-SYS-20260821-005` v0.2.3. It
+Adapter version `0.2.4` is a project-local, course-independent inactive
+candidate reconciled to shared candidate `ACR-SYS-20260822-007` v0.2.4. It
 adapts to the lecturer-supplied subject, educational level, learners,
 objectives, assessment, language, constraints, and material formats. It makes
-pre-source Gate 0A, verified production handoff before HITL 3, durable schema-8
-recovery, terminal `complete_dormant` closeout, and the proposal-only system-
-review lifecycle explicit. It does not activate any runtime or schedule. It contains one complete
+pre-source Gate 0A, the one-decision lecturer interaction contract, verified
+production handoff before HITL 3, durable schema-8 recovery, terminal
+`complete_dormant` closeout, and the proposal-only system-review lifecycle
+explicit. A native card is used only when the live host can show the complete
+option set plus a custom-answer path; otherwise every valid numbered option
+remains visible in ordinary chat. No choice is pruned, hidden or combined to fit a card, including inside
+lecturer-controlled dependency chunks. It does not activate any runtime or schedule. It contains one complete
 one-course workspace overlay with root `AGENTS.md`, native rules, slash
 workflows, six Agent Skills, ten read-only custom subagents, source-integrity
 helpers, and the inactive Gate/state scaffold.
 
 Machine-readable release identity is exposed at the top level of
 `adapter-manifest.json` as platform `google-antigravity`, adapter version
-`0.2.3`, and status `candidate_not_active`.
+`0.2.4`, and status `candidate_not_active`.
 
 It does **not** install or access Antigravity, change global configuration or
 IDE permissions, activate a runtime, register a schedule, connect an MCP
@@ -70,10 +74,12 @@ overlay contents into one exact new course-workspace root.
    exposes only `view_file` and `grep_search`. Do not enable global
    customizations or optional privileged examples.
 8. Invoke `/course-redesign-start` before disclosing source paths or filenames.
-   Review and fingerprint Gate 0A using only category-level declarations. Add
-   authorised copies only after that gate permits this exact environment, then
-   review Gate 0 before substantive protected-file reading or specialist
-   analysis.
+   Use the project-local deterministic Gate-0A generator in preview mode and
+   review its complete category-level candidate. If Python is unavailable, use
+   the setup skill's generic host fallback. Add authorised copies only after
+   the exact no-overwrite eligibility target is approved and Gate 0A permits
+   this environment, then review Gate 0 before substantive protected-file
+   reading or specialist analysis.
 
 The installer is copy-only, verifies SHA-256 after each copy, and refuses
 conflicts, broad targets, symlink targets, and targets within or above this
@@ -96,6 +102,8 @@ adapter. It performs no app action or runtime activation.
   template, and gate templates.
 - `workspace-overlay/.agents/skills/course-redesign-setup/scripts/migrate_state_v7_to_v8.py`:
   preview-only migration helper with no apply or write path.
+- `workspace-overlay/.agents/skills/course-redesign-setup/scripts/create_material_processing_eligibility.py`:
+  deterministic preview-first, no-overwrite Gate-0A eligibility generator.
 - `optional-privileged-examples/`: disabled hook/MCP examples outside the
   overlay and all auto-discovery paths.
 - `validation/`: static adapter checks and unit tests.
@@ -114,15 +122,16 @@ the exact ten-role roster, read-only agent tool allowlists, file-size limits,
 manifest hashes, JSON and Python syntax, secret-like material, absence of active
 hooks/MCP/plugins, inactive state, empty schedules, source/tool/egress controls,
 Gate 2B/Gate 3 target boundaries, production-handoff-before-HITL3 order,
-schema-8 Gate-0A, dormant-run, trigger-guidance, and proposal-only review-offer
-controls, preview-only migration,
+schema-8 Gate-0A, the interaction contract, deterministic eligibility
+generation and generic fallback, dormant-run, trigger-guidance, and proposal-
+only review-offer controls, preview-only migration,
 installer preview/apply/no-overwrite, and optional-example disablement. Static
 PASS does not prove Antigravity runtime behaviour; see
 `OFFICIAL_LIMITATIONS.md`.
 
 ## Source and licence
 
-`adapter-manifest.json` records the actual SHA-256 values of the shared v0.2.3
+`adapter-manifest.json` records the actual SHA-256 values of the shared v0.2.4
 canonical files used and every adapter output covered by integrity checks. The
 shared source was read only. Adapted material remains under the included MIT
 licence; third-party and data boundaries are in `THIRD_PARTY_NOTICES.md`.

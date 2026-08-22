@@ -1,5 +1,15 @@
 # Provenance
 
+Version 0.2.4 is an inactive candidate created under approved proposal
+`ACR-SYS-20260822-007`. It adds the shared Lecturer Decision Dialogue Contract
+and a deterministic preview-first Gate-0A eligibility-record generator with
+constrained inputs, canonical fingerprinting, validation before write, atomic
+no-overwrite creation and broad-target refusal. State schema remains 8. The
+candidate adds no runtime activation, schedule, connector, authentication,
+permission, external egress or course-material change. Version 0.2.3 remains
+the rollback baseline until a later, separate validation and activation
+decision.
+
 Version 0.2.3 is the validated published release created under approved proposal
 `ACR-SYS-20260821-005`. It adds pre-source Gate 0A processing eligibility,
 schema 8 and preview-only schema-7-to-8 migration, terminal dormant course-run
@@ -26,9 +36,10 @@ The frozen 0.1.0 evidence recorded before this repository was created:
 - package inventory SHA-256: `8A631F03465F89D4ECF95DDB349636793A9E0E5E5273FF4C22AD43BA81469AC3`; and
 - portable-bundle validation SHA-256: `B39789EBD5BD852C18CE75D20BC3BF9D11CC98A8F632EB6B6A352B974B29FAFD`.
 
-Those hashes prove the original starting candidate, not the v0.2.2 or v0.2.3 releases.
-The published v0.2.2 tag is the immediate repository baseline for this proposal.
-Any v0.2.3 release requires its own source inventory, archive hash,
+Those hashes prove the original starting candidate, not the v0.2.2, v0.2.3 or
+v0.2.4 candidates/releases.
+The published v0.2.3 tag is the immediate repository baseline for this proposal.
+Any v0.2.4 release requires its own source inventory, archive hash,
 adapter manifests and independent audit after all adapters are frozen.
 
 The private pilot course that informed the workflow is intentionally absent.

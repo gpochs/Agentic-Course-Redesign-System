@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "core_version": "0.2.3",
+  "core_version": "0.2.4",
   "state_schema_version": 8,
   "status": "candidate_not_active",
   "schedules": [],
@@ -26,6 +26,10 @@
   },
   "pre_source_processing_eligibility": {
     "fingerprinted": true,
+    "record_generator": "scripts/create_material_processing_eligibility.py",
+    "record_generator_mode": "preview_by_default_apply_explicit_atomic_create_no_overwrite",
+    "record_generator_output": "01_Control/material-processing-eligibility.json",
+    "record_generator_requires_mcp": false,
     "personal_or_unmanaged_permits": [
       "privately_owned_or_rightsholder_authorised",
       "appropriately_licensed_or_public_with_explicit_ai_processing_authority"
@@ -38,6 +42,27 @@
       "approved_scope",
       "non_expired_expiry"
     ]
+  },
+  "lecturer_decision_dialogue": {
+    "sole_user_interface": "course-redesign-orchestrator",
+    "specialist_roles_are_evidence_lenses": true,
+    "unresolved_consequential_questions_at_a_time": 1,
+    "native_card_capacity": "live_host_tool_contract",
+    "native_card_requires_complete_option_set_and_custom_answer_path": true,
+    "native_card_unavailable_unsupported_unknown_or_exceeded_fallback": "same_single_ordinary_chat_question_listing_every_valid_numbered_option_plus_other_then_wait",
+    "never_prune_hide_or_combine_valid_choices_to_fit_card": true,
+    "long_decision_clustering": "adaptive_dependency_based_only_when_choices_share_evidence_or_constrain_one_another",
+    "every_valid_option_remains_visible_in_long_decision_clusters": true,
+    "lecturer_may_split_merge_reorder_or_rename_clusters": true,
+    "preserve_exact_custom_answer_and_confirm_canonical_interpretation": true,
+    "recommended_rule": "safest_truthful_evidence_aligned_reversible_never_preselected",
+    "factual_declarations_select_only_if_true": true,
+    "uncertainty_fails_closed": true,
+    "decision_ledger_in_chat_and_current_state": true,
+    "editable_recap_at_cluster_or_gate_end": true,
+    "skip_or_blank_leaves_required_question_unresolved": true,
+    "major_pedagogical_gate_asks_criteria_and_preliminary_view_before_recommendation_when_practical": true,
+    "exact_authority_gates_and_tokens_remain_separate": true
   },
   "required_skills": [
     "course-redesign-setup",

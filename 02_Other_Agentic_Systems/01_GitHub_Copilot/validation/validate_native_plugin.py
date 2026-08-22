@@ -12,7 +12,7 @@ from pathlib import Path, PurePosixPath
 
 SCRIPT = Path(__file__).resolve()
 DEFAULT_ROOT = SCRIPT.parents[3]
-PACKAGE_VERSION = "0.2.3-copilot.1"
+PACKAGE_VERSION = "0.2.4-copilot.1"
 PLUGIN_RELATIVE = PurePosixPath(
     "02_Other_Agentic_Systems/01_GitHub_Copilot/plugin/"
     "agentic-course-redesign"
@@ -38,6 +38,7 @@ EXPECTED_AGENTS = {
     "student-experience-critic",
 }
 EXPECTED_SCRIPTS = {
+    "create_material_processing_eligibility.py",
     "fingerprint_file.py",
     "migrate_state_v6_to_v7.py",
     "migrate_state_v7_to_v8.py",
@@ -65,6 +66,51 @@ FORBIDDEN_FILES = {
     "mcp.json",
     "openai.yaml",
     "config.toml",
+}
+COPILOT_AGENT_DIALOGUE_SUFFIX = """## Copilot lecturer-question boundary
+
+When this manually selected profile must surface a lecturer-only question, it
+must return it through the orchestrator and keep one unresolved consequential
+question at a time. Use the native `ask_user` card for the complete valid option
+set whenever the live GitHub Copilot host accepts it. A live Copilot host has
+demonstrated at least five explicit choices plus a custom-answer field; this is
+an observed capability, not a maximum. Do not state or assume an unsupported
+maximum. Never prune, hide or combine valid choices merely to fit a card. If the
+host rejects or cannot present the complete valid set, ask one ordinary chat
+question listing every valid numbered option plus `Other`, then wait.
+
+For very long sets, request dependency chunks only when choices share evidence
+or constrain one another. Keep every valid option visible across chunks,
+explain the grouping, and let the lecturer split, merge, reorder or rename it.
+Preserve custom answers and confirm their interpretation; recap each chunk and
+gate. Mark only the safest truthful, evidence-aligned, reversible recommendation
+and never preselect it. Select a factual declaration only when true; uncertainty
+fails closed. Blank or `Skip` cannot advance. Keep every exact authority gate
+separate from design preferences."""
+COPILOT_CHOICE_CAPACITY_OVERRIDE = """## GitHub Copilot native `ask_user` capacity override
+
+This Copilot-only host rule applies the shared core's host-capacity contract to the demonstrated GitHub Copilot host; it changes no option, gate, evidence requirement, or workflow meaning. Keep one unresolved consequential question at a time. Use the native `ask_user` card for the complete valid option set whenever the live GitHub Copilot host accepts it. A live Copilot host has demonstrated at least five explicit choices plus a custom-answer field; this is an observed capability, not a maximum. Do not state or assume an unsupported maximum. Never prune, hide or combine valid choices merely to fit a card. If the host rejects or cannot present the complete valid set, ask one ordinary chat question listing every valid numbered option plus `Other`, then wait. For very long sets, dependency chunks are allowed only when choices share evidence or constrain one another; keep every valid option visible across chunks, explain the grouping, and let the lecturer split, merge, reorder or rename it."""
+COPILOT_CARD_CAPACITY_PHRASES = (
+    "one unresolved consequential question at a time",
+    "native `ask_user` card",
+    "complete valid option set",
+    "at least five explicit choices plus a custom-answer field",
+    "observed capability, not a maximum",
+    "do not state or assume an unsupported maximum",
+    "never prune, hide or combine valid choices merely to fit a card",
+    "host rejects or cannot present the complete valid set",
+    "every valid numbered option plus `other`",
+    "dependency chunks",
+    "keep every valid option visible across chunks",
+)
+COPILOT_AGENT_BODY_REPLACEMENTS = {
+    "learning-designer": (
+        "offer two or three feasible options with a recommendation, evidence, "
+        "workload and trade-offs",
+        "present every materially distinct feasible option with a recommendation, "
+        "evidence, workload and trade-offs, cluster long sets only by shared "
+        "evidence or dependency while keeping every option visible",
+    ),
 }
 
 
@@ -143,6 +189,28 @@ def validate(root: Path = DEFAULT_ROOT) -> list[dict[str, str]]:
     marketplace_path = root / ".github" / "plugin" / "marketplace.json"
     marketplace = read_json(findings, root, marketplace_path)
     manifest = read_json(findings, root, plugin / "plugin.json")
+    adapter_manifest_path = adapter / "adapter-manifest.json"
+    adapter_manifest = read_json(findings, root, adapter_manifest_path)
+
+    if adapter_manifest is not None:
+        native = adapter_manifest.get("native_plugin")
+        if (
+            adapter_manifest.get("adapter_version") != "0.2.4"
+            or adapter_manifest.get("status") != "candidate_not_active"
+            or not isinstance(native, dict)
+            or native.get("package_version") != PACKAGE_VERSION
+            or native.get("base_semantic_version") != "0.2.4"
+            or native.get("rollback_package_version") != "0.2.3-copilot.1"
+            or native.get("status") != "candidate_not_active"
+            or native.get("install_specification")
+            != "agentic-course-redesign@agentic-course-redesign-system"
+        ):
+            add(
+                findings,
+                root,
+                adapter_manifest_path,
+                "adapter_release_contract_mismatch",
+            )
 
     if marketplace is not None:
         if marketplace.get("name") != "agentic-course-redesign-system":
@@ -247,7 +315,13 @@ def validate(root: Path = DEFAULT_ROOT) -> list[dict[str, str]]:
         )
     for name in sorted(EXPECTED_SKILLS.intersection(skill_map)):
         source = root / "03_Shared_Workflow_Core" / "agent-skills" / name / "SKILL.md"
-        if not source.is_file() or skill_map[name].read_bytes() != source.read_bytes():
+        expected = (
+            source.read_text(encoding="utf-8").rstrip()
+            + "\n\n"
+            + COPILOT_CHOICE_CAPACITY_OVERRIDE
+        ) if source.is_file() else ""
+        installed = skill_map[name].read_text(encoding="utf-8").rstrip()
+        if not source.is_file() or installed != expected:
             add(findings, root, skill_map[name], "canonical_skill_drift", name)
 
     scripts = {
@@ -305,8 +379,110 @@ def validate(root: Path = DEFAULT_ROOT) -> list[dict[str, str]]:
             or header.get("user-invocable") is not True
         ):
             add(findings, root, agents[name], "agent_boundary_mismatch")
-        if body.strip() != str(source.get("developer_instructions", "")).strip():
+        canonical_body = str(source.get("developer_instructions", "")).strip()
+        replacement = COPILOT_AGENT_BODY_REPLACEMENTS.get(name)
+        if replacement is not None:
+            old, new = replacement
+            if canonical_body.count(old) != 1:
+                add(
+                    findings,
+                    root,
+                    source_path,
+                    "invalid_agent_source",
+                    "Copilot replacement source phrase is missing or ambiguous",
+                )
+                continue
+            canonical_body = canonical_body.replace(old, new, 1)
+        expected_body = (
+            canonical_body + "\n\n\n" + COPILOT_AGENT_DIALOGUE_SUFFIX
+        )
+        if body.strip() != expected_body:
             add(findings, root, agents[name], "agent_role_contract_drift")
+        normalized_body = " ".join(body.split())
+        for phrase in (
+            "## Copilot lecturer-question boundary",
+            "one unresolved consequential question at a time",
+            "native `ask_user` card",
+            "complete valid option set",
+            "at least five explicit choices plus a custom-answer field",
+            "observed capability, not a maximum",
+            "Do not state or assume an unsupported maximum",
+            "Never prune, hide or combine valid choices merely to fit a card.",
+            "host rejects or cannot present the complete valid set",
+            "every valid numbered option plus `Other`",
+            "dependency chunks",
+            "Keep every valid option visible across chunks",
+            "never preselect",
+            "uncertainty fails closed",
+        ):
+            if phrase not in normalized_body:
+                add(
+                    findings,
+                    root,
+                    agents[name],
+                    "agent_dialogue_contract_missing",
+                    phrase,
+                )
+        if name == "learning-designer":
+            for phrase in (
+                "present every materially distinct feasible option",
+                "cluster long sets only by shared evidence or dependency while "
+                "keeping every option visible",
+                "Do not reopen a settled choice unless a newly surfaced conflict "
+                "requires lecturer escalation",
+            ):
+                if phrase not in normalized_body:
+                    add(
+                        findings,
+                        root,
+                        agents[name],
+                        "agent_dialogue_contract_missing",
+                        phrase,
+                    )
+
+    dialogue_phrases = (
+        "## Lecturer Decision Dialogue Contract",
+        "Ask one unresolved",
+        "Before using a native choice card",
+        "live host tool contract",
+        "complete, mutually exclusive option set",
+        "custom-answer path without omission",
+        "If a native card is unavailable or unsupported",
+        "capacity is unknown",
+        "every valid numbered option",
+        "Never prune, hide or combine valid choices merely to fit a card.",
+        "`Other - type your answer`",
+        "Every valid option remains visible.",
+        "keep every valid option visible",
+        "## GitHub Copilot native `ask_user` capacity override",
+        "complete valid option set",
+        "at least five explicit choices plus a custom-answer field",
+        "observed capability, not a maximum",
+        "Do not state or assume an unsupported maximum",
+        "host rejects or cannot present the complete valid set",
+        "every valid numbered option plus `Other`",
+        "dependency chunks",
+        "keep every valid option visible across chunks",
+        "split, merge, reorder or rename",
+        "Preserve a custom answer exactly",
+        "never preselected",
+        "select only if true",
+        "uncertainty fails closed",
+        "skipped or blank response",
+        "Exact authority gates",
+    )
+    for path in skill_paths:
+        text = path.read_text(encoding="utf-8")
+        normalized_text = " ".join(text.split())
+        for phrase in dialogue_phrases:
+            if phrase not in normalized_text:
+                add(
+                    findings,
+                    root,
+                    path,
+                    "skill_dialogue_contract_missing",
+                    phrase,
+                )
 
     template = plugin / "assets" / "project-template"
     core_template = root / "03_Shared_Workflow_Core" / "course-project-template"
@@ -314,7 +490,19 @@ def validate(root: Path = DEFAULT_ROOT) -> list[dict[str, str]]:
         if not source.is_file():
             continue
         target = template / source.relative_to(core_template)
-        if not target.is_file() or target.read_bytes() != source.read_bytes():
+        relative_source = source.relative_to(core_template).as_posix()
+        if relative_source in {"AGENTS.md", "01_Control/GATES.md"}:
+            expected = (
+                source.read_text(encoding="utf-8").rstrip()
+                + "\n\n"
+                + COPILOT_CHOICE_CAPACITY_OVERRIDE
+            )
+            matches = target.is_file() and (
+                target.read_text(encoding="utf-8").rstrip() == expected
+            )
+        else:
+            matches = target.is_file() and target.read_bytes() == source.read_bytes()
+        if not matches:
             add(
                 findings,
                 root,
@@ -332,6 +520,39 @@ def validate(root: Path = DEFAULT_ROOT) -> list[dict[str, str]]:
     ):
         if not required.is_file():
             add(findings, root, required, "required_copilot_file_missing")
+
+    interaction_surfaces = (
+        adapter / "README.md",
+        adapter / "CAPABILITIES.md",
+        adapter / "PARTICIPANT_INSTALLATION.md",
+        adapter / "overlay" / ".github" / "copilot-instructions.md",
+        adapter
+        / "overlay"
+        / ".github"
+        / "instructions"
+        / "course-redesign.instructions.md",
+        plugin / "README.md",
+        plugin / "PARTICIPANT_QUICK_START.md",
+        template / ".github" / "copilot-instructions.md",
+        template
+        / ".github"
+        / "instructions"
+        / "course-redesign.instructions.md",
+    )
+    for path in interaction_surfaces:
+        if not path.is_file():
+            add(findings, root, path, "required_copilot_file_missing")
+            continue
+        normalized = " ".join(path.read_text(encoding="utf-8").split()).casefold()
+        for phrase in COPILOT_CARD_CAPACITY_PHRASES:
+            if phrase not in normalized:
+                add(
+                    findings,
+                    root,
+                    path,
+                    "copilot_card_capacity_contract_missing",
+                    phrase,
+                )
     if (template / ".codex").exists():
         add(findings, root, template / ".codex", "codex_host_files_forbidden")
 
@@ -352,15 +573,34 @@ def validate(root: Path = DEFAULT_ROOT) -> list[dict[str, str]]:
     participant = adapter / "PARTICIPANT_INSTALLATION.md"
     if participant.is_file():
         text = participant.read_text(encoding="utf-8")
+        normalized_participant = " ".join(text.split())
         required_phrases = (
             "agentic-course-redesign@agentic-course-redesign-system",
             "copilot plugin marketplace add gpochs/Agentic-Course-Redesign-System",
             "Begin with Gate 0A only",
             "copilot plugin uninstall agentic-course-redesign",
             "without a support SLA",
+            "Copilot 1.0.80 BYOK",
+            "create_material_processing_eligibility.py",
+            "expected function",
+            "type=custom",
+            "fresh task",
+            "GitHub-hosted GPT-5.4",
+            "default Claude model",
+            "0.2.3-copilot.1",
+            "native `ask_user` card",
+            "complete valid option set",
+            "at least five explicit choices plus a custom-answer field",
+            "observed capability, not a maximum",
+            "Do not state or assume an unsupported maximum",
+            "Never prune, hide or combine valid choices merely to fit a card.",
+            "host rejects or cannot present the complete valid set",
+            "every valid numbered option plus `Other`",
+            "dependency chunks",
+            "Keep every valid option visible across chunks",
         )
         for phrase in required_phrases:
-            if phrase not in text:
+            if phrase not in normalized_participant:
                 add(
                     findings,
                     root,
@@ -368,6 +608,36 @@ def validate(root: Path = DEFAULT_ROOT) -> list[dict[str, str]]:
                     "participant_handoff_incomplete",
                     phrase,
                 )
+    for guide in (
+        adapter / "PARTICIPANT_INSTALLATION.md",
+        plugin / "PARTICIPANT_QUICK_START.md",
+    ):
+        if not guide.is_file():
+            continue
+        text = guide.read_text(encoding="utf-8")
+        for phrase in (
+            "--project <absolute project directory>",
+            "derives",
+            "01_Control/material-processing-eligibility.json",
+            "redirected `01_Control`",
+            "refuses overwrite",
+        ):
+            if phrase not in text:
+                add(
+                    findings,
+                    root,
+                    guide,
+                    "gate0a_helper_handoff_inaccurate",
+                    phrase,
+                )
+        if "absolute target ending in" in text:
+            add(
+                findings,
+                root,
+                guide,
+                "gate0a_helper_handoff_inaccurate",
+                "helper accepts a project directory, not an output-file target",
+            )
     return findings
 
 

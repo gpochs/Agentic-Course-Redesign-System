@@ -859,7 +859,7 @@ class SharedCoreTests(unittest.TestCase):
 
     def test_shared_state_is_schema_8_inactive_unscheduled_and_pre_source(self) -> None:
         self.assertEqual(self.state["schema_version"], 8)
-        self.assertEqual(self.state["plugin_version"], "0.2.3")
+        self.assertEqual(self.state["plugin_version"], "0.2.4")
         self.assertEqual(self.state["status"], "candidate_not_active")
         self.assertEqual(self.state["schedules"], [])
         self.assertEqual(

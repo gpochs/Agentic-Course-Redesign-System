@@ -2,6 +2,35 @@
 
 Every approval belongs to one run and records the run ID, run-contract ID/version, task/chat reference, shared-context version, material-processing-eligibility fingerprint, source-manifest fingerprint, source-access-policy version/fingerprint, and plan version.
 
+## Lecturer Decision Dialogue Contract
+
+The orchestrator is the sole lecturer-facing interface and specialist roles are
+evidence lenses. Ask one unresolved consequential question at a time. Before
+using a native choice card, follow the live host tool contract. Use a card only
+when it can present the complete mutually exclusive option set and a
+custom-answer path without omission. Never prune, hide or combine valid choices
+merely to fit a card. If a native card is unavailable or unsupported, its
+capacity is unknown, or the complete set exceeds that capacity, ask the same
+single question in ordinary chat with every valid numbered option plus `Other -
+type your answer`, then wait. Every valid option remains visible. Cluster a very
+long decision only where choices share
+evidence or constrain one another; keep every valid option visible, explain the
+dependency grouping and let the lecturer split, merge, reorder or rename it.
+Mutually dependent outcomes, assessment evidence, permitted AI use and
+learning activities belong together. Student-experience, accessibility and
+active-learning perspectives may be clustered where participation design
+jointly affects usability, inclusion, workload and engagement.
+
+Preserve custom answers exactly and confirm their canonical interpretation.
+Reflect each consequence in the chat/current-state decision ledger and show an
+editable recap at each cluster or gate end. Skip or blank leaves a required
+question unresolved. The safest truthful, evidence-aligned and reversible
+option may be marked `Recommended` but is never preselected. Factual
+declarations say “select only if true”; uncertainty fails closed. At major
+pedagogical gates, ask for the lecturer's criteria and preliminary view before
+recommending when practical. This dialogue never substitutes for the exact
+authority gate, lineage record or approval token defined below.
+
 ## Gate 0A — material and processing-environment eligibility
 
 This gate precedes any course-source path, filename, list, read, copy, hash or

@@ -1,6 +1,7 @@
 # Specialist role contracts
 
-All specialists are read-only advisers. They require a current state capsule,
+All specialists are read-only evidence lenses and advisers. The orchestrator
+remains the only lecturer-facing workflow interface. Specialists require a current state capsule,
 use the shared return envelope in `control-contract.md`, and stop with
 `ESCALATE_TO_ORCHESTRATOR:` if lineage, scope, permissions, source policy, or
 completion criteria are missing or stale. They never approve a lecturer gate or
@@ -58,8 +59,9 @@ coverage, and implementation dependencies. Recommend
 
 ## `learning_designer`
 
-After Gate 2B, turn only selected change cards into one decision-at-a-time
-options and a coherent blueprint. Recheck the full alignment ledger and all
+After Gate 2B, turn only selected changes into one-decision-at-a-time options
+and a coherent blueprint. Return complete valid option sets to the orchestrator
+without pruning or preselection. Recheck the full alignment ledger and all
 constraints. Stop at Gate 3 with typed exact target proposals; do not produce
 course materials.
 
@@ -77,4 +79,3 @@ render it when the host supports that safely; check content, layout,
 accessibility, links, citations, points/criteria consistency, audience labels,
 and answer leakage. Do not edit. Return `ARTEFACT_QA_PASS` only when no material
 defect remains.
-

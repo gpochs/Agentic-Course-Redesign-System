@@ -73,6 +73,47 @@ are authorized to process with AI.
 Installation alone does not inspect files, start a redesign, activate a
 runtime, register automation, or schedule a run.
 
+
+
+## Copilot dialogue behavior
+
+The plugin keeps one unresolved consequential question at a time. It uses the
+native `ask_user` card for the complete valid option set whenever the live
+GitHub Copilot host accepts it. A live Copilot host has demonstrated at least
+five explicit choices plus a custom-answer field; this is an observed
+capability, not a maximum. Do not state or assume an unsupported maximum. Never
+prune, hide or combine valid choices merely to fit a card. If the host rejects
+or cannot present the complete valid set, the plugin asks one ordinary chat
+question listing every valid numbered option plus `Other`, then waits. For very
+long sets, it may use dependency chunks only where choices share evidence or
+constrain one another. Keep every valid option visible across chunks; you may
+split, merge, reorder or rename their grouping. Recommendations are
+evidence-aligned, reversible, and never preselected; factual declarations must
+be true, uncertainty fails closed, custom answers are preserved and confirmed,
+blank or `Skip` cannot advance, and exact authority approvals remain separate.
+
+## Copilot 1.0.80 BYOK compatibility
+
+For Gate 0A, the setup skill must invoke
+`scripts/create_material_processing_eligibility.py` through PowerShell/Python as a normal
+shell function call. It first runs a preview without `--apply`, displays the
+complete deterministic record, fingerprint, exact target and
+`overwrite: false`, and waits for exact-target approval. Only then may it
+repeat the same call with `--apply`. The helper accepts only an absolute
+project directory through `--project <absolute project directory>`, derives
+`01_Control/material-processing-eligibility.json` beneath that project, rejects
+a redirected `01_Control`, and refuses overwrite.
+
+Do not ask Copilot to invoke this helper through `apply_patch`. In Copilot
+1.0.80 BYOK, `expected function` can come from poisoned task history after an
+earlier `apply_patch` call was recorded as `type=custom`; it is not a missing
+installable function or MCP server. Start a fresh task in the project. For an affected
+BYOK session, prefer GitHub-hosted GPT-5.4 or the default Claude model. No MCP,
+hook, authentication, or permission is required or added.
+
+Rollback, if deliberately chosen by the operator, is
+`0.2.3-copilot.1`; rollback does not install or activate itself.
+
 ## Remove
 
 In **Settings → Plugins**, uninstall `agentic-course-redesign`, then remove

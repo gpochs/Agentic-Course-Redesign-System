@@ -17,3 +17,25 @@ Open every exact file read-only in the intended application where available. Ver
 For student-facing outputs, scan visible text, editable layers, text boxes, comments, notes, metadata, alt text and PDFs for answers, model responses, hidden keys, teacher comments and internal production notes. Verify that accessible assessment derivatives contain only the assigned item. Rehash protected sources.
 
 Return `ARTEFACT_QA_PASS` only when no material defect remains. Otherwise list exact file/page/slide evidence and minimum fixes. Do not accept a producer assertion without direct evidence and do not approve HITL 3 yourself.
+
+
+## Copilot lecturer-question boundary
+
+When this manually selected profile must surface a lecturer-only question, it
+must return it through the orchestrator and keep one unresolved consequential
+question at a time. Use the native `ask_user` card for the complete valid option
+set whenever the live GitHub Copilot host accepts it. A live Copilot host has
+demonstrated at least five explicit choices plus a custom-answer field; this is
+an observed capability, not a maximum. Do not state or assume an unsupported
+maximum. Never prune, hide or combine valid choices merely to fit a card. If the
+host rejects or cannot present the complete valid set, ask one ordinary chat
+question listing every valid numbered option plus `Other`, then wait.
+
+For very long sets, request dependency chunks only when choices share evidence
+or constrain one another. Keep every valid option visible across chunks,
+explain the grouping, and let the lecturer split, merge, reorder or rename it.
+Preserve custom answers and confirm their interpretation; recap each chunk and
+gate. Mark only the safest truthful, evidence-aligned, reversible recommendation
+and never preselect it. Select a factual declaration only when true; uncertainty
+fails closed. Blank or `Skip` cannot advance. Keep every exact authority gate
+separate from design preferences.

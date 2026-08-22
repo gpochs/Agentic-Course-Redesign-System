@@ -590,6 +590,115 @@ class SetupTests(unittest.TestCase):
         self.assertIn("does not permit overwriting", guide)
 
 
+class EligibilityGeneratorTests(unittest.TestCase):
+    def command(self, project: Path, *extra: str) -> list[str]:
+        return [
+            sys.executable,
+            str(PLUGIN / "scripts/create_material_processing_eligibility.py"),
+            "--project",
+            str(project.resolve()),
+            "--eligibility-id",
+            "ELIG-SYNTHETIC-GENERATOR-001",
+            "--environment-category",
+            "personal_or_unmanaged",
+            "--material-category",
+            "privately_owned_or_rightsholder_authorised",
+            "--ai-processing-authority-confirmed",
+            "true",
+            "--contains-institution-internal-or-restricted-material",
+            "false",
+            "--contains-student-personal-data",
+            "false",
+            "--sensitivity-classification",
+            "non_sensitive",
+            "--assessment-security-classification",
+            "no_protected_assessment_material",
+            "--assessment-security-handling-authorised",
+            "true",
+            "--decision-reason",
+            "Synthetic authorised material in one declared environment.",
+            "--approved-processing-scope",
+            "Synthetic one-course project only.",
+            "--lecturer-declaration-reference",
+            "SYNTHETIC-REPLY-GATE0A-001",
+            "--recorded-at",
+            "2026-08-22T12:00:00+02:00",
+            *extra,
+        ]
+
+    def test_preview_is_deterministic_and_writes_nothing(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            project = Path(temporary) / "synthetic" / "one-course"
+            (project / "01_Control").mkdir(parents=True)
+            first = subprocess.run(
+                self.command(project), check=False, capture_output=True, text=True
+            )
+            second = subprocess.run(
+                self.command(project), check=False, capture_output=True, text=True
+            )
+            self.assertEqual(first.returncode, 0, first.stdout + first.stderr)
+            self.assertEqual(second.returncode, 0, second.stdout + second.stderr)
+            first_report = json.loads(first.stdout)
+            second_report = json.loads(second.stdout)
+            self.assertEqual(
+                first_report["record"]["fingerprint"],
+                second_report["record"]["fingerprint"],
+            )
+            self.assertFalse(first_report["created"])
+            self.assertFalse(
+                (project / "01_Control/material-processing-eligibility.json").exists()
+            )
+
+    def test_apply_creates_only_exact_target_and_refuses_overwrite(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            project = Path(temporary) / "synthetic" / "one-course"
+            control = project / "01_Control"
+            control.mkdir(parents=True)
+            first = subprocess.run(
+                self.command(project, "--apply"),
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(first.returncode, 0, first.stdout + first.stderr)
+            target = control / "material-processing-eligibility.json"
+            original = target.read_bytes()
+            self.assertTrue(manifest.validate_eligibility(target)["ok"])
+            second = subprocess.run(
+                self.command(project, "--apply"),
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertNotEqual(second.returncode, 0)
+            self.assertIn("refusing to overwrite", second.stdout)
+            self.assertEqual(target.read_bytes(), original)
+            self.assertEqual([path.name for path in control.iterdir()], [target.name])
+
+    def test_refuses_redirected_control_directory_when_symlinks_are_supported(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            project = Path(temporary) / "synthetic" / "one-course"
+            project.mkdir(parents=True)
+            outside = Path(temporary) / "outside-control"
+            outside.mkdir()
+            control = project / "01_Control"
+            try:
+                control.symlink_to(outside, target_is_directory=True)
+            except OSError as exc:
+                self.skipTest(f"directory symlinks are unavailable: {exc}")
+
+            preview = subprocess.run(
+                self.command(project), check=False, capture_output=True, text=True
+            )
+            self.assertNotEqual(
+                preview.returncode, 0, preview.stdout + preview.stderr
+            )
+            self.assertIn("redirected project control directory", preview.stdout)
+            self.assertFalse(
+                (outside / "material-processing-eligibility.json").exists()
+            )
+
+
 class ManifestTests(unittest.TestCase):
     def test_gate_0a_owned_public_internal_mixed_and_institutional_cases(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -767,7 +876,7 @@ class StateTests(unittest.TestCase):
         )
         run = state["run_template"]
         self.assertEqual(state["schema_version"], 8)
-        self.assertEqual(state["plugin_version"], "0.2.3")
+        self.assertEqual(state["plugin_version"], "0.2.4")
         self.assertEqual(
             state["umbrella_entry_routing"]["initial_gate"],
             "GATE_0A_AWAITING_MATERIAL_ENVIRONMENT_ELIGIBILITY",
@@ -917,7 +1026,7 @@ class StateTests(unittest.TestCase):
 
 
 class DistributionTests(unittest.TestCase):
-    def test_v023_manifest_and_marketplace_metadata(self):
+    def test_v024_manifest_and_marketplace_metadata(self):
         system_root = PLUGIN.parents[1]
         plugin_manifest = json.loads(
             (PLUGIN / ".codex-plugin/plugin.json").read_text(encoding="utf-8")
@@ -926,15 +1035,75 @@ class DistributionTests(unittest.TestCase):
             (system_root / ".agents/plugins/marketplace.json").read_text(encoding="utf-8")
         )
         interface = plugin_manifest["interface"]
-        self.assertEqual(plugin_manifest["version"], "0.2.3")
+        self.assertEqual(plugin_manifest["version"], "0.2.4")
         self.assertEqual(
             plugin_manifest["repository"],
             "https://github.com/gpochs/Agentic-Course-Redesign-System",
         )
+        self.assertEqual(plugin_manifest["author"]["name"], "GIAN PETER OCHSNER")
+        self.assertEqual(interface["developerName"], "GIAN PETER OCHSNER")
+        self.assertEqual(
+            interface["websiteURL"],
+            "https://github.com/gpochs/Agentic-Course-Redesign-System",
+        )
+        self.assertEqual(
+            interface["privacyPolicyURL"],
+            "https://github.com/gpochs/Agentic-Course-Redesign-System/blob/v0.2.4/docs/PRIVACY.md",
+        )
+        self.assertEqual(
+            interface["termsOfServiceURL"],
+            "https://github.com/gpochs/Agentic-Course-Redesign-System/blob/v0.2.4/docs/TERMS.md",
+        )
+        self.assertNotIn("supportURL", interface)
         self.assertEqual(interface["category"], "Education & Research")
         self.assertEqual(interface["displayName"], "Agentic Course Redesign")
         self.assertLessEqual(len(interface["displayName"]), 30)
         self.assertLessEqual(len(interface["shortDescription"]), 30)
+        description = interface["longDescription"]
+        self.assertLessEqual(len(description), 2400)
+        self.assertGreaterEqual(description.count("\n- "), 10)
+        self.assertNotRegex(description, r"\bWork\b")
+        required_listing_markers = (
+            "LECTURER / TEACHER CONTROL",
+            "Course Redesign Orchestrator",
+            "Course Mapper and Learning-Outcomes Auditor",
+            "Active-Learning Researcher",
+            "AI Integration and AI-Competence Researcher",
+            "Student Experience, Accessibility and Workload Proxy Critic",
+            "Assessment and Constructive-Alignment Designer",
+            "Source Verification and Citation Auditor",
+            "Evidence and Feasibility Red Team",
+            "Learning Designer",
+            "Learning Material Designer",
+            "Artefact Accessibility and Visual QA Auditor",
+            "Gate 0A:",
+            "Gate 0:",
+            "Gate 1:",
+            "HITL 1",
+            "HITL 2",
+            "HITL 3",
+            "Research",
+            "red-team review",
+            "Material production",
+            "assessment-security QA",
+            "production handoff",
+            "final system review",
+            "complete and dormant",
+            "One unresolved question at a time",
+            "Use a card only if the live host can show the complete option set plus custom answer",
+            "Verified current Codex in Plan mode: 2–3 explicit choices plus automatic Other",
+            "If capacity is unknown, unavailable or exceeded",
+            "ordinary chat with every valid numbered option plus Other, then wait",
+            "Never prune, hide or combine valid options to fit a card",
+            "dependency-based chunks with every option visible",
+            "lecturer may split, merge, reorder or rename them",
+        )
+        listing_copy = (
+            system_root / "openai-submission/review/LISTING_COPY.md"
+        ).read_text(encoding="utf-8")
+        for marker in required_listing_markers:
+            self.assertIn(marker, description)
+            self.assertIn(marker, listing_copy)
         self.assertEqual(len(interface["defaultPrompt"]), 3)
         self.assertTrue(all("@" not in item and len(item) <= 128 for item in interface["defaultPrompt"]))
         self.assertTrue((PLUGIN / interface["logo"].removeprefix("./")).is_file())
@@ -949,6 +1118,16 @@ class DistributionTests(unittest.TestCase):
         skill = (orchestrator / "SKILL.md").read_text(encoding="utf-8")
         self.assertIn('display_name: "Agentic Course Redesign"', metadata)
         self.assertIn("$course-redesign-orchestrator", metadata)
+        for marker in (
+            "live host contract can show the complete option set plus a custom answer",
+            "verified Codex supports exactly two or three explicit choices plus automatic Other",
+            "capacity is unknown, unavailable or exceeded",
+            "show every valid numbered option plus Other",
+            "Never prune, hide or combine valid choices to fit cards",
+            "keep every option visible in dependency chunks",
+            "let the lecturer control grouping",
+        ):
+            self.assertIn(marker, metadata)
         self.assertIn("### Umbrella entry, Gate 0A and Gate 0", skill)
         self.assertIn("course-redesign-setup", skill)
         self.assertIn("course-redesign-system", skill)
@@ -979,6 +1158,32 @@ class DistributionTests(unittest.TestCase):
         self.assertEqual(len(display_names), 6)
         self.assertEqual(display_names.count("Agentic Course Redesign"), 1)
         self.assertEqual(len(set(display_names)), 6)
+
+    def test_all_skills_enforce_complete_host_adaptive_dialogue_contract(self):
+        markers = (
+            "Ask one unresolved",
+            "Before using a native choice card, follow the live host tool contract",
+            "complete, mutually exclusive option set and a custom-answer path without omission",
+            "Never prune, hide or combine valid choices merely to fit a card",
+            "If a native card is unavailable or unsupported, its capacity is unknown",
+            "complete set exceeds that capacity",
+            "ordinary chat with every valid numbered option plus `Other - type your answer`, then wait",
+            "Every valid option remains visible",
+            "adaptive dependency-based",
+            "keep every valid option visible",
+            "lecturer split, merge, reorder or rename",
+            "Preserve a custom answer exactly",
+            "Show an editable recap",
+            "skipped or blank response leaves a required question unresolved",
+            "never preselected",
+            "select only if true",
+            "dialogue choice never substitutes",
+        )
+        for skill_path in sorted((PLUGIN / "skills").glob("*/SKILL.md")):
+            text = " ".join(skill_path.read_text(encoding="utf-8").split())
+            for marker in markers:
+                with self.subTest(skill=skill_path.parent.name, marker=marker):
+                    self.assertIn(marker, text)
 
     def test_public_source_is_skills_only_and_matches_runtime(self):
         system_root = PLUGIN.parents[1]
@@ -1023,8 +1228,8 @@ class DistributionTests(unittest.TestCase):
         checklist = (review / "LISTING_METADATA_CHECKLIST.md").read_text(encoding="utf-8")
         self.assertGreaterEqual(len(cases["positive_cases"]), 5)
         self.assertGreaterEqual(len(cases["negative_cases"]), 3)
-        self.assertEqual(cases["version"], "0.2.3")
-        self.assertEqual(prompts["version"], "0.2.3")
+        self.assertEqual(cases["version"], "0.2.4")
+        self.assertEqual(prompts["version"], "0.2.4")
         self.assertEqual(len(prompts["prompts"]), 3)
         for marker in (
             "[VERIFIED_PUBLISHER_NAME]",
@@ -1048,7 +1253,7 @@ class DistributionTests(unittest.TestCase):
     def test_release_evidence_rejects_stale_report(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
-            archive = root / "Agentic-Course-Redesign-System_v0.2.3.zip"
+            archive = root / "Agentic-Course-Redesign-System_v0.2.4.zip"
             archive.write_bytes(b"candidate archive fixture")
             matching = {
                 "schema_version": 1,
@@ -1058,11 +1263,11 @@ class DistributionTests(unittest.TestCase):
                 "archive_bytes": archive.stat().st_size,
                 "findings": [],
             }
-            self.assertEqual(release_evidence.validate(matching, archive, "0.2.3"), [])
+            self.assertEqual(release_evidence.validate(matching, archive, "0.2.4"), [])
             stale = dict(matching)
             stale["archive"] = "Agentic-Course-Redesign-System_v0.2.1.zip"
             stale["archive_sha256"] = "0" * 64
-            errors = release_evidence.validate(stale, archive, "0.2.3")
+            errors = release_evidence.validate(stale, archive, "0.2.4")
             self.assertTrue(any("archive name" in item for item in errors))
             self.assertTrue(any("expected version" in item for item in errors))
             self.assertTrue(any("SHA-256" in item for item in errors))

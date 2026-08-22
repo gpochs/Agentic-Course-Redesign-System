@@ -11,6 +11,11 @@
 - Fail-closed lineage checks, protected-source rules, audience separation, and
   one-retry specialist contracts.
 - A shared ten-role specialist roster and a common return envelope.
+- A host-neutral lecturer interaction contract with one unresolved decision at
+  a time, complete option sets, no pruning/hiding/combining to fit cards, a
+  four-or-more fallback that leaves card mode, adaptive dependency clusters in
+  which every valid option remains visible, verbatim custom answers, pre-gate
+  recaps, and fail-closed blank or uncertain responses.
 - Manual, read-only first use. A host may analyze local project files only
   within its own available and approved capabilities.
 - A terminal `complete_dormant` course-run state after accepted HITL 3 and an
@@ -32,6 +37,8 @@
   course-specific Gate 0 policy and host-specific permission review.
 - Automatic creation of the project control scaffold or validation of Office,
   PDF, slide, audio, or video rendering.
+- A guaranteed native choice-card control. Hosts without a suitable control use
+  the ordinary-chat fallback defined by the portable workflow.
 - A guarantee that every host surface implements every optional instruction,
   agent, or skill feature. The platform adapters state their own limits.
 

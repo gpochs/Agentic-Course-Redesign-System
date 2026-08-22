@@ -17,6 +17,10 @@ CUSTOM_PLUGIN = ROOT / "plugins" / "agentic-course-redesign"
 PUBLIC_PLUGIN = ROOT / "openai-submission" / "source" / "agentic-course-redesign"
 REVIEW = ROOT / "openai-submission" / "review"
 EXPECTED_REPOSITORY = "https://github.com/gpochs/Agentic-Course-Redesign-System"
+EXPECTED_PUBLISHER = "GIAN PETER OCHSNER"
+EXPECTED_WEBSITE = EXPECTED_REPOSITORY
+EXPECTED_PRIVACY = f"{EXPECTED_REPOSITORY}/blob/v0.2.4/docs/PRIVACY.md"
+EXPECTED_TERMS = f"{EXPECTED_REPOSITORY}/blob/v0.2.4/docs/TERMS.md"
 EXPECTED_SKILLS = {
     "course-redesign-assessment",
     "course-redesign-materials",
@@ -47,12 +51,12 @@ REQUIRED_OWNER_MARKERS = {
     "[POLICY_ATTESTATION_OWNER]",
 }
 OWNER_BLOCKERS = [
-    "confirm the verified publisher identity and update manifest publisher fields if needed",
-    "confirm the owning OpenAI organization/project and Apps Management Write submitter",
-    "publish matching website, support, privacy-policy, and terms HTTPS pages",
-    "choose supported countries or regions",
-    "complete final policy attestations",
-    "run OpenAI skill safety/security scans and complete review",
+    "re-confirm the verified publisher identity and update manifest publisher fields only if needed",
+    "re-confirm the owning OpenAI organization/project and Apps Management Write submitter",
+    "re-confirm that the published website, support, privacy-policy, and terms HTTPS pages remain accurate",
+    "re-confirm supported countries or regions",
+    "complete the v0.2.4 policy attestations",
+    "run the OpenAI v0.2.4 skill safety/security scans and complete review",
 ]
 
 
@@ -148,13 +152,13 @@ def main() -> int:
     interface = manifest.get("interface", {})
 
     check("stable package name", manifest.get("name") == "agentic-course-redesign")
-    check("v0.2.3 semantic version", manifest.get("version") == "0.2.3")
+    check("v0.2.4 semantic version", manifest.get("version") == "0.2.4")
     check(
         "valid package name syntax",
         bool(re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,63}", str(manifest.get("name", "")))),
     )
     check("repository URL matches requested release", manifest.get("repository") == EXPECTED_REPOSITORY)
-    check("author name present", bool(manifest.get("author", {}).get("name")))
+    check("published publisher identity", manifest.get("author", {}).get("name") == EXPECTED_PUBLISHER)
     check("skills path declared", manifest.get("skills") == "./skills/")
     check(
         "no MCP/app/hook/connector/authentication/permission manifest keys",
@@ -165,8 +169,67 @@ def main() -> int:
     check("umbrella plugin display name", interface.get("displayName") == "Agentic Course Redesign")
     check("display name length", 0 < len(interface.get("displayName", "")) <= 30)
     check("short description length", 0 < len(interface.get("shortDescription", "")) <= 30)
-    check("long description present", 0 < len(interface.get("longDescription", "")) <= 4000)
-    check("developer name length", 0 < len(interface.get("developerName", "")) <= 80)
+    long_description = interface.get("longDescription", "")
+    check("long description present", 0 < len(long_description) <= 4000)
+    listing_markers = (
+        "LECTURER / TEACHER CONTROL",
+        "Course Redesign Orchestrator",
+        "Course Mapper and Learning-Outcomes Auditor",
+        "Active-Learning Researcher",
+        "AI Integration and AI-Competence Researcher",
+        "Student Experience, Accessibility and Workload Proxy Critic",
+        "Assessment and Constructive-Alignment Designer",
+        "Source Verification and Citation Auditor",
+        "Evidence and Feasibility Red Team",
+        "Learning Designer",
+        "Learning Material Designer",
+        "Artefact Accessibility and Visual QA Auditor",
+        "Gate 0A:",
+        "Gate 0:",
+        "Gate 1:",
+        "HITL 1",
+        "HITL 2",
+        "HITL 3",
+        "Research",
+        "red-team review",
+        "Material production",
+        "assessment-security QA",
+        "production handoff",
+        "final system review",
+        "complete and dormant",
+        "One unresolved question at a time",
+        "Use a card only if the live host can show the complete option set plus custom answer",
+        "Verified current Codex in Plan mode: 2–3 explicit choices plus automatic Other",
+        "If capacity is unknown, unavailable or exceeded",
+        "ordinary chat with every valid numbered option plus Other, then wait",
+        "Never prune, hide or combine valid options to fit a card",
+        "dependency-based chunks with every option visible",
+        "lecturer may split, merge, reorder or rename them",
+    )
+    check(
+        "compact scannable public description",
+        len(long_description) <= 2400
+        and long_description.count("\n- ") >= 10
+        and all(heading in long_description for heading in ("SPECIALIST TEAM (10)", "GATED WORKFLOW", "DECISION DIALOGUE", "BOUNDARY")),
+    )
+    check(
+        "public description preserves roles, lifecycle and dialogue contract",
+        all(marker in long_description for marker in listing_markers),
+    )
+    check(
+        "public description makes no unsupported Work cardinality claim",
+        re.search(r"\bWork\b", long_description) is None,
+    )
+    listing_copy = (REVIEW / "LISTING_COPY.md").read_text(encoding="utf-8")
+    normalized_listing_copy = " ".join(listing_copy.split())
+    check(
+        "listing copy preserves manifest description markers",
+        all(marker in normalized_listing_copy for marker in listing_markers),
+    )
+    check("published developer identity", interface.get("developerName") == EXPECTED_PUBLISHER)
+    check("website URL matches repository root", interface.get("websiteURL") == EXPECTED_WEBSITE)
+    check("privacy URL is pinned to v0.2.4", interface.get("privacyPolicyURL") == EXPECTED_PRIVACY)
+    check("terms URL is pinned to v0.2.4", interface.get("termsOfServiceURL") == EXPECTED_TERMS)
     capabilities = interface.get("capabilities", [])
     check("capability count and shape", isinstance(capabilities, list) and len(capabilities) <= 20 and all(isinstance(item, str) and 0 < len(item) <= 120 for item in capabilities))
 
@@ -231,6 +294,11 @@ def main() -> int:
     system_skill = (
         PUBLIC_PLUGIN / "skills/course-redesign-system/SKILL.md"
     ).read_text(encoding="utf-8")
+    all_skill_text = [
+        path.read_text(encoding="utf-8")
+        for path in sorted((PUBLIC_PLUGIN / "skills").glob("*/SKILL.md"))
+    ]
+    normalized_skill_text = [" ".join(text.split()) for text in all_skill_text]
     check(
         "flattened picker has one full-workflow umbrella entry",
         'display_name: "Agentic Course Redesign"' in umbrella_metadata
@@ -245,6 +313,57 @@ def main() -> int:
         )
         and "APPROVE SYSTEM FILES" in system_skill
         and "A token-only reply is" in system_skill,
+    )
+    strong_prompt_markers = (
+        "live host contract can show the complete option set plus a custom answer",
+        "verified Codex supports exactly two or three explicit choices plus automatic Other",
+        "capacity is unknown, unavailable or exceeded",
+        "show every valid numbered option plus Other",
+        "Never prune, hide or combine valid choices to fit cards",
+        "keep every option visible in dependency chunks",
+        "let the lecturer control grouping",
+    )
+    check(
+        "public umbrella prompt preserves every option and lecturer-controlled grouping",
+        all(marker in umbrella_metadata for marker in strong_prompt_markers),
+    )
+    dialogue_markers = (
+        "Ask one unresolved",
+        "Before using a native choice card, follow the live host tool contract",
+        "complete, mutually exclusive option set and a custom-answer path without omission",
+        "Never prune, hide or combine valid choices merely to fit a card",
+        "If a native card is unavailable or unsupported, its capacity is unknown",
+        "complete set exceeds that capacity",
+        "ordinary chat with every valid numbered option plus `Other - type your answer`, then wait",
+        "Every valid option remains visible",
+        "adaptive dependency-based",
+        "keep every valid option visible",
+        "lecturer split, merge, reorder or rename",
+        "Preserve a custom answer exactly",
+        "Show an editable recap",
+        "skipped or blank response leaves a required question unresolved",
+        "never preselected",
+        "select only if true",
+        "dialogue choice never substitutes",
+    )
+    check(
+        "all six skills carry the complete lecturer dialogue contract",
+        len(all_skill_text) == 6
+        and all(
+            all(marker in text for marker in dialogue_markers)
+            for text in normalized_skill_text
+        ),
+    )
+    check(
+        "deterministic preview-first Gate-0A generator is bundled",
+        (PUBLIC_PLUGIN / "scripts/create_material_processing_eligibility.py").is_file()
+        and "refusing to overwrite existing eligibility record"
+        in (
+            PUBLIC_PLUGIN / "scripts/create_material_processing_eligibility.py"
+        ).read_text(encoding="utf-8")
+        and "--apply" in (
+            PUBLIC_PLUGIN / "scripts/create_material_processing_eligibility.py"
+        ).read_text(encoding="utf-8"),
     )
     public_state = json.loads(
         (
@@ -373,13 +492,19 @@ def main() -> int:
             "N09_PUBLIC_ACCESS_ALONE",
             "N10_INTERNAL_PERSONAL_ROUTE_ONLY",
             "N11_MIXED_OR_UNCERTAIN_GATE0A",
+            "P12_NATIVE_CARD_DIALOGUE",
+            "P13_COMPLETE_NUMBERED_DIALOGUE",
+            "P14_DEPENDENCY_CLUSTER_AND_CUSTOM_ANSWER",
+            "N12_SKIP_OR_OPTION_PRUNING",
         }.issubset(ids),
     )
 
     checklist = (REVIEW / "LISTING_METADATA_CHECKLIST.md").read_text(encoding="utf-8")
     check("all owner markers are explicit", all(marker in checklist for marker in REQUIRED_OWNER_MARKERS))
-    legal_fields = {"websiteURL", "supportURL", "privacyPolicyURL", "termsOfServiceURL"}
-    check("no fake legal or support URLs in candidate manifest", not (set(interface) & legal_fields))
+    check(
+        "no fabricated support URL in candidate manifest",
+        "supportURL" not in manifest and "supportURL" not in interface,
+    )
 
     if args.archive:
         archive_failures = validate_archive(args.archive.resolve())

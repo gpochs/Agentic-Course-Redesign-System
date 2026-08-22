@@ -2,19 +2,38 @@
 
 ## Status first
 
-Version `0.2.3` is the current published repository release at
-<https://github.com/gpochs/Agentic-Course-Redesign-System> as a custom
-repository marketplace for supported surfaces. The plugin is not in
-OpenAI's universal Plugins Directory and has not passed OpenAI review.
-
-The `v0.2.3` release source is inactive by default. Rollback version `v0.2.2`
-was installed and passed a post-restart fresh-task smoke test on the tested
-host; v0.2.3 requires its own exact-version installation check. Host evidence
-does not generalise to other users, devices, accounts or workspaces.
+Version `0.2.3` is the current published GitHub release and published OpenAI
+Plugins Directory version. Version `0.2.4` is only an inactive source
+candidate: it is not yet uploaded, published, installed, enabled or live in a
+picker. Keep using v0.2.3 until the later v0.2.4 publication and exact-version
+smoke test finish. Host evidence never generalises to other users, devices,
+accounts or workspaces.
 Publishing any release does not
 install or enable the plugin, activate a reusable runtime, register a schedule,
 or begin a course run. Report an installation only after the supported plugin
 manager and a fresh-task picker check confirm that exact version.
+
+## Public Plugins Directory route
+
+On a supported ChatGPT desktop surface, open **Plugins**, search for **Agentic
+Course Redesign**, open the public result, and choose **Install**. Start a new
+Work or Codex task, type `@`, and choose **Agentic Course Redesign**. A usable
+installation should expose the umbrella entry and all six bundled skills.
+Workspace policy, app version and account entitlements may still hide or block
+the listing.
+
+When v0.2.4 is ready, the publisher should update the existing OpenAI plugin:
+
+1. keep published v0.2.3 available;
+2. open the existing plugin page and choose its plugin-level **Upload** action;
+3. upload the exact validated v0.2.4 skills-only ZIP as a new draft;
+4. recheck publisher metadata, prompts, tests, regions and attestations;
+5. pass the platform scan/review flow and explicitly publish v0.2.4; and
+6. verify the live directory version before updating availability claims.
+
+Do not unpublish or delete v0.2.3 first. Use **Unpublish** only when the owner
+deliberately wants to delist the current public version or an emergency rollback
+requires it.
 
 ## Supported custom-marketplace route
 
@@ -61,15 +80,15 @@ codex plugin marketplace add gpochs/Agentic-Course-Redesign-System --ref v0.2.3
 ```
 
 Then restart the ChatGPT desktop app, select the new marketplace source, install
-the plugin, and start a new chat. Use this command only when the installed CLI
+the plugin, and start a new chat. Use this pinned v0.2.3 command until a v0.2.4
+GitHub release is separately published. Use the command only when the installed CLI
 actually exposes `codex plugin marketplace`. Otherwise use the supported
 ChatGPT Desktop marketplace UI or the portable project-template fallback; an
 absent command is not evidence of successful installation.
 
-The rollback evidence confirms installed/enabled user-level `0.2.2` after a
-desktop restart and fresh-task picker/umbrella check, with all six bundled
-skills available. Confirm `0.2.3` separately after installation and do not use
-either result as evidence for another host.
+Confirm the exact installed version after a restart and fresh-task
+picker/umbrella check; do not use a result from this development host as
+evidence for another participant.
 
 ## Workspace sharing boundary
 
@@ -77,10 +96,11 @@ A workspace admin may publish an installed local plugin to selected workspace
 roles if workspace policy permits. That makes it a workspace plugin only. It
 does not publish the plugin to OpenAI's universal public directory.
 
-Universal discovery requires a separate skills-only submission through the
-OpenAI Platform, automated scans, review, approval, and an explicit publisher
-publish action. See `openai-submission/review/LISTING_METADATA_CHECKLIST.md` for
-the unresolved owner-supplied fields.
+The public v0.2.3 listing was created through the separate OpenAI Platform flow.
+Every later public version still requires a new plugin-level upload draft,
+automated checks and the applicable publisher review/publish flow. See
+`openai-submission/review/LISTING_METADATA_CHECKLIST.md` for the v0.2.4 update
+checks.
 
 ## Start one isolated course
 
@@ -105,11 +125,22 @@ Then:
 
 1. Start a new Work or Codex chat with the plugin enabled.
 2. Ask: **Set up a protected redesign project for one course.**
-3. Review the exact target and no-overwrite preview.
-4. Approve scaffold creation only for that target.
-5. Only after Gate 0A permits processing, add current course files under `00_Source_Materials/` and contextual evidence
+3. Answer Gate 0A one consequential question at a time. Use a native choice
+   card only when the live host tool contract can present the complete option
+   set plus a custom answer. In the current verified Codex contract, that means
+   exactly two or three explicit choices plus client-added free-form `Other`.
+   Work's exact maximum is not independently documented or exposed here. If
+   capacity is unknown, unavailable or exceeded, ask the same single question
+   in ordinary chat with every valid numbered option plus `Other`, followed by
+   a wait. Valid choices are never pruned, hidden or combined merely to fit a
+   card. Long dependency-based chunks keep every valid option visible, and the
+   lecturer may split, merge, reorder or rename the grouping. A blank or Skip
+   never counts as approval.
+4. Review the exact target and no-overwrite preview.
+5. Approve scaffold creation only for that target.
+6. Only after Gate 0A permits processing, add current course files under `00_Source_Materials/` and contextual evidence
    under `00_Context/`.
-6. Review and approve the source manifest and versioned source-access policy
+7. Review and approve the source manifest and versioned source-access policy
    before specialist analysis.
 
 The standard project also contains `01_Control/`, `02_Working_Notes/`,

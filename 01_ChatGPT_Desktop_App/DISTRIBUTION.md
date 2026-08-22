@@ -2,9 +2,12 @@
 
 ## Current release state
 
-- Current repository package and plugin release: `0.2.3`, published with
+- Current GitHub repository and OpenAI Plugins Directory release: `0.2.3`, published with
   matching archive, checksum, inventory and validation evidence; inactive by
   default and not thereby installed, activated, or scheduled.
+- Inactive maintenance candidate: `0.2.4` under
+  `ACR-SYS-20260822-007`; not committed, uploaded, published, installed,
+  activated or scheduled.
 - Public repository:
   <https://github.com/gpochs/Agentic-Course-Redesign-System>.
 - GitHub repository verified public: **yes**.
@@ -21,12 +24,11 @@
   cache and invoked the `@Agentic Course Redesign` umbrella; all six bundled
   skills were available. It is not evidence that v0.2.3 or another host is
   installed or loaded.
-- `v0.2.3` tag and matching release assets: **published**. Exact-version host
-  installation and fresh-task smoke evidence is recorded only after it occurs.
-- Submitted to OpenAI: **no**.
-- OpenAI safety/security scan completed: **no**.
-- OpenAI review or approval: **no**.
-- Published in the universal Plugins Directory: **no**.
+- `v0.2.3` tag and matching release assets: **published**.
+- OpenAI v0.2.3 upload, review and publisher publication: **complete**; the
+  OpenAI Platform currently shows `0.2.3` as **Published** with a live
+  **View in Directory** link.
+- OpenAI v0.2.4 draft upload, scan/review and publication: **not started**.
 
 ## What the repository can enable
 
@@ -40,8 +42,9 @@ A verified checkout or the public GitHub repository can provide:
 - workspace-only sharing by an authorised workspace admin; and
 - the portable project-template fallback.
 
-GitHub cannot by itself create an OpenAI-reviewed public listing or certify
-publisher identity, policy compliance, support readiness, or directory approval.
+GitHub cannot by itself update the separately published OpenAI listing or
+certify publisher identity, policy compliance, support readiness, or directory
+approval for a later version.
 
 ## Custom marketplace versus universal directory
 
@@ -50,22 +53,25 @@ private, team-scoped or public. Their availability can vary by app version,
 account and workspace policy. OpenAI's universal public directory is a separate
 catalog shared by ChatGPT and Codex.
 
-For a skills-only public listing, the owner must still:
+For the next skills-only public version, the owner must:
 
 1. supply and confirm the verified individual or business publisher identity;
 2. give the submitter Apps Management Write permission;
 3. publish matching website, support, privacy-policy, and terms HTTPS pages;
 4. choose supported countries or regions;
-5. upload the final skills-only bundle through the OpenAI Platform;
+5. use the existing plugin's **Upload** action to create a new version draft
+   and upload the final skills-only bundle;
 6. provide starter prompts, at least five positive tests, at least three
    negative tests, release notes, and policy attestations;
 7. pass skill safety/security scans and OpenAI review; and
-8. after approval, explicitly publish the approved version.
+8. after approval, explicitly publish the approved version and verify its live
+   directory version.
 
-The repository includes prepared review assets, but it deliberately does not
-invent the publisher identity, support contact, legal URLs, territory choices,
-or attestations. Those unresolved fields live only in the submission checklist,
-not as fake manifest values.
+Do not remove or unpublish v0.2.3 before this process. The plugin-level upload
+route permits a new draft while the current version stays published. Use
+**Unpublish** only for a deliberate delisting or emergency rollback. The
+repository includes prepared review assets, but it does not invent publisher,
+support, legal, territory or attestation values for v0.2.4.
 
 ## Package contents
 
@@ -76,9 +82,11 @@ memory, or standing automation. Installation alone performs no course action.
 The custom marketplace retains the pre-existing
 `policy.authentication: ON_INSTALL` host install-policy metadata. It is not a
 plugin/provider authentication capability or bundled credential surface, and
-  v0.2.3 adds no authentication mechanism.
+neither v0.2.3 nor the inactive v0.2.4 candidate adds an authentication
+mechanism.
 
-The v0.2.3 release custom and public-source runtime trees are byte-identical;
+The inactive v0.2.4 candidate custom and public-source runtime trees are kept
+byte-identical;
 the public source is at
 `openai-submission/source/agentic-course-redesign/`. Reviewer material is kept
 outside that source at `openai-submission/review/`, so it is not accidentally
@@ -88,13 +96,23 @@ included as runtime instruction.
 
 Describe the current state as:
 
-> a published v0.2.3 skills-only repository plugin with adaptive pre-source
-> Gate 0A, schema 8 and terminal complete-dormant closeout, plus preserved
-> v0.2.2 rollback evidence; neither release registers automation by publication
+> a published v0.2.3 OpenAI and GitHub skills-only plugin, plus an inactive
+> v0.2.4 interaction-only candidate that asks one consequential question at a
+> time and uses a card only when the live host contract can present the complete
+> option set plus a custom answer. The current verified Codex contract permits
+> exactly two or three explicit choices and adds free-form `Other`; Work's exact
+> maximum is not independently documented or exposed here. Unknown,
+> unavailable or exceeded capacity falls back to the same single ordinary-chat
+> question with every valid numbered choice plus `Other`, followed by a wait;
+> valid choices are never pruned, hidden or combined to fit a card, and long
+> dependency-based chunks keep every option visible and under lecturer control;
+> neither version registers
+> automation by publication
 
-Describe either version as installed only for an exact verified host. Do not
-describe either version as available in the universal Plugins Directory until
-its separate submission, review and publisher publication steps are complete.
+Describe a version as installed only for an exact verified host. Describe
+v0.2.3 as publicly available because its live directory entry is verified; do
+not describe v0.2.4 as public until its separate update draft, checks and
+publisher publication are complete.
 
 Before uploading any later release, run `validation/validate_release_evidence.py`
 against the exact report and archive. Archive name/version, byte count and

@@ -5,7 +5,13 @@ adapter should guide the setup conversationally.
 
 ## 1. Confirm the processing environment before sharing a path
 
-The orchestrator first asks Gate 0A questions without requesting a course path.
+The orchestrator first asks Gate 0A questions without requesting a course path,
+one unresolved declaration at a time. It uses a clickable card only when the
+live host can show the complete mutually exclusive option set plus a
+custom-answer path. If that control is unavailable or unsupported, its capacity
+is unknown, or the complete set exceeds its capacity, the orchestrator lists
+every valid numbered option plus **Other - type your answer** in ordinary chat,
+and waits. It never prunes, hides or combines valid choices to fit a card.
 State whether the material is privately owned, rightsholder-authorised,
 appropriately licensed/public, institution-internal/restricted, mixed or
 uncertain; also confirm AI-processing authority for the selected provider,
@@ -71,14 +77,27 @@ Redesign**. If the app flattens a skills-only plugin, the entry with that name
 is the umbrella orchestrator: it starts protected setup or continues the
 current verified run and calls the bounded specialist skills when authorised.
 
-The system asks only questions that materially change the analysis. Before any
+The system asks only questions that materially change the analysis. It
+preserves a custom answer verbatim, confirms how it will be represented, and
+shows an editable recap before continuing through a cluster or gate. A
+recommendation identifies the safest truthful evidence-aligned reversible
+option, is never preselected, and must not replace your factual declaration.
+Blank, skipped or uncertain required answers remain unresolved. Before any
 specialist reads protected files, review the exact source manifest, source
 classes, data and rights statement, teacher-only assessment boundary,
 permitted roles/tools/egress, output audiences and actual workspace.
 
 ## 6. Make the decisions
 
-The lecturer remains the expert in the loop:
+The lecturer remains the expert in the loop. For a very long decision, the
+orchestrator may propose a cluster only when choices share evidence or constrain
+one another. Every valid option remains visible. You may split, merge, reorder,
+rename or defer it. For example,
+outcomes, assessment evidence, permitted AI use and learning activity belong in
+one cluster when changing one changes the others; student-experience,
+accessibility and active-learning perspectives may be considered together when
+participation design jointly affects usability, inclusion, workload and
+engagement.
 
 1. **HITL 1:** approve, revise or reject preliminary redesign focus areas.
 2. **HITL 2:** decide the researched, concrete course changes one by one.

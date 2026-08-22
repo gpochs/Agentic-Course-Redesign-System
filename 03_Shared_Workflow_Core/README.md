@@ -1,8 +1,8 @@
 # Shared workflow core
 
 This directory is the course-independent semantic source for all platform
-adapters. Version 0.2.3 is the published release source under proposal
-`ACR-SYS-20260821-005`; its reusable template remains inactive by default and
+adapters. Version 0.2.4 is an inactive candidate under approved proposal
+`ACR-SYS-20260822-007`; its reusable template remains inactive by default and
 does not modify a course or register a schedule merely by being installed.
 The same workflow adapts to lecturer-supplied school, vocational, professional,
 higher-education or other explicitly described course contexts. It must not
@@ -13,6 +13,10 @@ institutional policy from the plugin or from an earlier course.
 - `course-project-template/` is the inactive one-course scaffold without a
   platform-specific agent registry.
 - `scripts/` contains preview-first, no-overwrite local utilities.
+- `scripts/create_material_processing_eligibility.py` deterministically previews
+  the sole Gate-0A record target, validates the existing schema and intake
+  semantics, and creates it atomically only with explicit `--apply`. It refuses
+  overwrite and broad/dangerous targets and requires no MCP server.
 - `scripts/migrate_state_v7_to_v8.py` previews the fail-closed schema-7 to
   schema-8 migration. It has no apply or write mode. It preserves only bounded,
   immutable terminal run history and inactive schedule history through indexed
@@ -30,6 +34,20 @@ reconfirmation do not permit intake.
 Public availability alone is not processing authority. Institution-internal or
 restricted material in a personal/unmanaged environment is route-only, and
 mixed or uncertain material fails closed until segregated or clarified.
+
+All six skills use the same Lecturer Decision Dialogue Contract. The
+orchestrator asks one unresolved consequential question at a time, preserves
+complete choices and exact custom answers, and uses a native card only when the
+live host tool contract can present the complete mutually exclusive option set
+and a custom-answer path without omission. If the control is unavailable or
+unsupported, its capacity is unknown, or the complete set exceeds that
+capacity, the orchestrator uses the same single ordinary-chat question with
+every valid numbered option plus `Other - type your answer`. Valid choices are
+never pruned, hidden or combined merely to fit a card. Long decisions may be clustered only
+by meaningful dependencies, every valid option remains visible, and the
+grouping remains lecturer-editable. Recommendations are never preselected, uncertainty
+fails closed, and conversational decisions never replace exact authority gates
+or tokens.
 
 After verified HITL 3 acceptance, the mandatory system-improvement question is
 recorded and asked exactly once. Silence remains a wait, not a decision. Once

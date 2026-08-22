@@ -1,7 +1,7 @@
 {
   "schema_version": 8,
   "plugin_id": "agentic-course-redesign",
-  "plugin_version": "0.2.3",
+  "plugin_version": "0.2.4",
   "status": "candidate_not_active",
   "state_owner": "course_design_orchestrator",
   "umbrella_entry_routing": {

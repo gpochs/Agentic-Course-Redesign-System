@@ -9,6 +9,12 @@
 - The portable core's pre-source Gate 0A and complete Gate 0-through-HITL3
   sequence, verified production handoff, explicit terminal dormant lifecycle,
   and proposal-only post-HITL3 system-review offer.
+- Native `AskUserQuestion` cards for two to four complete mutually exclusive
+  options plus the documented additional `Other` free-text path when the active
+  Claude Code surface supports them. The portable ordinary-chat fallback remains
+  authoritative when the control is unavailable or unsupported, or the
+  complete set has more than four options. Every valid option remains visible;
+  no valid choice is pruned, hidden or combined to fit a card.
 - Ten project subagents under `.claude/agents/`, each with the shared skill
   preloaded and only `Read`, `Glob`, and `Grep` available.
 - Version control of project instructions, rules, skills, and agents.
@@ -22,6 +28,7 @@
   already cover the adapter, while plugins require separate installation and
   enablement decisions.
 - Automatic exact-target production, publication, or runtime activation.
+- Pruning, splitting, or preselecting options merely to fit a host control.
 - Any source discovery before Gate 0A, or automatic continuation of a terminal
   `complete_dormant` run. Trigger guidance is informational only.
 

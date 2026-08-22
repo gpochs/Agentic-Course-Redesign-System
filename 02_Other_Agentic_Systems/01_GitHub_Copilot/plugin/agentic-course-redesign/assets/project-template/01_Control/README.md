@@ -40,6 +40,13 @@ Review the emitted canonical payload before recording the uppercase SHA-256.
 
 Compute Gate-0A eligibility with `fingerprint_file.py --mode eligibility`; its
 canonical payload excludes only fingerprint and approval metadata.
+Create a new Gate-0A record through the shared-core
+`scripts/create_material_processing_eligibility.py` helper: preview first, then
+rerun the identical constrained arguments with explicit `--apply` only after
+the exact preview is approved. It creates only
+`01_Control/material-processing-eligibility.json`, atomically refuses
+overwrite, and needs no MCP server. A route-only or failed-closed record is a
+durable decision, not source-intake authority.
 There is no ungated raw-file mode. Hashing a course source uses `--mode
 course-source --eligibility-record
 01_Control/material-processing-eligibility.json`; the eligibility control is

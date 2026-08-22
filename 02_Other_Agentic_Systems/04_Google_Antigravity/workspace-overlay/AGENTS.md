@@ -17,6 +17,36 @@ reading. If the scaffold is missing or uninitialised, route to
 `course-redesign-setup` preview first; create nothing without its explicit
 target approval.
 
+## Lecturer Decision Dialogue Contract
+
+The orchestrator is the sole lecturer-facing interface; specialist roles are
+evidence lenses and relay lecturer-only questions through it. Ask one unresolved
+consequential question at a time. Before using a native choice card, follow the
+live host tool contract. Use a card only when it can present the complete,
+mutually exclusive option set and a custom-answer path without omission. Never
+prune, hide or combine valid choices merely to fit a card. If a native card is
+unavailable or unsupported, its capacity is unknown, or the complete set
+exceeds that capacity, ask the same single question in ordinary chat with every
+valid numbered option plus `Other - type your answer`, then wait. Every valid
+option remains visible.
+Cluster only very long decisions and only by dependency when choices share
+evidence or constrain one another. Keep every valid option visible, explain
+each cluster and let the lecturer split, merge, reorder or rename it. Mutually
+dependent outcomes, assessment evidence, permitted AI use and learning
+activities belong together. Student-experience, accessibility and
+active-learning perspectives may be clustered when participation design
+jointly affects usability, inclusion, workload and engagement.
+
+Preserve the lecturer's custom answer exactly, confirm its canonical
+interpretation, reflect its consequence, and keep a decision ledger in the
+chat and current state. Show an editable recap at every cluster or gate end.
+Skip or blank leaves a required question unresolved. Mark at most the safest
+truthful, evidence-aligned, reversible option `Recommended`, never preselect it;
+tell the lecturer to select factual declarations only if true, and fail closed
+on uncertainty. At major pedagogical gates, ask for lecturer criteria and a
+preliminary view before recommending when practical. Exact authority gates,
+lineage fields and approval tokens remain separate and unchanged.
+
 Before asking for, receiving, listing, reading, copying or hashing any course
 source path, filename or content, obtain a fingerprinted Gate-0A material and
 processing-environment eligibility decision. Ask only for category-level

@@ -1,12 +1,12 @@
-# Validation report — Google Antigravity adapter v0.2.3
+# Validation report — Google Antigravity adapter v0.2.4
 
-- Date: 2026-08-21
+- Date: 2026-08-22
 - Status: PASS for static files, canonical schema-8 parity, fail-closed
   controls, installer behaviour, and local Python tests
 - Runtime status: `candidate_not_active`; configuration only and not activated
 - Antigravity access: not opened, installed, accessed, or signed into
-- Provenance: approved inactive proposal `ACR-SYS-20260821-005`, version
-  `0.2.3`, reconciled against `03_Shared_Workflow_Core`
+- Provenance: approved inactive proposal `ACR-SYS-20260822-007`, version
+  `0.2.4`, reconciled against `03_Shared_Workflow_Core`
 - External effects: no runtime, schedule, hook, MCP server, connector,
   authentication, permission, plugin, or external egress added
 
@@ -14,12 +14,14 @@
 
 | Check | Result |
 |---|---|
-| Required adapter paths | PASS: 24 required paths |
-| Release identity | PASS: top-level platform `google-antigravity`, adapter version `0.2.3`, status `candidate_not_active` |
+| Required adapter paths | PASS: 25 required paths |
+| Release identity | PASS: top-level platform `google-antigravity`, adapter version `0.2.4`, status `candidate_not_active` |
 | Native customization layout | PASS: 3 rules, 4 workflows, 6 Agent Skills, 10 project-local custom subagents |
 | Course independence | PASS: the adapter adapts to lecturer-supplied context, level, learners, objectives, assessment, language, and constraints without assuming a discipline or institution |
 | Gate 0A processing eligibility | PASS: no source path, filename, list, content, copy, or hash may be disclosed or accessed before a fingerprinted eligibility decision; public availability alone is insufficient; mixed or uncertain material fails closed |
 | Restricted-material routing | PASS: institution-internal or restricted material is route-only unless an exact institution-approved environment, scope, and expiry are recorded; route-only handling prohibits source-detail leakage |
+| Lecturer interaction | PASS: one unresolved decision at a time; native cards only when the live host accepts the complete option set plus a custom-answer path; unavailable, unsupported, unknown or exceeded capacity falls back to ordinary chat with every valid numbered option plus `Other`; no pruning, hiding or combining to fit a card; every valid option remains visible in lecturer-controlled dependency clusters; verbatim custom answers; no preselection; blank/uncertain input fails closed; recaps precede separate authority gates |
+| Gate-0A eligibility generator | PASS: deterministic canonical candidate, preview first, explicit apply, atomic create, exact sole target, broad-target and overwrite refusal; generic no-MCP host fallback documented |
 | Workflow completeness | PASS: Gate 0A through HITL 3; explicit requested/declined system-improvement response; terminal `complete_dormant` closeout; fresh-run-only manual or scheduled triggers |
 | Canonical shared parity | PASS: declared shared files, state validator, and both preview migrations match the canonical core where mirrored |
 | Migration safety | PASS: schema 6 to 7 and schema 7 to 8 migrations are preview-only; schema-8 input is idempotent; material eligibility, nonterminal runs, and schedules require reconfirmation after schema-7 migration |
@@ -30,8 +32,8 @@
 | Skill/workflow frontmatter | PASS: names match folders; descriptions present |
 | Documented file-size limits | PASS: every rule and workflow is below 12,000 characters |
 | Static syntax | PASS: adapter JSON and Python parse |
-| Source provenance | PASS: 12 declared canonical source hashes live-reverified against `03_Shared_Workflow_Core` |
-| Adapter integrity | PASS: 57 generated non-manifest files hashed in `adapter-manifest.json`; the manifest excludes only itself |
+| Source provenance | PASS: 13 declared canonical source hashes live-reverified against `03_Shared_Workflow_Core` |
+| Adapter integrity | PASS: 58 generated non-manifest files hashed in `adapter-manifest.json`; the manifest excludes only itself |
 | Secret and personal-path scan | PASS: 0 findings |
 | Course-specific pilot leakage | PASS: 0 findings |
 | Active privileged customization scan | PASS: no overlay hook, MCP config, plugin, `_agents/plugins`, or `.codex` path |
@@ -41,7 +43,7 @@
 | Embedded state validator | PASS: Gate 0A, lineage, handoff, HITL 3, explicit improvement response, dormant closeout, trigger, activation, and schedule schema validates with no errors |
 | Installer preview | PASS: preview-only by default, no overwrite, no activation, and no global configuration change |
 | Installer apply/no-overwrite | PASS in disposable temporary directories |
-| Unit tests | PASS: 17 tests |
+| Unit tests | PASS: 20 tests |
 
 ## Commands
 
@@ -66,16 +68,16 @@ candidate. The final static validator returned:
   "errors": [],
   "warnings": [],
   "checks": {
-    "required_paths": 24,
+    "required_paths": 25,
     "skills": 6,
     "workflows": 4,
-    "workflow_completeness_controls": 5,
+    "workflow_completeness_controls": 6,
     "rules": 3,
     "agents": 10,
     "secret_findings": 0,
-    "source_hashes": 12,
-    "generated_hashes": 57,
-    "adapter_files": 58
+    "source_hashes": 13,
+    "generated_hashes": 58,
+    "adapter_files": 59
   }
 }
 ```

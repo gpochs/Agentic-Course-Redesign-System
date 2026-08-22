@@ -32,6 +32,8 @@ context, alignment ledger, two-to-five bounded subgoals per active role, and
 dependency-aware plan. Use the ten contracts in
 [role-contracts.md](references/role-contracts.md). Give each specialist the
 same current state capsule and accept only a complete, current-lineage return.
+Treat specialists as evidence lenses, not additional lecturer-facing agents;
+the orchestrator remains the single user interface and decision recorder.
 
 When native subagents are unavailable, interleave the same role perspectives
 serially. Do not omit a required perspective merely because a host lacks
@@ -44,8 +46,10 @@ unapproved tool, audience, egress, or exact target; material rights, privacy,
 accessibility, assessment-validity, or answer-leakage risk; a blocked critical
 dependency; an exhausted one-retry allowance; or a lecturer-only trade-off.
 
-At a gate, report the evidence, decision options, exact consequences, and the
-next permitted action, then wait. A gate pause is non-terminal.
+At a gate, recap resolved choices and dependencies, report the evidence,
+decision options, exact consequences and authority requested, and the next
+permitted action, then wait. A blank or skipped answer cannot advance. A gate
+pause is non-terminal.
 
 Do not treat completed artefact QA as production completion. Require the two
 current-lineage production decisions and verify the saved Production Handoff

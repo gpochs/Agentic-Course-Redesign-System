@@ -7,6 +7,12 @@
 - The portable core's pre-source Gate 0A and complete Gate 0-through-HITL3
   sequence, verified production handoff, explicit terminal dormant lifecycle,
   and proposal-only post-HITL3 system-review offer.
+- The portable one-decision protocol, including OpenCode's documented native
+  question tool only when the live host accepts the complete option set plus a
+  custom answer. Its maximum is undocumented, so unknown, unavailable or
+  exceeded capacity falls back to complete numbered ordinary-chat options plus
+  `Other`. Choices remain complete and visible, with no pruning, hiding or
+  combining.
 - Ten project-local subagents in `.opencode/agents/`.
 - Ordered agent permissions that deny every action first and then allow only
   `read`, `glob`, `grep`, and the `course-redesign` skill.
@@ -23,6 +29,7 @@
   required for this adapter.
 - OpenCode installation, activation, account access, or runtime verification.
 - Course-material production, scheduling, or reusable-system activation.
+- Pruning, splitting, or preselecting options merely to imitate a host control.
 - Any source discovery before Gate 0A, or automatic continuation of a terminal
   `complete_dormant` run. Trigger guidance is informational only.
 

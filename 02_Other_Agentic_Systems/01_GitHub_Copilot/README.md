@@ -1,7 +1,7 @@
 # GitHub Copilot adapter
 
-Adapter semantic release: `0.2.3`. Native Copilot package:
-`0.2.3-copilot.1`. Candidate proposal: `ACR-SYS-20260822-006`.
+Adapter semantic release: `0.2.4`. Native Copilot package:
+`0.2.4-copilot.1`. Candidate proposal: `ACR-SYS-20260822-007`.
 
 This adapter now provides two ways to use Agentic Course Redesign with GitHub
 Copilot:
@@ -13,7 +13,7 @@ Copilot:
    core overlay and this adapter's `overlay/` into one reviewed course
    project.
 
-Both routes preserve the same v0.2.3 workflow semantics: pre-source Gate 0A,
+Both routes preserve the v0.2.4 Copilot workflow semantics: pre-source Gate 0A,
 schema-8 lineage, lecturer-controlled gates, verified production handoff before
 HITL 3, terminal `complete_dormant` lifecycle, and a separate system-review
 decision. Neither route starts a course run merely because files are installed.
@@ -39,14 +39,42 @@ The repository marketplace manifest is
 links, command-line alternatives, verification, the first project-session
 prompt, and removal instructions.
 
-The native package mirrors the six canonical v0.2.3 skills and helpers
-byte-for-byte. Its ten Copilot agents preserve the full specialist role
-contracts from the published Codex package while translating only the host
-manifest and read-only tool declaration.
+The native package preserves the complete six-skill v0.2.4 workflow text and
+adds one exact Copilot-only card-capacity override to each skill; helpers remain
+byte-identical to the canonical core. Its ten Copilot agents preserve the full
+specialist role contracts and add the host dialogue boundary while retaining
+read-only tool declarations.
 
 It declares no MCP server, connector, API integration, authentication, hook,
 LSP server, telemetry, schedule, automation, model provider, or additional
 permission. It is provided as-is without a support SLA.
+
+## Dialogue and Copilot 1.0.80 compatibility
+
+Lecturer dialogue keeps one unresolved consequential question at a time. Use
+the native `ask_user` card for the complete valid option set whenever the live
+GitHub Copilot host accepts it. A live Copilot host has demonstrated at least
+five explicit choices plus a custom-answer field; this is an observed
+capability, not a maximum. Do not state or assume an unsupported maximum. Never
+prune, hide or combine valid choices merely to fit a card. If the host rejects
+or cannot present the complete valid set, ask one ordinary chat question
+listing every valid numbered option plus `Other`, then wait. For very long
+sets, use dependency chunks only when choices share evidence or constrain one
+another. Keep every valid option visible across chunks and let the lecturer
+split, merge, reorder or rename the grouping. Recommendations are never
+preselected, custom answers are preserved and confirmed, blank or `Skip`
+cannot advance, and exact authority gates remain separate.
+
+The package includes a deterministic, preview-first, no-overwrite Gate-0A
+eligibility record generator. Invoke it through PowerShell/Python as a normal
+function call, never through `apply_patch`. In Copilot 1.0.80 BYOK, `expected
+function` can indicate poisoned task history from an earlier `apply_patch`
+entry recorded as `type=custom`; it does not identify a missing installable
+function or MCP server. Start a fresh task and prefer GitHub-hosted GPT-5.4 or
+the default Claude model for affected BYOK sessions.
+
+Rollback remains the prior package `0.2.3-copilot.1`; rollback is a separate
+operator decision and does not activate or install either version.
 
 ## Project-local overlay
 

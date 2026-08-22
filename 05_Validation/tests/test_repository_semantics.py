@@ -23,6 +23,21 @@ class RepositorySemanticTests(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.validator = load_validator()
 
+    def test_codex_card_capacity_records_plan_mode_availability(self) -> None:
+        compatibility = (
+            ROOT / "04_Documentation" / "PLATFORM_COMPATIBILITY.md"
+        ).read_text(encoding="utf-8")
+        chatgpt_report = (
+            ROOT / "01_ChatGPT_Desktop_App" / "VALIDATION_REPORT.md"
+        ).read_text(encoding="utf-8")
+
+        for text in (compatibility, chatgpt_report):
+            with self.subTest(document=text[:40]):
+                self.assertIn("Plan mode", text)
+                self.assertIn("request_user_input", text)
+                self.assertRegex(text.lower(), r"(?:two or three|2[–-]3)")
+                self.assertIn("ordinary-chat fallback", text)
+
     def test_all_orchestration_entries_have_complete_ordered_terminal_contract(self) -> None:
         for rel_path in self.validator.ORCHESTRATION_ENTRY_PATHS:
             path = ROOT / rel_path
@@ -40,6 +55,95 @@ class RepositorySemanticTests(unittest.TestCase):
                 [],
                 rel_path,
             )
+
+    def test_all_bundled_skills_keep_complete_lecturer_dialogue_contract(self) -> None:
+        full_contract_roots = (
+            ROOT / "03_Shared_Workflow_Core" / "agent-skills",
+            ROOT / "01_ChatGPT_Desktop_App" / "plugins" / "agentic-course-redesign" / "skills",
+            ROOT
+            / "01_ChatGPT_Desktop_App"
+            / "openai-submission"
+            / "source"
+            / "agentic-course-redesign"
+            / "skills",
+            ROOT
+            / "02_Other_Agentic_Systems"
+            / "01_GitHub_Copilot"
+            / "plugin"
+            / "agentic-course-redesign"
+            / "skills",
+        )
+        for root in full_contract_roots:
+            paths = sorted(root.glob("*/SKILL.md"))
+            self.assertEqual(len(paths), 6, root)
+            for path in paths:
+                with self.subTest(path=path):
+                    self.assertEqual(
+                        self.validator.validate_dialogue_contract_entry(path),
+                        [],
+                        path,
+                    )
+
+        for rel_path in self.validator.DIALOGUE_CONTRACT_ENTRY_PATHS:
+            path = ROOT / rel_path
+            with self.subTest(path=path):
+                self.assertEqual(
+                    self.validator.validate_dialogue_contract_entry(path),
+                    [],
+                    path,
+                )
+
+    def test_dialogue_contract_never_prunes_choices_or_accepts_skip(self) -> None:
+        source = (
+            ROOT
+            / "03_Shared_Workflow_Core"
+            / "agent-skills"
+            / "course-redesign-orchestrator"
+            / "SKILL.md"
+        ).read_text(encoding="utf-8")
+        mutations = (
+            (
+                "Never\nprune, hide or combine valid choices merely to fit a card.",
+                "Hide or combine choices to fit a card.",
+                "no option pruning, hiding or combining to fit a card",
+            ),
+            (
+                "If a native card is\nunavailable or unsupported, its capacity is unknown, or the complete set\nexceeds that capacity, ask the same single question in ordinary chat with every\nvalid numbered option plus `Other - type your answer`, then wait.",
+                "If a native card is unavailable, omit the question.",
+                "complete ordinary-chat fallback when card capacity is unavailable",
+            ),
+            (
+                "Every valid\noption remains visible.",
+                "Some options may remain implicit.",
+                "every valid option remains visible",
+            ),
+            (
+                "keep every valid option visible",
+                "keep only preferred options visible",
+                "adaptive dependency clusters remain lecturer-editable",
+            ),
+            (
+                "A skipped or blank response\nleaves a required question unresolved.",
+                "A missing response counts as approval.",
+                "blank or skip remains unresolved",
+            ),
+            (
+                "but never preselected",
+                "and is automatically preselected",
+                "safest truthful recommendation is never preselected",
+            ),
+        )
+        with tempfile.TemporaryDirectory() as raw:
+            for index, (old, new, expected_detail) in enumerate(mutations):
+                with self.subTest(expected_detail=expected_detail):
+                    self.assertIn(old, source)
+                    path = Path(raw) / f"dialogue-{index}.md"
+                    path.write_text(source.replace(old, new), encoding="utf-8")
+                    details = {
+                        item.get("detail")
+                        for item in self.validator.validate_dialogue_contract_entry(path)
+                    }
+                    self.assertIn(expected_detail, details)
 
     def test_missing_review_scope_fails_closed(self) -> None:
         source = (
@@ -147,8 +251,8 @@ class RepositorySemanticTests(unittest.TestCase):
                 encoding="utf-8",
             )
             expected = (
-                "proposal id: `acr-sys-20260821-005`",
-                "proposal version: `0.2.3`",
+                "proposal id: `acr-sys-20260822-007`",
+                "proposal version: `0.2.4`",
                 "system-file candidate approved",
             )
             findings = self.validator.validate_candidate_control_record(path, expected)

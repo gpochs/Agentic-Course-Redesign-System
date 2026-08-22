@@ -43,7 +43,8 @@ institution assumptions from the adapter or an earlier course.
   version, plan version, material-processing eligibility fingerprint, manifest
   fingerprint, and source-policy version/fingerprint on every specialist return
   and gate record.
-- The orchestrator alone updates workflow state.
+- The orchestrator alone is the lecturer-facing workflow interface and updates
+  workflow state. Specialists are evidence lenses, not separate interfaces.
 - Specialists receive bounded subgoals, dependencies, completion criteria, permitted source classes/tools/actions, and audience/security boundaries.
 - Only one corrective retry is allowed for the same role and stage; replanning does not reset it.
 - No gate, permission, target, or lecturer decision carries automatically into a new run.
@@ -52,6 +53,36 @@ institution assumptions from the adapter or an earlier course.
 - Use bounded subagents only when the current Antigravity surface and approved
   run contract permit them. Otherwise perform all perspectives serially while
   preserving separate role envelopes and Assessment's final integration.
+
+## Lecturer interaction
+
+- Keep exactly one unresolved decision before the lecturer at a time. Form
+  adaptive clusters from actual dependencies; allow the lecturer to split,
+  merge, reorder, or rename them, and keep every valid option visible.
+- Use a native choice card only when the live host can show the complete
+  mutually exclusive option set and a custom-answer path. If the control is
+  unavailable or unsupported, its capacity is unknown, or the complete set
+  exceeds its capacity, ask the same single ordinary-chat question listing
+  every valid numbered option plus `Other - type your answer`, then wait. Never
+  prune, hide or combine valid choices merely to fit a card. Every valid option
+  remains visible.
+- Recommend the safest truthful, evidence-aligned, reversible option, but never
+  preselect it. Make factual declarations only when true; uncertainty fails
+  closed. Blank, skipped, partial, or ambiguous answers do not advance.
+- Preserve every custom answer verbatim. Propose and confirm any normalized
+  mapping before using it in state, a plan, or a gate record.
+- Before each gate, recap resolved choices, current clusters and dependencies,
+  custom answers, uncertainty, recommendation status, and exact authority. At
+  a major pedagogical gate, criteria or a preliminary lecturer view may be
+  requested before advice, but that elicitation remains separate from the exact
+  authority gate and never counts as approval.
+- Track cross-effects explicitly: an outcome change requires rechecking
+  implications for assessment evidence, AI use, and activities; an assessment
+  change requires rechecking implications for outcomes, AI conditions, and
+  practice; an AI-use change requires rechecking implications for validity,
+  accessibility, and activity design; and a student-experience or accessibility
+  concern may require rechecking active-learning format, workload, support, or
+  alternatives.
 
 ## Run sequence
 
@@ -74,7 +105,11 @@ Assessment opens the live outcomes-activities-assessment ledger from its first s
 
 ### HITL 1 / Gate 2A
 
-Present plural preliminary focus areas, evidence/uncertainty, dependencies, trade-offs, and the recommended research scope. Ask the lecturer to approve, revise, or reject the focus. This approval authorises deeper research and concrete recommendations, not file production.
+Present plural preliminary focus areas, evidence/uncertainty, dependencies,
+trade-offs, and the recommended research scope through the lecturer interaction
+contract. The lecturer may first provide criteria or a preliminary view. Then
+ask separately to approve, revise, or reject the focus. This approval authorises
+deeper research and concrete recommendations, not file production.
 
 ### Stage B/C: deep research and reconciliation
 
@@ -82,7 +117,14 @@ Research only approved angles. Require cross-role relays whenever one specialist
 
 ### HITL 2 / Gate 2B
 
-Present decision-ready change cards: current issue, specific proposed change, rationale/evidence, outcome and assessment effects, workload/accessibility/AI implications, preserved elements, trade-offs, and exact affected files. Discuss one consequential decision at a time. Record accept/revise/reject; never interpret enthusiasm as approval. Gate 2B may approve only the exact dated research dossier and research-handoff files under `03_Research/YYYY-MM-DD_<run-id>/`. It grants no authority to produce course materials or to write under `04_Working_Copies/` or `05_Approved/`.
+Present decision-ready changes: current issue, specific proposed change,
+rationale/evidence, outcome and assessment effects, workload/accessibility/AI
+implications, preserved elements, trade-offs, and exact affected files. Apply
+the complete-option host rule and discuss one consequential decision at a time.
+Record accept/revise/reject; never interpret enthusiasm as approval. Gate 2B
+may approve only the exact dated research dossier and research-handoff files
+under `03_Research/YYYY-MM-DD_<run-id>/`. It grants no authority to produce
+course materials or to write under `04_Working_Copies/` or `05_Approved/`.
 
 ### Gate 3: blueprint and exact targets
 

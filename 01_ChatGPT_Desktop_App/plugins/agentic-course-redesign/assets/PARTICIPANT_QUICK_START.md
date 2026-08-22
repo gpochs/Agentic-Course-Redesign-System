@@ -29,7 +29,14 @@
 
 1. Copy the adapter overlay and inactive course scaffold into the exact one-
    course folder using its preview-first instructions.
-2. Record and fingerprint approved Gate 0A without exposing source details.
+2. Answer one Gate-0A declaration at a time. Select factual declarations only
+   if true; a blank, skipped or uncertain answer remains unresolved and fails
+   closed. Preview the exact record with
+   `scripts/create_material_processing_eligibility.py`, review its inferred
+   outcome and canonical fingerprint, then explicitly approve rerunning the
+   same arguments with `--apply`. The helper creates only
+   `01_Control/material-processing-eligibility.json`, refuses overwrite, and
+   needs no MCP server.
 3. Only after Gate 0A permits processing, put copied current files in `00_Source_Materials/` and context in
    `00_Context/`.
 4. Start a new task and say: `Set up an agentic redesign project for this one course.`
@@ -50,3 +57,16 @@ a fresh manual trigger and an optional expiring schedule are separate decisions.
 
 Installation alone never reads course files, uploads content, activates a
 runtime or registers a schedule.
+
+Throughout the redesign, the orchestrator asks one consequential question at a
+time. A native card is used only when the live host tool contract can present
+the complete mutually exclusive option set and a custom-answer path without
+omission. If the control is unavailable or unsupported, its capacity is
+unknown, or the complete set exceeds that capacity, the orchestrator asks the
+same single question in ordinary chat with every valid numbered option plus
+`Other - type your answer`, then waits. It never prunes, hides or combines valid
+choices to fit a card. Every valid option
+remains visible in long dependency-based chunks. You may split, merge, reorder
+or rename any chunk, and you can edit each recap before a gate.
+Recommendations are suggestions only and are never preselected. Exact gate
+approval lines remain separate.

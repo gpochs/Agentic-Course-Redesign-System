@@ -20,12 +20,35 @@ standing automation is included.
 
 ## Installation status
 
-The latest published repository release is `0.2.3`, produced under approved
-proposal `ACR-SYS-20260821-005` with matching validation and release evidence.
-The packaged project template remains safely inactive as
-`candidate_not_active` with `schedules=[]`; publication alone never starts a
-course run or registers automation. Published `v0.2.2` remains the rollback
-release.
+The repository source version is `0.2.4`, prepared as an inactive
+interaction-only maintenance candidate under approved proposal
+`ACR-SYS-20260822-007`. The currently published GitHub and OpenAI rollback
+version is `0.2.3`; the exact GitHub release, OpenAI version update, local Codex
+installation and GitHub Copilot package update each require their own later
+validation and publication or activation evidence. The packaged project
+template remains safely `candidate_not_active` with `schedules=[]`;
+publication or installation alone never starts a course run or registers
+automation.
+
+Version `0.2.4` preserves the v0.2.3 gate order, substantive option sets,
+specialist authority, state schema and lifecycle. It adds one shared Lecturer
+Decision Dialogue Contract across every human-in-the-loop phase: one unresolved
+consequential question at a time; native cards only when the live host can show
+the complete mutually exclusive option set plus a custom-answer path; and every
+valid numbered option plus Other in ordinary chat when the control is
+unavailable or unsupported, its capacity is unknown, or the complete set
+exceeds its capacity. It never prunes, hides or combines valid choices to fit a
+card and keeps every valid option visible in
+dependency-based, lecturer-editable chunks; preserve verbatim custom answers;
+use safest-truthful but never preselected recommendations; and show editable
+recaps. A blank or skipped required answer remains
+unresolved.
+
+The candidate also adds a deterministic preview-first Gate-0A record generator.
+It validates the declared categories, shows the exact inferred outcome and
+fingerprint, creates only `01_Control/material-processing-eligibility.json`
+after exact approval, and refuses overwrite or dangerously broad targets. It
+uses local Python/PowerShell and adds no MCP server, connector or permission.
 
 The `0.2.3` release adds a fail-closed Gate 0A before the system requests,
 lists, reads, copies or fingerprints any source path. Gate 0A distinguishes
@@ -42,25 +65,27 @@ create a new run and fresh approval lineage. The candidate adds schema-8
 state, preview-only schema-7-to-schema-8 migration and corresponding
 cross-adapter regression checks.
 
-There are three distinct ChatGPT distribution routes:
+There are three distinct ChatGPT distribution routes. OpenAI plugin version
+`0.2.3` is already published in the universal directory; the OpenAI Platform
+exposes a plugin-level **Upload draft** action for a new version, so an update
+does not require deleting or unpublishing the live version first:
 
 1. **Repository marketplace:** install from this GitHub repository on a
    supported ChatGPT Desktop/Codex surface.
 2. **Workspace publication:** a ChatGPT workspace administrator may publish it
    to selected members of that workspace.
-3. **Universal Plugins Directory:** this requires a separate OpenAI Platform
-   submission, verified publisher identity, review, approval and a later
-   publish action. A public GitHub repository alone does not create a universal
-   listing.
+3. **Universal Plugins Directory:** update the existing listing by uploading a
+   new validated draft, passing scans/review, and publishing that exact version.
+   A public GitHub repository alone cannot update the listing.
 
 The other platform folders are project overlays, not claims of one universal
 plugin format. Copy only the adapter for the system you actually use.
 
-App or CLI builds that expose repository marketplaces may use this pinned
-public source:
+After a matching `v0.2.4` tag is published, app or CLI builds that expose
+repository marketplaces may use this pinned public source:
 
 ```text
-codex plugin marketplace add gpochs/Agentic-Course-Redesign-System --ref v0.2.3
+codex plugin marketplace add gpochs/Agentic-Course-Redesign-System --ref v0.2.4
 ```
 
 Restart ChatGPT Desktop, select **Agentic Course Redesign System** in the
@@ -75,9 +100,8 @@ surface does not expose custom marketplaces, use the documented
 project-template fallback instead of assuming installation.
 
 The supported installation scope is user-level within a ChatGPT Desktop/Codex
-app profile. Version `0.2.2` was installed and enabled through the supported
-manager and remains the verified rollback baseline. Each installation of
-`0.2.3` still needs its own post-restart fresh-task check confirming the
+app profile. Version `0.2.3` remains the public rollback baseline. Each future
+installation of `0.2.4` needs its own post-restart fresh-task check confirming the
 **Agentic Course Redesign** umbrella and all six bundled skills. Host-specific
 smoke tests do not prove availability for other users, devices, workspaces,
 products, app or CLI versions, or the Codex IDE extension.
@@ -122,9 +146,12 @@ workflow; adding an unrelated connector only to alter picker presentation would
 increase permissions and data-exposure risk without a documented UI guarantee.
 
 The subsequent dialogue should feel like working with an educational
-consultant. The lecturer first approves preliminary focus areas, later decides
-concrete researched changes, approves a verified production handoff, and then
-reviews the finished materials. Only after final acceptance does the
+consultant. The orchestrator keeps one consequential decision in view and
+presents the complete choice set in the clearest supported form; specialist
+roles remain evidence lenses, not competing user interfaces. The lecturer first
+approves preliminary focus areas, later decides concrete researched changes,
+approves a verified production handoff, and then reviews the finished
+materials. Only after final acceptance does the
 orchestrator offer a separate system-improvement review. After the lecturer
 answers that offer, the run closes as complete and dormant. The orchestrator
 then gives one informational reminder that a new run may be started manually

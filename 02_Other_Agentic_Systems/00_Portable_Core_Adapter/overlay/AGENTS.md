@@ -38,9 +38,22 @@ role, egress, or output permission.
 - Never upload, publish, submit, email, distribute, overwrite, delete, or
   register a schedule within this workflow.
 - Specialists are read-only. They return evidence and proposed updates; only
-  the orchestrator may persist lecturer-approved workflow metadata.
+  the orchestrator may persist lecturer-approved workflow metadata. Specialist
+  roles are evidence lenses; the orchestrator remains the lecturer's single
+  workflow interface and decision recorder.
 - Every consequential pedagogical choice and every gate belongs to the
   lecturer. Silence and approval from another run or stage are not approval.
+- Resolve one open decision at a time. Use a native card only when the live
+  host can show the complete mutually exclusive option set and a custom-answer
+  path. Never preselect a recommendation or prune, hide or combine valid choices
+  merely to fit a card. If the control is unavailable or unsupported, its
+  capacity is unknown, or the complete set exceeds its capacity, keep every
+  valid numbered option plus `Other - type your answer` visible in ordinary
+  chat. Keep every valid option visible in long dependency chunks.
+  Treat blank/skip as unresolved, never infer a factual declaration, preserve
+  custom answers verbatim, and confirm any normalized mapping.
+- Before every gate, recap the resolved decisions, dependencies, open
+  uncertainty, recommendation status, and exact authority being requested.
 - Do not enter HITL 3 until both current-lineage production replies have been
   recorded and the saved Production Handoff has been reopened and verified.
 - After unconditional current-lineage HITL 3 acceptance, offer the separate

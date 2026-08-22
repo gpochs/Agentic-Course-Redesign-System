@@ -13,9 +13,10 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent.parent
-CURRENT_VERSION = "0.2.3"
+CURRENT_VERSION = "0.2.4"
 CURRENT_STATE_SCHEMA = 8
-CURRENT_PROPOSAL = "ACR-SYS-20260821-005"
+CURRENT_PROPOSAL = "ACR-SYS-20260822-007"
+CURRENT_COPILOT_PACKAGE_VERSION = "0.2.4-copilot.1"
 EXPECTED_TOP_LEVEL = {
     "01_ChatGPT_Desktop_App",
     "02_Other_Agentic_Systems",
@@ -98,6 +99,12 @@ STATE_MIRROR_PATHS = (
     "02_Other_Agentic_Systems/04_Google_Antigravity/workspace-overlay/01_Control/state.json",
 )
 SCRIPT_MIRROR_PATHS = {
+    "create_material_processing_eligibility.py": (
+        "03_Shared_Workflow_Core/scripts/create_material_processing_eligibility.py",
+        "01_ChatGPT_Desktop_App/plugins/agentic-course-redesign/scripts/create_material_processing_eligibility.py",
+        "01_ChatGPT_Desktop_App/openai-submission/source/agentic-course-redesign/scripts/create_material_processing_eligibility.py",
+        "02_Other_Agentic_Systems/04_Google_Antigravity/workspace-overlay/.agents/skills/course-redesign-setup/scripts/create_material_processing_eligibility.py",
+    ),
     "validate_state.py": (
         "03_Shared_Workflow_Core/scripts/validate_state.py",
         "01_ChatGPT_Desktop_App/plugins/agentic-course-redesign/scripts/validate_state.py",
@@ -117,6 +124,13 @@ SCRIPT_MIRROR_PATHS = {
         "02_Other_Agentic_Systems/04_Google_Antigravity/workspace-overlay/.agents/skills/course-redesign-setup/scripts/migrate_state_v7_to_v8.py",
     ),
 }
+DIALOGUE_CONTRACT_ENTRY_PATHS = (
+    "03_Shared_Workflow_Core/course-project-template/AGENTS.md",
+    "01_ChatGPT_Desktop_App/plugins/agentic-course-redesign/assets/project-template/AGENTS.md",
+    "01_ChatGPT_Desktop_App/openai-submission/source/agentic-course-redesign/assets/project-template/AGENTS.md",
+    "02_Other_Agentic_Systems/01_GitHub_Copilot/plugin/agentic-course-redesign/assets/project-template/AGENTS.md",
+    "02_Other_Agentic_Systems/04_Google_Antigravity/workspace-overlay/AGENTS.md",
+)
 REQUIRED_ROOT_FILES = {
     ".gitattributes",
     ".gitignore",
@@ -434,6 +448,85 @@ def validate_system_lifecycle_entry(path: Path) -> list[dict[str, str]]:
     return findings
 
 
+def validate_dialogue_contract_entry(path: Path) -> list[dict[str, str]]:
+    """Require the interaction-only contract without constraining prose layout."""
+
+    if not path.is_file():
+        return [{"path": display_path(path), "kind": "missing_dialogue_contract_entry"}]
+    text = normalized_prose(path)
+    checks = {
+        "one unresolved consequential question": (
+            "one unresolved consequential question at a time" in text
+        ),
+        "native card follows the live host contract for the complete set": (
+            "live host tool contract" in text
+            and "complete" in text
+            and "mutually exclusive" in text
+            and "native" in text
+            and "card" in text
+            and "custom-answer path" in text
+        ),
+        "no option pruning, hiding or combining to fit a card": (
+            "never prune, hide or combine valid choices" in text
+            and "fit" in text
+            and "card" in text
+        ),
+        "complete ordinary-chat fallback when card capacity is unavailable": (
+            "native card" in text
+            and "unavailable" in text
+            and "unsupported" in text
+            and "capacity is unknown" in text
+            and "exceeds" in text
+            and "ordinary chat" in text
+            and "every valid numbered option" in text
+            and "other" in text
+            and "wait" in text
+        ),
+        "every valid option remains visible": "every valid option remains visible" in text,
+        "adaptive dependency clusters remain lecturer-editable": (
+            "dependency" in text
+            and "keep every valid option visible" in text
+            and "split" in text
+            and "merge" in text
+            and "reorder" in text
+            and "rename" in text
+        ),
+        "custom answer preserved and canonically confirmed": (
+            "custom answer" in text
+            and ("exact" in text or "verbatim" in text)
+            and "canonical interpretation" in text
+        ),
+        "editable recap": "editable recap" in text,
+        "blank or skip remains unresolved": (
+            "blank" in text and "skip" in text and "unresolved" in text
+        ),
+        "safest truthful recommendation is never preselected": (
+            "safest truthful" in text
+            and "evidence-aligned" in text
+            and "reversible" in text
+            and "never preselect" in text
+        ),
+        "uncertainty fails closed": (
+            "uncertainty" in text and "fail" in text and "closed" in text
+        ),
+        "dialogue never substitutes for exact authority": (
+            "authority" in text
+            and "gate" in text
+            and "separate" in text
+            and ("token" in text or "approval" in text)
+        ),
+    }
+    return [
+        {
+            "path": display_path(path),
+            "kind": "lecturer_dialogue_contract_incomplete",
+            "detail": detail,
+        }
+        for detail, passed in checks.items()
+        if not passed
+    ]
+
+
 def validate_candidate_control_record(
     path: Path, expected_phrases: tuple[str, ...]
 ) -> list[dict[str, str]]:
@@ -748,6 +841,12 @@ def scan(private_denylist: list[str] | None = None) -> dict[str, object]:
         / "skills",
         ROOT
         / "02_Other_Agentic_Systems"
+        / "01_GitHub_Copilot"
+        / "plugin"
+        / "agentic-course-redesign"
+        / "skills",
+        ROOT
+        / "02_Other_Agentic_Systems"
         / "04_Google_Antigravity"
         / "workspace-overlay"
         / ".agents"
@@ -763,6 +862,15 @@ def scan(private_denylist: list[str] | None = None) -> dict[str, object]:
                     "detail": f"expected={sorted(EXPECTED_SKILLS)} actual={sorted(actual)}",
                 }
             )
+    # Antigravity deliberately uses three thin host wrappers around the shared
+    # contract. Its composed AGENTS.md is validated below; the other four
+    # distributions carry the complete contract in every bundled skill.
+    for root in skill_roots[:4]:
+        for path in sorted(root.glob("*/SKILL.md")):
+            findings.extend(validate_dialogue_contract_entry(path))
+
+    for rel_path in DIALOGUE_CONTRACT_ENTRY_PATHS:
+        findings.extend(validate_dialogue_contract_entry(ROOT / rel_path))
 
     for rel_path in ORCHESTRATION_ENTRY_PATHS:
         findings.extend(validate_orchestration_entry(ROOT / rel_path))
@@ -954,11 +1062,23 @@ def scan(private_denylist: list[str] | None = None) -> dict[str, object]:
             )
         else:
             security = adapter_contract.get("security_defaults", {})
+            dialogue = adapter_contract.get("lecturer_decision_dialogue", {})
             if (
                 adapter_contract.get("core_version") != CURRENT_VERSION
                 or adapter_contract.get("state_schema_version") != CURRENT_STATE_SCHEMA
                 or adapter_contract.get("status") != "candidate_not_active"
                 or adapter_contract.get("schedules") != []
+                or dialogue.get("native_card_capacity") != "live_host_tool_contract"
+                or dialogue.get("native_card_requires_complete_option_set_and_custom_answer_path")
+                is not True
+                or dialogue.get(
+                    "native_card_unavailable_unsupported_unknown_or_exceeded_fallback"
+                )
+                != "same_single_ordinary_chat_question_listing_every_valid_numbered_option_plus_other_then_wait"
+                or dialogue.get("never_prune_hide_or_combine_valid_choices_to_fit_card")
+                is not True
+                or dialogue.get("every_valid_option_remains_visible_in_long_decision_clusters")
+                is not True
                 or any(
                     security.get(key) is not False
                     for key in (
@@ -973,47 +1093,63 @@ def scan(private_denylist: list[str] | None = None) -> dict[str, object]:
                     {"path": relative(adapter_contract_path), "kind": "unsafe_adapter_contract"}
                 )
 
-    proposal_path = ROOT / "01_ChatGPT_Desktop_App" / "SYSTEM_PROPOSAL_v0.2.3.md"
-    rollback_path = ROOT / "01_ChatGPT_Desktop_App" / "ROLLBACK_v0.2.3.md"
-    validation_report_path = ROOT / "05_Validation" / "VALIDATION_REPORT_v0.2.3.md"
+    proposal_path = ROOT / "01_ChatGPT_Desktop_App" / "SYSTEM_PROPOSAL_v0.2.4.md"
+    rollback_path = ROOT / "01_ChatGPT_Desktop_App" / "ROLLBACK_v0.2.4.md"
+    validation_report_path = ROOT / "05_Validation" / "VALIDATION_REPORT_v0.2.4.md"
     control_expectations = {
         proposal_path: (
             f"proposal id: `{CURRENT_PROPOSAL.casefold()}`",
             f"proposal version: `{CURRENT_VERSION}`",
             "system-file candidate approved",
-            "base: published `v0.2.2`",
+            "base: published `v0.2.3`",
+            "maintenance evidence: `acr-maint-20260822-001`",
+            f"github copilot package: `{CURRENT_COPILOT_PACKAGE_VERSION}`",
             "`03_shared_workflow_core/**`",
             "`01_chatgpt_desktop_app/**`",
             "`02_other_agentic_systems/**`",
             "`04_documentation/**`",
             "`05_validation/**`",
             "exactly six bundled skills",
-            "preview-only `scripts/migrate_state_v7_to_v8.py`",
-            "gate 0a",
-            "complete_dormant",
-            "no mcp/app/hook/auth/permission/schedule payload",
+            "one unresolved consequential question at a time",
+            "live host tool contract can present the complete option set plus a custom answer",
+            "capacity is unknown, unavailable or exceeded",
+            "every valid numbered option",
+            "never prune, hide or combine valid choices merely to fit a card",
+            "preserve a custom answer exactly",
+            "safest truthful, evidence-aligned, reversible",
+            "adaptive dependency-based clusters",
+            "every valid option remains visible",
+            "`scripts/create_material_processing_eligibility.py`",
+            "state schema remains 8",
+            "no course-material changes",
+            "publication, installation and activation remain separate",
             "`schedules=[]`",
         ),
         rollback_path: (
             f"release: `{CURRENT_PROPOSAL.casefold()}` version `{CURRENT_VERSION}`",
-            "rollback source: published `v0.2.2`",
+            "rollback source: published openai/codex `v0.2.3`",
+            "github copilot `0.2.3-copilot.1`",
             "`03_shared_workflow_core/**`",
             "`01_chatgpt_desktop_app/**`",
             "`02_other_agentic_systems/**`",
             "`04_documentation/**`",
             "`05_validation/**`",
             "do not delete or rewrite course projects",
-            "do not delete, move, or rewrite the published v0.2.2 tag",
-            "keep the published v0.2.1 tag and release assets unchanged",
+            "preserve the v0.2.3 git tag",
+            "published openai archive",
+            "local `published` folder",
             "rollback never authorises migration application or a course-material run",
         ),
         validation_report_path: (
             f"proposal: `{CURRENT_PROPOSAL.casefold()}`",
             f"release version: `{CURRENT_VERSION}`",
-            "pass — validated repository release source",
+            f"copilot package: `{CURRENT_COPILOT_PACKAGE_VERSION}`",
+            "pass — validated inactive candidate source",
             "no course-material path was changed",
             "repository unit suite | pass:",
             "exactly six skills remain available",
+            "lecturer decision dialogue contract",
+            "gate-0a generator",
             "no mcp server, app, connector, hook, authentication, permission, schedule",
             "the public package contains no registered schedule",
         ),

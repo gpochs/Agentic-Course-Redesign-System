@@ -5,7 +5,8 @@
 - Display name: Agentic Course Redesign
 - Developer name: use the exact owner-confirmed verified publisher identity
 - Category: Education & Research
-- Version: 0.2.3 repository release; universal-directory submission candidate
+- Current public version: 0.2.3
+- Prepared update: 0.2.4 inactive draft candidate; not uploaded or published
 
 ## Descriptions
 
@@ -15,21 +16,35 @@ Short description:
 
 Long description:
 
-> Use one full-workflow umbrella entry for supplied courses across subjects,
-> educational levels, programmes, languages, assessment contexts, and delivery
-> modes. A pre-source eligibility gate runs before any course path or content is
-> requested or accessed, including material authority, sensitivity, student-data
-> and protected-assessment handling, and the exact processing environment.
-> Analyse approved source material with bounded specialist roles,
-> research only lecturer-approved focus areas, discuss concrete options,
-> produce only approved targets, explicitly complete and verify the production
-> handoff before final acceptance, and independently validate every release.
-> After final acceptance, an explicit requested or declined system-review
-> response closes the course run as complete and dormant; silence keeps waiting.
-> A requested review authorises read-only review and one versioned proposal
-> only. The workflow keeps the lecturer in control and keeps system
-> files, installation, publication, activation, and scheduling as later
-> separate decisions.
+> **LECTURER / TEACHER CONTROL**
+>
+> - You retain every consequential decision. The Course Redesign Orchestrator is the sole lecturer-facing interface.
+>
+> **SPECIALIST TEAM (10)**
+>
+> - Course Mapper and Learning-Outcomes Auditor; Active-Learning Researcher; AI Integration and AI-Competence Researcher; Student Experience, Accessibility and Workload Proxy Critic; Assessment and Constructive-Alignment Designer.
+> - Source Verification and Citation Auditor; Evidence and Feasibility Red Team; Learning Designer; Learning Material Designer; Artefact Accessibility and Visual QA Auditor. The student-experience role is a design-review proxy and never authorises identifiable student data.
+>
+> **GATED WORKFLOW**
+>
+> - Gate 0A: verify ownership/processing authority, sensitivity, student data, protected assessment and environment before any source path or content.
+> - Gate 0: confirm sources, rights, tools and egress. Gate 1: confirm the course brief and a fresh run.
+> - HITL 1: approve focus after preliminary mapping. Research, source verification, cross-specialist synthesis, assessment integration and red-team review lead to HITL 2.
+> - Gate 3: approve the integrated blueprint and file plan. Material production creates only approved working copies, followed by evidence, accessibility, visual, alignment and assessment-security QA.
+> - Verify production handoff before HITL 3; accept, revise or reject each artefact.
+> - Request or decline final system review; the accepted run becomes complete and dormant until a later manual or separately approved scheduled trigger creates a fresh run.
+>
+> **DECISION DIALOGUE**
+>
+> - One unresolved question at a time.
+> - Use a card only if the live host can show the complete option set plus custom answer. Verified current Codex in Plan mode: 2–3 explicit choices plus automatic Other.
+> - If capacity is unknown, unavailable or exceeded, use ordinary chat with every valid numbered option plus Other, then wait. Never prune, hide or combine valid options to fit a card.
+> - Long sets may use dependency-based chunks with every option visible; the lecturer may split, merge, reorder or rename them.
+> - Preserve custom answers verbatim, show editable recaps, never preselect recommendations and fail closed on uncertainty.
+>
+> **BOUNDARY**
+>
+> - The plugin does not register schedules, start runs, publish content, add connectors or change permissions.
 
 ## Capabilities
 
@@ -53,3 +68,7 @@ Long description:
 Do not copy placeholder links into the manifest or portal. Complete the four
 owner-supplied HTTPS fields in `LISTING_METADATA_CHECKLIST.md` only after their
 pages are public and match the verified publisher.
+
+Update the existing OpenAI plugin by choosing its plugin-level **Upload** route.
+Keep v0.2.3 published until v0.2.4 has passed the required checks and is ready
+for explicit publication; do not use **Unpublish** as the normal update step.

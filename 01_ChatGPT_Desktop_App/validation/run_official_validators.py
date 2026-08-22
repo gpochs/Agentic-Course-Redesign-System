@@ -37,12 +37,19 @@ def sanitise(message: str) -> str:
 
 
 def run_validator(label: str, command: list[str]) -> dict[str, object]:
+    environment = os.environ.copy()
+    # The shared workflow intentionally uses UTF-8 punctuation.  The installed
+    # official quick validator calls Path.read_text() without an explicit
+    # encoding, so make its Windows subprocess deterministic rather than
+    # depending on the machine's active ANSI code page.
+    environment.setdefault("PYTHONUTF8", "1")
     completed = subprocess.run(
         command,
         cwd=ROOT,
         check=False,
         capture_output=True,
         text=True,
+        env=environment,
     )
     record: dict[str, object] = {
         "validator": label,

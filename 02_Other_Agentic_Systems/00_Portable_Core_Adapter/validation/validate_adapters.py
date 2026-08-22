@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Static, local validation for the four non-Antigravity adapter templates."""
+"""Static validation for portable, Claude Code, and OpenCode adapter templates."""
 
 from __future__ import annotations
 
@@ -13,13 +13,11 @@ from pathlib import Path, PurePosixPath
 ROOT = Path(__file__).resolve().parents[2]
 ADAPTERS = {
     "00_Portable_Core_Adapter": None,
-    "01_GitHub_Copilot": ".github/agents",
     "02_Claude_Code": ".claude/agents",
     "03_OpenCode": ".opencode/agents",
 }
 PLATFORMS = {
     "00_Portable_Core_Adapter": "portable",
-    "01_GitHub_Copilot": "github-copilot",
     "02_Claude_Code": "claude-code",
     "03_OpenCode": "opencode-v2",
 }
@@ -48,6 +46,9 @@ SOURCE_PATHS = {
     ),
     "course-project-template/01_Control/state.json": (
         "course-project-template/01_Control/state.json"
+    ),
+    "scripts/create_material_processing_eligibility.py": (
+        "scripts/create_material_processing_eligibility.py"
     ),
     **{
         f"agent-skills/{name}/SKILL.md": f"agent-skills/{name}/SKILL.md"
@@ -118,8 +119,8 @@ def validate(source: Path | None = None) -> list[str]:
     else:
         if contract.get("gate_order") != EXPECTED_GATE_ORDER:
             fail(errors, "shared adapter contract gate order is incomplete or reordered")
-        if contract.get("core_version") != "0.2.3":
-            fail(errors, "shared adapter contract core_version must be 0.2.3")
+        if contract.get("core_version") != "0.2.4":
+            fail(errors, "shared adapter contract core_version must be 0.2.4")
         if contract.get("state_schema_version") != 8:
             fail(errors, "shared adapter contract state_schema_version must be 8")
         routing = contract.get("umbrella_entry_routing", {})
@@ -163,22 +164,22 @@ def validate(source: Path | None = None) -> list[str]:
         except (OSError, json.JSONDecodeError) as exc:
             fail(errors, f"{folder}: invalid manifest: {exc}")
             continue
-        if manifest.get("adapter_version") != "0.2.3":
-            fail(errors, f"{folder}: adapter_version must be 0.2.3")
+        if manifest.get("adapter_version") != "0.2.4":
+            fail(errors, f"{folder}: adapter_version must be 0.2.4")
         if manifest.get("platform") != PLATFORMS[folder]:
             fail(errors, f"{folder}: incorrect or missing normalized platform")
-        if manifest.get("status") not in {"candidate_not_active", "template_not_installed"}:
-            fail(errors, f"{folder}: status is not a safe normalized value")
+        if manifest.get("status") != "candidate_not_active":
+            fail(errors, f"{folder}: status must be candidate_not_active")
         if manifest.get("overlay_root") != "overlay":
             fail(errors, f"{folder}: overlay_root must be overlay")
-        expected_compose = [] if folder == "00_Portable_Core_Adapter" else ["portable-core@0.2.3"]
+        expected_compose = [] if folder == "00_Portable_Core_Adapter" else ["portable-core@0.2.4"]
         if manifest.get("compose_after") != expected_compose:
-            fail(errors, f"{folder}: compose_after is not aligned to portable core 0.2.3")
+            fail(errors, f"{folder}: compose_after is not aligned to portable core 0.2.4")
         provenance = manifest.get("source_provenance", {})
-        if provenance.get("system_id") != "ACR-SYS-20260821-005":
-            fail(errors, f"{folder}: source proposal ID must be ACR-SYS-20260821-005")
-        if provenance.get("version") != "0.2.3":
-            fail(errors, f"{folder}: shared semantic source version must be 0.2.3")
+        if provenance.get("system_id") != "ACR-SYS-20260822-007":
+            fail(errors, f"{folder}: source proposal ID must be ACR-SYS-20260822-007")
+        if provenance.get("version") != "0.2.4":
+            fail(errors, f"{folder}: shared semantic source version must be 0.2.4")
         hashes = provenance.get("hashes", {})
         if not hashes or any(
             not isinstance(value, str) or not SHA256.fullmatch(value)
@@ -207,7 +208,10 @@ def validate(source: Path | None = None) -> list[str]:
         actual_adapter_files = {
             path.relative_to(base).as_posix(): path
             for path in base.rglob("*")
-            if path.is_file() and path != manifest_path
+            if path.is_file()
+            and path != manifest_path
+            and "__pycache__" not in path.parts
+            and path.suffix.casefold() not in {".pyc", ".pyo"}
         }
         file_entries = manifest.get("files")
         declared_adapter_files: dict[str, dict[str, object]] = {}
@@ -292,12 +296,7 @@ def validate(source: Path | None = None) -> list[str]:
                 expected_role = path.name[: -len(suffix)].replace("-", "_")
                 if f"`{expected_role}`" not in body:
                     fail(errors, f"{folder}: {path.name}: role ID does not match file ID")
-                if folder == "01_GitHub_Copilot":
-                    if 'tools: ["read", "search"]' not in text:
-                        fail(errors, f"{folder}: {path.name}: unsafe or missing tool allowlist")
-                    if "disable-model-invocation: true" not in text:
-                        fail(errors, f"{folder}: {path.name}: automatic inference not disabled")
-                elif folder == "02_Claude_Code":
+                if folder == "02_Claude_Code":
                     if "tools: Read, Glob, Grep" not in text:
                         fail(errors, f"{folder}: {path.name}: unsafe or missing tool allowlist")
                 elif folder == "03_OpenCode":
@@ -384,6 +383,29 @@ def validate(source: Path | None = None) -> list[str]:
             "Expires: <exact local date and time with IANA timezone>",
             "Registration never triggers an immediate run",
             "A later scheduled trigger creates a fresh run",
+            "## Lecturer interaction contract",
+            "exactly one unresolved decision",
+            "live host tool can show the complete",
+            "mutually exclusive option set plus a custom-answer path",
+            "capacity is unknown",
+            "complete set exceeds its capacity",
+            "listing every valid numbered option plus `Other - type your answer`",
+            "Never prune, hide or combine valid choices",
+            "Every valid option remains visible",
+            "every valid option visible",
+            "split, merge, reorder, or rename clusters",
+            "safest truthful, evidence-aligned, reversible",
+            "never preselected",
+            "Preserve custom answers verbatim",
+            "Blank, skipped, partial, or ambiguous answers do not",
+            "Before every gate, recap",
+            "Specialist roles are evidence lenses",
+            "an outcome change requires rechecking assessment evidence",
+            "a student-experience or accessibility concern",
+            "scripts/create_material_processing_eligibility.py",
+            "generic host fallback",
+            "Never overwrite an eligibility record",
+            "Never continue the dormant run",
         ):
             if required not in workflow_text_normalized:
                 fail(errors, f"portable workflow omits workflow-completeness control: {required}")
@@ -431,7 +453,10 @@ if __name__ == "__main__":
         1
         for folder in ADAPTERS
         for path in (ROOT / folder).rglob("*")
-        if path.is_file() and path.name != "adapter-manifest.json"
+        if path.is_file()
+        and path.name != "adapter-manifest.json"
+        and "__pycache__" not in path.parts
+        and path.suffix.casefold() not in {".pyc", ".pyo"}
     )
     overlay_count = sum(
         1
@@ -440,8 +465,8 @@ if __name__ == "__main__":
         if path.is_file()
     )
     print(
-        f"PASS: 4 release-0.2.3 adapters, {non_manifest_count} frozen non-manifest "
-        f"files, {overlay_count} overlay files, and 30 native role wrappers are "
+        f"PASS: 3 release-0.2.4 adapters, {non_manifest_count} frozen non-manifest "
+        f"files, {overlay_count} overlay files, and 20 native role wrappers are "
         "project-local, fail-closed, and "
         f"hash-consistent{source_note}"
     )

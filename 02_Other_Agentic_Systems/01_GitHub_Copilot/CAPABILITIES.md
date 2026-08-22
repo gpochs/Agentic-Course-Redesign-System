@@ -2,12 +2,14 @@
 
 ## Native plugin
 
-The `0.2.3-copilot.1` package supplies:
+The `0.2.4-copilot.1` package supplies:
 
-- Six canonical Agentic Course Redesign workflow skills.
+- Six Agentic Course Redesign workflow skills with the Copilot v0.2.4
+  lecturer-dialogue contract.
 - Ten manually selected, read-only specialist agents.
-- Preview-first setup, source-manifest, fingerprinting, schema migration, and
-  state-validation helpers.
+- Preview-first setup, deterministic no-overwrite Gate-0A record generation,
+  source-manifest, fingerprinting, schema migration, and state-validation
+  helpers.
 - An inactive Copilot-aware one-course project template.
 - A repository marketplace entry for
   `agentic-course-redesign@agentic-course-redesign-system`.
@@ -22,6 +24,26 @@ permission.
 Installing it adds reusable instructions and agent definitions. It does not
 read course files, activate the reusable runtime, register a schedule, or
 trigger a redesign.
+
+The dialogue contract keeps one unresolved consequential question at a time
+and uses the native `ask_user` card for the complete valid option set whenever
+the live GitHub Copilot host accepts it. A live Copilot host has demonstrated
+at least five explicit choices plus a custom-answer field; this is an observed
+capability, not a maximum. Do not state or assume an unsupported maximum. Never
+prune, hide or combine valid choices merely to fit a card. If the host rejects
+or cannot present the complete valid set, it asks one ordinary chat question
+listing every valid numbered option plus `Other`, then waits. For very long
+sets, dependency chunks are allowed only when choices share evidence or
+constrain one another. Keep every valid option visible across chunks. All paths
+preserve custom answers, recap chunks/gates, fail closed on uncertainty, and
+keep authority gates separate. A safest truthful, evidence-aligned, reversible
+recommendation may be marked but is never preselected.
+
+Copilot 1.0.80 BYOK compatibility invokes the packaged Gate-0A generator via
+PowerShell/Python (known `type=function`), not `apply_patch`. An `expected
+function` failure after `apply_patch` was recorded as `type=custom` may be
+poisoned task history; use a fresh task and prefer GitHub-hosted GPT-5.4 or the
+default Claude model. No MCP, hook, authentication, or permission is added.
 
 ## Project-local overlay
 

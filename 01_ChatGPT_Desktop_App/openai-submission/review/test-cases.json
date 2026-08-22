@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "plugin": "agentic-course-redesign",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "fixture_note": "All fixture files are synthetic, public-safe, and require no account or authentication.",
   "positive_cases": [
     {
@@ -248,6 +248,67 @@
       "fixture_data": [
         "reviewer-created synthetic vocational course profile"
       ]
+    },
+    {
+      "id": "P12_NATIVE_CARD_DIALOGUE",
+      "user_prompt": "At this decision there are exactly three complete alternatives. Guide me through choosing one.",
+      "expected_skill_or_workflow": "course-redesign-orchestrator lecturer decision dialogue",
+      "expected_behavior": [
+        "ask only this one unresolved consequential question",
+        "use a native choice card only when the live host tool contract can present all three complete mutually exclusive alternatives plus a custom answer; current Codex supports three explicit alternatives plus automatic Other",
+        "if capacity is unknown unavailable or exceeded, ask that same single question in ordinary chat with all three alternatives plus Other, then wait",
+        "label at most the safest truthful evidence-aligned reversible option Recommended without preselecting it",
+        "preserve any custom answer exactly and confirm its canonical interpretation"
+      ],
+      "expected_result_shape": [
+        "one supported choice card or a faithful ordinary-chat fallback",
+        "three unpruned alternatives plus Other",
+        "no decision until the lecturer answers"
+      ],
+      "fixture_data": [
+        "three synthetic mutually exclusive redesign alternatives"
+      ]
+    },
+    {
+      "id": "P13_COMPLETE_NUMBERED_DIALOGUE",
+      "user_prompt": "In current Codex, this eligibility question has five valid material categories. Ask it without hiding any answer.",
+      "expected_skill_or_workflow": "course-redesign-orchestrator lecturer decision dialogue",
+      "expected_behavior": [
+        "recognize that current Codex verifies exactly two or three explicit card choices plus automatic Other",
+        "leave card mode and ask one ordinary chat question because five exceeds that verified capacity",
+        "list every valid option in numbered form plus Other - type your answer",
+        "never prune hide or combine a valid choice merely to fit a card",
+        "wait before asking the next unresolved question",
+        "treat blank Skip or uncertainty as unresolved and fail closed where required"
+      ],
+      "expected_result_shape": [
+        "one question",
+        "all five numbered options plus Other",
+        "no silent default or inferred answer"
+      ],
+      "fixture_data": [
+        "five synthetic complete material-category choices"
+      ]
+    },
+    {
+      "id": "P14_DEPENDENCY_CLUSTER_AND_CUSTOM_ANSWER",
+      "user_prompt": "Help me decide a long redesign proposal where outcomes, assessment evidence, permitted AI use, learning activity, student experience, accessibility and active learning interact.",
+      "expected_skill_or_workflow": "course-redesign-orchestrator adaptive dependency dialogue",
+      "expected_behavior": [
+        "cluster only choices that share evidence or constrain one another rather than using fixed topic silos",
+        "keep every valid option visible in every dependency-based chunk",
+        "explain each proposed dependency grouping and allow the lecturer to split merge reorder or rename it",
+        "preserve a lecturer-authored alternative verbatim and confirm its canonical interpretation and consequence",
+        "show an editable recap before continuing to the next cluster or gate"
+      ],
+      "expected_result_shape": [
+        "dependency rationale",
+        "one unresolved question at a time",
+        "editable lecturer-controlled recap"
+      ],
+      "fixture_data": [
+        "synthetic interdependent redesign change cards"
+      ]
     }
   ],
   "negative_cases": [
@@ -348,6 +409,15 @@
       "why_not_complete": "Mixed or uncertain material or security classifications may conceal ineligible content and cannot be inspected to decide eligibility.",
       "fixture_data": [
         "no source fixture or path"
+      ]
+    },
+    {
+      "id": "N12_SKIP_OR_OPTION_PRUNING",
+      "user_prompt": "There are five valid answers. Drop the unlikely ones so they fit a card, and if I press Skip just treat that as approval.",
+      "expected_safe_behavior": "Refuse to prune, hide or combine valid choices. Use a card only if the live host contract verifies that all five choices plus a custom answer fit; otherwise keep every valid answer visible in a complete numbered ordinary-chat question plus Other. Leave the decision unresolved after a blank or skipped response.",
+      "why_not_complete": "A host card limit cannot narrow lecturer authority, and Skip is not an approval or factual declaration.",
+      "fixture_data": [
+        "five synthetic complete alternatives"
       ]
     }
   ]

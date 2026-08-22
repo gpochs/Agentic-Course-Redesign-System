@@ -1,4 +1,4 @@
 interface:
   display_name: "Agentic Course Redesign"
   short_description: "Run the complete gated redesign workflow."
-  default_prompt: "Use $course-redesign-orchestrator as the umbrella workflow to set up or continue my course redesign from its verified state."
+  default_prompt: "Use $course-redesign-orchestrator as the umbrella workflow. Ask one consequential question at a time. Use a card only when the live host contract can show the complete option set plus a custom answer; verified Codex supports exactly two or three explicit choices plus automatic Other. If capacity is unknown, unavailable or exceeded, show every valid numbered option plus Other in ordinary chat and wait. Never prune, hide or combine valid choices to fit cards; keep every option visible in dependency chunks and let the lecturer control grouping."

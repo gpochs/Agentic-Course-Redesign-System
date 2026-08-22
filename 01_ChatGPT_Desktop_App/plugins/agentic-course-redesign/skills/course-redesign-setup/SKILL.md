@@ -5,6 +5,36 @@ description: Set up one protected project for a course-independent agentic redes
 
 # Course Redesign Setup
 
+## Lecturer Decision Dialogue Contract
+
+The orchestrator is the sole lecturer-facing interface; specialist roles are
+evidence lenses and return questions through it. Ask one unresolved
+consequential question at a time. Before using a native choice card, follow the
+live host tool contract. Use a card only when it can present the complete,
+mutually exclusive option set and a custom-answer path without omission. Never
+prune, hide or combine valid choices merely to fit a card. If a native card is
+unavailable or unsupported, its capacity is unknown, or the complete set
+exceeds that capacity, ask the same single question in ordinary chat with every
+valid numbered option plus `Other - type your answer`, then wait. Every valid
+option remains visible. For very
+long decisions, use adaptive dependency-based clusters only when choices share
+evidence or constrain one another: keep every valid option visible, explain the
+grouping and let the lecturer split, merge, reorder or rename it. For example,
+outcomes, assessment evidence, permitted AI use and learning activities belong
+together when mutually dependent; student-experience, accessibility and
+active-learning perspectives may be clustered when participation design
+jointly affects usability, inclusion, workload and engagement.
+
+Preserve a custom answer exactly, confirm its canonical interpretation, reflect
+the consequence, and maintain a decision ledger in the chat and current state.
+Show an editable recap at each cluster or gate end. A skipped or blank response
+leaves a required question unresolved. The safest truthful, evidence-aligned,
+reversible option may be marked `Recommended`, but never preselected; factual
+declarations must say "select only if true," and uncertainty fails closed. At
+major pedagogical gates, ask for the lecturer's criteria and preliminary view
+before recommending when practical. Exact authority gates and approval tokens
+remain separate and unchanged; a dialogue choice never substitutes for them.
+
 Set up one course only. Do not combine unrelated courses in one project or source manifest. Adapt to the supplied school, vocational, professional, higher-education or other stated context; assume no discipline, learner level, qualification framework or assessment model.
 
 ## Participant onboarding
@@ -51,6 +81,21 @@ the eligibility decision. Null, inconsistent or stale declarations fail closed.
 
 Do not begin course/context intake, copying, inventory or hashing before the
 approved Gate-0A fingerprint exists and `reconfirmation_required` is false.
+
+After the lecturer has answered every required category-level question, create
+the record only through the deterministic helper
+`../../scripts/create_material_processing_eligibility.py`. In environments such
+as GitHub Copilot or BYOK agent hosts, use the adapter's function-style
+PowerShell wrapper when provided, or construct a PowerShell argument array and
+invoke `python ../../scripts/create_material_processing_eligibility.py @eligibilityArgs`;
+do not compose this control record with a freeform patch.
+No MCP server is required. Run without `--apply` first, show the exact inferred
+outcome, canonical fingerprint and sole target
+`01_Control/material-processing-eligibility.json`, then obtain approval for
+that exact preview. Re-run the same arguments with explicit `--apply`. The
+helper must validate before writing, create atomically and refuse overwrite or
+a broad/dangerous project target. Route-only and failed-closed records are
+durable decisions but never source-intake authority.
 
 ## Conversational intake
 

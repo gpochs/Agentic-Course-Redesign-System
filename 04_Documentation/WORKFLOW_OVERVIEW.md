@@ -2,6 +2,19 @@
 
 ## Decision flow
 
+Every human-in-the-loop phase uses one shared dialogue contract. The
+orchestrator is the sole lecturer-facing interface and asks one unresolved
+consequential question at a time. It uses a native card only when the live host
+can show the complete mutually exclusive option set plus a custom-answer path.
+If that control is unavailable or unsupported, its capacity is unknown, or the
+complete set exceeds its capacity, the orchestrator shows every valid numbered
+option plus Other in one ordinary-chat question. It never prunes, hides or
+combines valid choices to fit a card. Long decisions are clustered only by real evidence or consequence
+dependencies; every valid option remains visible, and the
+lecturer may split, merge, reorder or rename a cluster. Exact custom answers,
+consequences and editable recaps are recorded; no recommendation is preselected
+and no conversational selection replaces an authority gate.
+
 ```text
 One isolated course project
         |
@@ -51,6 +64,9 @@ integration, learner experience/accessibility/workload, and assessment with
 constructive alignment. Assessment owns a live outcomes-activities-assessment
 ledger from the preliminary scan. Source/citation and artefact/accessibility QA
 are independent audit roles, not substitutes for the five perspectives.
+Specialists are evidence lenses rather than separate user interfaces: they
+return lecturer-only questions to the orchestrator for the same guided
+decision process.
 
 ## Gate semantics
 

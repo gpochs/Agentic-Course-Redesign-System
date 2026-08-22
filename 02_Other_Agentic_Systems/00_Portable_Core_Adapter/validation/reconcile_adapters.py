@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Preview or apply deterministic v0.2.3 shared-core adapter reconciliation."""
+"""Preview or apply deterministic v0.2.4 non-Copilot adapter reconciliation."""
 
 from __future__ import annotations
 
@@ -14,8 +14,8 @@ SCRIPT_PATH = Path(__file__).resolve()
 REPOSITORY_ROOT = SCRIPT_PATH.parents[3]
 ADAPTERS_ROOT = REPOSITORY_ROOT / "02_Other_Agentic_Systems"
 CORE_ROOT = REPOSITORY_ROOT / "03_Shared_Workflow_Core"
-VERSION = "0.2.3"
-PROPOSAL_ID = "ACR-SYS-20260821-005"
+VERSION = "0.2.4"
+PROPOSAL_ID = "ACR-SYS-20260822-007"
 
 SOURCE_RELATIVES = (
     "VERSION",
@@ -30,6 +30,7 @@ SOURCE_RELATIVES = (
     "agent-skills/course-redesign-research/SKILL.md",
     "agent-skills/course-redesign-setup/SKILL.md",
     "agent-skills/course-redesign-system/SKILL.md",
+    "scripts/create_material_processing_eligibility.py",
 )
 
 ANTIGRAVITY_MIRRORS = {
@@ -70,6 +71,10 @@ ANTIGRAVITY_MIRRORS = {
     "scripts/fingerprint_file.py": (
         "workspace-overlay/.agents/skills/course-redesign-setup/scripts/fingerprint_file.py"
     ),
+    "scripts/create_material_processing_eligibility.py": (
+        "workspace-overlay/.agents/skills/course-redesign-setup/scripts/"
+        "create_material_processing_eligibility.py"
+    ),
     "scripts/source_manifest.py": (
         "workspace-overlay/.agents/skills/course-redesign-setup/scripts/source_manifest.py"
     ),
@@ -86,7 +91,6 @@ ANTIGRAVITY_MIRRORS = {
 
 THIN_ADAPTERS = (
     "00_Portable_Core_Adapter",
-    "01_GitHub_Copilot",
     "02_Claude_Code",
     "03_OpenCode",
 )
@@ -160,6 +164,7 @@ def refresh_thin_manifest(folder: str, hashes: dict[str, str], apply: bool) -> b
     manifest_path = root / "adapter-manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     manifest["adapter_version"] = VERSION
+    manifest["status"] = "candidate_not_active"
     manifest["compose_after"] = [] if folder == "00_Portable_Core_Adapter" else [
         f"portable-core@{VERSION}"
     ]
@@ -194,7 +199,7 @@ def refresh_antigravity_manifest(
     manifest["adapter_version"] = VERSION
     manifest["status"] = "candidate_not_active"
     manifest["adapter"].update(
-        {"version": VERSION, "status": "candidate_not_active", "generated_on": "2026-08-21"}
+        {"version": VERSION, "status": "candidate_not_active", "generated_on": "2026-08-22"}
     )
     manifest["provenance"] = {
         "workflow_package_id": "agentic-course-redesign",
@@ -202,7 +207,9 @@ def refresh_antigravity_manifest(
         "validated_base_version": VERSION,
         "adapter_release_version": VERSION,
         "workflow_semantics": (
-            "reconciled to shared course-independent schema-8 candidate v0.2.3; "
+            "reconciled to shared course-independent schema-8 candidate v0.2.4; "
+            "adds adaptive one-decision lecturer interaction and deterministic "
+            "preview-first Gate-0A eligibility generation; "
             "candidate remains inactive and adds no permission, external egress, "
             "runtime activation, or schedule registration"
         ),
@@ -211,7 +218,7 @@ def refresh_antigravity_manifest(
         "package_id": "agentic-course-redesign",
         "proposal_id": PROPOSAL_ID,
         "version": VERSION,
-        "validation_date": "2026-08-21",
+        "validation_date": "2026-08-22",
         "status": "approved inactive candidate; not activated",
         "source_root_recorded": False,
         "source_root_note": (
@@ -238,7 +245,10 @@ def main() -> int:
     parser.add_argument(
         "--apply",
         action="store_true",
-        help="Copy only the declared shared-core mirrors and refresh all adapter manifests.",
+        help=(
+            "Copy only declared Antigravity shared-core mirrors and refresh the "
+            "portable, Claude Code, OpenCode, and Antigravity manifests."
+        ),
     )
     args = parser.parse_args()
 

@@ -85,7 +85,7 @@ def add_file(archive: zipfile.ZipFile, source: Path, arcname: str) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--version", default="0.2.3")
+    parser.add_argument("--version", default="0.2.4")
     args = parser.parse_args()
     paths = source_files()
     DIST.mkdir(parents=True, exist_ok=True)

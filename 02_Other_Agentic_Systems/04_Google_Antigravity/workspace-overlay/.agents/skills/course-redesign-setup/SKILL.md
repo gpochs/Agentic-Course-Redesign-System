@@ -56,9 +56,23 @@ decision.
 Do not begin course/context intake, copying, inventory, or hashing before the
 approved Gate-0A fingerprint exists.
 
-Create the lecturer-declared record from
-`01_Control/material-processing-eligibility.template.json` without source
-details, then review its canonical payload before recording the fingerprint:
+Prefer the project-local deterministic helper
+`.agents/skills/course-redesign-setup/scripts/create_material_processing_eligibility.py`.
+Run its preview first, show the complete candidate payload, canonical
+fingerprint, exact target and conflict status, and wait for exact-target
+approval. Its apply mode must create only a new record and must refuse every
+overwrite.
+
+If Python or command execution is unavailable, use the generic host fallback:
+collect the identical category-level declarations one unresolved decision at a
+time; render a deterministic candidate from
+`01_Control/material-processing-eligibility.template.json`; show the complete
+candidate and target; then wait for exact no-overwrite approval before creating
+a new record with the host's approved file mechanism. Never invent a value,
+silently normalize a custom answer, add an MCP dependency, or continue on
+uncertainty. Preserve custom answers verbatim and confirm their mapping.
+
+After creation, review the canonical payload before recording the fingerprint:
 
 ```text
 python .agents/skills/course-redesign-setup/scripts/fingerprint_file.py 01_Control/material-processing-eligibility.json --mode eligibility --show-canonical-payload

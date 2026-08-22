@@ -3,8 +3,11 @@ from __future__ import annotations
 import copy
 import importlib.util
 import json
+import subprocess
+import sys
 import tempfile
 import unittest
+from argparse import Namespace
 from pathlib import Path
 
 
@@ -33,6 +36,10 @@ SETUP_SCRIPTS = (
     / "skills"
     / "course-redesign-setup"
     / "scripts"
+)
+eligibility_generator = load_module(
+    "antigravity_eligibility_generator",
+    SETUP_SCRIPTS / "create_material_processing_eligibility.py",
 )
 state_validator = load_module(
     "antigravity_state_validator", SETUP_SCRIPTS / "validate_state.py"
@@ -129,6 +136,135 @@ class AdapterValidationTests(unittest.TestCase):
 
     def test_workflow_completeness_controls_pass(self) -> None:
         self.assertEqual(validator.validate_workflow_completeness(), [])
+
+    def test_interaction_contract_weakening_is_rejected(self) -> None:
+        documents = {
+            name: path.read_text(encoding="utf-8")
+            for name, path in validator.WORKFLOW_CONTROL_PATHS.items()
+        }
+        mutations = (
+            (
+                "Never\n  prune, hide or combine valid choices",
+                "You may prune valid choices",
+                "Never prune, hide or combine valid choices",
+            ),
+            (
+                "Every valid option\n  remains visible",
+                "Some valid options may be implicit",
+                "Every valid option remains visible",
+            ),
+            (
+                "keep every valid option visible",
+                "keep the preferred options visible",
+                "keep every valid option visible",
+            ),
+        )
+        for old, new, expected in mutations:
+            with self.subTest(expected=expected):
+                changed = {
+                    name: text.replace(old, new)
+                    for name, text in documents.items()
+                }
+                errors = validator.validate_workflow_completeness(changed)
+                self.assertTrue(any(expected in item for item in errors))
+
+    def test_eligibility_generator_is_deterministic_and_refuses_overwrite(self) -> None:
+        arguments = Namespace(
+            project=None,
+            eligibility_id="eligibility-unit-test",
+            environment_category="personal_or_unmanaged",
+            material_category="privately_owned_or_rightsholder_authorised",
+            ai_processing_authority_confirmed=True,
+            contains_institution_internal_or_restricted_material=False,
+            contains_student_personal_data=False,
+            sensitivity_classification="non_sensitive",
+            assessment_security_classification="no_protected_assessment_material",
+            assessment_security_handling_authorised=False,
+            exact_environment_reference=None,
+            institutional_policy_reference=None,
+            approved_scope=None,
+            policy_expires_at=None,
+            decision_reason="Lecturer declared privately owned material.",
+            approved_processing_scope="Category-level Gate-0A processing only.",
+            lecturer_declaration_reference="unit-test-declaration",
+            recorded_at="2026-08-22T12:00:00+02:00[Europe/Zurich]",
+            apply=False,
+        )
+        first, first_validation = eligibility_generator.build_record(arguments)
+        second, second_validation = eligibility_generator.build_record(arguments)
+        self.assertEqual(first, second)
+        self.assertEqual(first_validation, second_validation)
+        with tempfile.TemporaryDirectory() as temporary:
+            project = Path(temporary) / "isolated" / "course"
+            control = project / "01_Control"
+            control.mkdir(parents=True)
+            output = eligibility_generator._resolve_output(project.resolve())
+            payload = (json.dumps(first, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+            eligibility_generator.atomic_create(output, payload)
+            self.assertEqual(output.read_bytes(), payload)
+            with self.assertRaises(FileExistsError):
+                eligibility_generator.atomic_create(output, payload)
+
+    def test_eligibility_generator_cli_is_preview_first_and_no_overwrite(self) -> None:
+        script = SETUP_SCRIPTS / "create_material_processing_eligibility.py"
+        with tempfile.TemporaryDirectory() as temporary:
+            project = (Path(temporary) / "isolated" / "course").resolve()
+            (project / "01_Control").mkdir(parents=True)
+            arguments = [
+                sys.executable,
+                "-B",
+                str(script),
+                "--project",
+                str(project),
+                "--eligibility-id",
+                "eligibility-cli-test",
+                "--environment-category",
+                "personal_or_unmanaged",
+                "--material-category",
+                "privately_owned_or_rightsholder_authorised",
+                "--ai-processing-authority-confirmed",
+                "true",
+                "--contains-institution-internal-or-restricted-material",
+                "false",
+                "--contains-student-personal-data",
+                "false",
+                "--sensitivity-classification",
+                "non_sensitive",
+                "--assessment-security-classification",
+                "no_protected_assessment_material",
+                "--assessment-security-handling-authorised",
+                "false",
+                "--decision-reason",
+                "Lecturer declared privately owned material.",
+                "--approved-processing-scope",
+                "Category-level Gate-0A processing only.",
+                "--lecturer-declaration-reference",
+                "cli-test-declaration",
+                "--recorded-at",
+                "2026-08-22T12:00:00+02:00[Europe/Zurich]",
+            ]
+            output = project / "01_Control" / "material-processing-eligibility.json"
+            preview = subprocess.run(arguments, check=False, capture_output=True, text=True)
+            preview_report = json.loads(preview.stdout)
+            self.assertEqual(preview.returncode, 0, preview.stderr)
+            self.assertEqual(preview_report["mode"], "preview")
+            self.assertFalse(preview_report["created"])
+            self.assertFalse(output.exists())
+
+            applied = subprocess.run(
+                [*arguments, "--apply"], check=False, capture_output=True, text=True
+            )
+            applied_report = json.loads(applied.stdout)
+            self.assertEqual(applied.returncode, 0, applied.stderr)
+            self.assertTrue(applied_report["created"])
+            self.assertTrue(output.is_file())
+
+            repeated = subprocess.run(
+                [*arguments, "--apply"], check=False, capture_output=True, text=True
+            )
+            repeated_report = json.loads(repeated.stdout)
+            self.assertNotEqual(repeated.returncode, 0)
+            self.assertEqual(repeated_report["error_type"], "FileExistsError")
 
     def test_missing_production_handoff_control_is_rejected(self) -> None:
         documents = {

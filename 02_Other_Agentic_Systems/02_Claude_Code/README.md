@@ -1,18 +1,26 @@
 # Claude Code adapter
 
-Adapter release: `0.2.3`. Shared semantic base: inactive candidate
-`ACR-SYS-20260821-005` version `0.2.3`.
+Adapter release: `0.2.4`. Shared semantic base: inactive candidate
+`ACR-SYS-20260822-007` version `0.2.4`.
 
 This overlay adds a project `CLAUDE.md`, one path-scoped rule, and ten
 project-local Claude Code subagents to the portable core. It does not open or
 configure Claude Code, install a plugin, add hooks, define MCP servers, or alter
 user/managed settings.
 
-Release `0.2.3` inherits the portable core's pre-source Gate 0A, schema-8
-lineage vocabulary, verified production handoff before HITL 3, terminal
-`complete_dormant` lifecycle, and one-time informational trigger guidance. The
-Claude wrappers add no independent gate, state, automation, permission, or
-schedule behavior.
+Release `0.2.4` inherits the portable core's pre-source Gate 0A, unchanged
+schema-8 lineage vocabulary, one-decision interaction contract, verified
+production handoff before HITL 3, terminal `complete_dormant` lifecycle, and
+one-time informational trigger guidance. Claude Code's documented
+`AskUserQuestion` contract accepts two to four explicit options; this adapter
+requires the documented additional `Other` free-text path. Use that card only
+when it contains the complete mutually
+exclusive option set. If the control is unavailable or unsupported, or the
+complete set has more than four options, use the portable ordinary-chat
+fallback with every valid numbered option plus `Other - type your answer`.
+Never prune, hide or combine choices to fit a card. Long dependency
+chunks also keep every valid option visible. The Claude wrappers add no
+independent gate, state, automation, permission, or schedule behavior.
 
 Compose `../00_Portable_Core_Adapter/overlay/` first, then this `overlay/`,
 relative to the same reviewed project root:

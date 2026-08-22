@@ -1,6 +1,11 @@
 # Rollback and recovery
 
-Candidate: `ACR-SYS-20260820-002` version `0.2.0`.
+Current candidate: `ACR-SYS-20260822-007` version `0.2.4`.
+
+The exact current rollback procedure is in `ROLLBACK_v0.2.4.md`. Preserve the
+published GitHub/OpenAI/Codex v0.2.3 artifacts and GitHub Copilot
+`0.2.3-copilot.1`; do not unpublish the current OpenAI version merely to prepare
+an update draft.
 
 ## Before activation
 
