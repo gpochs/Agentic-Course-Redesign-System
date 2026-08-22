@@ -3,7 +3,7 @@
 This native GitHub Copilot plugin packages the six Agentic Course Redesign
 workflow skills and ten manually selected specialist agents. Its workflow
 semantics mirror Agentic Course Redesign System `0.2.4`; the Copilot semantic
-adapter is `0.2.4` and the packaging revision is `0.2.4-copilot.1`.
+adapter is `0.2.4` and the packaging revision is `0.2.4-copilot.2`.
 
 The plugin is course-independent. It adapts to a lecturer-supplied course only
 after the processing-eligibility and human-approval gates permit that work.
@@ -40,13 +40,22 @@ answers, and let lecturers reshape the grouping. Recap chunks and gates, never
 preselect a recommendation, fail closed on uncertainty, and keep exact
 authority decisions separate. Blank or `Skip` never advances a gate.
 
-For Copilot 1.0.80 BYOK, invoke the Gate-0A generator through
-PowerShell/Python, not `apply_patch`. If `expected function` follows a prior
-`apply_patch` entry recorded as `type=custom`, start a fresh task and prefer
-GitHub-hosted GPT-5.4 or the default Claude model. This compatibility path adds
-no MCP server, hook, authentication, or permission.
+In GitHub Copilot App/CLI 1.0.80 with an OpenAI-compatible BYOK provider such
+as CommandCode Chat Completions, built-in `apply_patch` can be recorded as
+`type=custom` and poison saved task history. Do not use `apply_patch` for any
+file mutation in an affected session, not only Gate 0A. Use packaged helpers or
+function-style PowerShell/Python. Preserve exact-target preview, the existing
+lecturer approval, expected-current-SHA-256 verification for modifications,
+atomic writes, reread, and validation.
 
-The preserved rollback package is `0.2.3-copilot.1`.
+If `expected "function"` occurs, do not retry in that task. Start a fresh
+project task, recover durable state read-only, and verify whether the preceding
+edit already succeeded before continuing. This is not a missing installable
+function; adding an MCP server or plugin does not fix poisoned history. This
+compatibility path changes no workflow semantics and adds no MCP server, hook,
+authentication, or permission.
+
+The preserved rollback package is `0.2.4-copilot.1`.
 
 ## Support and cost boundary
 

@@ -12,7 +12,8 @@ from pathlib import Path, PurePosixPath
 
 SCRIPT = Path(__file__).resolve()
 DEFAULT_ROOT = SCRIPT.parents[3]
-PACKAGE_VERSION = "0.2.4-copilot.1"
+PACKAGE_VERSION = "0.2.4-copilot.2"
+PACKAGE_PROPOSAL = "ACR-SYS-20260822-008"
 PLUGIN_RELATIVE = PurePosixPath(
     "02_Other_Agentic_Systems/01_GitHub_Copilot/plugin/"
     "agentic-course-redesign"
@@ -90,6 +91,21 @@ separate from design preferences."""
 COPILOT_CHOICE_CAPACITY_OVERRIDE = """## GitHub Copilot native `ask_user` capacity override
 
 This Copilot-only host rule applies the shared core's host-capacity contract to the demonstrated GitHub Copilot host; it changes no option, gate, evidence requirement, or workflow meaning. Keep one unresolved consequential question at a time. Use the native `ask_user` card for the complete valid option set whenever the live GitHub Copilot host accepts it. A live Copilot host has demonstrated at least five explicit choices plus a custom-answer field; this is an observed capability, not a maximum. Do not state or assume an unsupported maximum. Never prune, hide or combine valid choices merely to fit a card. If the host rejects or cannot present the complete valid set, ask one ordinary chat question listing every valid numbered option plus `Other`, then wait. For very long sets, dependency chunks are allowed only when choices share evidence or constrain one another; keep every valid option visible across chunks, explain the grouping, and let the lecturer split, merge, reorder or rename it."""
+COPILOT_RUNTIME_COMPATIBILITY_OVERRIDE = """## GitHub Copilot 1.0.80 BYOK file-mutation override
+
+This Copilot-only transport rule changes no workflow option, gate, approval,
+target, evidence requirement, or meaning. With an OpenAI-compatible BYOK
+provider such as CommandCode Chat Completions, never use built-in `apply_patch`
+for any file mutation in this task. Copilot 1.0.80 can record it as
+`type=custom` and poison saved history even when the edit succeeded. Use a
+packaged helper or function-style PowerShell/Python. Before every permitted
+write, preview the exact target and content or diff, obtain the existing
+required approval, verify the expected current SHA-256 before modifying an
+existing file, write atomically, then reread and revalidate. If `expected
+"function"` occurs, do not retry in this task: start a fresh project task,
+recover durable state read-only, and verify whether the preceding edit already
+succeeded. No MCP server, additional plugin, or additional permission fixes
+poisoned history."""
 COPILOT_CARD_CAPACITY_PHRASES = (
     "one unresolved consequential question at a time",
     "native `ask_user` card",
@@ -102,6 +118,27 @@ COPILOT_CARD_CAPACITY_PHRASES = (
     "every valid numbered option plus `other`",
     "dependency chunks",
     "keep every valid option visible across chunks",
+)
+COPILOT_RUNTIME_COMPATIBILITY_PHRASES = (
+    "openai-compatible byok provider",
+    "commandcode chat completions",
+    "`apply_patch`",
+    "any file mutation",
+    "type=custom",
+    "function-style powershell/python",
+    "preview",
+    "approval",
+    "sha-256",
+    "atomic",
+    "reread",
+    "revalidate",
+    '`expected "function"`',
+    "do not retry in this task",
+    "start a fresh project task",
+    "recover durable state read-only",
+    "mcp server",
+    "plugin",
+    "permission",
 )
 COPILOT_AGENT_BODY_REPLACEMENTS = {
     "learning-designer": (
@@ -198,9 +235,10 @@ def validate(root: Path = DEFAULT_ROOT) -> list[dict[str, str]]:
             adapter_manifest.get("adapter_version") != "0.2.4"
             or adapter_manifest.get("status") != "candidate_not_active"
             or not isinstance(native, dict)
+            or native.get("proposal_id") != PACKAGE_PROPOSAL
             or native.get("package_version") != PACKAGE_VERSION
             or native.get("base_semantic_version") != "0.2.4"
-            or native.get("rollback_package_version") != "0.2.3-copilot.1"
+            or native.get("rollback_package_version") != "0.2.4-copilot.1"
             or native.get("status") != "candidate_not_active"
             or native.get("install_specification")
             != "agentic-course-redesign@agentic-course-redesign-system"
@@ -319,6 +357,8 @@ def validate(root: Path = DEFAULT_ROOT) -> list[dict[str, str]]:
             source.read_text(encoding="utf-8").rstrip()
             + "\n\n"
             + COPILOT_CHOICE_CAPACITY_OVERRIDE
+            + "\n\n"
+            + COPILOT_RUNTIME_COMPATIBILITY_OVERRIDE
         ) if source.is_file() else ""
         installed = skill_map[name].read_text(encoding="utf-8").rstrip()
         if not source.is_file() or installed != expected:
@@ -491,7 +531,18 @@ def validate(root: Path = DEFAULT_ROOT) -> list[dict[str, str]]:
             continue
         target = template / source.relative_to(core_template)
         relative_source = source.relative_to(core_template).as_posix()
-        if relative_source in {"AGENTS.md", "01_Control/GATES.md"}:
+        if relative_source == "AGENTS.md":
+            expected = (
+                source.read_text(encoding="utf-8").rstrip()
+                + "\n\n"
+                + COPILOT_CHOICE_CAPACITY_OVERRIDE
+                + "\n\n"
+                + COPILOT_RUNTIME_COMPATIBILITY_OVERRIDE
+            )
+            matches = target.is_file() and (
+                target.read_text(encoding="utf-8").rstrip() == expected
+            )
+        elif relative_source == "01_Control/GATES.md":
             expected = (
                 source.read_text(encoding="utf-8").rstrip()
                 + "\n\n"
@@ -553,6 +604,33 @@ def validate(root: Path = DEFAULT_ROOT) -> list[dict[str, str]]:
                     "copilot_card_capacity_contract_missing",
                     phrase,
                 )
+    runtime_instruction_surfaces = (
+        adapter / "overlay" / ".github" / "copilot-instructions.md",
+        adapter
+        / "overlay"
+        / ".github"
+        / "instructions"
+        / "course-redesign.instructions.md",
+        template / ".github" / "copilot-instructions.md",
+        template
+        / ".github"
+        / "instructions"
+        / "course-redesign.instructions.md",
+    )
+    for path in runtime_instruction_surfaces:
+        if not path.is_file():
+            add(findings, root, path, "required_copilot_file_missing")
+            continue
+        normalized = " ".join(path.read_text(encoding="utf-8").split()).casefold()
+        for phrase in COPILOT_RUNTIME_COMPATIBILITY_PHRASES:
+            if phrase not in normalized:
+                add(
+                    findings,
+                    root,
+                    path,
+                    "copilot_runtime_compatibility_contract_missing",
+                    phrase,
+                )
     if (template / ".codex").exists():
         add(findings, root, template / ".codex", "codex_host_files_forbidden")
 
@@ -582,12 +660,10 @@ def validate(root: Path = DEFAULT_ROOT) -> list[dict[str, str]]:
             "without a support SLA",
             "Copilot 1.0.80 BYOK",
             "create_material_processing_eligibility.py",
-            "expected function",
+            'expected "function"',
             "type=custom",
             "fresh task",
-            "GitHub-hosted GPT-5.4",
-            "default Claude model",
-            "0.2.3-copilot.1",
+            "0.2.4-copilot.1",
             "native `ask_user` card",
             "complete valid option set",
             "at least five explicit choices plus a custom-answer field",

@@ -28,7 +28,7 @@ If a required plugin, skill, or agent feature is unavailable, state the
 limitation and stop rather than weakening the safety boundary.
 
 
-## Copilot dialogue and Gate-0A execution
+## Copilot dialogue and file execution
 
 Keep one unresolved consequential question at a time for the lecturer. Use the
 native `ask_user` card for the complete valid option set whenever the live
@@ -51,10 +51,15 @@ active learning, workload, inclusion, and engagement when participation design
 affects them jointly. Recap each chunk and gate. Keep exact authority gates
 separate from one another and from design preferences.
 
-For Copilot 1.0.80 BYOK Gate 0A, invoke the packaged
-`create_material_processing_eligibility.py` helper through PowerShell/Python as a normal
-shell function call, preview before `--apply`, and never use `apply_patch` to
-invoke it. If `expected function` follows an `apply_patch` entry recorded as
-`type=custom`, treat the task history as poisoned, start a fresh task, and
-prefer GitHub-hosted GPT-5.4 or default Claude. Do not add MCP, hooks,
-authentication, or permissions.
+With an OpenAI-compatible BYOK provider such as CommandCode Chat Completions,
+never use built-in `apply_patch` for any file mutation in this task, not only
+Gate 0A. Copilot 1.0.80 can record it as `type=custom` and poison saved history
+even when the edit succeeded. Use a packaged helper or function-style
+PowerShell/Python. Before every permitted write, preview the exact target and
+content or diff, obtain the existing required approval, verify the expected
+current SHA-256 before modifying an existing file, write atomically, then
+reread and revalidate. If `expected "function"` occurs, do not retry in this
+task: start a fresh project task, recover durable state read-only, and verify
+whether the preceding edit already succeeded. This changes no workflow gate or
+permission. Do not add an MCP server, plugin, hook, authentication, or
+permission as a purported fix.

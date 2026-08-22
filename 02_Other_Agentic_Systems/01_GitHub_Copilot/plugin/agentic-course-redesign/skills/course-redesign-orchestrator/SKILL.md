@@ -156,3 +156,19 @@ fresh run/lineage bound to the current eligibility fingerprint. Use
 ## GitHub Copilot native `ask_user` capacity override
 
 This Copilot-only host rule applies the shared core's host-capacity contract to the demonstrated GitHub Copilot host; it changes no option, gate, evidence requirement, or workflow meaning. Keep one unresolved consequential question at a time. Use the native `ask_user` card for the complete valid option set whenever the live GitHub Copilot host accepts it. A live Copilot host has demonstrated at least five explicit choices plus a custom-answer field; this is an observed capability, not a maximum. Do not state or assume an unsupported maximum. Never prune, hide or combine valid choices merely to fit a card. If the host rejects or cannot present the complete valid set, ask one ordinary chat question listing every valid numbered option plus `Other`, then wait. For very long sets, dependency chunks are allowed only when choices share evidence or constrain one another; keep every valid option visible across chunks, explain the grouping, and let the lecturer split, merge, reorder or rename it.
+
+## GitHub Copilot 1.0.80 BYOK file-mutation override
+
+This Copilot-only transport rule changes no workflow option, gate, approval,
+target, evidence requirement, or meaning. With an OpenAI-compatible BYOK
+provider such as CommandCode Chat Completions, never use built-in `apply_patch`
+for any file mutation in this task. Copilot 1.0.80 can record it as
+`type=custom` and poison saved history even when the edit succeeded. Use a
+packaged helper or function-style PowerShell/Python. Before every permitted
+write, preview the exact target and content or diff, obtain the existing
+required approval, verify the expected current SHA-256 before modifying an
+existing file, write atomically, then reread and revalidate. If `expected
+"function"` occurs, do not retry in this task: start a fresh project task,
+recover durable state read-only, and verify whether the preceding edit already
+succeeded. No MCP server, additional plugin, or additional permission fixes
+poisoned history.

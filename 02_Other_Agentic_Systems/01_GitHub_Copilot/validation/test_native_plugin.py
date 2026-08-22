@@ -62,6 +62,28 @@ class NativePluginMutationTests(unittest.TestCase):
             / "course-redesign.instructions.md",
         )
 
+    def runtime_compatibility_surfaces(self) -> tuple[Path, ...]:
+        adapter = (
+            self.root
+            / "02_Other_Agentic_Systems"
+            / "01_GitHub_Copilot"
+        )
+        plugin = adapter / "plugin" / "agentic-course-redesign"
+        template = plugin / "assets" / "project-template"
+        return (
+            adapter / "overlay" / ".github" / "copilot-instructions.md",
+            adapter
+            / "overlay"
+            / ".github"
+            / "instructions"
+            / "course-redesign.instructions.md",
+            template / ".github" / "copilot-instructions.md",
+            template
+            / ".github"
+            / "instructions"
+            / "course-redesign.instructions.md",
+        )
+
     def assert_copilot_card_capacity_weakening_fails(self, phrase: str) -> None:
         pattern = re.escape(phrase).replace(r"\ ", r"\s+")
         for path in self.interaction_surfaces():
@@ -78,6 +100,28 @@ class NativePluginMutationTests(unittest.TestCase):
             try:
                 self.assertIn(
                     "copilot_card_capacity_contract_missing",
+                    self.kinds(),
+                    str(path),
+                )
+            finally:
+                path.write_text(original, encoding="utf-8")
+
+    def assert_runtime_compatibility_weakening_fails(self, phrase: str) -> None:
+        pattern = re.escape(phrase).replace(r"\ ", r"\s+")
+        for path in self.runtime_compatibility_surfaces():
+            original = path.read_text(encoding="utf-8")
+            mutated, count = re.subn(
+                pattern,
+                "weakened",
+                original,
+                count=1,
+                flags=re.IGNORECASE,
+            )
+            self.assertEqual(count, 1, f"missing mutation phrase in {path}")
+            path.write_text(mutated, encoding="utf-8")
+            try:
+                self.assertIn(
+                    "copilot_runtime_compatibility_contract_missing",
                     self.kinds(),
                     str(path),
                 )
@@ -197,6 +241,43 @@ class NativePluginMutationTests(unittest.TestCase):
     def test_long_set_chunk_visibility_weakening_fails_everywhere(self) -> None:
         self.assert_copilot_card_capacity_weakening_fails(
             "Keep every valid option visible across chunks"
+        )
+
+    def test_global_apply_patch_prohibition_weakening_fails_everywhere(self) -> None:
+        self.assert_runtime_compatibility_weakening_fails("`apply_patch`")
+
+    def test_function_style_write_path_weakening_fails_everywhere(self) -> None:
+        self.assert_runtime_compatibility_weakening_fails(
+            "function-style PowerShell/Python"
+        )
+
+    def test_preview_hash_atomic_verification_weakening_fails_everywhere(
+        self,
+    ) -> None:
+        for phrase in (
+            "preview",
+            "SHA-256",
+            "atomic",
+            "reread",
+            "revalidate",
+        ):
+            self.assert_runtime_compatibility_weakening_fails(phrase)
+
+    def test_poisoned_session_recovery_weakening_fails_everywhere(self) -> None:
+        for phrase in (
+            'expected "function"',
+            "do not retry in this task",
+            "start a fresh project task",
+            "recover durable state read-only",
+        ):
+            self.assert_runtime_compatibility_weakening_fails(phrase)
+
+    def test_no_mcp_or_permission_dependency_weakening_fails_everywhere(
+        self,
+    ) -> None:
+        self.assert_runtime_compatibility_weakening_fails(
+            "Do not add an MCP server, plugin, hook, authentication, or "
+            "permission as a purported fix."
         )
 
     def test_agent_tool_widening_fails(self) -> None:

@@ -23,7 +23,8 @@ CODEX_PLUGIN = (
     / "agentic-course-redesign"
 )
 
-PACKAGE_VERSION = "0.2.4-copilot.1"
+PACKAGE_VERSION = "0.2.4-copilot.2"
+PACKAGE_PROPOSAL = "ACR-SYS-20260822-008"
 BASE_VERSION = "0.2.4"
 EXPECTED_SKILLS = {
     "course-redesign-assessment",
@@ -87,6 +88,21 @@ separate from design preferences."""
 COPILOT_CHOICE_CAPACITY_OVERRIDE = """## GitHub Copilot native `ask_user` capacity override
 
 This Copilot-only host rule applies the shared core's host-capacity contract to the demonstrated GitHub Copilot host; it changes no option, gate, evidence requirement, or workflow meaning. Keep one unresolved consequential question at a time. Use the native `ask_user` card for the complete valid option set whenever the live GitHub Copilot host accepts it. A live Copilot host has demonstrated at least five explicit choices plus a custom-answer field; this is an observed capability, not a maximum. Do not state or assume an unsupported maximum. Never prune, hide or combine valid choices merely to fit a card. If the host rejects or cannot present the complete valid set, ask one ordinary chat question listing every valid numbered option plus `Other`, then wait. For very long sets, dependency chunks are allowed only when choices share evidence or constrain one another; keep every valid option visible across chunks, explain the grouping, and let the lecturer split, merge, reorder or rename it."""
+COPILOT_RUNTIME_COMPATIBILITY_OVERRIDE = """## GitHub Copilot 1.0.80 BYOK file-mutation override
+
+This Copilot-only transport rule changes no workflow option, gate, approval,
+target, evidence requirement, or meaning. With an OpenAI-compatible BYOK
+provider such as CommandCode Chat Completions, never use built-in `apply_patch`
+for any file mutation in this task. Copilot 1.0.80 can record it as
+`type=custom` and poison saved history even when the edit succeeded. Use a
+packaged helper or function-style PowerShell/Python. Before every permitted
+write, preview the exact target and content or diff, obtain the existing
+required approval, verify the expected current SHA-256 before modifying an
+existing file, write atomically, then reread and revalidate. If `expected
+"function"` occurs, do not retry in this task: start a fresh project task,
+recover durable state read-only, and verify whether the preceding edit already
+succeeded. No MCP server, additional plugin, or additional permission fixes
+poisoned history."""
 COPILOT_CARD_CAPACITY_PHRASES = (
     "one unresolved consequential question at a time",
     "native `ask_user` card",
@@ -99,6 +115,27 @@ COPILOT_CARD_CAPACITY_PHRASES = (
     "every valid numbered option plus `other`",
     "dependency chunks",
     "keep every valid option visible across chunks",
+)
+COPILOT_RUNTIME_COMPATIBILITY_PHRASES = (
+    "openai-compatible byok provider",
+    "commandcode chat completions",
+    "`apply_patch`",
+    "any file mutation",
+    "type=custom",
+    "function-style powershell/python",
+    "preview",
+    "approval",
+    "sha-256",
+    "atomic",
+    "reread",
+    "revalidate",
+    '`expected "function"`',
+    "do not retry in this task",
+    "start a fresh project task",
+    "recover durable state read-only",
+    "mcp server",
+    "plugin",
+    "permission",
 )
 COPILOT_AGENT_BODY_REPLACEMENTS = {
     "learning-designer": (
@@ -158,8 +195,12 @@ class CopilotPluginTests(unittest.TestCase):
         )
         self.assertEqual(adapter_manifest["adapter_version"], BASE_VERSION)
         self.assertEqual(
+            adapter_manifest["native_plugin"]["proposal_id"],
+            PACKAGE_PROPOSAL,
+        )
+        self.assertEqual(
             adapter_manifest["native_plugin"]["rollback_package_version"],
-            "0.2.3-copilot.1",
+            "0.2.4-copilot.1",
         )
 
     def test_marketplace_points_to_repository_relative_native_plugin(self) -> None:
@@ -203,6 +244,8 @@ class CopilotPluginTests(unittest.TestCase):
                 canonical.read_text(encoding="utf-8").rstrip()
                 + "\n\n"
                 + COPILOT_CHOICE_CAPACITY_OVERRIDE
+                + "\n\n"
+                + COPILOT_RUNTIME_COMPATIBILITY_OVERRIDE
             )
             self.assertEqual(
                 plugin_path.read_text(encoding="utf-8").rstrip(),
@@ -312,7 +355,20 @@ class CopilotPluginTests(unittest.TestCase):
             relative = source.relative_to(CORE / "course-project-template")
             target = template / relative
             self.assertTrue(target.is_file(), f"missing template file: {relative}")
-            if relative.as_posix() in {"AGENTS.md", "01_Control/GATES.md"}:
+            if relative.as_posix() == "AGENTS.md":
+                expected = (
+                    source.read_text(encoding="utf-8").rstrip()
+                    + "\n\n"
+                    + COPILOT_CHOICE_CAPACITY_OVERRIDE
+                    + "\n\n"
+                    + COPILOT_RUNTIME_COMPATIBILITY_OVERRIDE
+                )
+                self.assertEqual(
+                    target.read_text(encoding="utf-8").rstrip(),
+                    expected,
+                    str(relative),
+                )
+            elif relative.as_posix() == "01_Control/GATES.md":
                 expected = (
                     source.read_text(encoding="utf-8").rstrip()
                     + "\n\n"
@@ -548,6 +604,11 @@ class CopilotPluginTests(unittest.TestCase):
             for phrase in COPILOT_CARD_CAPACITY_PHRASES:
                 self.assertIn(phrase, text, f"{path}: {phrase}")
 
+        for path in instruction_paths:
+            text = " ".join(path.read_text(encoding="utf-8").split()).casefold()
+            for phrase in COPILOT_RUNTIME_COMPATIBILITY_PHRASES:
+                self.assertIn(phrase, text, f"{path}: {phrase}")
+
         compatibility_paths = (
             ADAPTER / "README.md",
             ADAPTER / "CAPABILITIES.md",
@@ -560,14 +621,12 @@ class CopilotPluginTests(unittest.TestCase):
         for path in compatibility_paths:
             text = " ".join(path.read_text(encoding="utf-8").split())
             for phrase in (
-                "Copilot 1.0.80",
+                "1.0.80",
                 "PowerShell/Python",
                 "apply_patch",
-                "expected function",
+                'expected "function"',
                 "type=custom",
-                "fresh task",
-                "GitHub-hosted GPT-5.4",
-                "default Claude",
+                "fresh",
             ):
                 self.assertIn(phrase, text, f"{path}: {phrase}")
 
@@ -590,12 +649,10 @@ class CopilotPluginTests(unittest.TestCase):
         for phrase in (
             "Copilot 1.0.80 BYOK",
             "create_material_processing_eligibility.py",
-            "expected function",
+            'expected "function"',
             "type=custom",
             "fresh task",
-            "GitHub-hosted GPT-5.4",
-            "default Claude model",
-            "0.2.3-copilot.1",
+            "0.2.4-copilot.1",
             "native `ask_user` card",
             "complete valid option set",
             "at least five explicit choices plus a custom-answer field",

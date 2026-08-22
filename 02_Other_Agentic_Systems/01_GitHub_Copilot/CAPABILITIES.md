@@ -2,7 +2,7 @@
 
 ## Native plugin
 
-The `0.2.4-copilot.1` package supplies:
+The `0.2.4-copilot.2` package supplies:
 
 - Six Agentic Course Redesign workflow skills with the Copilot v0.2.4
   lecturer-dialogue contract.
@@ -39,11 +39,19 @@ preserve custom answers, recap chunks/gates, fail closed on uncertainty, and
 keep authority gates separate. A safest truthful, evidence-aligned, reversible
 recommendation may be marked but is never preselected.
 
-Copilot 1.0.80 BYOK compatibility invokes the packaged Gate-0A generator via
-PowerShell/Python (known `type=function`), not `apply_patch`. An `expected
-function` failure after `apply_patch` was recorded as `type=custom` may be
-poisoned task history; use a fresh task and prefer GitHub-hosted GPT-5.4 or the
-default Claude model. No MCP, hook, authentication, or permission is added.
+In GitHub Copilot App/CLI 1.0.80 with an OpenAI-compatible BYOK provider such
+as CommandCode Chat Completions, `apply_patch` can be recorded as `type=custom`
+and poison the saved task history. The compatibility rule therefore applies to
+every file mutation, not only Gate 0A: never use `apply_patch` in an affected
+session. Use a packaged helper or function-style PowerShell/Python, while
+retaining exact-target preview, the existing approval gate, expected-current-
+SHA-256 checks for modifications, atomic writes, reread, and validation.
+
+If the host returns `expected "function"`, do not retry in that task. Start a
+fresh project task, recover durable state read-only, and first verify whether
+the prior edit already succeeded. This is a tool-history serialization defect,
+not a missing function. No MCP server, plugin, hook, authentication, or added
+permission fixes it or is required by this package.
 
 ## Project-local overlay
 

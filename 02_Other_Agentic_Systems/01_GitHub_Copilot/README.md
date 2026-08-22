@@ -1,7 +1,7 @@
 # GitHub Copilot adapter
 
 Adapter semantic release: `0.2.4`. Native Copilot package:
-`0.2.4-copilot.1`. Candidate proposal: `ACR-SYS-20260822-007`.
+`0.2.4-copilot.2`. Candidate proposal: `ACR-SYS-20260822-008`.
 
 This adapter now provides two ways to use Agentic Course Redesign with GitHub
 Copilot:
@@ -65,15 +65,25 @@ split, merge, reorder or rename the grouping. Recommendations are never
 preselected, custom answers are preserved and confirmed, blank or `Skip`
 cannot advance, and exact authority gates remain separate.
 
-The package includes a deterministic, preview-first, no-overwrite Gate-0A
-eligibility record generator. Invoke it through PowerShell/Python as a normal
-function call, never through `apply_patch`. In Copilot 1.0.80 BYOK, `expected
-function` can indicate poisoned task history from an earlier `apply_patch`
-entry recorded as `type=custom`; it does not identify a missing installable
-function or MCP server. Start a fresh task and prefer GitHub-hosted GPT-5.4 or
-the default Claude model for affected BYOK sessions.
+In GitHub Copilot App/CLI 1.0.80 with an OpenAI-compatible BYOK provider such
+as CommandCode Chat Completions, a built-in `apply_patch` call can be stored as
+`type=custom` even after its edit succeeds. That malformed history can make the
+next provider request fail with `expected "function"`. Therefore this adapter
+must not use `apply_patch` for **any** file mutation in an affected session,
+including control records, manifests, notes, materials, QA records, state, and
+system-review files. Use packaged helpers or function-style PowerShell/Python.
 
-Rollback remains the prior package `0.2.3-copilot.1`; rollback is a separate
+Every permitted write still requires the existing workflow safeguards: preview
+the exact target and proposed content or diff; obtain the already-required
+lecturer approval; verify the expected current SHA-256 before changing an
+existing file; write atomically; then reread and revalidate the result. This
+transport workaround changes no gate, option, approval, target, or permission.
+If `expected "function"` occurs, do not retry in that task. Start a fresh
+project task, recover durable state read-only, and confirm whether the preceding
+edit already succeeded before continuing. Installing another plugin or MCP
+server does not repair poisoned history.
+
+Rollback remains the prior package `0.2.4-copilot.1`; rollback is a separate
 operator decision and does not activate or install either version.
 
 ## Project-local overlay

@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.2.4-copilot.2 - 2026-08-22
+
+- Adds a Copilot-only transport compatibility override for GitHub Copilot App
+  and CLI 1.0.80 sessions that use an OpenAI-compatible BYOK provider such as
+  CommandCode Chat Completions. The semantic workflow remains `0.2.4`.
+- Forbids built-in `apply_patch` for every file mutation in an affected task,
+  because Copilot can persist the completed call as `type=custom` and make the
+  next provider request fail with `expected "function"`.
+- Requires function-style PowerShell/Python or packaged helpers while
+  preserving exact-target preview, existing approvals, expected-current-hash
+  checks, atomic writes, reread and validation.
+- Adds fresh-task, read-only recovery guidance and makes the existing Python 3
+  prerequisite explicit. It adds no MCP server, connector, authentication,
+  hook, telemetry, permission, schedule or publisher-operated service.
+- Preserves `0.2.4-copilot.1` as the immediate rollback package and leaves the
+  OpenAI/Codex plugin, shared workflow core and `v0.2.4` tag/release unchanged.
+
 ## 0.2.4 - 2026-08-22
 
 - Adds one shared Lecturer Decision Dialogue Contract across every

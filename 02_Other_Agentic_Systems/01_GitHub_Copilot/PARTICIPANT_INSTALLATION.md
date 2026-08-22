@@ -9,6 +9,7 @@ server or create a support subscription.
 - A GitHub account with GitHub Copilot access.
 - The GitHub Copilot app installed and signed in.
 - Git installed.
+- Python 3 available as `python` (used by the packaged deterministic helpers).
 - Organization permission for third-party plugins, when the account is
   organization-managed.
 
@@ -82,25 +83,42 @@ blank or `Skip` cannot advance, and exact authority approvals remain separate.
 
 ## Copilot 1.0.80 BYOK compatibility
 
-For Gate 0A, the setup skill must invoke
-`scripts/create_material_processing_eligibility.py` through PowerShell/Python as a normal
-shell function call. It first runs a preview without `--apply`, displays the
-complete deterministic record, fingerprint, exact target and
-`overwrite: false`, and waits for exact-target approval. Only then may it
-repeat the same call with `--apply`. The helper accepts only an absolute
-project directory through `--project <absolute project directory>`, derives
-`01_Control/material-processing-eligibility.json` beneath that project, rejects
-a redirected `01_Control`, and refuses overwrite.
+With an OpenAI-compatible BYOK provider such as CommandCode Chat Completions,
+Copilot 1.0.80 can record a built-in `apply_patch` edit as `type=custom`. The
+edit may have succeeded, but the malformed saved history can make the next
+request fail with `expected "function"`. In an affected session, do not use
+`apply_patch` for any workflow file. This includes Gate-0A records, manifests,
+working notes, course-material candidates, QA records, state, and system-review
+records.
 
-Do not ask Copilot to invoke this helper through `apply_patch`. In Copilot
-1.0.80 BYOK, `expected function` can come from poisoned task history after an
-earlier `apply_patch` call was recorded as `type=custom`; it is not a missing
-installable function or MCP server. Start a fresh task in the project. For an affected
-BYOK session, prefer GitHub-hosted GPT-5.4 or the default Claude model. No MCP,
-hook, authentication, or permission is required or added.
+Use a packaged helper or function-style PowerShell/Python instead. Every write
+must still preview the exact target and content or diff, wait for the existing
+required lecturer approval, compare the expected current SHA-256 before
+modifying an existing file, write atomically, and reread and revalidate the
+result. For Gate 0A, invoke
+`scripts/create_material_processing_eligibility.py` through function-style
+PowerShell/Python. Run it without `--apply` first so it displays the complete
+deterministic record, fingerprint, exact target and `overwrite: false`; only
+after exact-target approval may the identical command be repeated with
+`--apply`. The helper accepts only an absolute project directory through
+`--project <absolute project directory>`, derives
+`01_Control/material-processing-eligibility.json` beneath that project,
+rejects a redirected `01_Control`, and refuses overwrite.
+
+If `expected "function"` appears, do not retry in that task:
+
+1. Start a fresh task inside the same project.
+2. Ask it to recover durable control state read-only.
+3. Verify whether the preceding file edit already completed before repeating
+   any step.
+4. Continue with function-style PowerShell/Python only.
+
+This failure is not evidence of a missing installable function. Another MCP
+server or plugin does not repair poisoned task history; no MCP, hook,
+authentication, or additional permission is required or added.
 
 Rollback, if deliberately chosen by the operator, is
-`0.2.3-copilot.1`; rollback does not install or activate itself.
+`0.2.4-copilot.1`; rollback does not install or activate itself.
 
 ## Remove
 

@@ -34,3 +34,16 @@ assessment evidence, permitted AI, and activity
 design when interdependent; cluster student experience, accessibility, active
 learning, workload, inclusion, and engagement when participation design affects
 them jointly.
+
+## Copilot 1.0.80 BYOK writes on these paths
+
+With an OpenAI-compatible BYOK provider such as CommandCode Chat Completions,
+never use built-in `apply_patch` for any file mutation on these paths. Copilot
+1.0.80 can record it as `type=custom` and poison saved history even after a
+successful edit. Use a packaged helper or function-style PowerShell/Python.
+Keep the exact-target preview, existing approval, expected-current-SHA-256
+check for modifications, atomic write, reread, and revalidate. If
+`expected "function"` occurs, do not retry in this task. Start a fresh project
+task, recover durable state read-only, and verify whether the preceding edit
+already succeeded. Do not add an MCP server, plugin, hook, authentication, or
+permission as a purported fix.
