@@ -1,0 +1,26 @@
+{
+  "name": "agentic-course-redesign",
+  "description": "A gated, lecturer-in-the-loop workflow that adapts evidence-grounded redesign to the supplied course and processing environment.",
+  "version": "0.2.3-copilot.1",
+  "author": {
+    "name": "Gian Peter Ochsner"
+  },
+  "homepage": "https://github.com/gpochs/Agentic-Course-Redesign-System",
+  "repository": "https://github.com/gpochs/Agentic-Course-Redesign-System",
+  "license": "MIT",
+  "keywords": [
+    "education",
+    "course-redesign",
+    "learning-design",
+    "assessment",
+    "agentic-workflow"
+  ],
+  "category": "education",
+  "tags": [
+    "lecturer-in-the-loop",
+    "evidence-grounded",
+    "human-in-the-loop"
+  ],
+  "agents": "agents/",
+  "skills": "skills/"
+}

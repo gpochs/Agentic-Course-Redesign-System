@@ -36,12 +36,18 @@ home, drive or multi-course folder.
 ## 3. Install or copy the correct adapter
 
 - ChatGPT Desktop/Work/Codex: follow `01_ChatGPT_Desktop_App/README.md`.
-- GitHub Copilot, Claude Code, OpenCode or Antigravity: use only the matching
-  folder under `02_Other_Agentic_Systems/`.
+- GitHub Copilot app/CLI: follow
+  `02_Other_Agentic_Systems/01_GitHub_Copilot/PARTICIPANT_INSTALLATION.md` for
+  the recommended native plugin. Its project-local overlay remains an
+  advanced/manual alternative.
+- Claude Code, OpenCode or Antigravity: use only the matching folder under
+  `02_Other_Agentic_Systems/`.
 
 An adapter is not activated merely because its source exists in this
-repository. Review its overlay and copy it into the one course workspace using
-the documented preview-first route.
+repository. Installing the Copilot plugin adds reusable skills and agents but
+does not inspect a course, activate a runtime or start a redesign. For a manual
+overlay, review it and copy it into the one course workspace using the
+documented preview-first route.
 
 ## 4. Add course evidence
 

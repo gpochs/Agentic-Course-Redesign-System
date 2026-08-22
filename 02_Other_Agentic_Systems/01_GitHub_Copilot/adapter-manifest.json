@@ -3,7 +3,21 @@
   "adapter_id": "github-copilot",
   "adapter_version": "0.2.3",
   "platform": "github-copilot",
-  "status": "template_not_installed",
+  "status": "candidate_not_active",
+  "native_plugin": {
+    "proposal_id": "ACR-SYS-20260822-006",
+    "package_version": "0.2.3-copilot.1",
+    "base_semantic_version": "0.2.3",
+    "status": "candidate_not_active",
+    "plugin_name": "agentic-course-redesign",
+    "marketplace_name": "agentic-course-redesign-system",
+    "install_specification": "agentic-course-redesign@agentic-course-redesign-system",
+    "plugin_manifest": "plugin/agentic-course-redesign/plugin.json",
+    "repository_marketplace_manifest": ".github/plugin/marketplace.json",
+    "installed_or_enabled_by_repository_files": false,
+    "publisher_operated_runtime": false,
+    "support_sla": false
+  },
   "overlay_root": "overlay",
   "compose_after": [
     "portable-core@0.2.3"
@@ -40,8 +54,8 @@
   "files": [
     {
       "path": "CAPABILITIES.md",
-      "bytes": 1674,
-      "sha256": "2861343960785077741d98d2a974c6625aff17c6ecf297ef2a5512e66a20f30b"
+      "bytes": 2531,
+      "sha256": "e2a80e97e7c9e218c4e6d10cc7142397dd625ee85f71cfb8704ae040ae5cd5ac"
     },
     {
       "path": "overlay/.github/agents/active-learning-researcher.agent.md",
@@ -104,9 +118,254 @@
       "sha256": "fb0305baed9433599eb90b3ab6a524c08929630c250f3e346e7443fed9abe798"
     },
     {
+      "path": "PARTICIPANT_INSTALLATION.md",
+      "bytes": 3491,
+      "sha256": "11b7b96662c6909345504fd2bc867f55afa0694f0cc2f3894888d38b67c9f1b5"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/agents/active-learning-researcher.agent.md",
+      "bytes": 4503,
+      "sha256": "20d7efea1491f567d39d03f58a887e238429b8b9e704ba592ee51ea46aee254e"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/agents/ai-integration-researcher.agent.md",
+      "bytes": 4651,
+      "sha256": "b701c7e520e3d0f890245e6038efd39cedb5ea5390ca074d5df9b4cb6ca9cdb8"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/agents/artefact-accessibility-visual-qa.agent.md",
+      "bytes": 3743,
+      "sha256": "4459221142ddffc823de9c3db860156861b25b19f6fb3aefc37becb8f9f02ec1"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/agents/assessment-alignment-designer.agent.md",
+      "bytes": 5436,
+      "sha256": "f6949d205fe59fc77bea8713ac372607552147edb96328db32c9ab903caccc75"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/agents/course-mapper.agent.md",
+      "bytes": 4685,
+      "sha256": "1f751dc9852e3d575253a088a5ebe5172a84664c433013a966e6407153cd19e3"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/agents/evidence-feasibility-red-team.agent.md",
+      "bytes": 4443,
+      "sha256": "666f1f8cbcc78a7d9d209db0c1e30e2ea1ad0ea988fbf84091cba968d9a7b137"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/agents/learning-designer.agent.md",
+      "bytes": 4607,
+      "sha256": "3f4194470abd456d3345394efe52222d4f5902deb0edbc322816f3830eaca4b3"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/agents/learning-material-designer.agent.md",
+      "bytes": 5327,
+      "sha256": "7380f01a4f934eab67caab46a61cc2cd658aafc3859f83ec5fc557f20eefbb78"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/agents/source-verification-citation-auditor.agent.md",
+      "bytes": 3489,
+      "sha256": "c6e39e088aa7b61adb017d58432a0647333ade850940f28c7a0b0ef6dd451262"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/agents/student-experience-critic.agent.md",
+      "bytes": 5177,
+      "sha256": "75065f14e88c1dff9071ac220ae43b97ebab2e0624006fd147f861af8a5e333e"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/assets/project-template/.github/copilot-instructions.md",
+      "bytes": 1505,
+      "sha256": "e872931b162a1f0c0a8ae2f6dbf71853021fc8c2eda93bf052f131d432a6da50"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/assets/project-template/.github/instructions/course-redesign.instructions.md",
+      "bytes": 755,
+      "sha256": "aa6220d5942e82941423c5aab6bbfe5601e8ef641a4664d5752cd939e7a8e1c8"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/assets/project-template/00_Context/README.txt",
+      "bytes": 327,
+      "sha256": "0f3f785a296c7e55904cf56959008f6db92255a3f47a2815a143a0e5454e8b81"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/assets/project-template/00_NOT_ACTIVE_UNTIL_VALIDATED.txt",
+      "bytes": 3408,
+      "sha256": "5de534cbf35e607c139242b72d5ed60b8a33126e642db35fbe7c193a21381d86"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/assets/project-template/00_Source_Materials/README.txt",
+      "bytes": 472,
+      "sha256": "bb1b387b3de7abe4603f9ec92fe3bc0d3d5d353f0d42443fddd48a1967691e8f"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/assets/project-template/01_Control/GATES.md",
+      "bytes": 6192,
+      "sha256": "01ad8119526841e6ec9b0ba7616c1713a252a49eba59ff907fdfdf9263d6db36"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/assets/project-template/01_Control/material-processing-eligibility.template.json",
+      "bytes": 2595,
+      "sha256": "efe8b8d8d6e7ba3cd9b0dc21e1f014ad65206aaa609468555974949e4496fbed"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/assets/project-template/01_Control/README.md",
+      "bytes": 2524,
+      "sha256": "e59b341f41bce6ca299c15d122dc0769387f99dbc8d80aac13e4f4b79b40e21d"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/assets/project-template/01_Control/run-contract.template.json",
+      "bytes": 1045,
+      "sha256": "e11528ba4059d6a340d27deff3f7c95ca6536d5a4956829ea3dea495ade3757b"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/assets/project-template/01_Control/source-access-policy.template.json",
+      "bytes": 845,
+      "sha256": "aa2360dfcf66dda0c6c13c1781f6ce581b4a8bb5cdc413741619b4c034c3fc7a"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/assets/project-template/01_Control/state.json",
+      "bytes": 61104,
+      "sha256": "931e7c22f62b015846d4f2cd30c4434010111144b0e8c8477c69ffb4e91e0e78"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/assets/project-template/02_Working_Notes/README.txt",
+      "bytes": 126,
+      "sha256": "115dca84b329f1998a607ee6a2a6b24de7022b54ef4fa7d7d1233e0293f4ac5e"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/assets/project-template/03_Research/README.txt",
+      "bytes": 150,
+      "sha256": "ba5690429ccfc28b4a5b9882869a118aab8835b100c66024d6c5d99086bde541"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/assets/project-template/04_Working_Copies/README.txt",
+      "bytes": 119,
+      "sha256": "82229edce19a75d833a1050881d55f8b2c04817c420cd0f13407cae28e0d7a19"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/assets/project-template/05_Approved/README.txt",
+      "bytes": 141,
+      "sha256": "1d06c3404b23ed037bd3ff52ad37a35fb798b9f289c55702ef1a2b84e2397838"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/assets/project-template/06_QA_and_Review/README.txt",
+      "bytes": 134,
+      "sha256": "cf7c8c576f4dc132ce90101a4654c137bac8ddd70e5c07925fd0758fd6c5fc7b"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/assets/project-template/07_System_Improvement/README.txt",
+      "bytes": 369,
+      "sha256": "f2fd22081b9b8ca142abbc36328c3b7ea8b86e1f7c901dd38335a7d1a2dde3a3"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/assets/project-template/AGENTS.md",
+      "bytes": 32301,
+      "sha256": "da3f2f0da03ac88bbdf48d0bc00d7b4ec1ca788163f185fd1c1ebc234a7f2449"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/assets/project-template/PROJECT_SETUP.md",
+      "bytes": 3259,
+      "sha256": "f35022b6e17d6489d1e01671b967c45df0cf072940d027bdcbfeb951792a0331"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/LICENSE",
+      "bytes": 1093,
+      "sha256": "f06658f4e12ffd48cb60e6791007077a49458d38f0c383e1993e64623a4d35ff"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/PARTICIPANT_QUICK_START.md",
+      "bytes": 3728,
+      "sha256": "a04d07e28235a81792c146a4cf85820400091c8a73b7020c4a9d128714f65646"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/plugin.json",
+      "bytes": 735,
+      "sha256": "f81fa8e3e9b8f999fc8f0e061d7af4d8ce45868e107ac900dc98a57efb8df433"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/README.md",
+      "bytes": 1788,
+      "sha256": "4ef10f7e683eec916741fd35869a37f336b74614f27d075b2402f80c069bf2b5"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/scripts/fingerprint_file.py",
+      "bytes": 5698,
+      "sha256": "fbb29d189f77a1f091b04205519f603881e13bfcf718299f446866fc832ba7e8"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/scripts/migrate_state_v6_to_v7.py",
+      "bytes": 24776,
+      "sha256": "ace716a189b187d24f4d581d7b8682617b07787c253c4461aef0626d548d9151"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/scripts/migrate_state_v7_to_v8.py",
+      "bytes": 27496,
+      "sha256": "9c84ff55367319dfe8e406d85cfb6768c46f273096e79f3ee74e5c1589d5a52a"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/scripts/setup_course_project.py",
+      "bytes": 7410,
+      "sha256": "eb2979144efb5d62edbfba0bbe9bf743639ef6aa8cca04943153f465a9e37046"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/scripts/source_manifest.py",
+      "bytes": 18019,
+      "sha256": "4e8b0e89bd53d4966987b816b8df7ae57c831a736b71c934a8bd10b82556767c"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/scripts/validate_state.py",
+      "bytes": 154885,
+      "sha256": "0ca9ebaf4e63c95411712c55060fb18128879b1e60bc4b8a43b3f7e31052ed55"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/skills/course-redesign-assessment/SKILL.md",
+      "bytes": 3065,
+      "sha256": "f43ca397896914ffe204fadb0f6ed363675c2c68a3fef2edeb897f10fb3995e9"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/skills/course-redesign-materials/SKILL.md",
+      "bytes": 3799,
+      "sha256": "85afad3b56f8737c06de2b0f5c858aeb0ecf33b0c00f5a0b3b6022b2807e4db0"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/skills/course-redesign-orchestrator/SKILL.md",
+      "bytes": 9090,
+      "sha256": "5c83769b6b02d5268f3d104f113e63b27f2967cb0c8bdf999a0f8780943a7166"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/skills/course-redesign-research/SKILL.md",
+      "bytes": 3240,
+      "sha256": "85d73b8933447192dc18da8c1607a6f91245c6ab48bb8421046fe9af50eaf880"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/skills/course-redesign-setup/SKILL.md",
+      "bytes": 6785,
+      "sha256": "b6ac23620ccf195a36add291eb38685137e12054d67fa835331aeb9e91e90a50"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/skills/course-redesign-system/SKILL.md",
+      "bytes": 6876,
+      "sha256": "e5b7974903c85226d8cb91b02e0aa96725b4da00afb934d98f0ecf77921ee0e1"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/VERSION",
+      "bytes": 16,
+      "sha256": "23b785833c4aa2d845bcd16b017ffaca9432beef72001176d19cb5052527c02c"
+    },
+    {
       "path": "README.md",
-      "bytes": 2416,
-      "sha256": "4c1870d80d55d4b62da639b39c10c6d24fe4aa32dc8a94ef065bc8837eb1e8fc"
+      "bytes": 4457,
+      "sha256": "7e2db450481a8322ee619b6fcdf5c3d90f393ec8419915da14df55c26934e5a0"
+    },
+    {
+      "path": "validation/test_native_plugin.py",
+      "bytes": 4148,
+      "sha256": "65ad824b697e354fa76604d39ad529d0711fb7969abb79b51aea02c083cbad9f"
+    },
+    {
+      "path": "validation/validate_native_plugin.py",
+      "bytes": 14015,
+      "sha256": "bb6a0414334f45b23d50b84284df9379c35f97207695c601127736ac2ee4b07e"
     }
   ],
   "overlay_files": [
@@ -124,8 +383,13 @@
     ".github/instructions/course-redesign.instructions.md"
   ],
   "automatic_actions": [],
-  "safe_default": "read_search_only_manual_agent_selection",
+  "safe_default": "manual_install_then_read_search_only_manual_agent_selection",
   "official_specs": [
+    "https://docs.github.com/en/copilot/concepts/agents/about-plugins",
+    "https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-plugin-reference",
+    "https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/plugins-marketplace",
+    "https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/plugins-finding-installing",
+    "https://docs.github.com/en/copilot/how-tos/github-copilot-app/customize-github-copilot-app",
     "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-repository-instructions",
     "https://docs.github.com/en/copilot/reference/custom-instructions-support",
     "https://docs.github.com/en/copilot/reference/custom-agents-configuration",

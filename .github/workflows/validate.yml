@@ -56,7 +56,10 @@ jobs:
       - name: Validate Copilot, Claude Code and OpenCode adapters
         env:
           PYTHONDONTWRITEBYTECODE: "1"
-        run: python 02_Other_Agentic_Systems/00_Portable_Core_Adapter/validation/validate_adapters.py
+        run: |
+          python 02_Other_Agentic_Systems/00_Portable_Core_Adapter/validation/validate_adapters.py
+          python 02_Other_Agentic_Systems/01_GitHub_Copilot/validation/validate_native_plugin.py
+          python -m unittest discover -s 02_Other_Agentic_Systems/01_GitHub_Copilot/validation -p "test_*.py" -v
 
       - name: Validate Google Antigravity adapter
         env:

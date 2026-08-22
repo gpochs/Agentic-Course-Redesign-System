@@ -1,0 +1,1524 @@
+{
+  "schema_version": 8,
+  "plugin_id": "agentic-course-redesign",
+  "plugin_version": "0.2.3",
+  "status": "candidate_not_active",
+  "state_owner": "course_design_orchestrator",
+  "umbrella_entry_routing": {
+    "entry_name": "Agentic Course Redesign",
+    "entry_skill": "course-redesign-orchestrator",
+    "initial_gate": "GATE_0A_AWAITING_MATERIAL_ENVIRONMENT_ELIGIBILITY",
+    "missing_project_action": "invoke_course-redesign-setup_preview_only",
+    "gate_0a_required_before_any_course_source_path_filename_list_read_copy_hash_or_intake": true,
+    "gate_0_required_before_course_source_reading": true,
+    "gate_0_required_before_specialist_work": true
+  },
+  "schema_compatibility": {
+    "current_schema_version": 8,
+    "minimum_preview_migration_source_version": 7,
+    "migration_helper": "scripts/migrate_state_v7_to_v8.py",
+    "migration_mode": "preview_only",
+    "automatic_apply_forbidden": true,
+    "preserve_during_preview": [
+      "status",
+      "schedules",
+      "active_run_id",
+      "existing_run_ids_and_lineage",
+      "source_manifest_and_access_policy",
+      "run_and_schedule_history",
+      "permissions_and_tool_egress_boundaries",
+      "activation_and_schedule_registration_status"
+    ],
+    "migration_reconfirmation_requirements": [
+      "material_processing_eligibility",
+      "every_nonterminal_run",
+      "every_schedule_before_future_trigger"
+    ]
+  },
+  "adaptive_course_scope": {
+    "supported_contexts": [
+      "school",
+      "vocational_education_and_training",
+      "professional_learning",
+      "higher_education",
+      "other_lecturer_defined"
+    ],
+    "adapt_to_supplied_material_context_level_learners_objectives_assessment_language_and_constraints": true,
+    "subject_level_qualification_and_institutional_policy_assumptions_forbidden": true
+  },
+  "material_processing_eligibility": {
+    "schema_version": 1,
+    "eligibility_id": null,
+    "eligibility_version": 1,
+    "status": "awaiting_lecturer_declaration",
+    "allowed_statuses": [
+      "awaiting_lecturer_declaration",
+      "approved",
+      "route_only",
+      "failed_closed"
+    ],
+    "gate": "GATE_0A_MATERIAL_ENVIRONMENT_ELIGIBILITY",
+    "must_precede": [
+      "course_source_path_or_filename_disclosure",
+      "course_source_listing",
+      "course_source_read",
+      "course_source_copy",
+      "course_source_hash",
+      "course_source_or_context_intake"
+    ],
+    "source_detail_prohibition_before_approval": [
+      "no_source_paths",
+      "no_source_filenames",
+      "no_source_lists",
+      "no_source_content",
+      "no_source_hashes"
+    ],
+    "environment": {
+      "category": null,
+      "allowed_categories": [
+        "personal_or_unmanaged",
+        "approved_institutional_exact_environment"
+      ],
+      "exact_environment_reference": null,
+      "institutional_policy_reference": null,
+      "approved_scope": null,
+      "policy_expires_at": null
+    },
+    "material_scope": {
+      "declared_category": null,
+      "allowed_categories": [
+        "privately_owned_or_rightsholder_authorised",
+        "appropriately_licensed_or_public_with_explicit_ai_processing_authority",
+        "institution_internal_or_restricted",
+        "mixed",
+        "uncertain"
+      ],
+      "ai_processing_authority_confirmed": false,
+      "public_availability_alone_is_insufficient": true,
+      "contains_institution_internal_or_restricted_material": null,
+      "contains_student_personal_data": null,
+      "sensitivity_classification": null,
+      "allowed_sensitivity_classifications": [
+        "non_sensitive",
+        "institution_internal_or_restricted",
+        "student_personal_data",
+        "institution_internal_or_restricted_and_student_personal_data",
+        "mixed_or_uncertain"
+      ],
+      "assessment_security_classification": null,
+      "allowed_assessment_security_classifications": [
+        "no_protected_assessment_material",
+        "contains_protected_assessment_or_answer_key_material",
+        "mixed_or_uncertain"
+      ],
+      "assessment_security_handling_authorised": null
+    },
+    "decision": {
+      "outcome": null,
+      "allowed_outcomes": [
+        "proceed",
+        "route_only",
+        "fail_closed_until_segregated",
+        "fail_closed_until_clarified"
+      ],
+      "reason": null,
+      "approved_processing_scope": null
+    },
+    "fingerprint_method": "sha256_utf8_canonical_json_sorted_keys_no_insignificant_whitespace_excluding_fingerprint_and_approval_metadata",
+    "fingerprint": null,
+    "lecturer_declaration_reference": null,
+    "recorded_at": null,
+    "reconfirmation_required": true
+  },
+  "course": {
+    "title": null,
+    "context": null,
+    "level_and_programme": null,
+    "learner_profile": null,
+    "course_language": null,
+    "grading_system": null,
+    "timezone": null,
+    "canonical_sources_confirmed": false,
+    "educational_context_type": null,
+    "discipline_or_subject": null,
+    "qualification_or_framework": null,
+    "adaptation_inputs_confirmed": false
+  },
+  "source_manifest": null,
+  "source_access_policy": {
+    "status": "pending_lecturer_confirmation",
+    "version": 0,
+    "material_processing_eligibility_fingerprint": null,
+    "fingerprint": null,
+    "fingerprint_method": "sha256_utf8_canonical_json_sorted_keys_no_insignificant_whitespace",
+    "fingerprint_payload": "material_processing_eligibility_fingerprint_plus_version_per_source_classifications_role_tool_egress_permissions_output_audiences_and_exclusions_without_the_fingerprint_or_approval_metadata",
+    "manifest_is_integrity_not_access_control": true,
+    "allowed_source_classes": [
+      "student_safe",
+      "lecturer_only_assessment",
+      "licensed_restricted",
+      "other_confidential",
+      "excluded"
+    ],
+    "per_source_entries": [],
+    "role_tool_egress_permissions": [],
+    "allowed_output_audiences": [],
+    "student_facing_outputs_exclude_lecturer_only_content": true,
+    "assessment_security_smoke_test": {
+      "status": "not_run",
+      "checks": [
+        "rendered_visible_content",
+        "editable_layers_and_text_boxes",
+        "comments_and_notes",
+        "metadata",
+        "student_output_contains_no_answers_model_responses_or_teacher_only_content"
+      ],
+      "evidence_reference": null,
+      "recorded_at": null
+    },
+    "lecturer_approval_reference": null,
+    "recorded_at": null
+  },
+  "setup": {
+    "mode": "linear_guided",
+    "current_gate": "GATE_0A_AWAITING_MATERIAL_ENVIRONMENT_ELIGIBILITY",
+    "next_permitted_action": "collect_category_only_gate_0a_declaration_without_source_paths_filenames_lists_content_or_hashes"
+  },
+  "activation": {
+    "allowed_statuses": [
+      "candidate_not_active",
+      "active",
+      "suspended"
+    ],
+    "validation_run_id": null,
+    "required_before_active": [
+      "gate_0a_recorded",
+      "gate_0_recorded",
+      "gate_1_recorded",
+      "gate_2a_recorded",
+      "gate_2b_recorded",
+      "source_manifest_verified",
+      "source_access_policy_confirmed",
+      "gate_3_blueprint_approved",
+      "working_copy_test_approved",
+      "production_completion_declared",
+      "production_handoff_target_approved",
+      "production_handoff_verified",
+      "hitl_3_accepted",
+      "system_improvement_review_offer_requested",
+      "matching_course_run_terminal_complete_dormant",
+      "system_update_approved",
+      "read_only_smoke_test_passed",
+      "assessment_security_smoke_test_passed",
+      "separate_activation_decision_recorded"
+    ],
+    "system_update": {
+      "status": "not_started",
+      "allowed_statuses": [
+        "not_started",
+        "proposal_requested",
+        "proposal_presented",
+        "candidate_change_approved",
+        "validated"
+      ],
+      "prerequisites": [
+        "matching_run_production_completion_complete",
+        "matching_run_production_handoff_verified",
+        "matching_run_hitl_3_accepted",
+        "matching_run_system_improvement_review_offer_requested",
+        "matching_run_terminal_complete_dormant_and_not_active"
+      ],
+      "proposal_id": null,
+      "proposal_version": null,
+      "proposal_reference": null,
+      "proposed_exact_targets": [],
+      "required_standalone_line": "APPROVE SYSTEM FILES",
+      "completed_reply_requirements": [
+        "validation_run_id",
+        "run_id",
+        "run_contract_id",
+        "run_contract_version",
+        "task_chat_reference",
+        "shared_context_version",
+        "material_processing_eligibility_fingerprint",
+        "source_manifest_fingerprint",
+        "source_access_policy_version",
+        "source_access_policy_fingerprint",
+        "plan_version",
+        "proposal_id",
+        "proposal_version",
+        "system_improvement_review_offer_reference",
+        "all_exact_targets_match_visible_proposal",
+        "APPROVE SYSTEM FILES_as_a_standalone_line"
+      ],
+      "approval": {
+        "validation_run_id": null,
+        "run_id": null,
+        "run_contract_id": null,
+        "run_contract_version": null,
+        "task_chat_reference": null,
+        "shared_context_version": null,
+        "material_processing_eligibility_fingerprint": null,
+        "source_manifest_fingerprint": null,
+        "source_access_policy_version": null,
+        "source_access_policy_fingerprint": null,
+        "plan_version": null,
+        "standalone_line": null,
+        "proposal_id": null,
+        "proposal_version": null,
+        "system_improvement_review_offer_reference": null,
+        "approved_exact_targets": [],
+        "completed_reply_reference": null,
+        "validation_status": "not_run",
+        "recorded_at": null
+      },
+      "maximum_authorised_stage": "SYSTEM_GATE",
+      "does_not_authorise_candidate_activation": true
+    },
+    "separate_activation_decision": {
+      "status": "not_requested",
+      "allowed_statuses": [
+        "not_requested",
+        "pending",
+        "approved",
+        "rejected"
+      ],
+      "required_matching_system_update_fields": [
+        "proposal_id",
+        "proposal_version",
+        "validation_evidence_reference",
+        "residual_risks_reference",
+        "rollback_reference"
+      ],
+      "validated_system_proposal_id": null,
+      "validated_system_proposal_version": null,
+      "validation_evidence_reference": null,
+      "validation_status": "not_run",
+      "residual_risks_reference": null,
+      "rollback_reference": null,
+      "decision": null,
+      "allowed_decisions": [
+        "activate_exact_validated_version",
+        "keep_inactive",
+        "revise_and_revalidate"
+      ],
+      "matching_rule": "approval_is_valid_only_when_proposal_id_and_version_match_activation.system_update_and_validation_status_is_passed",
+      "lecturer_reply_reference": null,
+      "prerequisites_verified_at": null,
+      "recorded_at": null
+    },
+    "automatic_activation_forbidden": true,
+    "activated_at": null
+  },
+  "schedule_registration": {
+    "status": "not_approved",
+    "required_active_runtime": {
+      "status_path": "$.status",
+      "status_must_equal": "active",
+      "validated_system_proposal_id": null,
+      "validated_system_proposal_version": null,
+      "activation_decision_reference": null,
+      "match_rule": "top_level_status_must_be_active_and_schedule_contract_runtime_id_and_version_must_match_the_separately_activated_validated_runtime"
+    },
+    "required_material_processing_eligibility": {
+      "fingerprint": null,
+      "match_rule": "must_be_non_null_and_match_current_approved_gate_0a_before_simulation_registration_and_every_trigger",
+      "change_requires_schedule_reconfirmation": true
+    },
+    "required_completed_approval_lines": [
+      "APPROVE SCHEDULES",
+      "Schedule contract: <exact contract ID and version>",
+      "Expires: <exact local date and time with IANA timezone>"
+    ],
+    "no_write_simulation_status": "not_run",
+    "no_write_simulation_result": null,
+    "no_write_simulation_recorded_at": null,
+    "no_immediate_run_required": true,
+    "approved_standing_contract_ids": [],
+    "approved_standing_contract_versions": [],
+    "approval_reply_must_contain_exactly_and_only_the_three_lines": true,
+    "approval": {
+      "line_1": null,
+      "line_2": null,
+      "line_3": null,
+      "parsed_contract_id": null,
+      "parsed_contract_version": null,
+      "parsed_expiry_local_with_iana_timezone": null,
+      "completed_reply_reference": null,
+      "validation_status": "not_run",
+      "recorded_at": null
+    }
+  },
+  "active_run_id": null,
+  "run_template": {
+    "template_only": true,
+    "run_id": null,
+    "task_chat_reference": null,
+    "mode": null,
+    "allowed_modes": [
+      "manual",
+      "scheduled"
+    ],
+    "trigger": {
+      "trigger_id": null,
+      "trigger_type": null,
+      "allowed_trigger_types": [
+        "manual",
+        "scheduled"
+      ],
+      "created_at": null,
+      "creates_fresh_run_and_lineage": true,
+      "material_processing_eligibility_fingerprint": null,
+      "standing_schedule_contract_reference": null
+    },
+    "status": "not_started",
+    "allowed_run_statuses": [
+      "not_started",
+      "active",
+      "waiting_at_gate",
+      "complete_dormant",
+      "completed",
+      "handed_off",
+      "failed_safe",
+      "cancelled",
+      "expired"
+    ],
+    "started_at": null,
+    "maximum_stage": null,
+    "manual_stage_authority": {
+      "transition_rules": [
+        {
+          "trigger": "fresh_gate_1_approval",
+          "authorises_through": "GATE_2A",
+          "purpose": "preliminary_stage_a_only"
+        },
+        {
+          "trigger": "fresh_gate_2a_approval",
+          "authorises_through": "GATE_2B",
+          "purpose": "approved_full_research_and_exact_03_Research_dossier_handoff_approval_only"
+        },
+        {
+          "trigger": "fresh_blueprint_direction_after_gate_2b_decisions",
+          "authorises_through": "GATE_3",
+          "purpose": "interactive_blueprint_only"
+        },
+        {
+          "trigger": "fresh_gate_3_blueprint_and_exact_04_Working_Copies_and_05_Approved_material_targets_approval",
+          "authorises_through": "PRODUCTION_HANDOFF",
+          "purpose": "gated_artefact_production_and_handoff_only"
+        },
+        {
+          "trigger": "fresh_hitl3_acceptance_after_verified_production_handoff",
+          "authorises_through": "SYSTEM_REVIEW_RESPONSE",
+          "purpose": "materials_acceptance_and_mandatory_system_review_question_and_explicit_response_only",
+          "does_not_authorise_candidate_activation": true
+        },
+        {
+          "trigger": "explicit_system_improvement_review_response",
+          "authorises_through": "RUN_CLOSEOUT",
+          "purpose": "record_requested_or_declined_then_close_course_run_complete_dormant",
+          "requires_explicit_response": true,
+          "silence_behavior": "remain_waiting_without_decision",
+          "system_improvement_work_is_separate": true,
+          "does_not_authorise_system_file_changes": true,
+          "does_not_authorise_candidate_activation": true
+        }
+      ],
+      "history_record_schema": {
+        "from_maximum_stage": null,
+        "to_maximum_stage": null,
+        "trigger": null,
+        "approval_reference": null,
+        "recorded_at": null
+      },
+      "history": []
+    },
+    "current_gate": "GATE_0A_AWAITING_MATERIAL_ENVIRONMENT_ELIGIBILITY",
+    "execution_authority": {
+      "current": null,
+      "allowed": [
+        "lecturer_manual_direction",
+        "standing_schedule_contract",
+        "none"
+      ],
+      "standing_contract_reference": null,
+      "fresh_lineage_required_for_every_trigger": true,
+      "terminal_complete_dormant_never_resumes": true,
+      "scheduled_authority_ends_at": "GATE_2B",
+      "manual_continuation": {
+        "status": "not_approved",
+        "lecturer_direction": null,
+        "approved_maximum_stage": null,
+        "recorded_at": null
+      }
+    },
+    "contract": {
+      "status": "pending_lecturer_approval",
+      "contract_id": null,
+      "version": 0,
+      "standing_contract_reference": null,
+      "material_processing_eligibility_fingerprint": null,
+      "canonical_mission": "Together with the lecturer, produce the strongest defensible, evidence-informed, constructively aligned and feasible redesign of this specific course for its stated learners and context—improving meaningful learning and participation, purposeful AI competence, student experience and valid assessment while preserving worthwhile existing elements and respecting accessibility, workload, rights, privacy and institutional constraints. The lecturer retains every consequential pedagogical decision.",
+      "main_goal": null,
+      "non_goals": [],
+      "success_criteria": [],
+      "stop_conditions": [],
+      "constraints": [],
+      "permitted_tools": [],
+      "permitted_actions": [],
+      "approved_source_classes": [],
+      "approved_output_audiences": [],
+      "adaptation_inputs": {
+        "educational_context_type": null,
+        "discipline_or_subject": null,
+        "learner_level": null,
+        "objectives_framework": null,
+        "assessment_model": null,
+        "course_language": null,
+        "constraints": []
+      },
+      "course_context_assumptions_forbidden": true,
+      "source_access_policy_version": null,
+      "source_access_policy_fingerprint": null,
+      "lecturer_reserved_assessment_decisions": [
+        "authoritative_current_objectives",
+        "assessment_purpose_stakes_weight_and_completeness",
+        "rubric_scoring_partial_credit_and_grade_conversion",
+        "teacher_only_access_tool_egress_and_output_audience"
+      ],
+      "autonomy_bounds": {
+        "may": [
+          "change_method_order_or_role_allocation_within_the_approved_goal_gate_scope_and_permissions",
+          "revise_unfinished_downstream_subgoals_after_recorded_observations"
+        ],
+        "must_not": [
+          "change_main_goal_success_criteria_or_stop_conditions",
+          "widen_scope_data_or_tool_permissions",
+          "cross_a_gate_or_gain_write_authority",
+          "reopen_a_settled_lecturer_decision"
+        ]
+      },
+      "lecturer_approval": {
+        "status": "pending",
+        "lecturer_reply": null,
+        "recorded_at": null
+      }
+    },
+    "source_manifest_verification": {
+      "manifest_path": null,
+      "protected_roots": [
+        "00_Source_Materials",
+        "00_Context"
+      ],
+      "material_processing_eligibility_fingerprint": null,
+      "source_manifest_fingerprint": null,
+      "source_access_policy_version": null,
+      "source_access_policy_fingerprint": null,
+      "status": "not_run",
+      "verified_at": null,
+      "changes_since_contract_approval": []
+    },
+    "approvals": {
+      "gate_0a": {
+        "approval_id": null,
+        "status": "pending",
+        "basis": "category_only_material_and_exact_processing_environment_declaration",
+        "material_processing_eligibility_fingerprint": null,
+        "lecturer_declaration_reference": null,
+        "validation_status": "not_run",
+        "recorded_at": null
+      },
+      "gate_0": {
+        "approval_id": null,
+        "status": "pending",
+        "basis": null,
+        "material_processing_eligibility_fingerprint": null,
+        "source_manifest_fingerprint": null,
+        "source_access_policy_version": null,
+        "source_access_policy_fingerprint": null,
+        "lecturer_reply": null,
+        "recorded_at": null,
+        "approval_receipt": {"run_id": null, "run_contract_id": null, "run_contract_version": null, "task_chat_reference": null, "shared_context_version": null, "material_processing_eligibility_fingerprint": null, "source_manifest_fingerprint": null, "source_access_policy_version": null, "source_access_policy_fingerprint": null, "plan_version": null, "reply_reference": null, "validation_status": "not_run", "recorded_at": null}
+      },
+      "gate_1": {
+        "approval_id": null,
+        "status": "pending",
+        "basis": null,
+        "run_contract_id": null,
+        "run_contract_version": null,
+        "material_processing_eligibility_fingerprint": null,
+        "source_manifest_fingerprint": null,
+        "source_access_policy_version": null,
+        "source_access_policy_fingerprint": null,
+        "lecturer_reply": null,
+        "recorded_at": null,
+        "approval_receipt": {"run_id": null, "run_contract_id": null, "run_contract_version": null, "task_chat_reference": null, "shared_context_version": null, "material_processing_eligibility_fingerprint": null, "source_manifest_fingerprint": null, "source_access_policy_version": null, "source_access_policy_fingerprint": null, "plan_version": null, "reply_reference": null, "validation_status": "not_run", "recorded_at": null}
+      },
+      "gate_2a": {
+        "approval_id": null,
+        "status": "not_started",
+        "entry_preconditions_reference": "coordination.gate_2a_entry_requires",
+        "lecturer_reply": null,
+        "mission_interpretation": null,
+        "approved_focus": [],
+        "required_role_contract_fields": [
+          "role_goal",
+          "subgoal_ids_2_to_5",
+          "success_criteria",
+          "dependencies",
+          "replan_triggers",
+          "lecturer_decision"
+        ],
+        "role_contracts": [],
+        "recorded_at": null,
+        "approval_receipt": {"run_id": null, "run_contract_id": null, "run_contract_version": null, "task_chat_reference": null, "shared_context_version": null, "material_processing_eligibility_fingerprint": null, "source_manifest_fingerprint": null, "source_access_policy_version": null, "source_access_policy_fingerprint": null, "plan_version": null, "reply_reference": null, "validation_status": "not_run", "recorded_at": null}
+      },
+      "gate_2b": {
+        "approval_id": null,
+        "status": "not_started",
+        "lecturer_reply": null,
+        "selected_change_cards": [],
+        "approved_research_targets": [],
+        "research_target_record_schema": {
+          "target_type": null,
+          "relative_path": null,
+          "run_id": null,
+          "approved_at": null
+        },
+        "target_rules": {
+          "required_prefix": "03_Research/",
+          "required_dated_run_folder_pattern": "^03_Research/[0-9]{4}-[0-9]{2}-[0-9]{2}_[A-Za-z0-9._-]+/[^/]+$",
+          "allowed_target_types": [
+            "research_dossier",
+            "research_handoff"
+          ],
+          "required_target_types_when_approved": [
+            "research_dossier",
+            "research_handoff"
+          ],
+          "forbidden_prefixes": [
+            "04_Working_Copies/",
+            "05_Approved/"
+          ],
+          "course_material_production_authorised": false
+        },
+        "recorded_at": null,
+        "approval_receipt": {"run_id": null, "run_contract_id": null, "run_contract_version": null, "task_chat_reference": null, "shared_context_version": null, "material_processing_eligibility_fingerprint": null, "source_manifest_fingerprint": null, "source_access_policy_version": null, "source_access_policy_fingerprint": null, "plan_version": null, "reply_reference": null, "validation_status": "not_run", "recorded_at": null}
+      },
+      "gate_3": {
+        "approval_id": null,
+        "status": "not_started",
+        "lecturer_reply": null,
+        "approved_blueprint_reference": null,
+        "approved_material_targets": [],
+        "material_target_record_schema": {
+          "target_type": null,
+          "relative_path": null,
+          "audience_classification": null,
+          "run_id": null,
+          "approved_at": null
+        },
+        "target_rules": {
+          "type_prefix_map": {
+            "working_copy": "04_Working_Copies/",
+            "approved_release": "05_Approved/"
+          },
+          "research_prefix_forbidden": "03_Research/",
+          "exact_targets_required_before_production": true,
+          "gate_2b_research_target_approval_is_not_material_write_authority": true
+        },
+        "recorded_at": null,
+        "approval_receipt": {"run_id": null, "run_contract_id": null, "run_contract_version": null, "task_chat_reference": null, "shared_context_version": null, "material_processing_eligibility_fingerprint": null, "source_manifest_fingerprint": null, "source_access_policy_version": null, "source_access_policy_fingerprint": null, "plan_version": null, "reply_reference": null, "validation_status": "not_run", "recorded_at": null}
+      },
+      "artefact_gate": {
+        "approval_id": null,
+        "status": "not_started",
+        "artefacts": [],
+        "approval_receipt": {"run_id": null, "run_contract_id": null, "run_contract_version": null, "task_chat_reference": null, "shared_context_version": null, "material_processing_eligibility_fingerprint": null, "source_manifest_fingerprint": null, "source_access_policy_version": null, "source_access_policy_fingerprint": null, "plan_version": null, "reply_reference": null, "validation_status": "not_run", "recorded_at": null}
+      },
+      "production_completion": {
+        "status": "not_started",
+        "allowed_statuses": [
+          "not_started",
+          "awaiting_declaration",
+          "declared_awaiting_handoff_approval",
+          "handoff_approved_awaiting_verification",
+          "complete"
+        ],
+        "required_matching_lineage_fields": [
+          "run_id",
+          "run_contract_id",
+          "run_contract_version",
+          "task_chat_reference",
+          "shared_context_version",
+          "material_processing_eligibility_fingerprint",
+          "source_manifest_fingerprint",
+          "source_access_policy_version",
+          "source_access_policy_fingerprint",
+          "plan_version"
+        ],
+        "declaration": {
+          "required_standalone_line": "DECLARE PRODUCTION COMPLETE",
+          "completed_reply": {
+            "run_id": null,
+            "run_contract_id": null,
+            "run_contract_version": null,
+            "task_chat_reference": null,
+            "shared_context_version": null,
+            "material_processing_eligibility_fingerprint": null,
+            "source_manifest_fingerprint": null,
+            "source_access_policy_version": null,
+            "source_access_policy_fingerprint": null,
+            "plan_version": null,
+            "standalone_line": null,
+            "reply_reference": null,
+            "validation_status": "not_run",
+            "recorded_at": null
+          }
+        },
+        "handoff_approval": {
+          "required_standalone_line": "APPROVE PRODUCTION HANDOFF",
+          "exact_handoff_target": null,
+          "completed_reply": {
+            "run_id": null,
+            "run_contract_id": null,
+            "run_contract_version": null,
+            "task_chat_reference": null,
+            "shared_context_version": null,
+            "material_processing_eligibility_fingerprint": null,
+            "source_manifest_fingerprint": null,
+            "source_access_policy_version": null,
+            "source_access_policy_fingerprint": null,
+            "plan_version": null,
+            "repeated_exact_handoff_target": null,
+            "standalone_line": null,
+            "reply_reference": null,
+            "validation_status": "not_run",
+            "recorded_at": null
+          }
+        },
+        "handoff_verified_at": null
+      },
+      "hitl_3": {
+        "status": "not_started",
+        "allowed_statuses": [
+          "not_started",
+          "awaiting_lecturer_decision",
+          "revision_requested",
+          "conditional_acceptance_pending_verification",
+          "accepted",
+          "rejected"
+        ],
+        "entry_requires": [
+          "production_completion.status_is_complete",
+          "production_completion.declaration.completed_reply.validation_status_is_passed",
+          "production_completion.handoff_approval.completed_reply.validation_status_is_passed",
+          "production_completion.handoff_verified_at_is_non_null"
+        ],
+        "required_matching_lineage_fields": [
+          "run_id",
+          "run_contract_id",
+          "run_contract_version",
+          "task_chat_reference",
+          "shared_context_version",
+          "material_processing_eligibility_fingerprint",
+          "source_manifest_fingerprint",
+          "source_access_policy_version",
+          "source_access_policy_fingerprint",
+          "plan_version"
+        ],
+        "decision": {
+          "run_id": null,
+          "run_contract_id": null,
+          "run_contract_version": null,
+          "task_chat_reference": null,
+          "shared_context_version": null,
+          "material_processing_eligibility_fingerprint": null,
+          "source_manifest_fingerprint": null,
+          "source_access_policy_version": null,
+          "source_access_policy_fingerprint": null,
+          "plan_version": null,
+          "decision": null,
+          "allowed_decisions": [
+            "accept",
+            "conditionally_accept_named_corrections",
+            "request_revision",
+            "reject"
+          ],
+          "named_corrections": [],
+          "corrections_verification_reference": null,
+          "final_acceptance_reference": null,
+          "reply_reference": null,
+          "validation_status": "not_run",
+          "recorded_at": null
+        }
+      },
+      "system_improvement_review_offer": {
+        "status": "not_offered",
+        "allowed_statuses": [
+          "not_offered",
+          "offered_awaiting_response",
+          "requested",
+          "declined"
+        ],
+        "entry_requires": [
+          "hitl_3.status_is_accepted",
+          "hitl_3.decision.validation_status_is_passed",
+          "hitl_3.decision.final_acceptance_reference_is_non_null",
+          "current_lineage_matches"
+        ],
+        "mandatory_question": "Would you like a separate, read-only system-improvement review covering the workflow skills and umbrella entry routing; plugin or platform adapter; AGENTS.md and agent configurations; project template, state schema and migration; validators, tests and QA; documentation; memory or other workflow-owned durable instruction stores; schedule contracts; permissions, tools, external egress and automatic behaviour; and compatibility, benefits, regressions, risks, residual risks and rollback, followed only by a versioned proposal? A yes authorises only that review and proposal; it does not authorise system-file changes, installation, publication or release, runtime activation, schedule registration or modification, an immediate run, or any added MCP server, connector, authentication, permission or external egress.",
+        "required_question_scope": [
+          "workflow_skills_and_umbrella_entry_routing",
+          "plugin_or_platform_adapter",
+          "AGENTS_md_and_agent_configurations",
+          "project_template_state_schema_and_migration",
+          "validators_tests_and_quality_assurance",
+          "documentation",
+          "memory_or_other_workflow_owned_durable_instruction_stores",
+          "schedule_contracts",
+          "permissions_tools_external_egress_and_automatic_behaviour",
+          "compatibility_benefits_regressions_risks_residual_risks_and_rollback"
+        ],
+        "ask_exactly_once": true,
+        "record_offer_before_asking": true,
+        "idempotency_key_fields": [
+          "run_id",
+          "hitl_3_final_acceptance_reference"
+        ],
+        "offer": {
+          "offer_id": null,
+          "run_id": null,
+          "run_contract_id": null,
+          "run_contract_version": null,
+          "task_chat_reference": null,
+          "shared_context_version": null,
+          "material_processing_eligibility_fingerprint": null,
+          "source_manifest_fingerprint": null,
+          "source_access_policy_version": null,
+          "source_access_policy_fingerprint": null,
+          "plan_version": null,
+          "hitl_3_final_acceptance_reference": null,
+          "question_scope_presented": [],
+          "question_text": null,
+          "offer_reference": null,
+          "offered_at": null,
+          "validation_status": "not_run"
+        },
+        "response": {
+          "run_id": null,
+          "run_contract_id": null,
+          "run_contract_version": null,
+          "task_chat_reference": null,
+          "shared_context_version": null,
+          "material_processing_eligibility_fingerprint": null,
+          "source_manifest_fingerprint": null,
+          "source_access_policy_version": null,
+          "source_access_policy_fingerprint": null,
+          "plan_version": null,
+          "decision": null,
+          "allowed_decisions": [
+            "request_read_only_system_improvement_review_and_versioned_proposal",
+            "decline_system_improvement_review"
+          ],
+          "reply_reference": null,
+          "responded_at": null,
+          "validation_status": "not_run"
+        },
+        "resume_behavior": {
+          "not_offered": "ask_once_only_after_prerequisites_pass_and_persist_offer_first",
+          "offered_awaiting_response": "resume_wait_without_reasking",
+          "requested": "close_course_run_complete_dormant_then_continue_separate_read_only_system_work_without_reasking",
+          "declined": "close_course_run_complete_dormant_without_system_action_and_do_not_reask",
+          "silence": "remain_waiting_and_record_no_decision",
+          "lineage_mismatch": "fail_closed_and_request_reconfirmation"
+        },
+        "authority_on_request": {
+          "authorises": [
+            "read_only_review_of_current_system_and_successful_run_evidence",
+            "prepare_one_versioned_system_improvement_proposal"
+          ],
+          "does_not_authorise": [
+            "create_or_modify_system_files",
+            "install_or_update_plugin",
+            "publish_or_release",
+            "activate_runtime",
+            "register_or_modify_schedule",
+            "trigger_immediate_run",
+            "add_mcp_server_connector_authentication_permission_or_external_egress"
+          ],
+          "candidate_file_changes_require": "separate_system_gate_with_APPROVE SYSTEM FILES",
+          "activation_requires": "later_separate_activation_decision",
+          "schedule_requires": "active_matching_runtime_plus_no_write_simulation_and_separate_expiring_schedule_approval",
+          "course_run_must_close_before_separate_system_work": true
+        }
+      },
+      "trigger_guidance_offer": {
+        "status": "not_offered",
+        "allowed_statuses": [
+          "not_offered",
+          "offered"
+        ],
+        "entry_requires": [
+          "system_improvement_review_offer.status_is_requested_or_declined",
+          "run.status_is_complete_dormant",
+          "termination.status_is_complete_dormant",
+          "top_level_active_run_id_is_cleared"
+        ],
+        "offer_exactly_once": true,
+        "informational_only": true,
+        "manual_trigger_guidance": "manual_trigger_available_and_always_creates_fresh_run_and_lineage_bound_to_current_eligibility_fingerprint",
+        "optional_schedule_guidance": {
+          "requires_exact_fields": [
+            "course",
+            "project",
+            "iana_timezone",
+            "recurrence",
+            "non_null_expiry"
+          ],
+          "requires_separate_system_activation_simulation_and_schedule_gates": true,
+          "no_immediate_run": true,
+          "each_recurrence_creates_fresh_run_and_lineage": true
+        },
+        "offer": {
+          "offer_id": null,
+          "run_id": null,
+          "system_improvement_response_reference": null,
+          "offer_reference": null,
+          "offered_at": null,
+          "validation_status": "not_run"
+        }
+      }
+    },
+    "resume_protocol": {
+      "schema_version": 1,
+      "checkpoint_order": [
+        "approvals.production_completion.declaration",
+        "approvals.production_completion.handoff_approval",
+        "approvals.production_completion.handoff_verified_at",
+        "approvals.hitl_3",
+        "approvals.system_improvement_review_offer",
+        "termination.status",
+        "approvals.trigger_guidance_offer"
+      ],
+      "receipt_reference_fields": [
+        "approvals.production_completion.declaration.completed_reply.reply_reference",
+        "approvals.production_completion.handoff_approval.completed_reply.reply_reference",
+        "approvals.production_completion.handoff_verified_at",
+        "approvals.hitl_3.decision.final_acceptance_reference",
+        "approvals.system_improvement_review_offer.offer.offer_reference",
+        "approvals.system_improvement_review_offer.response.reply_reference",
+        "termination.recorded_at",
+        "approvals.trigger_guidance_offer.offer.offer_reference"
+      ],
+      "rules": {
+        "persist_receipt_before_advancing_next_permitted_action": true,
+        "same_receipt_reference_is_idempotent": true,
+        "completed_checkpoint_must_not_repeat": true,
+        "resume_from_first_incomplete_checkpoint": true,
+        "current_lineage_required_before_resume": true,
+        "lineage_mismatch_fails_closed": true,
+        "silence_is_not_a_system_improvement_decision": true,
+        "complete_dormant_is_terminal_and_never_resumable": true
+      }
+    },
+    "shared_context": {
+      "version": 0,
+      "old_course_brief_reference": null,
+      "canonical_source_snapshot": [],
+      "declared_objectives": [],
+      "taught_or_inferred_outcomes": [],
+      "assessment_artifact_inventory": [],
+      "assessment_completeness_status": null,
+      "missing_assessment_artifacts_or_rules": [],
+      "alignment_ledger_reference": null,
+      "lecturer_only_assessment_questions": [],
+      "material_processing_eligibility_fingerprint": null,
+      "source_access_policy_version": null,
+      "source_access_policy_fingerprint": null,
+      "lecturer_decisions": [],
+      "open_risks": [],
+      "payload_location": "task_chat_until_exact_target_approval",
+      "updated_at": null
+    },
+    "plan_version": 0,
+    "goal_tree": {
+      "root": {
+        "id": "RUN_MAIN_GOAL",
+        "owner": "course_design_orchestrator",
+        "goal_reference": "contract.main_goal",
+        "status": "not_started",
+        "completion_criteria_reference": "contract.success_criteria"
+      },
+      "role_subgoal_count_per_active_round": {
+        "minimum": 2,
+        "maximum": 5
+      },
+      "role_branches": [
+        {
+          "id": "ORCHESTRATION",
+          "owner": "course_design_orchestrator",
+          "role_goal": "Coordinate safe progress toward the approved run goal while preserving shared state, dependencies, gates and lecturer decisions.",
+          "status": "not_started",
+          "depends_on": [],
+          "gate_dependencies": [],
+          "permitted_actions": [],
+          "completion_criteria": [],
+          "subgoals": []
+        },
+        {
+          "id": "COURSE_MAPPING",
+          "owner": "course_mapper",
+          "role_goal": "Produce a source-grounded map from stated and inferred outcomes to introduction, practice and assessment items, with source status, gaps and uncertainty explicit.",
+          "status": "not_started",
+          "depends_on": [],
+          "gate_dependencies": ["gate_1"],
+          "permitted_actions": [],
+          "completion_criteria": [],
+          "subgoals": []
+        },
+        {
+          "id": "ACTIVE_LEARNING",
+          "owner": "active_learning_researcher",
+          "role_goal": "Develop feasible active-learning options from the approved outcome-practice-assessment map without reusing teacher-only answer content, with evidence, workload and accessible low-tech alternatives.",
+          "status": "not_started",
+          "depends_on": [],
+          "gate_dependencies": ["gate_1"],
+          "permitted_actions": [],
+          "completion_criteria": [],
+          "subgoals": []
+        },
+        {
+          "id": "AI_INTEGRATION",
+          "owner": "ai_integration_researcher",
+          "role_goal": "Develop purposeful AI-competence and non-AI options within approved source-class, tool, egress, assessment-security, transparency and validity boundaries.",
+          "status": "not_started",
+          "depends_on": [],
+          "gate_dependencies": ["gate_1"],
+          "permitted_actions": [],
+          "completion_criteria": [],
+          "subgoals": []
+        },
+        {
+          "id": "STUDENT_EXPERIENCE_PROXY",
+          "owner": "student_experience_critic",
+          "role_goal": "Act as a bounded design-review proxy for clarity, workload, accessibility, inclusion and fairness without claiming to represent students.",
+          "status": "not_started",
+          "depends_on": [],
+          "gate_dependencies": ["gate_1"],
+          "permitted_actions": [],
+          "completion_criteria": [],
+          "subgoals": []
+        },
+        {
+          "id": "ASSESSMENT_LEDGER",
+          "owner": "assessment_alignment_designer",
+          "role_goal": "Own the live outcome-introduction/practice-assessment ledger from the first scan, qualify dated or partial evidence, audit coverage/demand/points/criteria/security and keep integration current as findings arrive.",
+          "status": "not_started",
+          "depends_on": [],
+          "gate_dependencies": ["gate_1"],
+          "permitted_actions": [],
+          "completion_criteria": [],
+          "subgoals": []
+        },
+        {
+          "id": "ASSESSMENT_FINAL_INTEGRATION",
+          "owner": "assessment_alignment_designer",
+          "role_goal": "Integrate assessment and constructive alignment last after all other specialist reports and relays are complete, preserving partial-evidence qualifications and teacher/student output boundaries.",
+          "status": "not_started",
+          "depends_on": [
+            "COURSE_MAPPING",
+            "ACTIVE_LEARNING",
+            "AI_INTEGRATION",
+            "STUDENT_EXPERIENCE_PROXY",
+            "ASSESSMENT_LEDGER"
+          ],
+          "gate_dependencies": ["gate_2a"],
+          "permitted_actions": [],
+          "completion_criteria": [],
+          "subgoals": []
+        },
+        {
+          "id": "SOURCE_VERIFICATION",
+          "owner": "source_verification_citation_auditor",
+          "role_goal": "Independently verify consequential claims, primary source artefacts, dates, citations, links and the separate rights boundary before Gate 2B and after consequential source corrections.",
+          "status": "not_started",
+          "depends_on": [
+            "COURSE_MAPPING",
+            "ACTIVE_LEARNING",
+            "AI_INTEGRATION",
+            "STUDENT_EXPERIENCE_PROXY",
+            "ASSESSMENT_LEDGER"
+          ],
+          "gate_dependencies": ["gate_2a"],
+          "permitted_actions": [],
+          "completion_criteria": [],
+          "subgoals": []
+        },
+        {
+          "id": "RED_TEAM",
+          "owner": "evidence_feasibility_red_team",
+          "role_goal": "Independently test the integrated dossier and block Gate 2B recommendation while any material defect remains.",
+          "status": "not_started",
+          "depends_on": ["ASSESSMENT_FINAL_INTEGRATION", "SOURCE_VERIFICATION"],
+          "gate_dependencies": ["gate_2a"],
+          "permitted_actions": [],
+          "completion_criteria": [],
+          "subgoals": []
+        },
+        {
+          "id": "BLUEPRINT",
+          "owner": "learning_designer",
+          "role_goal": "Guide lecturer decisions into one coherent, ledger-tested blueprint with unresolved risks exposed.",
+          "status": "not_started",
+          "depends_on": ["RED_TEAM"],
+          "gate_dependencies": ["gate_2b"],
+          "permitted_actions": [],
+          "completion_criteria": [],
+          "subgoals": []
+        },
+        {
+          "id": "PRODUCTION",
+          "owner": "learning_material_designer",
+          "role_goal": "Return exact-target, audience-classified artefact proposals and reproducible QA, including no-answer-leakage evidence for student-facing assessment files, without changing protected sources or exceeding write authority.",
+          "status": "not_started",
+          "depends_on": ["BLUEPRINT"],
+          "gate_dependencies": ["gate_3"],
+          "permitted_actions": [],
+          "completion_criteria": [],
+          "subgoals": []
+        },
+        {
+          "id": "ARTEFACT_INDEPENDENT_QA",
+          "owner": "artefact_accessibility_visual_qa",
+          "role_goal": "Independently reopen, render and audit exact artefacts for blueprint fidelity, accessibility, visual quality, security, links, package integrity and cross-file consistency.",
+          "status": "not_started",
+          "depends_on": ["PRODUCTION"],
+          "gate_dependencies": ["gate_3"],
+          "permitted_actions": [],
+          "completion_criteria": [],
+          "subgoals": []
+        }
+      ],
+      "open_dependencies": []
+    },
+    "coordination": {
+      "state_capsule_version": 0,
+      "shared_brief_confirmed": false,
+      "all_five_first_scan_started": false,
+      "stage_a_role_statuses": [
+        {"role_id": "course_mapper", "status": "not_started", "accepted_return_id": null},
+        {"role_id": "active_learning_researcher", "status": "not_started", "accepted_return_id": null},
+        {"role_id": "ai_integration_researcher", "status": "not_started", "accepted_return_id": null},
+        {"role_id": "student_experience_critic", "status": "not_started", "accepted_return_id": null},
+        {"role_id": "assessment_alignment_designer", "status": "not_started", "accepted_return_id": null}
+      ],
+      "allowed_stage_a_role_statuses": ["not_started", "running", "complete_accepted", "blocked"],
+      "all_five_stage_a_complete": false,
+      "gate_2a_entry_requires": [
+        "all_five_stage_a_role_statuses_are_complete_accepted",
+        "each_role_has_one_current_lineage_accepted_return_id",
+        "preliminary_summary_exchange_complete",
+        "live_alignment_ledger_started"
+      ],
+      "preliminary_summary_exchange_complete": false,
+      "live_alignment_ledger_started": false,
+      "cross_review_complete": false,
+      "assessment_final_integration_complete": false,
+      "red_team_complete": false
+    },
+    "specialist_return_envelope": {
+      "schema_version": 1,
+      "required_fields": [
+        "return_id",
+        "run_id",
+        "run_contract_id",
+        "run_contract_version",
+        "task_chat_reference",
+        "shared_context_version",
+        "material_processing_eligibility_fingerprint",
+        "source_manifest_fingerprint",
+        "source_access_policy_version",
+        "source_access_policy_fingerprint",
+        "source_classes_used",
+        "output_audience_classification",
+        "assessment_security_implications",
+        "plan_version",
+        "role_id",
+        "stage_id",
+        "subgoal_ids",
+        "status",
+        "findings_and_proposed_actions",
+        "claims",
+        "alignment_ledger_implications",
+        "dependencies_overlaps_conflicts",
+        "assumptions",
+        "lecturer_only_questions",
+        "risks",
+        "criteria_met",
+        "criteria_unmet",
+        "scope_and_completion_check",
+        "dependency_changes",
+        "proposed_replan",
+        "escalation_needed",
+        "recommended_next_action",
+        "retry_state"
+      ],
+      "allowed_statuses": [
+        "complete",
+        "partial",
+        "blocked"
+      ],
+      "task_chat_reference_rule": "required_when_runtime_exposes_one_otherwise_null_with_limit_stated",
+      "claims_item_fields": [
+        "claim",
+        "source",
+        "confidence",
+        "limitations"
+      ],
+      "lineage_must_match_current_state": [
+        "run_id",
+        "run_contract_id",
+        "run_contract_version",
+        "task_chat_reference_when_present",
+        "shared_context_version",
+        "material_processing_eligibility_fingerprint",
+        "source_manifest_fingerprint",
+        "source_access_policy_version",
+        "source_access_policy_fingerprint",
+        "plan_version"
+      ],
+      "mismatch_action": "reject_without_merge_record_rejection_and_escalate",
+      "record_schema": {
+        "return_id": null,
+        "run_id": null,
+        "run_contract_id": null,
+        "run_contract_version": null,
+        "task_chat_reference": null,
+        "shared_context_version": null,
+        "material_processing_eligibility_fingerprint": null,
+        "source_manifest_fingerprint": null,
+        "source_access_policy_version": null,
+        "source_access_policy_fingerprint": null,
+        "source_classes_used": [],
+        "output_audience_classification": null,
+        "assessment_security_implications": [],
+        "plan_version": null,
+        "role_id": null,
+        "stage_id": null,
+        "subgoal_ids": [],
+        "status": null,
+        "retry_number": 0,
+        "retry_state": {
+          "retries_used": 0,
+          "retries_remaining": 1,
+          "retry_reason": null
+        },
+        "payload_reference": null,
+        "validation_status": null,
+        "received_at": null
+      },
+      "accepted_return_records": [],
+      "rejected_return_records": [],
+      "invalidated_return_records_after_approved_context_change": []
+    },
+    "retry_policy": {
+      "max_retries_per_specialist_per_stage": 1,
+      "counter_key_fields": [
+        "role_id",
+        "stage_id"
+      ],
+      "counter_record_schema": {
+        "role_id": null,
+        "stage_id": null,
+        "retries_used": 0,
+        "retries_remaining": 1
+      },
+      "counters": [],
+      "retryable_reasons": [
+        "incomplete_return_envelope",
+        "unsupported_claim",
+        "resolvable_specialist_conflict",
+        "correctable_role_output_failure",
+        "lecturer_confirmed_context_invalidation"
+      ],
+      "history_record_schema": {
+        "retry_id": null,
+        "run_id": null,
+        "run_contract_id": null,
+        "run_contract_version": null,
+        "task_chat_reference": null,
+        "role_id": null,
+        "stage_id": null,
+        "retry_number": 1,
+        "reason": null,
+        "shared_context_version": null,
+        "material_processing_eligibility_fingerprint": null,
+        "source_manifest_fingerprint": null,
+        "source_access_policy_version": null,
+        "source_access_policy_fingerprint": null,
+        "plan_version": null,
+        "corrective_scope": null,
+        "outcome": null,
+        "escalation_reference": null,
+        "recorded_at": null
+      },
+      "history": [],
+      "on_failed_retry": "record_escalation_stop_affected_branch_and_request_lecturer_or_missing_evidence_decision",
+      "replanning_never_resets_retry_counter": true
+    },
+    "observations": [],
+    "replan_history": [],
+    "escalations": [],
+    "evaluation": {
+      "status": "not_started",
+      "success_criteria_met": [],
+      "success_criteria_unmet": [],
+      "residual_risks": [],
+      "last_evaluated_at": null
+    },
+    "next_permitted_action": "validate_current_gate_0a_eligibility_fingerprint_before_any_source_disclosure_or_access",
+    "awaited_lecturer_decision": null,
+    "handoff": {
+      "latest_path": null,
+      "verified_at": null
+    },
+    "termination": {
+      "allowed_statuses": [
+        "complete_dormant",
+        "completed",
+        "handed_off",
+        "failed_safe",
+        "cancelled",
+        "expired"
+      ],
+      "status": null,
+      "reason": null,
+      "recorded_at": null,
+      "system_improvement_response_reference": null,
+      "active_run_id_cleared_at": null,
+      "never_resume_after_terminal": true,
+      "closeout_requires_explicit_system_improvement_response": true,
+      "silence_remains_waiting": true
+    }
+  },
+  "runs": [],
+  "standing_schedule_contract_template": {
+    "contract_id": null,
+    "contract_version": null,
+    "status": "not_approved",
+    "allowed_statuses": [
+      "not_approved",
+      "active",
+      "paused",
+      "expired",
+      "cancelled"
+    ],
+    "project": {
+      "project_id": null,
+      "project_root": null
+    },
+    "course": {
+      "course_id": null,
+      "course_title": null
+    },
+    "task_type": "standalone_fresh_task_per_run",
+    "runtime_versions": {
+      "prompt_version": null,
+      "skill_name": "course-redesign-orchestrator",
+      "skill_version": null,
+      "validated_system_proposal_id": null,
+      "validated_system_proposal_version": null,
+      "activation_decision_reference": null,
+      "required_runtime_status": "active",
+      "match_rule": "values_must_match_activation.separate_activation_decision_and_top_level_status_active"
+    },
+    "baseline_approvals": {
+      "gate_0a_approval_id": null,
+      "gate_0_approval_id": null,
+      "gate_1_approval_id": null,
+      "material_processing_eligibility_fingerprint": null,
+      "source_manifest_path": null,
+      "source_manifest_fingerprint": null,
+      "source_access_policy_version": null,
+      "source_access_policy_fingerprint": null,
+      "verified_still_valid_at": null,
+      "verification_result": null
+    },
+    "canonical_mission": "Together with the lecturer, produce the strongest defensible, evidence-informed, constructively aligned and feasible redesign of this specific course for its stated learners and context—improving meaningful learning and participation, purposeful AI competence, student experience and valid assessment while preserving worthwhile existing elements and respecting accessibility, workload, rights, privacy and institutional constraints. The lecturer retains every consequential pedagogical decision.",
+    "main_goal": null,
+    "non_goals": [],
+    "success_criteria": [],
+    "stop_conditions": [],
+    "constraints": [],
+    "permitted_tools": [],
+    "permitted_actions": [],
+    "data_egress_boundary": null,
+    "permitted_source_classes": [],
+    "permitted_output_audiences": [],
+    "material_processing_eligibility_fingerprint": null,
+    "material_processing_eligibility_match_rule": "must_be_non_null_and_match_current_approved_gate_0a_before_simulation_registration_and_every_recurrence",
+    "source_access_policy_version": null,
+    "source_access_policy_fingerprint": null,
+    "source_access_policy_match_rule": "version_and_fingerprint_must_be_non_null_and_match_current_lecturer_confirmed_policy_before_registration_and_every_recurrence",
+    "assessment_security_boundary": null,
+    "protected_roots": [
+      "00_Source_Materials",
+      "00_Context"
+    ],
+    "timezone": null,
+    "timezone_requires_lecturer_confirmation": true,
+    "recurrence": [],
+    "permitted_actions_before_gate_2a": [
+      "create_fresh_run_metadata",
+      "create_fresh_trigger_id_run_id_and_lineage_with_current_material_processing_eligibility_fingerprint",
+      "validate_current_gate_0a_material_processing_eligibility",
+      "validate_standing_contract_and_reconfirmation_triggers",
+      "verify_source_manifest",
+      "verify_current_lecturer_confirmed_source_access_policy",
+      "perform_all_five_preliminary_scan_including_assessment_ledger",
+      "present_gate_2a_mission_role_contracts_and_focus"
+    ],
+    "permitted_actions_after_fresh_gate_2a_approval": [
+      "perform_approved_full_research_chat_only",
+      "cross_review_and_relay",
+      "assessment_final_integration",
+      "red_team_audit",
+      "present_gate_2b_change_cards_and_exact_proposed_targets"
+    ],
+    "permitted_actions_after_fresh_gate_2b_target_approval": [
+      "write_only_lecturer_approved_exact_research_dossier_and_research_handoff_targets_under_03_Research",
+      "do_not_produce_course_materials_or_write_under_04_Working_Copies_or_05_Approved",
+      "wait_at_gate_2b_and_end_schedule_authority"
+    ],
+    "write_authority": "research_dossier_and_research_handoff_under_03_Research_only_after_that_run_has_gate_2b_exact_research_target_approval",
+    "no_write_before_exact_target_approval": true,
+    "unique_output_naming_rule": "new_unique_03_Research/YYYY-MM-DD_<run-id>/folder_per_run_no_overwrite_or_append",
+    "first_required_wait": "GATE_2A",
+    "maximum_stage": "GATE_2B",
+    "retry_rules": {
+      "max_retries_per_specialist_per_stage": 1,
+      "counter_source": "active_run.retry_policy",
+      "on_failed_retry": "escalate_and_stop_affected_branch"
+    },
+    "escalation_rules": [
+      "missing_or_stale_baseline",
+      "source_manifest_or_context_mismatch",
+      "missing_evidence_or_repeated_failure",
+      "rights_privacy_or_data_egress_uncertainty",
+      "scope_change_or_lecturer_reserved_decision"
+    ],
+    "terminal_rules": {
+      "allowed": [
+        "complete_dormant",
+        "completed",
+        "handed_off",
+        "failed_safe",
+        "cancelled",
+        "expired"
+      ],
+      "on_or_after_expiry": "return_expired_without_course_action"
+    },
+    "no_immediate_run": true,
+    "approved_contract_snapshot_reference": null,
+    "approved_at": null,
+    "activation_time": null,
+    "expires_at": null,
+    "activation_requires_non_null_expires_at": true,
+    "required_completed_approval_lines": [
+      "APPROVE SCHEDULES",
+      "Schedule contract: <exact contract ID and version>",
+      "Expires: <exact local date and time with IANA timezone>"
+    ],
+    "last_reconfirmed_at": null,
+    "reconfirmation_history": [],
+    "expiry_behavior": "mark_contract_and_triggered_run_expired_without_course_analysis",
+    "stale_baseline_context_or_manifest_behavior": "mark_triggered_run_failed_safe_stop_and_request_lecturer_reconfirmation",
+    "reconfirmation_triggers": [
+      "contract_expiry",
+      "material_processing_eligibility_fingerprint_or_environment_policy_scope_expiry_change",
+      "canonical_source_or_hash_change",
+      "course_context_outcome_or_assessment_change",
+      "objective_test_key_rubric_or_source_classification_change",
+      "source_access_role_tool_egress_or_output_audience_change",
+      "data_classification_rights_or_institutional_policy_change",
+      "approved_tool_or_data_egress_change",
+      "schedule_scope_or_autonomy_bound_change"
+    ],
+    "pause": {
+      "requires_lecturer_direction": true,
+      "action": "disable_future_triggers_preserve_contract_and_run_history",
+      "status": "available",
+      "lecturer_direction_reference": null,
+      "paused_at": null
+    },
+    "renew": {
+      "status": "not_requested",
+      "requires_new_contract_version": true,
+      "requires_new_expiry": true,
+      "requires_no_write_simulation": true,
+      "requires_all_three_completed_approval_lines": true,
+      "renewal_history": []
+    },
+    "rollback": {
+      "status": "not_requested",
+      "requires_lecturer_direction": true,
+      "action": "disable_schedule_restore_last_approved_contract_snapshot_and_preserve_run_history",
+      "rollback_reference": null,
+      "rolled_back_at": null
+    },
+    "activation_requires": [
+      "contract_id_and_version",
+      "active_runtime_status_and_matching_validated_system_proposal_id_version",
+      "project_course_and_standalone_task_type",
+      "prompt_and_skill_versions",
+      "still_valid_gate_0a_gate_0_and_gate_1_approval_ids",
+      "non_null_current_material_processing_eligibility_fingerprint",
+      "timezone_recurrence_activation_time_and_expiry",
+      "permitted_tools_actions_and_data_egress_boundary",
+      "non_null_matching_source_access_policy_version_fingerprint_source_classes_output_audiences_and_assessment_security_boundary",
+      "protected_root_and_exact_write_boundary",
+      "gate_2a_first_wait_and_gate_2b_maximum",
+      "retry_escalation_and_terminal_rules",
+      "pause_renew_rollback_and_no_immediate_run",
+      "successful_no_write_simulation",
+      "three_matching_completed_approval_lines"
+    ],
+    "lecturer_approval": {
+      "status": "pending",
+      "reply_must_contain_exactly_and_only_three_lines": true,
+      "line_1": null,
+      "line_2": null,
+      "line_3": null,
+      "completed_reply_reference": null,
+      "validation_status": "not_run",
+      "recorded_at": null
+    },
+    "status_transition_receipt": {
+      "status": null,
+      "allowed_statuses": [
+        "paused",
+        "expired",
+        "cancelled"
+      ],
+      "reason": null,
+      "decision_or_detection_reference": null,
+      "recorded_at": null,
+      "future_triggers_disabled": null,
+      "no_course_action": null,
+      "triggered_run_id": null,
+      "preserved_contract_snapshot_reference": null
+    },
+    "status_history": []
+  },
+  "open_questions": [
+    "Before disclosing any source detail, which material category and exact processing-environment category apply for Gate 0A?",
+    "Which learning-objectives file/version is authoritative and current?",
+    "What is the current assessment status, purpose, stakes, weighting, grading conversion and pass rule?",
+    "Are all supplied assessment files complete, and which are student-facing versus lecturer-only?",
+    "What rubrics, acceptable-answer guidance and partial-credit rules apply?",
+    "Which roles and tools may access each protected source class, may any content leave the device, and which output audiences are permitted?",
+    "Which IANA timezone and, if later approved, recurrence and expiry should a standing schedule use?"
+  ],
+  "schedules": []
+}
