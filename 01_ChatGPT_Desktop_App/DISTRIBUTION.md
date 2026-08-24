@@ -2,16 +2,16 @@
 
 ## Current release state
 
-- Current GitHub repository and OpenAI Plugins Directory release: `0.2.3`, published with
+- Current GitHub repository and OpenAI Plugins Directory release: `0.2.4`, published with
   matching archive, checksum, inventory and validation evidence; inactive by
   default and not thereby installed, activated, or scheduled.
-- Inactive maintenance candidate: `0.2.4` under
-  `ACR-SYS-20260822-007`; not committed, uploaded, published, installed,
-  activated or scheduled.
+- Inactive OpenAI/Codex description-maintenance candidate: package `0.2.5`
+  under `ACR-SYS-20260825-009`, over unchanged workflow `0.2.4`; not committed,
+  uploaded, published, installed, activated or scheduled.
 - Public repository:
   <https://github.com/gpochs/Agentic-Course-Redesign-System>.
 - GitHub repository verified public: **yes**.
-- Current repository release: `v0.2.3`.
+- Current repository release: `v0.2.4`.
 - `v0.2.1` tag, release assets and checksums remain published. The live release
   reports `immutable=false`; its attached system validation JSON names and
   hashes a v0.2.0 archive, so that attachment is not matching v0.2.1 evidence.
@@ -25,10 +25,11 @@
   skills were available. It is not evidence that v0.2.3 or another host is
   installed or loaded.
 - `v0.2.3` tag and matching release assets: **published**.
-- OpenAI v0.2.3 upload, review and publisher publication: **complete**; the
-  OpenAI Platform currently shows `0.2.3` as **Published** with a live
+- `v0.2.4` tag and matching release assets: **published**.
+- OpenAI v0.2.4 upload, review and publisher publication: **complete**; the
+  OpenAI Platform currently shows `0.2.4` as **Published** with a live
   **View in Directory** link.
-- OpenAI v0.2.4 draft upload, scan/review and publication: **not started**.
+- OpenAI v0.2.5 draft upload, scan/review and publication: **not started**.
 
 ## What the repository can enable
 
@@ -67,11 +68,11 @@ For the next skills-only public version, the owner must:
 8. after approval, explicitly publish the approved version and verify its live
    directory version.
 
-Do not remove or unpublish v0.2.3 before this process. The plugin-level upload
+Do not remove or unpublish v0.2.4 before this process. The plugin-level upload
 route permits a new draft while the current version stays published. Use
 **Unpublish** only for a deliberate delisting or emergency rollback. The
 repository includes prepared review assets, but it does not invent publisher,
-support, legal, territory or attestation values for v0.2.4.
+support, legal, territory or attestation values for v0.2.5.
 
 ## Package contents
 
@@ -82,11 +83,11 @@ memory, or standing automation. Installation alone performs no course action.
 The custom marketplace retains the pre-existing
 `policy.authentication: ON_INSTALL` host install-policy metadata. It is not a
 plugin/provider authentication capability or bundled credential surface, and
-neither v0.2.3 nor the inactive v0.2.4 candidate adds an authentication
+neither v0.2.4 nor the inactive v0.2.5 candidate adds an authentication
 mechanism.
 
-The inactive v0.2.4 candidate custom and public-source runtime trees are kept
-byte-identical;
+The inactive v0.2.5 candidate custom and public-source runtime trees are kept
+byte-identical. Its six skill trees are also byte-for-byte identical to v0.2.4;
 the public source is at
 `openai-submission/source/agentic-course-redesign/`. Reviewer material is kept
 outside that source at `openai-submission/review/`, so it is not accidentally
@@ -96,22 +97,24 @@ included as runtime instruction.
 
 Describe the current state as:
 
-> a published v0.2.3 OpenAI and GitHub skills-only plugin, plus an inactive
-> v0.2.4 interaction-only candidate that asks one consequential question at a
-> time and uses a card only when the live host contract can present the complete
+> a published v0.2.4 OpenAI and GitHub skills-only plugin, plus an inactive
+> v0.2.5 description-only package candidate over the same workflow. Both ask
+> one consequential question at a
+> time and use a card only when the live host contract can present the complete
 > option set plus a custom answer. The current verified Codex contract permits
 > exactly two or three explicit choices and adds free-form `Other`; Work's exact
 > maximum is not independently documented or exposed here. Unknown,
 > unavailable or exceeded capacity falls back to the same single ordinary-chat
 > question with every valid numbered choice plus `Other`, followed by a wait;
 > valid choices are never pruned, hidden or combined to fit a card, and long
-> dependency-based chunks keep every option visible and under lecturer control;
-> neither version registers
-> automation by publication
+> dependency-based chunks keep every option visible and under lecturer control.
+> The v0.2.5 description uses durable `◆` and `•` separators so this structure
+> survives clients that collapse line breaks; neither version registers
+> automation by publication.
 
 Describe a version as installed only for an exact verified host. Describe
-v0.2.3 as publicly available because its live directory entry is verified; do
-not describe v0.2.4 as public until its separate update draft, checks and
+v0.2.4 as publicly available because its live directory entry is verified; do
+not describe v0.2.5 as public until its separate update draft, checks and
 publisher publication are complete.
 
 Before uploading any later release, run `validation/validate_release_evidence.py`

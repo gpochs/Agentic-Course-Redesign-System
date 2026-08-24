@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.2.5 (inactive OpenAI/Codex candidate) - 2026-08-25
+
+- Replaces Markdown-dependent public-description bullets with `◆` section and
+  `•` item separators that remain legible when a client collapses line breaks.
+- Preserves the v0.2.4 wording, workflow claims, ten specialist roles, gates,
+  decision dialogue and boundary.
+- Keeps all six skill trees byte-for-byte unchanged and leaves the shared core,
+  course template, other adapters and GitHub Copilot `0.2.4-copilot.2`
+  unchanged.
+- Adds no course-material, schedule, MCP, connector, authentication, hook,
+  telemetry, permission, external-egress, installation or activation change.
+- Preserves published and installed OpenAI/Codex v0.2.4 until a separate
+  exact-version publication and installation decision is approved and verified.
+
 ## 0.2.4-copilot.2 - 2026-08-22
 
 - Adds a Copilot-only transport compatibility override for GitHub Copilot App

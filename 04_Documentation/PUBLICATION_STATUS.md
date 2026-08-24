@@ -35,6 +35,12 @@ locally in Codex with its six skills enabled. It was uploaded as a new version
 under the existing plugin without deleting or unpublishing `0.2.3` first;
 `0.2.3` remains the preceding published rollback source.
 
+OpenAI/Codex package `0.2.5` is an inactive description-only candidate under
+proposal `ACR-SYS-20260825-009`. It preserves the v0.2.4 workflow and all six
+skill trees byte-for-byte and has not been committed, tagged, uploaded,
+published, installed or activated. Published and installed v0.2.4 remains its
+rollback source.
+
 On surfaces that flatten skills-only bundles, the umbrella is shown as the
 orchestrator skill rather than a separate parent row. Every local 0.2.4
 installation still requires an exact-version, post-restart, fresh-task picker

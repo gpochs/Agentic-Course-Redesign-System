@@ -14,6 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 CURRENT_VERSION = "0.2.4"
+CURRENT_OPENAI_PACKAGE_VERSION = "0.2.5"
 CURRENT_STATE_SCHEMA = 8
 CURRENT_PROPOSAL = "ACR-SYS-20260822-007"
 CURRENT_COPILOT_PACKAGE_VERSION = "0.2.4-copilot.1"
@@ -950,7 +951,10 @@ def scan(private_denylist: list[str] | None = None) -> dict[str, object]:
         findings.append({"path": relative(chatgpt_manifest), "kind": "missing_chatgpt_plugin_manifest"})
     else:
         plugin_data = json.loads(chatgpt_manifest.read_text(encoding="utf-8"))
-        if plugin_data.get("name") != "agentic-course-redesign" or plugin_data.get("version") != CURRENT_VERSION:
+        if (
+            plugin_data.get("name") != "agentic-course-redesign"
+            or plugin_data.get("version") != CURRENT_OPENAI_PACKAGE_VERSION
+        ):
             findings.append({"path": relative(chatgpt_manifest), "kind": "chatgpt_plugin_identity_mismatch"})
         if plugin_data.get("interface", {}).get("displayName") != "Agentic Course Redesign":
             findings.append({"path": relative(chatgpt_manifest), "kind": "chatgpt_plugin_display_name_mismatch"})

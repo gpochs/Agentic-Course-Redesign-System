@@ -14,6 +14,8 @@ from unittest import mock
 
 
 PLUGIN = Path(__file__).resolve().parent.parent
+OPENAI_PACKAGE_VERSION = "0.2.5"
+BASE_WORKFLOW_VERSION = "0.2.4"
 
 
 def load(name: str, relative: str):
@@ -1026,7 +1028,7 @@ class StateTests(unittest.TestCase):
 
 
 class DistributionTests(unittest.TestCase):
-    def test_v024_manifest_and_marketplace_metadata(self):
+    def test_v025_manifest_and_marketplace_metadata(self):
         system_root = PLUGIN.parents[1]
         plugin_manifest = json.loads(
             (PLUGIN / ".codex-plugin/plugin.json").read_text(encoding="utf-8")
@@ -1035,7 +1037,7 @@ class DistributionTests(unittest.TestCase):
             (system_root / ".agents/plugins/marketplace.json").read_text(encoding="utf-8")
         )
         interface = plugin_manifest["interface"]
-        self.assertEqual(plugin_manifest["version"], "0.2.4")
+        self.assertEqual(plugin_manifest["version"], OPENAI_PACKAGE_VERSION)
         self.assertEqual(
             plugin_manifest["repository"],
             "https://github.com/gpochs/Agentic-Course-Redesign-System",
@@ -1048,11 +1050,11 @@ class DistributionTests(unittest.TestCase):
         )
         self.assertEqual(
             interface["privacyPolicyURL"],
-            "https://github.com/gpochs/Agentic-Course-Redesign-System/blob/v0.2.4/docs/PRIVACY.md",
+            "https://github.com/gpochs/Agentic-Course-Redesign-System/blob/v0.2.5/docs/PRIVACY.md",
         )
         self.assertEqual(
             interface["termsOfServiceURL"],
-            "https://github.com/gpochs/Agentic-Course-Redesign-System/blob/v0.2.4/docs/TERMS.md",
+            "https://github.com/gpochs/Agentic-Course-Redesign-System/blob/v0.2.5/docs/TERMS.md",
         )
         self.assertNotIn("supportURL", interface)
         self.assertEqual(interface["category"], "Education & Research")
@@ -1060,8 +1062,10 @@ class DistributionTests(unittest.TestCase):
         self.assertLessEqual(len(interface["displayName"]), 30)
         self.assertLessEqual(len(interface["shortDescription"]), 30)
         description = interface["longDescription"]
+        flattened_description = " ".join(description.split())
         self.assertLessEqual(len(description), 2400)
-        self.assertGreaterEqual(description.count("\n- "), 10)
+        self.assertEqual(description.count("◆"), 5)
+        self.assertGreaterEqual(description.count("•"), 10)
         self.assertNotRegex(description, r"\bWork\b")
         required_listing_markers = (
             "LECTURER / TEACHER CONTROL",
@@ -1102,7 +1106,7 @@ class DistributionTests(unittest.TestCase):
             system_root / "openai-submission/review/LISTING_COPY.md"
         ).read_text(encoding="utf-8")
         for marker in required_listing_markers:
-            self.assertIn(marker, description)
+            self.assertIn(marker, flattened_description)
             self.assertIn(marker, listing_copy)
         self.assertEqual(len(interface["defaultPrompt"]), 3)
         self.assertTrue(all("@" not in item and len(item) <= 128 for item in interface["defaultPrompt"]))
@@ -1228,8 +1232,8 @@ class DistributionTests(unittest.TestCase):
         checklist = (review / "LISTING_METADATA_CHECKLIST.md").read_text(encoding="utf-8")
         self.assertGreaterEqual(len(cases["positive_cases"]), 5)
         self.assertGreaterEqual(len(cases["negative_cases"]), 3)
-        self.assertEqual(cases["version"], "0.2.4")
-        self.assertEqual(prompts["version"], "0.2.4")
+        self.assertEqual(cases["version"], OPENAI_PACKAGE_VERSION)
+        self.assertEqual(prompts["version"], OPENAI_PACKAGE_VERSION)
         self.assertEqual(len(prompts["prompts"]), 3)
         for marker in (
             "[VERIFIED_PUBLISHER_NAME]",
@@ -1241,14 +1245,15 @@ class DistributionTests(unittest.TestCase):
         ):
             self.assertIn(marker, checklist)
 
-    def test_template_version_matches_plugin(self):
+    def test_package_version_is_separate_from_workflow_base(self):
         state = json.loads(
             (PLUGIN / "assets/project-template/01_Control/state.json").read_text(encoding="utf-8")
         )
         manifest_data = json.loads(
             (PLUGIN / ".codex-plugin/plugin.json").read_text(encoding="utf-8")
         )
-        self.assertEqual(state["plugin_version"], manifest_data["version"])
+        self.assertEqual(manifest_data["version"], OPENAI_PACKAGE_VERSION)
+        self.assertEqual(state["plugin_version"], BASE_WORKFLOW_VERSION)
 
     def test_release_evidence_rejects_stale_report(self):
         with tempfile.TemporaryDirectory() as temporary:

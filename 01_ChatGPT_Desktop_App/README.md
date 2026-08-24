@@ -1,10 +1,11 @@
 # Agentic Course Redesign System
 
-Version `0.2.3` is the current published GitHub and OpenAI Plugins Directory
-release for lecturer-controlled, evidence-led course redesign. Version `0.2.4`
-is an inactive, interaction-only maintenance candidate under proposal
-`ACR-SYS-20260822-007`; it has not been committed, uploaded, published,
-installed or activated. The preserved `v0.2.3` release is its rollback base.
+Version `0.2.4` is the current published GitHub and OpenAI Plugins Directory
+release for lecturer-controlled, evidence-led course redesign. OpenAI/Codex
+package `0.2.5` is an inactive, description-only maintenance candidate under
+proposal `ACR-SYS-20260825-009`; it has not been committed, uploaded, published,
+installed or activated. The preserved v0.2.4 package is its rollback base and
+its unchanged semantic workflow.
 Publication or installation does not activate a course runtime, register a
 schedule, or start a course run. The system is course-independent: every fresh
 run adapts to the supplied subject,
@@ -14,17 +15,17 @@ constraints.
 Public repository:
 <https://github.com/gpochs/Agentic-Course-Redesign-System>.
 
-The historical v0.2.1 and v0.2.2 tags, assets and checksums remain unchanged.
-The OpenAI Platform currently shows Agentic Course Redesign `0.2.3` as
+The historical v0.2.1 through v0.2.3 tags, assets and checksums remain unchanged.
+The OpenAI Platform currently shows Agentic Course Redesign `0.2.4` as
 **Published** with a live directory link. The existing plugin page exposes a
-plugin-level **Upload** route for a new draft. Therefore a v0.2.4 update should
+plugin-level **Upload** route for a new draft. Therefore a v0.2.5 update should
 be uploaded under that existing plugin and validated before publication; do not
-delete or unpublish v0.2.3 first. The separate **Unpublish** action is a
+delete or unpublish v0.2.4 first. The separate **Unpublish** action is a
 delisting/rollback control, not the normal version-update step.
 
 ## What is installable now
 
-Participants can install the published v0.2.3 listing from the public Plugins
+Participants can install the published v0.2.4 listing from the public Plugins
 Directory on supported ChatGPT/Work/Codex desktop surfaces when their account,
 workspace policy and app version permit. The checked-out or extracted
 repository also remains a valid custom marketplace source. Some Codex CLI
@@ -41,8 +42,8 @@ See `INSTALLATION.md` for the current directory and pinned public-GitHub routes.
 A GitHub repository can distribute the custom marketplace, but GitHub
 publication alone does not update the independently published OpenAI listing.
 
-The preserved operational v0.2.3 package remains the rollback baseline while
-v0.2.4 is validated. No v0.2.4 installation, picker result or public listing is
+The preserved operational v0.2.4 package remains the rollback baseline while
+v0.2.5 is validated. No v0.2.5 installation, picker result or public listing is
 claimed until the later exact-version activation and publication steps are
 completed and checked in a fresh task.
 On builds that flatten skills-only
@@ -103,7 +104,8 @@ provider, credential or account integration.
 - `.agents/plugins/marketplace.json`: custom repo marketplace for Work mode and
   Codex in the ChatGPT desktop app, and for CLI builds that expose marketplace
   discovery.
-- `plugins/agentic-course-redesign/`: inactive v0.2.4 candidate source with six skills,
+- `plugins/agentic-course-redesign/`: inactive OpenAI/Codex v0.2.5 package
+  candidate over workflow v0.2.4, with six unchanged skills,
   scripts, project template, tests, and square SVG branding assets.
 - `openai-submission/source/agentic-course-redesign/`: separate skills-only
   public-submission source tree, with no MCP, app, hook, or screenshot payload.

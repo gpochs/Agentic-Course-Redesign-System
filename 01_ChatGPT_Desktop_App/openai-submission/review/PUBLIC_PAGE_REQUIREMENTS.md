@@ -11,7 +11,7 @@ documentation link, publisher identity, support link, privacy link, terms link,
 and an honest statement that installation does not activate a runtime or
 schedule. Do not imply OpenAI endorsement.
 
-While the update is pending, identify v0.2.3 as public and v0.2.4 as an inactive
+While the update is pending, identify v0.2.4 as public and v0.2.5 as an inactive
 candidate. Do not claim that creating or uploading a draft updates the live
 directory.
 
@@ -26,7 +26,7 @@ email address or response-time promise.
 
 Accurately cover at least:
 
-- that the v0.2.4 candidate, like public v0.2.3, is skills-only and bundles no publisher-run MCP
+- that the v0.2.5 candidate, like public v0.2.4, is skills-only and bundles no publisher-run MCP
   server, authentication, account, telemetry, or connector;
 - what local or cloud-synchronised course files the host may access when the
   lecturer authorises them;
@@ -51,5 +51,5 @@ Have qualified counsel review the final page when appropriate.
 The four pages, manifest publisher fields, portal developer identity, GitHub
 repository, release notes, and selected countries/regions must not conflict.
 Revalidate the final plugin after adding the URLs to the public manifest.
-Use the existing plugin's **Upload** route for the later v0.2.4 draft; do not
-unpublish v0.2.3 as part of the normal update flow.
+Use the existing plugin's **Upload** route for the later v0.2.5 draft; do not
+unpublish v0.2.4 as part of the normal update flow.

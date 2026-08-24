@@ -1,7 +1,8 @@
 # OpenAI skills-only submission workspace
 
-This directory prepares, but does not perform, the v0.2.4 update to the already
-published Agentic Course Redesign v0.2.3 public listing.
+This directory prepares, but does not perform, the description-only v0.2.5
+update to the already published Agentic Course Redesign v0.2.4 public listing.
+The package retains the v0.2.4 workflow and all six skill trees byte-for-byte.
 
 - `source/agentic-course-redesign/` is the single plugin root to package. It
   contains `.codex-plugin/plugin.json`, six immediate `skills/` children, and
@@ -18,8 +19,8 @@ The source intentionally contains no `.mcp.json`, `.app.json`, `mcpServers`,
 validation rules.
 
 The OpenAI Platform's existing plugin page exposes a plugin-level **Upload**
-route. For the later authorised update, keep v0.2.3 published and use **Upload**
-to create the v0.2.4 draft under the same plugin. Do not delete or unpublish the
+route. For the later authorised update, keep v0.2.4 published and use **Upload**
+to create the v0.2.5 draft under the same plugin. Do not delete or unpublish the
 old version first. **Unpublish** is a deliberate delisting control, not the
 normal update step.
 

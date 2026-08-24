@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "plugin": "agentic-course-redesign",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "fixture_note": "All fixture files are synthetic, public-safe, and require no account or authentication.",
   "positive_cases": [
     {

@@ -1,11 +1,12 @@
 # Rollback and recovery
 
-Current candidate: `ACR-SYS-20260822-007` version `0.2.4`.
+Current candidate: `ACR-SYS-20260825-009` OpenAI/Codex package version `0.2.5`
+over workflow base `0.2.4`.
 
-The exact current rollback procedure is in `ROLLBACK_v0.2.4.md`. Preserve the
-published GitHub/OpenAI/Codex v0.2.3 artifacts and GitHub Copilot
-`0.2.3-copilot.1`; do not unpublish the current OpenAI version merely to prepare
-an update draft.
+The exact current rollback procedure is in `ROLLBACK_v0.2.5.md`. Preserve the
+published and installed OpenAI/Codex v0.2.4 package and GitHub Copilot
+`0.2.4-copilot.2`; do not unpublish the current OpenAI version merely to prepare
+the description-only candidate.
 
 ## Before activation
 

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "plugin": "agentic-course-redesign",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "prompts": [
     "Guide me through processing eligibility one question at a time, then set up one protected course.",
     "Audit an eligible, approved course for evidence-based redesign priorities.",

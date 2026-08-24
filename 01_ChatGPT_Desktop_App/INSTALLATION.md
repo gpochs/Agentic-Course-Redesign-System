@@ -2,10 +2,11 @@
 
 ## Status first
 
-Version `0.2.3` is the current published GitHub release and published OpenAI
-Plugins Directory version. Version `0.2.4` is only an inactive source
+Version `0.2.4` is the current published GitHub release and published OpenAI
+Plugins Directory version. OpenAI/Codex package `0.2.5` is only an inactive
+description-only source
 candidate: it is not yet uploaded, published, installed, enabled or live in a
-picker. Keep using v0.2.3 until the later v0.2.4 publication and exact-version
+picker. Keep using v0.2.4 until the later v0.2.5 publication and exact-version
 smoke test finish. Host evidence never generalises to other users, devices,
 accounts or workspaces.
 Publishing any release does not
@@ -22,16 +23,16 @@ installation should expose the umbrella entry and all six bundled skills.
 Workspace policy, app version and account entitlements may still hide or block
 the listing.
 
-When v0.2.4 is ready, the publisher should update the existing OpenAI plugin:
+When v0.2.5 is ready, the publisher should update the existing OpenAI plugin:
 
-1. keep published v0.2.3 available;
+1. keep published v0.2.4 available;
 2. open the existing plugin page and choose its plugin-level **Upload** action;
-3. upload the exact validated v0.2.4 skills-only ZIP as a new draft;
+3. upload the exact validated v0.2.5 skills-only ZIP as a new draft;
 4. recheck publisher metadata, prompts, tests, regions and attestations;
-5. pass the platform scan/review flow and explicitly publish v0.2.4; and
+5. pass the platform scan/review flow and explicitly publish v0.2.5; and
 6. verify the live directory version before updating availability claims.
 
-Do not unpublish or delete v0.2.3 first. Use **Unpublish** only when the owner
+Do not unpublish or delete v0.2.4 first. Use **Unpublish** only when the owner
 deliberately wants to delist the current public version or an emergency rollback
 requires it.
 
@@ -76,11 +77,11 @@ An installed app or CLI build that exposes repository marketplaces may use
 this pinned public source:
 
 ```text
-codex plugin marketplace add gpochs/Agentic-Course-Redesign-System --ref v0.2.3
+codex plugin marketplace add gpochs/Agentic-Course-Redesign-System --ref v0.2.4
 ```
 
 Then restart the ChatGPT desktop app, select the new marketplace source, install
-the plugin, and start a new chat. Use this pinned v0.2.3 command until a v0.2.4
+the plugin, and start a new chat. Use this pinned v0.2.4 command until a later
 GitHub release is separately published. Use the command only when the installed CLI
 actually exposes `codex plugin marketplace`. Otherwise use the supported
 ChatGPT Desktop marketplace UI or the portable project-template fallback; an
@@ -96,10 +97,10 @@ A workspace admin may publish an installed local plugin to selected workspace
 roles if workspace policy permits. That makes it a workspace plugin only. It
 does not publish the plugin to OpenAI's universal public directory.
 
-The public v0.2.3 listing was created through the separate OpenAI Platform flow.
+The public v0.2.4 listing was created through the separate OpenAI Platform flow.
 Every later public version still requires a new plugin-level upload draft,
 automated checks and the applicable publisher review/publish flow. See
-`openai-submission/review/LISTING_METADATA_CHECKLIST.md` for the v0.2.4 update
+`openai-submission/review/LISTING_METADATA_CHECKLIST.md` for the v0.2.5 update
 checks.
 
 ## Start one isolated course

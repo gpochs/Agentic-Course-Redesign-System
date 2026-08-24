@@ -19,8 +19,10 @@ REVIEW = ROOT / "openai-submission" / "review"
 EXPECTED_REPOSITORY = "https://github.com/gpochs/Agentic-Course-Redesign-System"
 EXPECTED_PUBLISHER = "GIAN PETER OCHSNER"
 EXPECTED_WEBSITE = EXPECTED_REPOSITORY
-EXPECTED_PRIVACY = f"{EXPECTED_REPOSITORY}/blob/v0.2.4/docs/PRIVACY.md"
-EXPECTED_TERMS = f"{EXPECTED_REPOSITORY}/blob/v0.2.4/docs/TERMS.md"
+OPENAI_PACKAGE_VERSION = "0.2.5"
+BASE_WORKFLOW_VERSION = "0.2.4"
+EXPECTED_PRIVACY = f"{EXPECTED_REPOSITORY}/blob/v{OPENAI_PACKAGE_VERSION}/docs/PRIVACY.md"
+EXPECTED_TERMS = f"{EXPECTED_REPOSITORY}/blob/v{OPENAI_PACKAGE_VERSION}/docs/TERMS.md"
 EXPECTED_SKILLS = {
     "course-redesign-assessment",
     "course-redesign-materials",
@@ -28,6 +30,20 @@ EXPECTED_SKILLS = {
     "course-redesign-research",
     "course-redesign-setup",
     "course-redesign-system",
+}
+EXPECTED_SKILL_TREE = {
+    "course-redesign-assessment/SKILL.md": "D5CD1CEB5599C0A8AEC524D4A14EDEAEAF8003D5CDEBC727F08FCA92FCA7EA92",
+    "course-redesign-assessment/agents/openai.yaml": "99C9A0CDD4F77C25F5E95E08CE186F61F26F594B71842ADCEFD35D0EA05BCB9D",
+    "course-redesign-materials/SKILL.md": "9E8EDF03FEB861F0C573C0FC349721F892CE1A41218996677D498B3B6E0B4FC2",
+    "course-redesign-materials/agents/openai.yaml": "A3875FF6A5578D3F2682F25220FF6980D5E05EAA706197C9337BA5DD8ADB6604",
+    "course-redesign-orchestrator/SKILL.md": "3EA1B3E886A4D48278F0DFAD76EBAD4A11EA679D1C3D5D0586CCF3DCA5BC8C70",
+    "course-redesign-orchestrator/agents/openai.yaml": "25FFAEECEE576DC7F30FE8048CB90891D4E572B30583025AAEB926AE8FD3BF10",
+    "course-redesign-research/SKILL.md": "8FB45D10BF88B981BAB861A5CB89402E9E6DF7C76E7ECD95D1230A4E47F61E5A",
+    "course-redesign-research/agents/openai.yaml": "FB892DB9BEF735D1469688D809A0B7AD471F6D17C03A52F8ABAD97D5EDC7537F",
+    "course-redesign-setup/SKILL.md": "8B05EE5FABDD3DBAB6B0B03EB813ACBA0F1012C2E7EFD58E8150DA5EA7C9D524",
+    "course-redesign-setup/agents/openai.yaml": "DE5AA571087522017783BBE0D3F104B9D6AD2BA661A556977A9866B95110CED8",
+    "course-redesign-system/SKILL.md": "0FBD735A1AF4CB2424943E527B1857D0B7FBE76E59DD586B368EE7390A12EE75",
+    "course-redesign-system/agents/openai.yaml": "2A58F3C0CE5BA4B7A10D87B89A9A5EC656B0A77E15F9EF9C60E1FB8ED8031104",
 }
 RUNTIME_TREES = (".codex-plugin", "assets", "scripts", "skills")
 DISALLOWED_MANIFEST_KEYS = {
@@ -55,8 +71,8 @@ OWNER_BLOCKERS = [
     "re-confirm the owning OpenAI organization/project and Apps Management Write submitter",
     "re-confirm that the published website, support, privacy-policy, and terms HTTPS pages remain accurate",
     "re-confirm supported countries or regions",
-    "complete the v0.2.4 policy attestations",
-    "run the OpenAI v0.2.4 skill safety/security scans and complete review",
+    "complete the v0.2.5 policy attestations",
+    "run the OpenAI v0.2.5 skill safety/security scans and complete review",
 ]
 
 
@@ -152,7 +168,7 @@ def main() -> int:
     interface = manifest.get("interface", {})
 
     check("stable package name", manifest.get("name") == "agentic-course-redesign")
-    check("v0.2.4 semantic version", manifest.get("version") == "0.2.4")
+    check("v0.2.5 OpenAI package version", manifest.get("version") == OPENAI_PACKAGE_VERSION)
     check(
         "valid package name syntax",
         bool(re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,63}", str(manifest.get("name", "")))),
@@ -170,6 +186,7 @@ def main() -> int:
     check("display name length", 0 < len(interface.get("displayName", "")) <= 30)
     check("short description length", 0 < len(interface.get("shortDescription", "")) <= 30)
     long_description = interface.get("longDescription", "")
+    flattened_description = re.sub(r"\s+", " ", long_description).strip()
     check("long description present", 0 < len(long_description) <= 4000)
     listing_markers = (
         "LECTURER / TEACHER CONTROL",
@@ -209,12 +226,13 @@ def main() -> int:
     check(
         "compact scannable public description",
         len(long_description) <= 2400
-        and long_description.count("\n- ") >= 10
+        and long_description.count("◆") == 5
+        and long_description.count("•") >= 10
         and all(heading in long_description for heading in ("SPECIALIST TEAM (10)", "GATED WORKFLOW", "DECISION DIALOGUE", "BOUNDARY")),
     )
     check(
         "public description preserves roles, lifecycle and dialogue contract",
-        all(marker in long_description for marker in listing_markers),
+        all(marker in flattened_description for marker in listing_markers),
     )
     check(
         "public description makes no unsupported Work cardinality claim",
@@ -228,8 +246,8 @@ def main() -> int:
     )
     check("published developer identity", interface.get("developerName") == EXPECTED_PUBLISHER)
     check("website URL matches repository root", interface.get("websiteURL") == EXPECTED_WEBSITE)
-    check("privacy URL is pinned to v0.2.4", interface.get("privacyPolicyURL") == EXPECTED_PRIVACY)
-    check("terms URL is pinned to v0.2.4", interface.get("termsOfServiceURL") == EXPECTED_TERMS)
+    check("privacy URL is pinned to v0.2.5", interface.get("privacyPolicyURL") == EXPECTED_PRIVACY)
+    check("terms URL is pinned to v0.2.5", interface.get("termsOfServiceURL") == EXPECTED_TERMS)
     capabilities = interface.get("capabilities", [])
     check("capability count and shape", isinstance(capabilities, list) and len(capabilities) <= 20 and all(isinstance(item, str) and 0 < len(item) <= 120 for item in capabilities))
 
@@ -274,6 +292,16 @@ def main() -> int:
         path.parent.name for path in (PUBLIC_PLUGIN / "skills").glob("*/SKILL.md")
     }
     check("exact six public skills", actual_skills == EXPECTED_SKILLS, f"actual={sorted(actual_skills)}")
+    custom_skill_records = tree_records(CUSTOM_PLUGIN / "skills")
+    public_skill_records = tree_records(PUBLIC_PLUGIN / "skills")
+    check(
+        "all six custom skill trees are byte-for-byte unchanged from v0.2.4",
+        custom_skill_records == EXPECTED_SKILL_TREE,
+    )
+    check(
+        "all six public skill trees are byte-for-byte unchanged from v0.2.4",
+        public_skill_records == EXPECTED_SKILL_TREE,
+    )
     check(
         "custom and public runtime trees are byte-identical",
         runtime_records(CUSTOM_PLUGIN) == runtime_records(PUBLIC_PLUGIN),
@@ -375,6 +403,10 @@ def main() -> int:
         "system_improvement_review_offer", {}
     )
     check("public template uses state schema 8", public_state.get("schema_version") == 8)
+    check(
+        "public template preserves v0.2.4 workflow base",
+        public_state.get("plugin_version") == BASE_WORKFLOW_VERSION,
+    )
     check("public template remains inactive", public_state.get("status") == "candidate_not_active")
     check("public template registers no schedule", public_state.get("schedules") == [])
     eligibility = public_state.get("material_processing_eligibility", {})

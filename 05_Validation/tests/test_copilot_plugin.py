@@ -26,6 +26,7 @@ CODEX_PLUGIN = (
 PACKAGE_VERSION = "0.2.4-copilot.2"
 PACKAGE_PROPOSAL = "ACR-SYS-20260822-008"
 BASE_VERSION = "0.2.4"
+OPENAI_PACKAGE_VERSION = "0.2.5"
 EXPECTED_SKILLS = {
     "course-redesign-assessment",
     "course-redesign-materials",
@@ -189,7 +190,14 @@ class CopilotPluginTests(unittest.TestCase):
                 encoding="utf-8"
             )
         )
-        self.assertEqual(codex_manifest["version"], BASE_VERSION)
+        self.assertEqual(codex_manifest["version"], OPENAI_PACKAGE_VERSION)
+        codex_state = json.loads(
+            (
+                CODEX_PLUGIN
+                / "assets/project-template/01_Control/state.json"
+            ).read_text(encoding="utf-8")
+        )
+        self.assertEqual(codex_state["plugin_version"], BASE_VERSION)
         adapter_manifest = json.loads(
             (ADAPTER / "adapter-manifest.json").read_text(encoding="utf-8")
         )

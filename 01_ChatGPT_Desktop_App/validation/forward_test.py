@@ -15,6 +15,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 PLUGIN = ROOT / "plugins" / "agentic-course-redesign"
+OPENAI_PACKAGE_VERSION = "0.2.5"
+BASE_WORKFLOW_VERSION = "0.2.4"
 
 
 def load(name: str, relative: str):
@@ -88,7 +90,12 @@ def main() -> int:
         (ROOT / "validation" / "plugin-test-cases.json").read_text(encoding="utf-8")
     )
     checks.append(check(plugin_manifest.get("name") == "agentic-course-redesign", "plugin manifest identity"))
-    checks.append(check(plugin_manifest.get("version") == "0.2.4", "plugin patch version"))
+    checks.append(
+        check(
+            plugin_manifest.get("version") == OPENAI_PACKAGE_VERSION,
+            "OpenAI package version",
+        )
+    )
     checks.append(
         check(
             not (
@@ -107,6 +114,12 @@ def main() -> int:
     checks.append(check(marketplace["plugins"][0]["name"] == plugin_manifest["name"], "marketplace identity match"))
     checks.append(check(len(cases.get("positive_cases", [])) >= 5, "at least five positive cases"))
     checks.append(check(len(cases.get("negative_cases", [])) >= 3, "at least three negative cases"))
+    checks.append(
+        check(
+            cases.get("version") == OPENAI_PACKAGE_VERSION,
+            "review case version matches OpenAI package",
+        )
+    )
 
     skills = sorted(PLUGIN.glob("skills/*/SKILL.md"))
     skill_names = {path.parent.name for path in skills}
@@ -243,7 +256,12 @@ def main() -> int:
     state_errors = state_validator.validate(state)
     checks.append(check(not state_errors, "state fail-closed invariants", state_errors))
     checks.append(check(state.get("schema_version") == 8, "state schema 8"))
-    checks.append(check(state.get("plugin_version") == "0.2.4", "template version matches candidate"))
+    checks.append(
+        check(
+            state.get("plugin_version") == BASE_WORKFLOW_VERSION,
+            "template preserves v0.2.4 workflow base",
+        )
+    )
     checks.append(check(state.get("status") == "candidate_not_active", "template runtime inactive"))
     checks.append(check(state.get("schedules") == [], "template registers no schedules"))
     checks.append(
@@ -528,6 +546,7 @@ def main() -> int:
         "schema_version": 1,
         "plugin": plugin_manifest["name"],
         "plugin_version": plugin_manifest["version"],
+        "base_workflow_version": BASE_WORKFLOW_VERSION,
         "plugin_manifest_sha256": sha256(PLUGIN / ".codex-plugin/plugin.json"),
         "pass": all(item["pass"] for item in checks),
         "checks": checks,
