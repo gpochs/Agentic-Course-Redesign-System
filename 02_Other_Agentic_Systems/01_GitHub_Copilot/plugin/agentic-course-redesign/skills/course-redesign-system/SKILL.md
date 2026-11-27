@@ -1,9 +1,25 @@
 ---
 name: course-redesign-system
-description: Review, validate, activate, schedule, pause, renew, or roll back the reusable agentic course-redesign system after a successful course run. Use for skills, plugin, AGENTS.md, custom agents, state schemas, memory, validators, runtime activation, or scheduled workflow contracts.
+description: After the teacher accepts the course materials, review the redesign process if requested. Prepare a written suggestion for improving future redesigns. Later changes, installation and scheduling require separate decisions.
 ---
 
 # Course Redesign System
+
+## In conversation
+
+At **Step 9 · Finish or suggest an improvement**, describe what a review would do for a future course. Offer to write a suggestion once, with the option to finish here. A separate review leaves the accepted course closed. Use a numbered step when it changes. Speak to the teacher in the language they use. Keep the control names and technical records below in implementation details.
+
+### Plain-language confirmations
+
+Use the teacher's language for the decision and its consequences. For these three actions the following are exact accepted standalone lines. Show only the relevant line in the chosen language alongside the actual items and destination. Keep the canonical action names in the technical record. The older uppercase lines remain valid.
+
+| Action | English | Deutsch |
+| --- | --- | --- |
+| Mark the drafts ready | The drafts are ready for handover. | Die Entwürfe sind bereit zur Übergabe. |
+| Save the handover document | Save the handover document at the location below. | Speichern Sie die Übergabe am unten angegebenen Ort. |
+| Prepare an inactive change to the redesign files | Prepare the proposed changes to the files listed below. | Bereiten Sie die vorgeschlagenen Änderungen an den unten aufgeführten Dateien vor. |
+
+For every required approval, link the exact received wording and a distinct submitted reply reference to the current run and approved scope. Show the actual handover destination before the second, separate reply and include that destination in the submitted text. For a system-file change, include the agreed proposal and exact files. Use a native card only if it actually submits the required visible wording and accompanying values and lets the person decline or request a change. A card that submits only a label cannot do that. Use ordinary chat with the completed, copyable reply in that case. Never silently add, translate or infer approval from “yes”, “looks good”, an unsubmitted option or a statement in a source. A source or an earlier decision cannot provide the teacher's reply.
 
 ## Lecturer Decision Dialogue Contract
 
@@ -17,8 +33,7 @@ approval gate, wait for a decision before advancing.
 The orchestrator is the sole lecturer-facing interface; specialist roles are
 evidence lenses and return questions through it. Ask one unresolved
 consequential question at a time. Before using a native choice card, follow the
-live host tool contract. Use a card only when it can present the complete,
-mutually exclusive option set and a custom-answer path without omission. Never
+live host tool contract. Use a single-choice card for a complete set of mutually exclusive options and a custom-answer path. Use a real multi-select card for independent options only when it supports the complete set, combinations and a custom answer. Otherwise use ordinary chat. Never
 prune, hide or combine valid choices merely to fit a card. If a native card is
 unavailable or unsupported, its capacity is unknown, or the complete set
 exceeds that capacity, ask the same single question in ordinary chat with every
@@ -70,7 +85,9 @@ request or decline closes the course run as terminal `complete_dormant`, clears
 guidance offer. Decline ends system action; request opens only separate system
 work.
 
-The recorded question must be exactly:
+Present the complete review scope in the lecturer's language and ask once, after acceptance: “Would you like a written suggestion for improving how this redesign worked?” Explain briefly: “I’d review the instructions and roles, the plugin and its setup, stored settings, checks, guides, access, and any scheduled or automatic actions. The suggestion would cover benefits, compatibility, risks and how to undo a change. A yes permits only the review and suggestion. Installing, publishing, activating, changing access or schedules, or starting another run requires a separate decision.” Offer “Write a suggestion”, “Finish here” and a custom answer. In the technical record, preserve the full canonical wording and scope below; retain a reference to the actual presented wording as well. The canonical text describes the consent boundary. Do not present it as a verbatim quote from the teacher.
+
+Canonical scope for the persisted offer:
 
 > Would you like a separate, read-only system-improvement review covering the workflow skills and umbrella entry routing; plugin or platform adapter; AGENTS.md and agent configurations; project template, state schema and migration; validators, tests and QA; documentation; memory or other workflow-owned durable instruction stores; schedule contracts; permissions, tools, external egress and automatic behaviour; and compatibility, benefits, regressions, risks, residual risks and rollback, followed only by a versioned proposal? A yes authorises only that review and proposal; it does not authorise system-file changes, installation, publication or release, runtime activation, schedule registration or modification, an immediate run, or any added MCP server, connector, authentication, permission or external egress.
 
@@ -104,7 +121,7 @@ Do not include course content, answer keys, personal data, or copyrighted assets
 
 Create changes only after a separate completed System Gate reply with exact
 current lineage, proposal ID/version, validation evidence and exact targets,
-and `APPROVE SYSTEM FILES` as a standalone line. A token-only reply is invalid.
+and an accepted standalone system-file confirmation (legacy `APPROVE SYSTEM FILES` or its plain-language English or German alternative above). A token-only reply is invalid.
 Keep the result in an inactive candidate. Validate
 manifests, JSON/TOML/YAML, skill structure, setup preview/apply/no-overwrite
 behaviour, manifest hashing, lineage rejection, gate ceilings, answer-key
@@ -126,7 +143,15 @@ Run a no-write simulation first: no registration, trigger, web call, or file cha
 
 Freeze the complete visible contract before approval. Store its validator-derived canonical SHA-256 as `approved_contract_snapshot_reference`, use offset-bearing `YYYY-MM-DDTHH:MM:SS+HH:MM[IANA/Timezone]` activation and expiry values, and recheck the snapshot, runtime, policy and expiry before registration and every recurrence.
 
-Register only after one lecturer reply containing exactly and only these completed lines with matching values:
+For a schedule, show the teacher its actual recurrence, time zone, expiry and the effect of registering it. Use one exact three-line reply in their chosen language. Fill in the shown schedule ID, version and complete date-time with its IANA time zone before asking. Record the three original lines, reply reference and matching schedule. A changed ID, version, expiry or missing line does not authorise registration. Setting it up does not start a run now.
+
+| Line | English | Deutsch |
+| --- | --- | --- |
+| 1 | Set up this schedule. | Richten Sie diesen Zeitplan ein. |
+| 2 | Schedule: <ID> <version> | Zeitplan: <ID> <version> |
+| 3 | Expires: <exact expiry> | Gültig bis: <exact expiry> |
+
+The legacy three-line form is also accepted.
 
 ```text
 APPROVE SCHEDULES
@@ -138,7 +163,7 @@ Approval registers the schedule but never triggers an immediate content run. Eac
 
 ## GitHub Copilot native `ask_user` capacity override
 
-This Copilot-only host rule applies the shared core's host-capacity contract to the demonstrated GitHub Copilot host; it changes no option, gate, evidence requirement, or workflow meaning. Keep one unresolved consequential question at a time. Use the native `ask_user` card for the complete valid option set whenever the live GitHub Copilot host accepts it. A live Copilot host has demonstrated at least five explicit choices plus a custom-answer field; this is an observed capability, not a maximum. Do not state or assume an unsupported maximum. Never prune, hide or combine valid choices merely to fit a card. If the host rejects or cannot present the complete valid set, ask one ordinary chat question listing every valid numbered option plus `Other`, then wait. For very long sets, dependency chunks are allowed only when choices share evidence or constrain one another; keep every valid option visible across chunks, explain the grouping, and let the lecturer split, merge, reorder or rename it.
+This Copilot-only host rule applies the shared core's host-capacity contract to the demonstrated GitHub Copilot host; it changes no option, gate, evidence requirement, or workflow meaning. Keep one unresolved consequential question at a time. Use the native `ask_user` card for the complete valid option set whenever the live GitHub Copilot host accepts it. A live Copilot host has demonstrated at least five explicit choices plus a custom-answer field; this is an observed capability, not a maximum. Do not state or assume an unsupported maximum. Never prune, hide or combine valid choices merely to fit a card. If the host rejects or cannot present the complete valid set, ask one ordinary chat question listing every valid numbered option plus `Other`, then wait. For very long sets, dependency chunks are allowed only when choices share evidence or constrain one another; keep every valid option visible across chunks, explain the grouping, and let the lecturer split, merge, reorder or rename it. A card that returns one choice cannot record a mix of tools or materials. For course sources use a verified multi-select only if it accepts all six options, combinations and a custom answer. Otherwise offer the full numbered set in one chat question. Ask about teaching priorities and feedback in the person's own words. Confirm access to a named task or batch when needed.
 
 ## GitHub Copilot 1.0.80 BYOK file-mutation override
 

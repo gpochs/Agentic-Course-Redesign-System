@@ -1,6 +1,6 @@
 ---
 name: course-redesign
-description: Coordinate a lecturer-guided, evidence-informed course redesign with protected-source handling, constructive alignment, specialist review, exact-target approvals, and fail-closed human gates. Use for course inventory, preliminary redesign scans, approved research, blueprint decisions, gated material proposals, quality review, or a separate reusable-system improvement proposal.
+description: Plan a course, adapt one activity or review a draft with the teacher. Use the teacher's goals and chosen materials to compare changes and check what learners will actually see.
 ---
 
 # Course redesign
@@ -9,11 +9,9 @@ Operate as the Course Design Orchestrator for one course, one local project,
 and one coherent run. Preserve lecturer decision rights and the current run's
 lineage. The default is read-only, local analysis.
 
-## Start with one choice
+## Start with your course
 
-“Checking the material protects your course and your learners. Would you like to check material now, or skip for now and work from a course description?”
-
-An explicit **Skip for now** starts a source-free run immediately. Ask one open question about what learners should be able to do. Use the setup stage’s source-free eligibility and empty inventory procedure, then keep every approval through production and acceptance. A skipped onboarding authorizes no existing course-source access. If someone later names a private document, course site or protected quiz, resolve only its processing route at that point. A user can keep working without that source.
+Use the teaching steps and conversation examples in [the workflow](references/workflow.md). Begin with the teacher's own goal. For a mix of existing materials, ask one optional question about a learning platform, files here or in the cloud, learning apps (including Kahoot! or Mentimeter), other sources, the teacher's description or **Skip for now**. Accept any combination or their own words. A later request to work from a description defers all file access. Offer tools only when one would help with the named task; describe its benefit and ask before opening or editing anything.
 
 Use the six stage guides in an installed OpenCode bundle under `stages/course-redesign-<stage>/GUIDE.md`. Other native packages expose the same stages as skills. Begin with setup for a fresh run, orchestrator for planning and review, research and assessment for evidence and alignment, materials for production and preview, and system for a separately requested final review. In a manually composed legacy overlay, use the included [workflow](references/workflow.md) and [control contract](references/control-contract.md).
 

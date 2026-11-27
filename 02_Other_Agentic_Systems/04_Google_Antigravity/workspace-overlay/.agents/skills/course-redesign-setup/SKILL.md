@@ -1,11 +1,11 @@
 ---
 name: course-redesign-setup
-description: Set up and verify one protected, project-local Antigravity workspace for the course-independent gated redesign workflow, beginning with pre-source material and processing-environment eligibility.
+description: Start a course redesign with a description or a mix of learning platforms, apps and files. Use this to choose materials, agree who can use them and set up a separate working folder.
 ---
 
 # Course Redesign Setup
 
-Offer two ways to start after explaining that classification protects learners and course material. “Check my material” handles one source category at a time; “Skip for now” immediately continues from a general description or fictional example through all human decisions and production. For that route use the shared setup helper with `--source-free` and an empty source set. Classification and routing questions below apply only before using an existing source. If the lecturer later wants a restricted source, check it at the point of use.
+Show the current numbered teaching step in the teacher's language. At the start, offer any mix of learning platform, local or cloud files, learning apps, other sources, the teacher's description, or **Skip for now**. A genuine multi-select card must allow combinations and custom text. Otherwise show the complete choices in concise chat. Choosing a source type grants no access. Skip leads directly to teaching design without opening existing materials.
 
 Set up one course only. Do not combine unrelated courses in one workspace,
 source manifest, access policy, run, or approval record.

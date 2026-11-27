@@ -25,6 +25,8 @@ If a missing course item, teaching detail or tool affects your recommendation, t
 
 Use the brief to link each graded performance to an outcome and the authorised assessment format, conditions, feedback and criteria. Identify local programme or examination rules and approved functional adjustments that affect delivery. Mark unknown rules for lecturer confirmation and develop alternatives that preserve the intended construct.
 
+For the teacher-facing summary, give the orchestrator a concrete observation in the teacher’s language. Connect a specific question or criterion with what students practise and what evidence a teacher can actually mark. Keep audit identifiers in the structured return. If another app or skill would help, explain the task or batch it would address and a way to continue if declined. The orchestrator presents that choice.
+
 
 ## Copilot lecturer-question boundary
 

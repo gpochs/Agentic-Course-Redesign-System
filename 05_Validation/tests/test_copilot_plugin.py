@@ -23,10 +23,10 @@ CODEX_PLUGIN = (
     / "agentic-course-redesign"
 )
 
-PACKAGE_VERSION = "0.3.1"
-PACKAGE_PROPOSAL = "ACR-SYS-20261127-002"
-BASE_VERSION = "0.3.1"
-OPENAI_PACKAGE_VERSION = "0.3.1"
+PACKAGE_VERSION = "0.3.2"
+PACKAGE_PROPOSAL = "ACR-SYS-20261127-003"
+BASE_VERSION = "0.3.2"
+OPENAI_PACKAGE_VERSION = "0.3.2"
 EXPECTED_SKILLS = {
     "course-redesign-assessment",
     "course-redesign-materials",
@@ -88,7 +88,7 @@ fails closed. An unanswered approval cannot advance. Choosing “Skip for now”
 separate from design preferences."""
 COPILOT_CHOICE_CAPACITY_OVERRIDE = """## GitHub Copilot native `ask_user` capacity override
 
-This Copilot-only host rule applies the shared core's host-capacity contract to the demonstrated GitHub Copilot host; it changes no option, gate, evidence requirement, or workflow meaning. Keep one unresolved consequential question at a time. Use the native `ask_user` card for the complete valid option set whenever the live GitHub Copilot host accepts it. A live Copilot host has demonstrated at least five explicit choices plus a custom-answer field; this is an observed capability, not a maximum. Do not state or assume an unsupported maximum. Never prune, hide or combine valid choices merely to fit a card. If the host rejects or cannot present the complete valid set, ask one ordinary chat question listing every valid numbered option plus `Other`, then wait. For very long sets, dependency chunks are allowed only when choices share evidence or constrain one another; keep every valid option visible across chunks, explain the grouping, and let the lecturer split, merge, reorder or rename it."""
+This Copilot-only host rule applies the shared core's host-capacity contract to the demonstrated GitHub Copilot host; it changes no option, gate, evidence requirement, or workflow meaning. Keep one unresolved consequential question at a time. Use the native `ask_user` card for the complete valid option set whenever the live GitHub Copilot host accepts it. A live Copilot host has demonstrated at least five explicit choices plus a custom-answer field; this is an observed capability, not a maximum. Do not state or assume an unsupported maximum. Never prune, hide or combine valid choices merely to fit a card. If the host rejects or cannot present the complete valid set, ask one ordinary chat question listing every valid numbered option plus `Other`, then wait. For very long sets, dependency chunks are allowed only when choices share evidence or constrain one another; keep every valid option visible across chunks, explain the grouping, and let the lecturer split, merge, reorder or rename it. A card that returns one choice cannot record a mix of tools or materials. For course sources use a verified multi-select only if it accepts all six options, combinations and a custom answer. Otherwise offer the full numbered set in one chat question. Ask about teaching priorities and feedback in the person's own words. Confirm access to a named task or batch when needed."""
 COPILOT_RUNTIME_COMPATIBILITY_OVERRIDE = """## GitHub Copilot 1.0.80 BYOK file-mutation override
 
 This Copilot-only transport rule changes no workflow option, gate, approval,
@@ -418,8 +418,9 @@ class CopilotPluginTests(unittest.TestCase):
             "Ask one unresolved",
             "Before using a native choice card",
             "live host tool contract",
-            "complete, mutually exclusive option set",
-            "custom-answer path without omission",
+            "a complete set of mutually exclusive options and a custom-answer path",
+            "multi-select card for independent options",
+            "complete set, combinations and a custom answer",
             "If a native card is unavailable or unsupported",
             "capacity is unknown",
             "every valid numbered option",
@@ -650,7 +651,8 @@ class CopilotPluginTests(unittest.TestCase):
             "gpochs/Agentic-Course-Redesign-System",
             guide,
         )
-        self.assertIn("Offer the short onboarding or Skip for now", guide)
+        self.assertIn("Skip for now", guide)
+        self.assertIn("teaching goal", guide.casefold())
         self.assertIn("copilot plugin uninstall agentic-course-redesign", guide)
         self.assertIn("without a support SLA", guide)
         normalized_guide = " ".join(guide.split())
@@ -660,7 +662,7 @@ class CopilotPluginTests(unittest.TestCase):
             'expected "function"',
             "type=custom",
             "fresh task",
-            "0.2.4-copilot.2",
+            "0.3.0",
             "native `ask_user` card",
             "complete valid option set",
             "at least five explicit choices plus a custom-answer field",

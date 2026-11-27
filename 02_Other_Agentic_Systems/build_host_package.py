@@ -120,24 +120,39 @@ def render(host, output):
         stage_root = bundle / "skills"
         metadata = {
             "name": NAME, "version": read_reviewed(CORE / "VERSION").decode().strip(),
-            "description": "Lecturer-guided course redesign with ten evidence-informed specialist roles."
+            "description": "Revise a course, compare teaching options and try draft materials before choosing what to use."
         }
         if host == "claude":
             metadata.update(name="gpochs-course-redesign", author={"name": "Gian Peter Ochsner"}, license="MIT")
-            write(output / "SKILL.md", "---\nname: gpochs-course-redesign\ndescription: Start a lecturer-guided redesign of any course or digital material.\n---\n\nStart with the bundled [orchestrator](skills/course-redesign-orchestrator/SKILL.md).")
+            write(output / "SKILL.md", "---\nname: gpochs-course-redesign\ndescription: Improve a lesson, activity, assessment or complete course. Start with your teaching goal or choose materials to review.\n---\n\nStart with the bundled [orchestrator](skills/course-redesign-orchestrator/SKILL.md).")
         if host == "antigravity":
             (output / "assets").mkdir(exist_ok=True)
             copy_file(ROLES.parents[2] / "logo.svg", output / "assets/logo.svg")
             metadata["logo"] = "assets/logo.svg"
             metadata["displayName"] = "Agentic Course Redesign"
-            metadata["suggestedPrompts"] = ["Start an agentic course redesign from a general description."]
+            metadata["suggestedPrompts"] = ["Help me improve a lesson. I can describe it or choose materials to work from."]
         manifest_dir = ".claude-plugin" if host == "claude" else ".antigravity-plugin"
         write(output / manifest_dir / "plugin.json", json.dumps(metadata, indent=2))
     copy_tree(CORE / "agent-skills", stage_root)
+    if host == "antigravity":
+        # Antigravity reads a maximum of 24,000 bytes from a skill body.
+        # Keep the opening conversation in the entry point and preserve the
+        # complete procedure beside it so relative reference links still work.
+        entry = stage_root / "course-redesign-orchestrator/SKILL.md"
+        before, heading, rest = entry.read_text(encoding="utf-8").partition("### Gate 1: course brief and run contract")
+        if not heading:
+            raise ValueError("Cannot locate course-brief handover in the shared orchestrator")
+        write(entry.with_name("STAGES.md"), heading + rest)
+        write(entry, before.rstrip() + "\n\nBefore confirming the course brief or resuming any later step, read the [remaining workflow](STAGES.md). Follow its rules for research, design choices, drafts, acceptance and handover.")
     intake = edition / "native-intake.md"
     if intake.is_file():
         copy_file(intake, stage_root / NATIVE_GUIDE)
         (stage_root / ROLE_GUIDE).write_bytes(link_native_intake(read_reviewed(CORE / "agent-skills" / ROLE_GUIDE)))
+        starter = bundle / "SKILL.md"
+        if starter.is_file():
+            native_path = (stage_root / NATIVE_GUIDE).relative_to(bundle).as_posix()
+            starter_text = starter.read_text(encoding="utf-8")
+            write(starter, starter_text.rstrip() + f"\n\nFor the next course question, choice or preview, use [the example for this app]({native_path}).")
     if host in {"opencode", "copilot-project"}:
         for guide in stage_root.glob("*/SKILL.md"):
             guide.rename(guide.with_name("GUIDE.md"))

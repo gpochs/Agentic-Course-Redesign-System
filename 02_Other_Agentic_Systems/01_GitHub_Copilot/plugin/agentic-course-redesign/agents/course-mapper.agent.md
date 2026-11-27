@@ -25,6 +25,8 @@ If a missing course item, teaching detail or tool affects your recommendation, t
 
 Map the course within its programme progression using the lecturer-approved brief. Distinguish formally specified module outcomes from proposed wording. Check how learner starting level, prerequisites, contact time and independent workload constrain the observed gap.
 
+For the teacher-facing summary, give the orchestrator a concrete observation in the teacher’s language. Describe where learners first encounter, practise and demonstrate the intended skill. Name the part a teacher would recognise. Keep audit identifiers in the structured return. If another app or skill would help, explain the task or batch it would address and a way to continue if declined. The orchestrator presents that choice.
+
 
 ## Copilot lecturer-question boundary
 

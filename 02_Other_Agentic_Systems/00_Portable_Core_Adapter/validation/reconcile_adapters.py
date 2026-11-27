@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Preview or apply deterministic v0.3.1 non-Copilot adapter reconciliation."""
+"""Preview or apply deterministic v0.3.2 non-Copilot adapter reconciliation."""
 
 from __future__ import annotations
 
@@ -16,8 +16,8 @@ SCRIPT_PATH = Path(__file__).resolve()
 REPOSITORY_ROOT = SCRIPT_PATH.parents[3]
 ADAPTERS_ROOT = REPOSITORY_ROOT / "02_Other_Agentic_Systems"
 CORE_ROOT = REPOSITORY_ROOT / "03_Shared_Workflow_Core"
-VERSION = "0.3.1"
-PROPOSAL_ID = "ACR-SYS-20261127-002"
+VERSION = "0.3.2"
+PROPOSAL_ID = "ACR-SYS-20261127-003"
 
 SOURCE_RELATIVES = (
     "VERSION",
@@ -167,6 +167,9 @@ def reconcile_roles_and_copilot(apply: bool) -> list[str]:
     spec = importlib.util.spec_from_file_location("copilot_contract", copilot / "validation/validate_native_plugin.py")
     contract = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(contract)
+    build_spec = importlib.util.spec_from_file_location("host_builder", ADAPTERS_ROOT / "build_host_package.py")
+    builder = importlib.util.module_from_spec(build_spec)
+    build_spec.loader.exec_module(builder)
     changed = []
     def emit(path, data):
         if isinstance(data, str):
@@ -177,24 +180,41 @@ def reconcile_roles_and_copilot(apply: bool) -> list[str]:
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_bytes(data)
     overrides = "\n\n".join((contract.COPILOT_CHOICE_CAPACITY_OVERRIDE, contract.COPILOT_RUNTIME_COMPATIBILITY_OVERRIDE))
+    def host_role_guide(edition, skill_root, source_bytes):
+        native = edition / "native-intake.md"
+        if not native.is_file():
+            return source_bytes
+        emit(skill_root / builder.NATIVE_GUIDE, builder.read_reviewed(native))
+        return builder.link_native_intake(source_bytes)
+
     emit(plugin / "assets/PARTICIPANT_QUICK_START.md", (CORE_ROOT / "PARTICIPANT_QUICK_START.md").read_bytes())
     # Older manual overlays have host-specific stage instructions. Expose the
     # same staged intake there as in the standalone native packages.
     skills = CORE_ROOT / "agent-skills"
     brief = (skills / "course-redesign-orchestrator/SKILL.md").read_text(encoding="utf-8")
     context = brief[brief.index("Build the brief progressively."):brief.index("Pass the confirmed context")].strip()
+    teaching_steps = brief[brief.index("## How to talk with the teacher"):brief.index("## Invariants")].strip()
+    confirmations = brief[brief.index("### Plain-language confirmations"):brief.index("## Lecturer Decision Dialogue Contract")].strip()
+    opener = brief[brief.index("### Step 1 "):brief.index("The latest stated way of working")].strip()
     portable = ADAPTERS_ROOT / "00_Portable_Core_Adapter/overlay/.claude/skills/course-redesign"
     antigravity = ADAPTERS_ROOT / "04_Google_Antigravity/workspace-overlay/.agents/skills"
     for path in (portable / "references/workflow.md", antigravity / "course-redesign-orchestrator/SKILL.md"):
         text = path.read_text(encoding="utf-8")
+        marker = "<!-- teaching conversation -->"
+        end = "<!-- end teaching conversation -->"
+        detail = "\n\n".join((marker, teaching_steps, opener, confirmations, end))
+        if marker in text:
+            before, existing = text.split(marker, 1)
+            text = before + detail + existing.split(end, 1)[1]
+        else:
+            title = text.index("\n", text.index("\n# ") + 1) if "\n# " in text else text.index("\n")
+            text = text[:title] + "\n\n" + detail + text[title:]
         gate = text.index("Gate 1: course brief and run contract")
         insert = text.index("\n#", gate)
         prefix = text[:insert].split("\nBuild the brief progressively.")[0].rstrip()
         emit(path, prefix + "\n\n" + context + "\n" + text[insert:])
     for folder, dest in (("agent-skills", "skills"), ("scripts", "scripts"), ("course-project-template", "assets/project-template")):
-        for source in (CORE_ROOT / folder).rglob("*"):
-            if not source.is_file() or "__pycache__" in source.parts:
-                continue
+        for source in builder.selected_files(CORE_ROOT / folder):
             rel = source.relative_to(CORE_ROOT / folder)
             target = plugin / dest / rel
             extra = None
@@ -202,10 +222,26 @@ def reconcile_roles_and_copilot(apply: bool) -> list[str]:
                 extra = overrides
             elif rel.as_posix() == "01_Control/GATES.md":
                 extra = contract.COPILOT_CHOICE_CAPACITY_OVERRIDE
-            data = source.read_bytes() if extra is None else source.read_text(encoding="utf-8").rstrip() + "\n\n" + extra
+            data = builder.read_reviewed(source)
+            if extra is not None:
+                data = data.decode("utf-8").replace("\r\n", "\n").rstrip() + "\n\n" + extra
+            if folder == "agent-skills" and rel == builder.ROLE_GUIDE:
+                data = host_role_guide(copilot, plugin / "skills", data)
             emit(target, data)
             if folder == "agent-skills" and source.name != "SKILL.md":
-                emit(ADAPTERS_ROOT / "04_Google_Antigravity/workspace-overlay/.agents/skills" / rel, source.read_bytes())
+                overlay_data = source.read_bytes()
+                if rel == builder.ROLE_GUIDE:
+                    overlay_data = host_role_guide(ADAPTERS_ROOT / "04_Google_Antigravity", antigravity, overlay_data)
+                emit(antigravity / rel, overlay_data)
+            elif folder == "agent-skills" and source.name == "SKILL.md":
+                # Manual Antigravity skills retain their native instructions while
+                # the picker uses the same teacher-facing names as the other hosts.
+                overlay_skill = antigravity / rel
+                live = overlay_skill.read_text(encoding="utf-8")
+                old_desc = next(line for line in live.splitlines() if line.startswith("description: "))
+                new_desc = next(line for line in source.read_text(encoding="utf-8").splitlines() if line.startswith("description: "))
+                if old_desc != new_desc:
+                    emit(overlay_skill, live.replace(old_desc, new_desc, 1))
     roles = REPOSITORY_ROOT / "01_ChatGPT_Desktop_App/plugins/agentic-course-redesign/assets/project-template/.codex/agents"
     for source in roles.glob("*.toml"):
         role = tomllib.loads(source.read_text(encoding="utf-8"))
@@ -280,7 +316,7 @@ def refresh_antigravity_manifest(
         "validated_base_version": VERSION,
         "adapter_release_version": VERSION,
         "workflow_semantics": (
-            "reconciled to shared course-independent schema-8 candidate v0.3.1; "
+            "reconciled to shared course-independent schema-8 candidate v0.3.2; "
             "adds adaptive one-decision lecturer interaction and deterministic "
             "preview-first Gate-0A eligibility generation; "
             "candidate remains inactive and adds no permission, external egress, "

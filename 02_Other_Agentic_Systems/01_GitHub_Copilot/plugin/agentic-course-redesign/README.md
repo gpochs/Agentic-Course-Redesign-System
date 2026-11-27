@@ -1,15 +1,25 @@
 # Agentic Course Redesign for GitHub Copilot
 
-This native GitHub Copilot plugin packages the six Agentic Course Redesign
-workflow skills and ten read-only specialists available for scoped delegation. Its workflow
-semantics mirror Agentic Course Redesign System `0.3.1`; the Copilot semantic
-adapter is `0.3.1` and the packaging revision is `0.3.1`.
+Use version 0.3.2 to improve a single activity, a set of materials or an entire course. Open a project Session in the Copilot app and select the installed course-redesign orchestrator skill. [Install or remove the plugin](PARTICIPANT_QUICK_START.md)
 
-Start with any course description. Choose **Skip for now** to design without
-existing sources, or check the handling of the materials you want to use.
-The lecturer approves the plan and reviews each editable draft.
-Installing it does not inspect course files, activate a runtime, register a
-schedule, or start a redesign.
+## Start with your course
+
+> My learners can finish this exercise but struggle to explain their reasoning. Help me revise the task and draft a separate guide for the tutor.
+
+1. **Start with your course.** Describe what you want learners to do. Choose **Skip for now** to go straight from your description to design, drafting and review. The material check helps keep course and student information in the right place.
+2. **Choose the materials we can use.** You can combine a course site such as Moodle or OLAT, Word or PowerPoint files, cloud slides or spreadsheets, learning apps such as Kahoot! or Mentimeter, and other resources. Select several, name your own, or continue with just your teaching goal. You decide which items may be opened and who can see the drafts.
+3. **Check the course brief.** Correct what the plugin understood. Leave a question open if the answer is unclear. Use your own words when explaining your priorities or giving feedback.
+
+Later you choose the focus, compare suggested changes, approve the plan and files, try each draft, and decide what to use. The plugin briefly introduces optional tools and recommends one when it would help with a particular task. It explains the benefit, access and any cost. You can approve that task or batch, ask for setup help, or use the built-in option. Student materials and teacher-only keys have separate destinations.
+
+[Follow all nine teaching steps](assets/PARTICIPANT_QUICK_START.md).
+
+## Cost and support
+
+The plugin is free under the MIT License and provided without a support SLA. Your existing GitHub Copilot plan and organisation policies apply.
+
+<details>
+<summary>For maintainers checking package contents and older Copilot compatibility</summary>
 
 ## Components
 
@@ -39,7 +49,7 @@ sets, use dependency chunks only when choices share evidence or constrain one
 another. Keep every valid option visible across chunks, preserve custom
 answers, and let lecturers reshape the grouping. Recap chunks and gates, never
 preselect a recommendation, fail closed on uncertainty, and keep exact
-authority decisions separate. Blank or `Skip` never advances a gate.
+authority decisions separate. A blank reply grants no permission. Choosing the offered Skip for now option starts the design from a description.
 
 In GitHub Copilot App/CLI 1.0.80 with an OpenAI-compatible BYOK provider such
 as CommandCode Chat Completions, built-in `apply_patch` can be recorded as
@@ -58,13 +68,4 @@ authentication, or permission.
 
 The preserved rollback package is `0.3.0`.
 
-## Support and cost boundary
-
-This open-source plugin is provided free of charge and as-is under the MIT
-License, without a support SLA or guaranteed maintenance. It operates inside
-the participant's own GitHub Copilot environment. Normal GitHub Copilot plan,
-usage, organization-policy, and account conditions remain the participant's
-or their organization's responsibility. There is no publisher-operated
-server, API key, authentication service, paid hosting, or telemetry.
-
-See `PARTICIPANT_QUICK_START.md` for installation and first-session guidance.
+</details>

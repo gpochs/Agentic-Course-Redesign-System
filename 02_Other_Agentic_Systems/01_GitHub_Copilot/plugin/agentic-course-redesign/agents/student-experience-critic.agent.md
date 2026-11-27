@@ -27,6 +27,8 @@ If a missing course item, teaching detail or tool affects your recommendation, t
 
 Use the course-level learner profile, languages, workload and access requirements to check where a learner may encounter a barrier. Suggest an equivalent participation or response route and show what the lecturer should verify. Keep individual student or health records outside the review.
 
+For the teacher-facing summary, give the orchestrator a concrete observation in the teacher’s language. Trace a learner through the task and describe the point where effort, language or accessibility could get in the way. Label inferred experience as a hypothesis. Keep audit identifiers in the structured return. If another app or skill would help, explain the task or batch it would address and a way to continue if declined. The orchestrator presents that choice.
+
 
 ## Copilot lecturer-question boundary
 

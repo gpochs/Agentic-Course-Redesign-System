@@ -85,9 +85,7 @@ decision process.
   under `04_Working_Copies/` and `05_Approved/`.
 - Named artefact gates and independent QA govern production.
 - Production cannot enter HITL 3 until a completed current-lineage reply
-  contains standalone `DECLARE PRODUCTION COMPLETE`, a second completed reply
-  repeats the exact handoff target with standalone
-  `APPROVE PRODUCTION HANDOFF`, and the handoff is independently verified.
+  confirms the drafts are ready, a second completed reply explicitly approves saving the handover document at its exact destination, and the handover is independently verified. The accepted phrases have English and German forms. The original technical confirmations remain valid.
 - **HITL 3** is the lecturer's decision on the produced files.
 - Only unconditional current-lineage HITL 3 acceptance causes the orchestrator
   to ask whether the lecturer wants a separate read-only system-improvement

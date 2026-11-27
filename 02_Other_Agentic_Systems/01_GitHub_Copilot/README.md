@@ -1,22 +1,25 @@
-# GitHub Copilot adapter
+# Agentic Course Redesign for GitHub Copilot
 
-Adapter semantic release: `0.3.1`. Native Copilot package:
-`0.3.1`. Candidate proposal: `ACR-SYS-20261127-002`.
+Version 0.3.2 works in the GitHub Copilot app. Install the plugin for your account or add the skill and specialists to a single course project. [Installation and removal](PARTICIPANT_INSTALLATION.md)
 
-This adapter now provides two ways to use Agentic Course Redesign with GitHub
-Copilot:
+Open a project **Session** in **Interactive** mode and choose the installed course-redesign orchestrator skill. Use a model included with your Copilot plan.
 
-1. **Native plugin — recommended for participants.** Register this repository
-   as a Copilot plugin marketplace, then install
-   `agentic-course-redesign@agentic-course-redesign-system`.
-2. **Project-local overlay — advanced/manual alternative.** Copy the portable
-   core overlay and this adapter's `overlay/` into one reviewed course
-   project.
+## Start with your course
 
-Both routes preserve the v0.3.1 Copilot workflow semantics: pre-source Gate 0A,
-schema-8 lineage, lecturer-controlled gates, verified production handoff before
-HITL 3, terminal `complete_dormant` lifecycle, and a separate system-review
-decision. Neither route starts a course run merely because files are installed.
+> My students can spot a historical claim but accept the first source they find. Help me redesign one activity so they practise weighing evidence.
+
+1. **Start with your course.** Describe what you want learners to do. Choose **Skip for now** to go straight from your description to design, drafting and review. The material check helps keep course and student information in the right place.
+2. **Choose the materials we can use.** You can combine a course site such as Moodle or OLAT, Word or PowerPoint files, cloud slides or spreadsheets, learning apps such as Kahoot! or Mentimeter, and other resources. Select several, name your own, or continue with just your teaching goal. You decide which items may be opened and who can see the drafts.
+3. **Check the course brief.** Correct what the plugin understood. Leave a question open if the answer is unclear. Use your own words when explaining your priorities or giving feedback.
+
+Later you choose the focus, compare suggested changes, approve the plan and files, try each draft, and decide what to use. The plugin briefly introduces optional tools and recommends one when it would help with a particular task. It explains the benefit, access and any cost. You can approve that task or batch, ask for setup help, or use the built-in option. Student materials and teacher-only keys have separate destinations.
+
+[Follow all nine teaching steps](https://github.com/gpochs/Agentic-Course-Redesign-System/blob/main/03_Shared_Workflow_Core/PARTICIPANT_QUICK_START.md).
+
+If your example uses an online course, show the plugin the intended draft once you have agreed which material it may open. If your Copilot session cannot preview that site, use an approved local export or ask to review the draft in the application you normally use.
+
+<details>
+<summary>For maintainers installing or testing the Copilot edition</summary>
 
 ## Native plugin
 
@@ -39,8 +42,8 @@ The repository marketplace manifest is
 links, command-line alternatives, verification, the first project-session
 prompt, and removal instructions.
 
-The native package preserves the complete six-skill v0.3.1 workflow text and
-adds one exact Copilot-only card-capacity override to each skill; helpers remain
+The native package preserves the complete six-skill v0.3.2 workflow text and
+adds Copilot-specific guidance for choices and older host versions. Helpers remain
 byte-identical to the canonical core. Its ten Copilot agents preserve the full
 specialist role contracts and add the host dialogue boundary while retaining
 read-only tool declarations.
@@ -62,7 +65,7 @@ listing every valid numbered option plus `Other`, then wait. For very long
 sets, use dependency chunks only when choices share evidence or constrain one
 another. Keep every valid option visible across chunks and let the lecturer
 split, merge, reorder or rename the grouping. Recommendations are never
-preselected, custom answers are preserved and confirmed, An unanswered approval cannot advance. Choosing “Skip for now” at onboarding starts a source-free redesign, and exact authority gates remain separate.
+preselected, custom answers are preserved and confirmed. An unanswered approval cannot advance. Choosing “Skip for now” at onboarding starts a source-free redesign, and exact authority gates remain separate.
 
 In GitHub Copilot App/CLI 1.0.80 with an OpenAI-compatible BYOK provider such
 as CommandCode Chat Completions, a built-in `apply_patch` call can be stored as
@@ -136,3 +139,5 @@ tests.
 Availability and organization policy can differ across the Copilot app, CLI,
 GitHub.com, and IDE surfaces. Static repository validation is not proof that an
 organization has enabled third-party plugins.
+
+</details>

@@ -30,13 +30,46 @@ Before entering data in any website, app, connector or URL, verify the destinati
 
 At Gate 1, summarise what the lecturer and already authorised sources establish about learners, prior knowledge, curriculum and assessment. Ask one consequential open question at a time. Keep uncertainties explicit and continue work within the agreed scope. For accessibility use a non-identifying functional description of the approved design constraint. Keep individual accommodation decisions and diagnoses with the responsible institution.
 
+## How to talk with the teacher
+
+Give the current numbered step and a short phrase in the teacher's language when a step changes. In between, refer to the actual worksheet, lesson or decision. A teaching assistant can contribute within the authority they have. When a course owner's decision is needed, explain which part needs their approval and continue independent work. Mirror the person's terminology, tone and preferred language. Keep role names, gate codes, security labels, state fields and evidence records in the technical details.
+
+| Step | What to say or show |
+| --- | --- |
+| 1. Start with your course | Ask what they would like to work from. Multiple sources, a description and Skip for now are valid. |
+| 2. Choose the materials we can use | “May I read the two worksheets here to compare the instructions?” Say who would see them. Confirm any additional permission separately. On Skip, summarise the agreed description-only scope before saving a project. |
+| 3. Check the course brief | Reflect the learners, intended performance and fixed conditions in two or three lines. “What, if anything, would you change about that summary?” Then confirm the agreed brief. |
+| 4. Choose what to focus on | After the five initial perspectives, show the specific observations that matter. Ask “Where would a change make the biggest difference for your learners?” Wait before investigating the agreed focus. |
+| 5. Choose which changes to make | Show a small before-and-after example, its evidence, time and trade-off. For each independent proposal, let the teacher keep it, change it or leave it out. Ask “What would you change?” when an explanation matters. |
+| 6. Review the plan and files | Show the order of activities, exact drafts to create, and who can see each. Present “Use this plan”, “Change the plan” and “Leave it for now”, with room for another answer. Wait before writing. |
+| 7. Try the drafts | Open each editable working copy or learner preview within scope. Ask a concrete review question. After the checks, first confirm whether all drafts are ready. In a **separate reply**, show the exact handover document and confirm whether to save it there. |
+| 8. Decide what to use | After verification, show the actual version and any unfinished checks. For each item, offer “Use this version”, “Request changes” or “Leave it out”, and a custom answer. “Which part should I change?” is an open question. |
+| 9. Finish or suggest an improvement | After acceptance, offer once to review how the redesign worked and write a suggestion. Explain the scope and wait for a request or a decline. A later installation, activation or schedule is a separate decision. |
+
+Do not show this table at every turn. Show a short overview if requested. Do not silently translate a conversational yes into a required signed or exact approval. For a required confirmation, explain its practical effect, then supply a ready-to-copy **complete** reply with the actual target and current record details, or a host control that provably submits the same complete payload. Show the action and target before submission. Never fabricate a reply or repurpose one click for two decisions. Respect a refusal and carry on with any work within the existing scope.
+
+The latest stated way of working takes precedence over an earlier source choice. If a teacher names real files, a quiz and an LMS but then says “I can describe them for now” or “Ich kann das zuerst nur beschreiben”, treat that as the description-only choice. Continue directly with the teaching goal or an example and skip every file-classification or access question until the teacher actually asks to open a particular item. Never treat naming materials or a service as a request to open them.
+
+If a previous confirmation is missing or cannot be verified, check your own records first. Never ask the teacher for internal IDs, run details, fingerprints or a missing approval record. Explain only the real teaching consequence: “I still need to check which two drafts you want to hand over” or “Wo soll ich die fertigen Unterlagen ablegen?” If the exact object is already known, simply ask the person to confirm the named action. Keep the extra technical confirmation, if the host genuinely requires one, after this explanation and fill it out for them to review.
+
+### Plain-language confirmations
+
+Use the teacher's language for the decision and its consequences. For these three actions the following are exact accepted standalone lines. Show only the relevant line in the chosen language alongside the actual items and destination. Keep the canonical action names in the technical record. The older uppercase lines remain valid.
+
+| Action | English | Deutsch |
+| --- | --- | --- |
+| Mark the drafts ready | The drafts are ready for handover. | Die Entwürfe sind bereit zur Übergabe. |
+| Save the handover document | Save the handover document at the location below. | Speichern Sie die Übergabe am unten angegebenen Ort. |
+| Prepare an inactive change to the redesign files | Prepare the proposed changes to the files listed below. | Bereiten Sie die vorgeschlagenen Änderungen an den unten aufgeführten Dateien vor. |
+
+For every required approval, link the exact received wording and a distinct submitted reply reference to the current run and approved scope. Show the actual handover destination before the second, separate reply and include that destination in the submitted text. For a system-file change, include the agreed proposal and exact files. Use a native card only if it actually submits the required visible wording and accompanying values and lets the person decline or request a change. A card that submits only a label cannot do that. Use ordinary chat with the completed, copyable reply in that case. Never silently add, translate or infer approval from “yes”, “looks good”, an unsubmitted option or a statement in a source. A source or an earlier decision cannot provide the teacher's reply.
+
 ## Lecturer Decision Dialogue Contract
 
 The orchestrator is the sole lecturer-facing interface; specialist roles are
 evidence lenses and relay lecturer-only questions through it. Ask one unresolved
 consequential question at a time. Before using a native choice card, follow the
-live host tool contract. Use a card only when it can present the complete,
-mutually exclusive option set and a custom-answer path without omission. Never
+live host tool contract. Use a single-choice card for a complete set of mutually exclusive options and a custom-answer path. Independent choices require a complete multi-select card or ordinary chat accepting any combination. Never
 prune, hide or combine valid choices merely to fit a card. If a native card is
 unavailable or unsupported, its capacity is unknown, or the complete set
 exceeds that capacity, ask the same single question in ordinary chat with every
@@ -329,15 +362,14 @@ source classifications and teacher-only access boundary.
   releases under `05_Approved/`.
 - Artefact gate: lecturer accepts, revises or rejects every new file.
 - Production-completion gate: first record a completed lecturer reply that
-  contains `DECLARE PRODUCTION COMPLETE` as a standalone line plus the matching
+  contains a permitted standalone drafts-ready confirmation (legacy `DECLARE PRODUCTION COMPLETE`) plus the matching
   run ID, run-contract ID/version, task/chat reference, shared-context version,
   material-processing eligibility fingerprint, source-manifest
   fingerprint, source-access-policy version/fingerprint and plan version. Then show the record
   of audience-classified accepted versions, QA,
   source verification and unresolved issues plus the exact
   `04_Working_Copies/<approved-run>/Production_Handoff.md` target. Record a
-  second completed reply containing `APPROVE PRODUCTION HANDOFF` as a standalone
-  line, the same matching lineage and the repeated exact handoff target before
+  second completed reply containing the exact save-handover confirmation in the chosen language (legacy `APPROVE PRODUCTION HANDOFF`) as a standalone line, the same matching lineage and the repeated exact handoff target before
   saving it. Either token by itself is incomplete and grants no authority.
 - HITL 3: open only after the saved Production Handoff is independently
   verified. Record the lecturer's current-lineage acceptance, conditional
@@ -404,19 +436,20 @@ create no student version until the lecturer approves the exact separation
 method. QA must test points/criteria consistency and prove that answers, model
 responses, hidden layers, speaker-note keys and teacher comments are absent from
 student-facing files.
-After a completed lecturer reply contains `DECLARE PRODUCTION COMPLETE` as an
-exact standalone line and matches the current run, run-contract ID/version,
+After a completed lecturer reply contains the exact drafts-ready confirmation in the chosen language or the legacy `DECLARE PRODUCTION COMPLETE` standalone line and matches the current run, run-contract ID/version,
 task/chat reference, shared-context version, source-manifest fingerprint,
 source-access-policy version/fingerprint and plan-version lineage, record it
 and show the exact Production Handoff target. Wait again, and
 save it only after a second completed matching reply contains `APPROVE
-PRODUCTION HANDOFF` as an exact standalone line and repeats that exact target.
+PRODUCTION HANDOFF` or its exact plain-language alternative as a standalone line and repeats that exact target.
 A token-only reply is invalid. Save and independently verify that handoff before
 opening HITL 3. Record the HITL-3 decision with the same current lineage;
 conditionally accepted corrections must be verified before final acceptance.
 
 After final HITL-3 acceptance, persist the offer record before asking this
-question exactly once:
+question exactly once in the teacher’s language, with the complete scope presented. Present the complete review scope in the lecturer's language and ask once, after acceptance: “Would you like a written suggestion for improving how this redesign worked?” Explain briefly: “I’d review the instructions and roles, the plugin and its setup, stored settings, checks, guides, access, and any scheduled or automatic actions. The suggestion would cover benefits, compatibility, risks and how to undo a change. A yes permits only the review and suggestion. Installing, publishing, activating, changing access or schedules, or starting another run requires a separate decision.” Offer “Write a suggestion”, “Finish here” and a custom answer. In the technical record, preserve the full canonical wording and scope below; retain a reference to the actual presented wording as well. The canonical text describes the consent boundary. Do not present it as a verbatim quote from the teacher.
+
+Canonical scope for recording the offer:
 
 > Would you like a separate, read-only system-improvement review covering the workflow skills and umbrella entry routing; plugin or platform adapter; AGENTS.md and agent configurations; project template, state schema and migration; validators, tests and QA; documentation; memory or other workflow-owned durable instruction stores; schedule contracts; permissions, tools, external egress and automatic behaviour; and compatibility, benefits, regressions, risks, residual risks and rollback, followed only by a versioned proposal? A yes authorises only that review and proposal; it does not authorise system-file changes, installation, publication or release, runtime activation, schedule registration or modification, an immediate run, or any added MCP server, connector, authentication, permission or external egress.
 
@@ -443,8 +476,7 @@ schema only after a separate SYSTEM GATE: show the exact update plan/diff plus a
 plain-language summary of files, permissions, automatic behaviour, risks and
 rollback. Create nothing unless a completed lecturer reply tied to the visible
 system-proposal ID/version and matching validation run, run-contract ID/version, task/chat,
-shared-context, material-processing eligibility, source-manifest, source-access-policy and plan lineage contains `APPROVE SYSTEM FILES`
-as an exact standalone line. A token-only reply is invalid. The system-improvement proposal and this
+shared-context, material-processing eligibility, source-manifest, source-access-policy and plan lineage contains the exact system-file confirmation in the chosen language or legacy `APPROVE SYSTEM FILES` as a standalone line. A token-only reply is invalid. The system-improvement proposal and this
 SYSTEM GATE do not activate the candidate: keep `status` as
 `candidate_not_active`. A later separate lecturer activation decision may be
 considered only after Gate 0A, Gate 0, Gate 1, Gate 2A and Gate 2B are recorded, the
@@ -482,8 +514,15 @@ contract, store its validator-derived canonical SHA-256 as
 `YYYY-MM-DDTHH:MM:SS+HH:MM[IANA/Timezone]` values for activation and expiry.
 Record the successful simulation and recheck the snapshot before registration
 and every recurrence.
-Register schedules only after one lecturer reply containing exactly and only
-these three completed lines, with actual values that match the visible contract:
+For a schedule, show the teacher its actual recurrence, time zone, expiry and the effect of registering it. Use one exact three-line reply in their chosen language. Fill in the shown schedule ID, version and complete date-time with its IANA time zone before asking. Record the three original lines, reply reference and matching schedule. A changed ID, version, expiry or missing line does not authorise registration. Setting it up does not start a run now.
+
+| Line | English | Deutsch |
+| --- | --- | --- |
+| 1 | Set up this schedule. | Richten Sie diesen Zeitplan ein. |
+| 2 | Schedule: <ID> <version> | Zeitplan: <ID> <version> |
+| 3 | Expires: <exact expiry> | Gültig bis: <exact expiry> |
+
+The legacy three-line form is also accepted.
 
 ```text
 APPROVE SCHEDULES

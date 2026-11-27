@@ -1,9 +1,21 @@
-# Portable core adapter
+# Agentic Course Redesign for a local course project
 
-Version 0.3.1 carries the shared workflow into a local course project. The
-lecturer can check source handling or choose **Skip for now** to begin with a
-description. The native package builder includes the six stage guides, shared
-helpers and editable project scaffold.
+Version 0.3.2. Choose the instructions for your app. [GitHub Copilot](../01_GitHub_Copilot/README.md) · [Claude Code](../02_Claude_Code/README.md) · [OpenCode](../03_OpenCode/README.md) · [Antigravity](../04_Google_Antigravity/README.md)
+
+## Start with your course
+
+> Help me redesign my first workshop. Learners can follow a worked example, but they need practice choosing a method on their own.
+
+1. **Start with your course.** Describe what you want learners to do. Choose **Skip for now** to go straight from your description to design, drafting and review. The material check helps keep course and student information in the right place.
+2. **Choose the materials we can use.** You can combine a course site such as Moodle or OLAT, Word or PowerPoint files, cloud slides or spreadsheets, learning apps such as Kahoot! or Mentimeter, and other resources. Select several, name your own, or continue with just your teaching goal. You decide which items may be opened and who can see the drafts.
+3. **Check the course brief.** Correct what the plugin understood. Leave a question open if the answer is unclear. Use your own words when explaining your priorities or giving feedback.
+
+Later you choose the focus, compare suggested changes, approve the plan and files, try each draft, and decide what to use. The plugin briefly introduces optional tools and recommends one when it would help with a particular task. It explains the benefit, access and any cost. You can approve that task or batch, ask for setup help, or use the built-in option. Student materials and teacher-only keys have separate destinations.
+
+[Follow all nine teaching steps](https://github.com/gpochs/Agentic-Course-Redesign-System/blob/main/03_Shared_Workflow_Core/PARTICIPANT_QUICK_START.md).
+
+<details>
+<summary>For maintainers building a project manually</summary>
 
 The `overlay/` directory is laid out relative to a future project root:
 
@@ -27,21 +39,7 @@ GitHub Copilot, and OpenCode documentation all describe project skill discovery
 there. Platform folders beside this adapter add only native instruction and
 agent wrappers.
 
-Release `0.3.1` retains the pre-source Gate 0A processing-eligibility hard stop,
-course-independent ownership and institutional-routing semantics, and schema-8
-lineage vocabulary. It adds the host-neutral one-decision interaction contract,
-adaptive dependency clusters with every valid option visible, a four-or-more
-full-option chat fallback that leaves card mode, no pruning/hiding/combining to
-fit a card, verbatim custom-answer
-mapping, pre-gate recaps, and deterministic preview-first Gate-0A candidate
-generation with a generic no-overwrite host fallback. After
-HITL 3, silence waits; an explicit requested or declined system-improvement
-response closes the course run. Only a fresh manual trigger or a separately
-authorised scheduled trigger creates another run. One informational trigger-
-guidance offer creates no automation. The portable overlay does not duplicate a
-project state template or migration; when a composed project has control state,
-use canonical schema 8 or the canonical preview-only v7-to-v8 migration before
-continuing.
+The portable instructions use the live host’s choice controls when they support every valid answer and a custom reply. Otherwise the same choices are presented in chat. The source-free route keeps every later approval. Source inspection and durable control records require the official deterministic helpers. A fresh project can start without any existing course material.
 
 ## Safe composition
 
@@ -67,11 +65,10 @@ manifest reconciliation without writing:
 python 00_Portable_Core_Adapter/validation/reconcile_adapters.py
 ```
 
-After reviewing the exact mirror list, `--apply` updates only declared
-Antigravity shared-core mirrors and the five adapter manifests. It never copies
+After reviewing the change list, `--apply` refreshes the declared shared and host-specific copies and their manifests. It never copies
 an overlay into a course project, activates a runtime, or registers automation.
 
-From `02_Other_Agentic_Systems/`, validate all four adapters without invoking a
+From `02_Other_Agentic_Systems/`, validate the portable, Claude Code and OpenCode adapter records without invoking a
 host application:
 
 ```text
@@ -105,3 +102,5 @@ impossible recursive self-hash.
 
 See `CAPABILITIES.md` for the deliberately narrow capability boundary and
 `adapter-manifest.json` for provenance and the root-relative inventory.
+
+</details>
