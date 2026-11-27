@@ -1,6 +1,6 @@
 # Redesign a course in Google Antigravity
 
-Use this guide with Agentic Course Redesign 0.3.3. Start with the teaching problem you want to solve. For example, “My learners read the chart correctly, but they jump from a difference to a claim about its cause.” The worked example below follows that problem through a revised activity.
+Use this guide with Agentic Course Redesign 0.3.4. Start with the teaching problem you want to solve. For example, “My learners read the chart correctly, but they jump from a difference to a claim about its cause.” The worked example below follows that problem through a revised activity.
 
 ## Your nine teaching steps
 
@@ -18,7 +18,15 @@ Antigravity can show a choice card when the current app supports all valid answe
 
 An optional tool is offered when it would improve a specific task. The assistant explains the benefit, minimum access, information sent, cost if known and built-in alternative. You can approve that task or batch, ask how to set up the tool, or decline and continue. Having a tool available does not approve access. Check that a model and service are covered by your signed-in subscription before using them.
 
-For an approved online draft, open the intended course or activity and sign in yourself. The assistant checks the actual course, draft identity, linked resources and visibility before a change, then reopens the same draft to show what happened. The built-in browser and preview features depend on the app and account. When a native viewer is unavailable, open the approved editable item yourself, or continue with a local export or description. [Antigravity browser documentation](https://antigravity.google/docs/browser).
+## Review in the Antigravity App side panel
+
+Suggest one view when it helps the teacher with the current step. For a description-only start, stay in the conversation.
+
+- **Select source material.** In the side panel, **Open File** locates the named local file. Use **Documents** in the Overview panel to return to an agreed PDF, Office file or Google Workspace link already in the conversation. Confirm the item, audience and permitted action before attaching material or opening a linked object. [Side panel and Overview panel](https://antigravity.google/docs/side-panel)
+- **Discuss a proposal.** Open an existing implementation plan or walkthrough from **Artifacts**. Ask the teacher to comment on the passage they want changed. Bring their decision about the proposed teaching change back to the conversation. [Antigravity artifacts](https://antigravity.google/docs/artifacts)
+- **Try a learner activity.** Open the approved activity URL in **New Tab → Browser**, or use **Open File** for the exact approved worksheet PDF. For the slide below, open its approved learner-only HTML preview and press Tab, then Enter on the reveal. For a worksheet PDF, inspect page 2 at teaching size and point to the prompt whose wording needs work. Show the editable working copy alongside an approved companion preview when needed. Review the teacher’s scoring guide separately in its restricted location. [Browser use](https://antigravity.google/docs/browser) · [Built-in PDF viewer](https://antigravity.google/docs/cli-features)
+- **Review a private LMS copy.** The built-in browser has its own sign-ins. Let the teacher handle sign-in. Verify the actual course, unpublished copy, audience and independently copied linked activity before any edit. The teacher can operate the manual browser tab. Where available, the built-in browser agent can try the agreed learner action. On supported CLI, IDE and business-account surfaces, the optional `/browser` route uses Chrome. Use only the route approved for that tab. If access is unavailable, use a permitted export or the teacher’s account of what they see. [Browser availability and sign-in](https://antigravity.google/docs/browser)
+- **Check a change together.** Reopen the saved version at the same question, slide or page and try the action again. If only the teacher saw it, identify the result as teacher-reported. Ask whether to keep this version, change it or leave it out. When working in the CLI without a preview pane, link to the exact copy for the teacher to open in the intended app.
 
 ## Worked example for an environmental data course
 
@@ -48,7 +56,7 @@ This fictional ENVS-120 walkthrough shows what a teacher could ask and what a dr
 
 - **Step 4 · Choose what to focus on:** Specialist perspectives note the gap between passive slide viewing and multiple-choice recall versus written exam justification; the teacher picks rehearsing short confounding-variable explanations before the exam.
 - **Step 5 · Choose which changes to make:**
-  - Assistant proposes: (A) add a 3-minute individual prediction and accessible data table on Slide 4 before Slide 4B's reveal; (B) author an separate two-question short-answer activity for possible use in OLAT (detached from `Dept_EnvStats_Bank`, with scoring notes isolated in a separate teacher file); (C) add a 10-minute post-class discussion-forum thread.
+  - Assistant proposes: (A) add a 3-minute individual prediction and accessible data table on Slide 4 before Slide 4B's reveal; (B) author a separate two-question short-answer activity for possible use in OLAT (detached from `Dept_EnvStats_Bank`, with scoring notes isolated in a separate teacher file); (C) add a 10-minute post-class discussion-forum thread.
   - **Teacher:** *"Keep the Slide 4 prediction step, shorten the separate unlinked quiz copy to one 4-minute in-class check, and leave out the post-class forum."*
   - **Assistant editable recap:** Kept Slide 4 prediction + table; shortened local quiz draft to 4 minutes (1 item, no bank link); omitted post-class forum.
 - **Optional tool offer with setup help (and decline):**

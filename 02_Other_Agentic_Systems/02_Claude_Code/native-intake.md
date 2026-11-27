@@ -1,8 +1,15 @@
 # Native progressive intake in Claude Code
 
-This page shows lecturers and the orchestrator how the first conversation of a course redesign runs in Claude Code. It follows the numbered teaching steps and the English and German handover wording of the Codex edition `0.3.3`. It adds no decision, permission, automation or schedule. The six shared skills remain the only workflow contract. Where this page and a skill differ, the skill wins.
+This page shows lecturers and the orchestrator how the first conversation of a course redesign runs in Claude Code. It follows the numbered teaching steps and the English and German handover wording of the shared release `0.3.4`. It adds no decision, permission, automation or schedule. The six shared skills remain the only workflow contract. Where this page and a skill differ, the skill wins.
 
-Host behaviour was checked against the public Claude Code documentation on 2026-11-27. It depends on the installed version, the surface (terminal, IDE extension, desktop app) and local settings. Anything marked **Not verified** was not confirmed and must not be relied on.
+Host behaviour was checked against the public Claude Code documentation on 2026-11-27. It depends on the installed version, the surface (terminal, IDE extension, desktop app) and local settings. Use the view that answers the lecturer's current question. Keep the first conversation in chat when the lecturer chooses to describe the course.
+
+## Review beside the conversation
+
+- **Choose a source.** In the **Code** tab of Claude Desktop, attach or mention the one permitted file if the lecturer wants Claude to read it. For an LMS review, identify the exact course, private activity copy, audience and allowed task. The **Browser** pane has its own login profile. The lecturer can sign in there, or choose an already configured **Claude in Chrome** connection for a particular signed-in tab. Verify the course and copy in that tab before any edit, check linked resources separately and reopen the saved draft. If the session cannot reach the page, use an approved export or the lecturer's description. [Claude Code desktop browser](https://code.claude.com/docs/en/desktop#browse-external-sites)
+- **Compare two proposals.** Show both instructions in chat. For a tracked text edit, **Changes** lets the lecturer comment on a specific line. Use **Side chat** if the lecturer wants to explore a separate question, then bring the lecturer's actual choice back to the main conversation. [Desktop workspace](https://code.claude.com/docs/en/desktop#arrange-your-workspace)
+- **Try a student worksheet or slide.** In a local Code session, open the exact approved HTML or PDF working copy in **Browser**. If the lecturer operates the pane, provide its clickable file path. Ask the lecturer to try question 2. In an interactive HTML task, reach the feedback control with the keyboard and activate it. For an editable PowerPoint deck, open the saved PPTX in slide show to check a reveal. When a companion PDF or HTML file is needed, include its filename, destination and audience in the plan. Review a teacher-only key in its own restricted location and keep it out of learner previews, screenshots and attachments. [Desktop local file previews](https://code.claude.com/docs/en/desktop#preview-your-app)
+- **Review the revision.** Reopen the same page or slide in the revised file. State what Claude saw, what the lecturer tried and which checks remain open. Ask whether to keep this version, change it or leave it out. In the terminal or when a pane is unavailable, give the exact file and location to open in the usual app. In a separate Cowork session the lecturer can preview a supported generated file next to the conversation if its handling is approved there. [Cowork file previews](https://support.claude.com/en/articles/15520349-use-claude-cowork-on-web-desktop-and-mobile)
 
 <details>
 <summary>Claude Code tools, permissions and optional setup</summary>
@@ -14,7 +21,7 @@ Host behaviour was checked against the public Claude Code documentation on 2026-
 | One bounded choice | `AskUserQuestion` card. The host adds an `Other` row for free text and a notes field. | The same single question in ordinary chat, every option numbered, plus `Other - type your answer`. Then wait. |
 | Reading only what was permitted | Manual-mode file prompts depend on the working directory and local permission settings. | Keep materials outside the course folder until their use here has been agreed. If a read is refused or unavailable, continue from the teacher's description. |
 | Ten specialist perspectives | Project subagents under `.claude/agents/`, limited to `Read`, `Glob` and `Grep`. | Run the same perspectives one after another in the main conversation and say so. |
-| A preview the teacher can change | Show a labelled draft or the intended edit in chat before saving a file. | The teacher can describe a change in a reply. |
+| A preview the teacher can change | Open the approved local HTML or PDF in the desktop Browser pane. Use Changes to comment on tracked text edits. | Show the specific change in chat and open the editable working copy in its usual app for the learner trial. |
 | An optional skill or plugin | Claude Code plugins and skills, opened with `/plugin`. | The built-in editing tools. The redesign never depends on an extra tool. |
 | Saved records | Preview the shared Python helpers before writing. | Continue designing in chat until the packaged helpers can create the protected project records. Never hand-author an eligibility record. |
 
@@ -38,7 +45,7 @@ Claude Code does not enforce the workflow's source rules. Inside the folder wher
 
 Optional hardening is the teacher's choice, because this adapter never writes settings. `permissions.blockReadsOutsideWorkingDirectories` restricts outside reads by the built-in file tools, with exceptions for files the app needs. A `Read(...)` deny rule blocks a named path, best-effort: it covers the built-in file tools and shell commands Claude Code recognises, but not a script that opens files itself.
 
-Claude Code has no built-in view of a signed-in learning platform. An LMS course or a quiz reaches the conversation only as an export the teacher places in the folder, as a description, or through a browser tool the teacher has installed and chosen. **Not verified:** any particular browser tool.
+Browser access depends on the active surface and its permissions. Use the private activity copy identified by the lecturer in the **Code** tab or the permitted export described above.
 
 ### Subagents
 
@@ -117,10 +124,10 @@ After the handling check and the source list are confirmed, O reads the one deck
 
 O never asks for an API key. Installing a tool is not permission to use it with course content, and a new task needs a new choice.
 
-**Step 7. Try the drafts.** Two drafts, shown and decided separately.
+**Step 7. Try the drafts.** O links the saved working copy and asks L to open slide 4 in slide show. The recap below accompanies that trial. The practice question is a separate suggestion.
 
 ```text
-PREVIEW 1 of 2 - slide 4, "Storm of 12 May" - working copy, not saved
+Slide 4, "Storm of 12 May" — try the saved working copy in slide show
 Before: hydrograph, then the line "Peak discharge = 84 m3/s"
 After:  1. hydrograph, with the same values in a labelled table
         2. "Is the lower town at risk? Decide, then support it with two values."
@@ -134,9 +141,9 @@ Three options fit a card:
   "question": "Would a student know what counts as support for their decision on this slide?",
   "multiSelect": false,
   "options": [
-    {"label": "Use this version", "description": "Keep slide 4 as shown in preview 1."},
+    {"label": "Use this version", "description": "Keep the version of slide 4 that you tried."},
     {"label": "Request changes", "description": "Tell me which part to change. I show it again."},
-    {"label": "Leave it out", "description": "Nothing is saved for this slide."}]}]}
+    {"label": "Leave it out", "description": "Keep this draft private and leave it out of the handover."}]}]}
 ```
 
 Without a card, the same question in chat:
@@ -149,7 +156,7 @@ Without a card, the same question in chat:
 >
 > L: 2. Give them two minutes, not one.
 
-O shows preview 1 again with line 3 changed to two minutes and asks the same question. L answers **Use this version**.
+O revises the approved working copy to give learners two minutes. L opens slide 4 in PowerPoint’s slide show and tries the two-minute exercise. They advance once and check whether the peak appears after the question. O records the result as lecturer-reported if only L saw it. After reviewing that version, L answers **Use this version**.
 
 ```text
 OPTIONAL IDEA - practice question in chat, outside the file plan and Moodle

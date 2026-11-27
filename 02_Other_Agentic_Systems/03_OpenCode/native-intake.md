@@ -18,22 +18,28 @@ Use the card if it shows every choice, lets you select several and accepts a wri
 
 **2. Which materials may OpenCode read here?** Set the limits before sharing: “Read my slides in this project for my review. Leave the class responses in Moodle.” Editing or sharing needs separate permission.
 
+In OpenCode Desktop, the **Files** panel helps locate the agreed project file. Keep any learner responses and the teacher-only answer key in their own restricted locations. Opening a file for yourself and attaching it as context give the agent different access. Offer a view when the current task calls for it. [OpenCode Desktop](https://opencode.ai/desktop)
+
 **3. Does this capture your goal?** “Students choose a route and justify it using late trips out of total trips.” Correct the summary. If you haven’t given a goal, start with what learners should do better.
 
 **4. Where do students need practice?** Pick a focus before OpenCode investigates: calculating a rate or explaining why it’s fairer when routes have different numbers of trips.
 
-**5. Is the change worth two minutes?** Compare “Count the late trips” with “Vote in pairs and defend your choice.” Ask what supports the change; keep, adapt or decline it.
+**5. Is the change worth two minutes?** Compare “Count the late trips” with “Vote in pairs and defend your choice.” Ask what supports the change and keep, adapt or decline it. If the wording is already in a tracked draft, the **Review** panel shows the changed lines and lets you comment on one. Open the rendered copy when the decision depends on what students see. [OpenCode Desktop](https://opencode.ai/desktop)
 
 **Optional help:** A writing skill such as Humanizer could shorten the voting prompt. Ask where the text goes and whether the cost is included, extra or unknown. Choose **Use for this prompt**, **Help with setup** or **Edit here without it**. For [project-only setup](https://github.com/gpochs/Agentic-Course-Redesign-System/blob/main/02_Other_Agentic_Systems/03_OpenCode/README.md#install-the-native-skills-and-agents), review the skill folder before adding it under `.opencode/skills/`; check it appears in a fresh project chat.
 
 **6. Shall we make these two files?** Approve the plan, the filenames below and the exact private draft folder first. Both copies are for your review before learners see them. Keep any answer key or marking notes in a separately approved teacher-only file.
 
-**7. What happens when you try each draft?** Open each saved, editable copy from its link:
+**7. What happens when you try each draft?** For an approved learner-facing web worksheet, open its exact private preview in the desktop **built-in browser** beside the session. Try question 2 with the keyboard and check when feedback appears. If the desktop exposes browser controls to the agent, bind the trial to that tab and keep its tab ID for each action. If only you can see it, tell OpenCode what happened. Any extra HTML or PDF review copy needs an agreed filename, destination and audience in the plan. [OpenCode Desktop](https://opencode.ai/desktop) · [Browser tools](https://opencode.ai/docs/tools/#browser)
+
+For the two saved Office drafts in this example, open each editable copy in its usual app.
 
 - `Route-choice-v1.pptx`, slide 3: In PowerPoint’s slide show, can pairs vote before seeing the rates? “Keep the trip counts visible; reveal the percentages on the next click.”
 - `Trip-rates-v1.xlsx`, sheet `Routes`: In Excel, enter 3 late trips in `B4` and 20 total in `C4`. Expect 15% in `D4`. Try two zeros: “Show ‘No trips’ in `D4` instead of an error.”
 
-For an LMS draft, open the agreed unpublished activity. To show it to OpenCode, name the task and allowed site and lend just that tab using the [Browse toolbar button](https://opencode.ai/product/browse). You handle sign-in. Check the course, unpublished copy and audience immediately before editing, then reopen the saved version. Specialists stay read-only. You can skip Browse and work from an approved export. Check that linked quizzes open draft copies. In learner preview, try a fictional response and note when feedback appears. If submission is disabled, mark timing untested; an authorised export still lets you review the wording.
+**For a course open in your signed-in Chrome or Edge**, the optional, paired **OpenCode Browse** extension can lend the existing tab. Agree on the course, unpublished activity, audience, allowed site and task, then use the extension’s toolbar button on that tab. Handle sign-in yourself. The desktop browser has its own profile. For an LMS tab already open there, verify that tab directly. Opening a local worksheet does not grant access to a Chrome or Edge tab. Immediately before editing, check the actual course, private copy and audience in the lent tab. Check that any linked quiz also opens its approved independent copy. Reopen the saved draft in learner preview and try one fictional response when the approved trial permits it. If submission is disabled, leave feedback timing untested. The teacher-only key stays out of learner tabs and captures. [OpenCode Browse](https://opencode.ai/product/browse)
+
+In a terminal session or when the browser panel or extension is unavailable, link the exact working copy for the teacher to open, work from an approved export, or keep discussing the description. Identify which version was inspected, by whom, and which learner action remains untested.
 
 For each planned file, choose the version, ask for a change or leave it out. For example, you can keep the slide and leave out the spreadsheet. The spreadsheet stays private, and the plan keeps its filename and your decision. A change to the slide calls for another trial of the updated version and a fresh decision. If you leave out both drafts, you can stop or revise one. There is nothing to hand over. Otherwise, once every file has a decision, confirm that the checked versions you chose are ready. In a separate reply, decide whether to save the handover document at the exact location shown. Check that it lists only those versions.
 
