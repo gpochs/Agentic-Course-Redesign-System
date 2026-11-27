@@ -31,8 +31,8 @@ Claude shows the next question as a choice card when it fits, or in chat when yo
 ## Manual project overlay
 
 
-Adapter release: `0.3.2`. Shared semantic base: inactive candidate
-`ACR-SYS-20261127-003` version `0.3.2`.
+Adapter release: `0.3.3`. Shared semantic base: inactive candidate
+`ACR-SYS-20261127-004` version `0.3.3`.
 
 This overlay adds a project `CLAUDE.md`, one path-scoped rule, and ten
 project-local Claude Code subagents to the portable core. It does not open or

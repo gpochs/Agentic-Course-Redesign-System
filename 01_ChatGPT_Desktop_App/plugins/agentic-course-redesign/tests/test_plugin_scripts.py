@@ -14,8 +14,8 @@ from unittest import mock
 
 
 PLUGIN = Path(__file__).resolve().parent.parent
-OPENAI_PACKAGE_VERSION = "0.3.2"
-BASE_WORKFLOW_VERSION = "0.3.2"
+OPENAI_PACKAGE_VERSION = "0.3.3"
+BASE_WORKFLOW_VERSION = "0.3.3"
 
 
 def load(name: str, relative: str):
@@ -475,6 +475,13 @@ def completed_run_state(template: dict) -> tuple[dict, dict]:
             **lineage,
             "decision": "accept",
             "final_acceptance_reference": "HITL3-ACCEPT-001",
+            "item_decisions": {
+                working_target: {
+                    "artefact_id": "ARTEFACT-SYNTHETIC-001",
+                    "decision": "accepted",
+                    "reply_reference": "REPLY-HITL3-001",
+                }
+            },
             "reply_reference": "REPLY-HITL3-001",
             "validation_status": "passed",
             "recorded_at": "2026-08-21T10:04:00Z",
@@ -1015,6 +1022,40 @@ class StateTests(unittest.TestCase):
         errors = state_validator.validate(expanded)
         self.assertTrue(any("question scope is incomplete" in error for error in errors), errors)
         self.assertTrue(any("authorise only review and proposal" in error for error in errors), errors)
+
+    def test_final_review_hands_over_only_the_selected_draft(self):
+        template = json.loads((PLUGIN / "assets/project-template/01_Control/state.json").read_bytes())
+        state, run = completed_run_state(template)
+        approvals = run["approvals"]
+        plan = approvals["gate_3"]["approved_material_targets"]
+        quiz_path = "04_Working_Copies/RUN-SYNTHETIC-001/Quiz.md"
+        plan.append({**plan[0], "relative_path": quiz_path})
+        approvals["artefact_gate"]["artefacts"].append({
+            "target": quiz_path,
+            "artefact_id": "QUIZ-DRAFT-001",
+            "decision": "excluded",
+            "decision_note": "Please leave the quiz out.",
+            "reply_reference": "TEACHER-QUIZ-001",
+            "recorded_at": "2026-08-21T10:04:00Z",
+        })
+        included_target = plan[0]["relative_path"]
+        handover = approvals["production_completion"]["handoff_approval"]
+        handover["included_targets"] = [included_target]
+        self.assertEqual(state_validator.validate(state), [])
+
+        handover["included_targets"].append(quiz_path)
+        self.assertTrue(state_validator.validate(state))
+        handover["included_targets"] = [included_target]
+        final = approvals["hitl_3"]["decision"]["item_decisions"]
+        self.assertEqual(set(final), {plan[0]["relative_path"]})
+
+        # A copy left out during the trial cannot appear as accepted at final review.
+        final[quiz_path] = {
+            "artefact_id": "QUIZ-DRAFT-001",
+            "decision": "accepted",
+            "reply_reference": "FINAL-QUIZ-001",
+        }
+        self.assertTrue(state_validator.validate(state))
 
     def test_each_skill_default_prompt_explicitly_invokes_itself(self):
         skill_root = PLUGIN / "skills"

@@ -14,7 +14,7 @@ Give the current numbered step and a short phrase in the teacher's language when
 | 4. Choose what to focus on | After the five initial perspectives, show the specific observations that matter. Ask “Where would a change make the biggest difference for your learners?” Wait before investigating the agreed focus. |
 | 5. Choose which changes to make | Show a small before-and-after example, its evidence, time and trade-off. For each independent proposal, let the teacher keep it, change it or leave it out. Ask “What would you change?” when an explanation matters. |
 | 6. Review the plan and files | Show the order of activities, exact drafts to create, and who can see each. Present “Use this plan”, “Change the plan” and “Leave it for now”, with room for another answer. Wait before writing. |
-| 7. Try the drafts | Open each editable working copy or learner preview within scope. Ask a concrete review question. After the checks, first confirm whether all drafts are ready. In a **separate reply**, show the exact handover document and confirm whether to save it there. |
+| 7. Try the drafts | Open the working copies or learner previews. Ask which drafts to keep, change or leave out. Show any revisions. If the teacher keeps a draft, confirm whether the selected drafts are ready. In a **separate reply**, show the exact handover document and confirm whether to save it there. |
 | 8. Decide what to use | After verification, show the actual version and any unfinished checks. For each item, offer “Use this version”, “Request changes” or “Leave it out”, and a custom answer. “Which part should I change?” is an open question. |
 | 9. Finish or suggest an improvement | After acceptance, offer once to review how the redesign worked and write a suggestion. Explain the scope and wait for a request or a decline. A later installation, activation or schedule is a separate decision. |
 
@@ -231,18 +231,9 @@ hidden layers, speaker-note keys, or teacher comments. The lecturer accepts,
 conditionally accepts named corrections, requests revision, or rejects each
 artefact.
 
-Production completion requires two separate, current-lineage decisions. First,
-the lecturer's completed reply must repeat the current run, run-contract,
-task/chat, shared-context, source-manifest, source-access-policy, and plan
-lineage and contain `DECLARE PRODUCTION COMPLETE` as a standalone line. Record
-only that declaration. After the verified accepted-version/QA record and exact
-`04_Working_Copies/<approved-run>/Production_Handoff.md` target are shown, a
-second completed reply must repeat the same lineage and exact target and contain
-`APPROVE PRODUCTION HANDOFF` as a standalone line. Either token alone is
-insufficient. Save only that approved target, then reopen it and verify that it
-matches the accepted versions, audience classifications, QA evidence,
-unresolved issues, and approval record. Do not enter HITL 3 until this saved
-handoff verification passes.
+Record a decision for every named draft and keep the original approved plan. An explicitly excluded draft stays private and out of the handover. An outstanding revision or missing review stops the handover. If all drafts are excluded, offer to stop or revise. Begin the two confirmations only when at least one accepted draft has passed its checks.
+
+Use the lecturer's language and the two separate confirmations from the teaching conversation above. Record each actual reply as a standalone line and bind it to the current run, run contract, task, shared context, source manifest, access policy and plan. Keep the validated declaration before showing the accepted versions, audience, QA evidence, limitations and exact `04_Working_Copies/<approved-run>/Production_Handoff.md` target. The next reply must approve that exact location. The legacy lines `DECLARE PRODUCTION COMPLETE` and `APPROVE PRODUCTION HANDOFF` remain valid. Reject a combined reply or changed destination. Save only the approved document, reopen it and verify its contents and scope before inviting the lecturer's final decisions.
 
 ## HITL 3: final lecturer acceptance
 

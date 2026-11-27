@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.3 — 2026-11-27
+
+- After looking at a draft, a teacher can leave it out and still take the other agreed materials forward. The handover can distinguish a quiz that the teacher declined from a worksheet that still needs another review.
+- The project-only Copilot and OpenCode installation guides explain how to open the six stages in each app.
+
 ## 0.3.2 — 2026-11-27
 
 - Teachers can start with any mix of an online course, shared or local files, and learning apps. Choosing **Skip for now** takes them straight to their teaching goal. Each source can be added later.

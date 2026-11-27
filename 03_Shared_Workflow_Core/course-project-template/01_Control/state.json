@@ -1,7 +1,7 @@
 {
   "schema_version": 8,
   "plugin_id": "agentic-course-redesign",
-  "plugin_version": "0.3.2",
+  "plugin_version": "0.3.3",
   "status": "candidate_not_active",
   "state_owner": "course_design_orchestrator",
   "umbrella_entry_routing": {
@@ -746,6 +746,7 @@
             "reject"
           ],
           "named_corrections": [],
+          "item_decisions": {},
           "corrections_verification_reference": null,
           "final_acceptance_reference": null,
           "reply_reference": null,

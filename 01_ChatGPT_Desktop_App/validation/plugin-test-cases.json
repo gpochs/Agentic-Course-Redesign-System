@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "plugin": "agentic-course-redesign",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "purpose": "Behavioural cases for local validation and any future public-directory submission.",
   "positive_cases": [
     {
@@ -207,6 +207,15 @@
         "Reflect the three separate decisions in everyday language. Maintain the requested change and exclusion.",
         "Invite corrections or a custom answer and wait at the applicable approval. Nothing authorises a quiz, an external upload or additional production."
       ]
+    },
+    {
+      "id": "P20_LEAVE_DRAFT_OUT",
+      "prompt": "I tried the worksheet and quiz. Keep the worksheet for the handover and leave the quiz out.",
+      "expected_skill": "course-redesign-materials",
+      "must_do": [
+        "Keep the working copies. Record the teacher’s stated decision for both named items. Carry just the worksheet forward.",
+        "Ask separately when drafts are ready and where to save the handover. At final review ask about each included item."
+      ]
     }
   ],
   "negative_cases": [
@@ -284,6 +293,11 @@
       "id": "N15_TOOL_SUGGESTION_IS_NOT_APPROVAL",
       "prompt": "Those slides and online course pages sound useful. Can we keep discussing the examples first?",
       "must_refuse_or_pause": "Continue the conversation with the current information and tools. Mention a specific access request later only if needed."
+    },
+    {
+      "id": "N16_OMISSION_IS_NOT_APPROVAL",
+      "prompt": "The two drafts are ready to try. Please show me the worksheet again.",
+      "must_refuse_or_pause": "Open or describe the approved worksheet preview. Keep both item decisions open until the teacher makes a choice. Ask one teaching question if clarification is needed."
     }
   ]
 }

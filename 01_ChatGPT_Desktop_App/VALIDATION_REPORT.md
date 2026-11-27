@@ -1,17 +1,17 @@
-# Codex 0.3.2 release checks
+# Codex 0.3.3 release checks
 
-The 0.3.2 directory ZIP and repo marketplace carry identical runtime files. The ZIP contains 57 files under one plugin root, including six skills and ten project-scoped agent definitions. The reviewer cases cover combined source types, optional tools, teacher decisions, staged course context and course-level accessibility needs.
+A teacher can try two approved drafts, keep the worksheet and leave the quiz out of the handover. The working quiz stays in its original draft location. Each included item still needs a final teaching decision. A requested revision stays open, and excluding every draft stops the handover.
 
 | Check | Observed result |
 | --- | --- |
-| Public metadata, runtime parity and review cases | 53 checks passed against the archive, including matching reviewed skill hashes, 20 positive scenarios and 15 negative scenarios. These are reviewer cases. |
-| Forward checks | All 46 passed, covering the ten native agent definitions, six skills, lecturer decisions, production handoff, final review and source boundaries. |
-| Bundled helper tests | 30 passed. One symbolic-link test was skipped because this Windows environment could not create the test link. |
-| OpenAI skill validation | All six skills in both package trees passed OpenAI’s published quick validator at commit 49f948f. This host lacked a locally installed standalone plugin validator. [Official validator](https://github.com/openai/skills/blob/49f948faa9258a0c61caceaf225e179651397431/skills/.system/skill-creator/scripts/quick_validate.py) |
-| Release build | Two fresh public-package builds produced SHA-256 `D130635C717D69E9C7366FD77D4E45D81559191AF136710CDB4A36C6A2D496C2`. All files matched the submission source. |
-| Project-scoped skill discovery | A Windows project upgraded from 0.3.1 in two passes. The first replaced 30 verified files. After the final confirmation and handover changes, five more replacements matched the tested candidate's recorded bytes. The installer verified all 54 final files, proposed zero changes on retry, and a fresh Codex app-server scan recognised all six enabled repo-scoped skills. The regression test also checks preservation of a lecturer-edited file. |
+| Public archive | Two builds produced the same 57-file ZIP, SHA-256 `A9204C8EDBFCBE32EB19D5733804457338643A654996D34E86C9DE6FE7D13159`. The 55 runtime files match the repository marketplace package. |
+| Public metadata and review cases | All 54 archive checks passed. The reviewer pack includes 21 positive and 16 negative scenarios. |
+| Forward checks and helpers | All 47 forward checks passed. Of 32 helper tests, 31 passed on Windows and one symbolic-link test was skipped. The selective-handover test accepts one of two planned drafts, detects an excluded item added to the handover and rejects a final acceptance recorded against that item. |
+| OpenAI skill validation | The installed official skill validator accepted six skills in each of the two packages. The standalone plugin validator was unavailable locally. |
+| Project installation | An existing Windows course project upgraded six files from its verified 0.3.2 installation. All 54 project files matched after installation. A second preview proposed zero changes. A fresh Codex app-server scan recognised all six skills as enabled at project scope. |
+| Model behaviour | In fictional teacher conversations using the ChatGPT subscription, GPT-6.2 Sol kept the worksheet and left the quiz in its working location. GPT-6.2 Astra stopped when the teacher left out all drafts. In German, Astra let the teacher inspect the retained worksheet before making a final decision. These conversation checks used no real course documents. |
 
-Independent English and German model trials checked mixed materials, skipping access, teacher explanations, several decisions in one reply, optional tools and the separate approvals before final review. [Behaviour and evidence](../05_Validation/VALIDATION_REPORT_v0.3.2.md)
+The repository includes the full shared validation report for this release and the earlier account of English and German trials across the workflow. [Release validation](../05_Validation/VALIDATION_REPORT_v0.3.3.md) · [Earlier teaching trials](../05_Validation/VALIDATION_REPORT_v0.3.2.md)
 
 ## Reproduce
 

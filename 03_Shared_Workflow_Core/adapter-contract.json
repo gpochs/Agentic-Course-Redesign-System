@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "core_version": "0.3.2",
+  "core_version": "0.3.3",
   "state_schema_version": 8,
   "status": "candidate_not_active",
   "schedules": [],

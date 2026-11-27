@@ -1,7 +1,7 @@
 # Shared workflow core
 
 This directory is the course-independent semantic source for all platform
-adapters. Version 0.3.2 uses nine numbered teaching steps. Teachers can combine sources, start from their description and decide about optional tools for a particular task. It retains source-free onboarding, all ten specialist roles and destination-bound draft reviews. Installation leaves each course inactive until its lecturer starts a run.
+adapters. Version 0.3.3 uses nine numbered teaching steps. Teachers can combine sources, start from their description and decide about optional tools for a particular task. It retains source-free onboarding, all ten specialist roles and destination-bound draft reviews. Installation leaves each course inactive until its lecturer starts a run.
 The same workflow adapts to lecturer-supplied school, vocational, professional,
 higher-education or other explicitly described course contexts. It must not
 infer a subject, learner level, qualification framework, assessment form or

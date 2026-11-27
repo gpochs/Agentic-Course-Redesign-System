@@ -1,6 +1,6 @@
 # Redesign a course with GitHub Copilot: a teacher's guide
 
-Release `0.3.2` of the native `agentic-course-redesign` plugin.
+Release `0.3.3` of the native `agentic-course-redesign` plugin.
 
 This guide follows the nine steps you see in the conversation. At every
 decision Copilot waits for your reply. Nothing here skips or replaces one of
@@ -123,8 +123,9 @@ When the needed view is available, Copilot opens each agreed draft, records what
 | Word, PowerPoint or Excel | The native app on your computer. | A PDF or HTML preview listed in Step 6. |
 | Private LMS draft | You open the draft in the **Browser** panel and sign in. | An authorised export or a description. |
 
-When everything has been tried, you confirm twice, in two **separate**
-replies:
+For each planned draft, tell Copilot to keep this version, revise it, or leave it out. If you leave out the quiz, it stays private. The plan retains its original filename and your decision. If you ask for a change to the worksheet, try the revised copy before deciding again. If you leave everything out, you can stop or revise a draft. There is nothing to hand over.
+
+Once you have decided on every draft and at least one checked version is ready, Copilot lists the versions you chose. You confirm twice, in two **separate** replies:
 
 1. `The drafts are ready for handover.`
 2. After Copilot shows the exact location, send
@@ -137,7 +138,7 @@ single click does not count for either confirmation.
 
 ### Step 8 · Decide what to use
 
-Decide **for each file separately**: **Use this version**, **Request
+Decide **for each file in the handover separately**: **Use this version**, **Request
 changes**, **Leave it out**, or your own answer. Accepting one file does not
 accept the others. For a change, say what you saw and where, for example
 "In Task 2, change 'name the method' to 'choose and justify the method'."

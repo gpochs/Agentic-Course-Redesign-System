@@ -78,7 +78,7 @@ Give the current numbered step and a short phrase in the teacher's language when
 | 4. Choose what to focus on | After the five initial perspectives, show the specific observations that matter. Ask “Where would a change make the biggest difference for your learners?” Wait before investigating the agreed focus. |
 | 5. Choose which changes to make | Show a small before-and-after example, its evidence, time and trade-off. For each independent proposal, let the teacher keep it, change it or leave it out. Ask “What would you change?” when an explanation matters. |
 | 6. Review the plan and files | Show the order of activities, exact drafts to create, and who can see each. Present “Use this plan”, “Change the plan” and “Leave it for now”, with room for another answer. Wait before writing. |
-| 7. Try the drafts | Open each editable working copy or learner preview within scope. Ask a concrete review question. After the checks, first confirm whether all drafts are ready. In a **separate reply**, show the exact handover document and confirm whether to save it there. |
+| 7. Try the drafts | Open the working copies or learner previews. Ask which drafts to keep, change or leave out. Show any revisions. If the teacher keeps a draft, confirm whether the selected drafts are ready. In a **separate reply**, show the exact handover document and confirm whether to save it there. |
 | 8. Decide what to use | After verification, show the actual version and any unfinished checks. For each item, offer “Use this version”, “Request changes” or “Leave it out”, and a custom answer. “Which part should I change?” is an open question. |
 | 9. Finish or suggest an improvement | After acceptance, offer once to review how the redesign worked and write a suggestion. Explain the scope and wait for a request or a decline. A later installation, activation or schedule is a separate decision. |
 
@@ -230,6 +230,10 @@ First verify that the recorded Gate 3 blueprint, file plan, target types and exa
 
 ### Production declaration and handoff
 
+For each planned draft, preserve its exact target and the teacher's choice. A teacher can say “Leave out the quiz and keep the worksheet.” Keep the quiz private and list only the worksheet in the handover. Preserve the original and the review history. A requested change keeps the draft open until the teacher has seen the revised version. If the teacher leaves out every draft, stop before handover and offer to finish or revisit a draft.
+
+In the decision record, keep the plan's target list intact. Record each reviewed working copy with its own `target`, `artefact_id` and `recorded_at`. An `accepted` receipt includes `qa_reference` and `acceptance_reference`. For `excluded` or `revision_requested`, record the teacher's `reply_reference` and their words in `decision_note`. “Leave it out” is sufficient. For an existing LMS draft, bind the receipt to its exact external object ID. A proposed new draft declined before creation has no such ID. Keep pending revisions in progress. When all items are resolved, the handover approval's `included_targets` lists exactly the accepted working copies. Independently check the saved document against that list before continuing. If every item is excluded, record the batch as rejected and stop before the readiness declaration.
+
 If a previous confirmation is missing or cannot be verified, check your own records first. Never ask the teacher for internal IDs, run details, fingerprints or a missing approval record. Explain only the real teaching consequence: “I still need to check which two drafts you want to hand over” or “Wo soll ich die fertigen Unterlagen ablegen?” If the exact object is already known, simply ask the person to confirm the named action. Keep the extra technical confirmation, if the host genuinely requires one, after this explanation and fill it out for them to review.
 
 After all named artefact gates and QA pass, wait for a completed current-lineage
@@ -243,6 +247,8 @@ the handoff, then persist its verification receipt. Do not open HITL 3 until the
 declaration, handoff approval and handoff verification are all complete.
 
 ### HITL 3
+
+Record a separate choice in `decision.item_decisions` for each draft the teacher received. Key it by the exact working target and include the reviewed `artefact_id`, the new teacher `reply_reference` and `decision` of `accepted`, `excluded` or `revision_requested`. One reply can name several items. Show the final list to the teacher. Keep excluded items private and send only accepted items to an already approved destination. Leave revisions open. If everything is declined, record rejection and stop without copying or publishing files.
 
 Only after the verified Production Handoff, give the lecturer editable files,
 PDFs/previews, change log, limitations, and QA evidence. Ask the lecturer to

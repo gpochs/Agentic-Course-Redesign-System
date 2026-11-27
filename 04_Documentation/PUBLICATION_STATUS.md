@@ -1,8 +1,10 @@
 # Publication and version history
 
-Version 0.3.2 introduces nine teacher-facing steps, mixed sources, task-specific optional tools and separate English or German confirmations for finishing and handing over drafts. The final checks account for each approved item. The independently built OpenAI submission ZIP contains 57 files. [Codex package checks](../01_ChatGPT_Desktop_App/VALIDATION_REPORT.md)
+Version 0.3.3 corrects handover when a teacher leaves out a previously planned draft. The GitHub and OpenAI editions have separate release schedules. [Codex package checks](../01_ChatGPT_Desktop_App/VALIDATION_REPORT.md)
 
-On 27 November 2026, while the 0.3.2 package was being prepared, the OpenAI publisher dashboard showed **0.3.1 in review** and **0.2.5 publicly listed**. All six checks for the 0.3.1 skills had passed. The live directory identifies the version currently available from OpenAI. [Agentic Course Redesign in the directory](https://chatgpt.com/plugins/plugins_6a88cdd968088191b7a22c9e92cbb5ba)
+On 27 November 2026, the OpenAI publisher dashboard showed **0.3.1 in review** and **0.2.5 publicly listed**. The public listing shows what a teacher gets by installing from the ChatGPT directory. A Codex user who also installs the GitHub edition can select its repository marketplace, `agentic-course-redesign-system`, to use the version distributed here. [OpenAI directory listing](https://chatgpt.com/plugins/plugins_6a88cdd968088191b7a22c9e92cbb5ba) · [Codex installation](../01_ChatGPT_Desktop_App/INSTALLATION.md)
+
+The 0.3.2 GitHub release introduced the nine teacher-facing steps, mixed sources and task-specific optional tools. Its versioned report records the checks on that release. [0.3.2 validation report](../05_Validation/VALIDATION_REPORT_v0.3.2.md)
 
 The repository's v0.2.5 tag preserves the preceding OpenAI package and policy documents. Historical validation reports describe their own versions. The GitHub release list records which source bundles have been distributed. [GitHub releases](https://github.com/gpochs/Agentic-Course-Redesign-System/releases)
 

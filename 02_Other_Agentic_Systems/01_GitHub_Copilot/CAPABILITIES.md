@@ -2,9 +2,9 @@
 
 ## Native plugin
 
-The `0.3.2` package supplies:
+The `0.3.3` package supplies:
 
-- Six Agentic Course Redesign workflow skills with the Copilot v0.3.2
+- Six Agentic Course Redesign workflow skills with the Copilot v0.3.3
   lecturer-dialogue contract.
 - Ten orchestrator-assigned, read-only specialist agents.
 - Preview-first setup, deterministic no-overwrite Gate-0A record generation,

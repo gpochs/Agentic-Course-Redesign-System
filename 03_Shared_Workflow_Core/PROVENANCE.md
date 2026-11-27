@@ -1,5 +1,7 @@
 # Provenance
 
+Version 0.3.3 (proposal ACR-SYS-20261127-004) corrects how a teacher’s decisions about individual drafts are recorded during handover and final review. A two-draft example in release validation covers withdrawing a previously planned item.
+
 Version 0.3.2 (proposal ACR-SYS-20261127-003) uses numbered teaching decisions, mixed-source intake, scoped optional tools and approved design references. The consent and state records retain schema 8.
 
 Version 0.3.1 makes course context progressive. The lecturer can confirm what authorised sources establish, leave details open and shape the next consequential design decision. Copy-only production checks cover linked resources as well as their parent course. The update preserves schema 8, existing approval stages and previous run records.

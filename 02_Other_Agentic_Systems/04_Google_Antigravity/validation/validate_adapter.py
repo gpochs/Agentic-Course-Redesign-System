@@ -538,7 +538,7 @@ def validate_workflow_completeness(
             "### Production completion and verified handoff",
             "DECLARE PRODUCTION COMPLETE",
             "APPROVE PRODUCTION HANDOFF",
-            "Do not enter HITL 3 until that verification passes",
+            "verify its contents and scope before inviting the lecturer's final decisions",
             "Persist a system-improvement offer record",
             MANDATORY_SYSTEM_REVIEW_QUESTION,
             "idempotency key",
@@ -900,26 +900,26 @@ def validate(
     if manifest:
         if manifest.get("platform") != "google-antigravity":
             errors.append("adapter manifest platform must be google-antigravity")
-        if manifest.get("adapter_version") != "0.3.2":
-            errors.append("adapter manifest top-level adapter_version must be 0.3.2")
+        if manifest.get("adapter_version") != "0.3.3":
+            errors.append("adapter manifest top-level adapter_version must be 0.3.3")
         if manifest.get("status") != "candidate_not_active":
             errors.append("adapter manifest top-level status must remain candidate_not_active")
         adapter = manifest.get("adapter", {})
         if adapter.get("platform") != "google-antigravity":
             errors.append("nested adapter platform must be google-antigravity")
-        if adapter.get("version") != "0.3.2":
-            errors.append("nested adapter version must be 0.3.2")
+        if adapter.get("version") != "0.3.3":
+            errors.append("nested adapter version must be 0.3.3")
         if adapter.get("status") != "candidate_not_active":
             errors.append("nested adapter status must remain candidate_not_active")
         provenance = manifest.get("provenance", {})
-        if provenance.get("workflow_proposal_id") != "ACR-SYS-20261127-003":
-            errors.append("workflow provenance must identify ACR-SYS-20261127-003")
-        if provenance.get("validated_base_version") != "0.3.2":
-            errors.append("workflow provenance must identify shared base version 0.3.2")
-        if provenance.get("adapter_release_version") != "0.3.2":
-            errors.append("workflow provenance must identify adapter release version 0.3.2")
-        if manifest.get("source", {}).get("version") != "0.3.2":
-            errors.append("source version must identify shared candidate 0.3.2")
+        if provenance.get("workflow_proposal_id") != "ACR-SYS-20261127-004":
+            errors.append("workflow provenance must identify ACR-SYS-20261127-004")
+        if provenance.get("validated_base_version") != "0.3.3":
+            errors.append("workflow provenance must identify shared base version 0.3.3")
+        if provenance.get("adapter_release_version") != "0.3.3":
+            errors.append("workflow provenance must identify adapter release version 0.3.3")
+        if manifest.get("source", {}).get("version") != "0.3.3":
+            errors.append("source version must identify shared candidate 0.3.3")
         source_files = manifest.get("source_files", [])
         if not source_files:
             errors.append("adapter manifest has no source-file hashes")

@@ -130,6 +130,6 @@ server or plugin does not repair poisoned task history; no MCP, hook,
 authentication, or additional permission is required or added.
 
 Rollback, if deliberately chosen by the operator, is
-`0.3.0`; rollback does not install or activate itself.
+`0.3.2`; rollback does not install or activate itself.
 
 </details>

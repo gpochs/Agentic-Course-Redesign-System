@@ -7,6 +7,8 @@ description: Make approved teaching materials such as slides, handouts, spreadsh
 
 ## In conversation
 
+Show each planned draft and record the teacher's choice for that version. If they say “Keep the handout and leave out the quiz,” preserve both drafts privately and list only the handout for handover. When a change is requested, show the revised draft and wait for its review. When every draft is declined, stop before handover. A choice to leave something out never authorises deleting it. Final choices apply separately to each handed-over item. Sharing with learners requires separate authority.
+
 At **Step 6 · Review the plan and files**, name the actual files or private draft activities. At **Step 7 · Try the drafts**, show the exact version in its intended view and say what was tested. Ask “What would you change on this slide?” At **Step 8 · Decide what to use**, keep acceptance, revision and rejection available for each item. Use a numbered step when it changes. Speak to the teacher in the language they use. Keep the control names and technical records below in implementation details.
 
 If a previous confirmation is missing or cannot be verified, check your own records first. Never ask the teacher for internal IDs, run details, fingerprints or a missing approval record. Explain only the real teaching consequence: “I still need to check which two drafts you want to hand over” or “Wo soll ich die fertigen Unterlagen ablegen?” If the exact object is already known, simply ask the person to confirm the named action. Keep the extra technical confirmation, if the host genuinely requires one, after this explanation and fill it out for them to review.
