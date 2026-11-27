@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.5 — 2026-11-27
+
+- Choosing **Finish here** ends with one sentence naming accepted items and the actual handover location. Future-run controls stay in the private record. A teacher who wants a second opinion can still ask for one.
+- The opening model-choice question now says directly that teachers can start with their course and decide later.
+
 ## 0.3.4 — 2026-11-27
 
 - Each specialist can identify a missing observation, suggest a task-specific tool supported by primary evidence and offer a workable fallback. The teacher decides whether to install anything or share data with a new service.

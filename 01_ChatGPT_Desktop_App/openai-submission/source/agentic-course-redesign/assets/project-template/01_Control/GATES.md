@@ -143,8 +143,7 @@ Silence is `offered_awaiting_response`, never a request or decline.
 After an explicit requested or declined response, atomically close the course
 run as terminal `complete_dormant`, clear `active_run_id`, and never resume that
 run. If requested, system-improvement work proceeds as a separate system
-record, not as an extension of the course run. Persist one informational
-trigger-guidance offer after closeout: manual triggering is available and
+record, not as an extension of the course run. Keep future-run and trigger guidance only in the private run record. Its receipt records internal bookkeeping, never a message to the teacher. Show it only if the teacher asks about starting another run or scheduling. Private receipt fields: manual triggering is available and
 always creates a fresh run; optional scheduling needs exact course, project,
 timezone, recurrence, non-null expiry and its own gates, with no immediate run.
 
@@ -191,5 +190,7 @@ triggers but preserves contract and run history; an on/after-expiry trigger
 records an expired no-course-action receipt rather than analysing the course.
 
 ## Optional second opinion after the teacher's final decision
+
+Treat a decline as applying only to the choice the teacher declined. If they decline a future second opinion while asking to design a lesson, continue the lesson. A Step 9 decline of process improvement alone leaves Step 10 available. When the teacher explicitly ends the interaction, or declines the last optional review after the course is complete, reply with one plain-language sentence naming the accepted items and where they actually received them. For a chat handover, say “You accepted the worksheet and teaching note here in the chat.” If no items were accepted, acknowledge that choice. Mention a saved file only after a verified write at that destination. Keep permissions, internal status, retention, future runs and scheduling out of the farewell. Stop without a question, another offer or a tool call. If the teacher explicitly asks for a second opinion or another action, follow that request and its normal approval steps.
 
 Keep Step 9 and the course termination receipt intact. The optional Step 10 is a separate, read-only review. On Skip, finish immediately without preparing a packet or using files, accounts or model tools. The orchestrator follows its second-opinion reference. Selection, original-file authority and final approval of the exact transfer are distinct. Applying a finding needs new approval and a checked revision.

@@ -23,10 +23,10 @@ CODEX_PLUGIN = (
     / "agentic-course-redesign"
 )
 
-PACKAGE_VERSION = "0.3.4"
-PACKAGE_PROPOSAL = "ACR-COPILOT-20261127-001"
-BASE_VERSION = "0.3.4"
-OPENAI_PACKAGE_VERSION = "0.3.4"
+PACKAGE_VERSION = "0.3.5"
+PACKAGE_PROPOSAL = "ACR-COPILOT-20261127-002"
+BASE_VERSION = "0.3.5"
+OPENAI_PACKAGE_VERSION = "0.3.5"
 EXPECTED_SKILLS = {
     "course-redesign-assessment",
     "course-redesign-materials",
@@ -208,7 +208,7 @@ class CopilotPluginTests(unittest.TestCase):
         )
         self.assertEqual(
             adapter_manifest["native_plugin"]["rollback_package_version"],
-            "0.3.3",
+            "0.3.4",
         )
 
     def test_marketplace_points_to_repository_relative_native_plugin(self) -> None:
@@ -669,7 +669,7 @@ class CopilotPluginTests(unittest.TestCase):
             'expected "function"',
             "type=custom",
             "fresh task",
-            "0.3.3",
+            "0.3.4",
             "native `ask_user` card",
             "complete valid option set",
             "at least five explicit choices plus a custom-answer field",

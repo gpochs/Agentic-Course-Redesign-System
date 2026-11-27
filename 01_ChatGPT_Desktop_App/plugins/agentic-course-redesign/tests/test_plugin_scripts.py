@@ -14,8 +14,8 @@ from unittest import mock
 
 
 PLUGIN = Path(__file__).resolve().parent.parent
-OPENAI_PACKAGE_VERSION = "0.3.4"
-BASE_WORKFLOW_VERSION = "0.3.4"
+OPENAI_PACKAGE_VERSION = "0.3.5"
+BASE_WORKFLOW_VERSION = "0.3.5"
 
 
 def load(name: str, relative: str):
@@ -523,7 +523,7 @@ def completed_run_state(template: dict) -> tuple[dict, dict]:
         }
     )
     guidance = run["approvals"]["trigger_guidance_offer"]
-    guidance["status"] = "offered"
+    guidance["status"] = "recorded"
     guidance["offer"].update(
         {
             "offer_id": "trigger-guidance:RUN-SYNTHETIC-001:REPLY-OFFER-001",
@@ -995,7 +995,7 @@ class StateTests(unittest.TestCase):
         self.assertEqual(run["termination"]["status"], "complete_dormant")
         self.assertIsNone(complete["active_run_id"])
         self.assertTrue(run["termination"]["never_resume_after_terminal"])
-        self.assertEqual(run["approvals"]["trigger_guidance_offer"]["status"], "offered")
+        self.assertEqual(run["approvals"]["trigger_guidance_offer"]["status"], "recorded")
         closeout_transition = next(
             item
             for item in run["manual_stage_authority"]["transition_rules"]
@@ -1090,23 +1090,27 @@ class DistributionTests(unittest.TestCase):
                 self.assertEqual(dest.read_bytes(), b"updated")
                 self.assertEqual(installer.install(project, True, True)["updated_files"], [])
 
-    def test_project_upgrade_from_033_reads_the_frozen_state_and_retries_cleanly(self):
-        installer = load_path("project_install_033", PLUGIN.parents[1] / "install_project_skills.py")
+    def test_project_upgrades_prior_closeout_state_and_retries_cleanly(self):
+        installer = load_path("project_install_prior", PLUGIN.parents[1] / "install_project_skills.py")
         name = "assets/project-template/01_Control/state.json"
-        released_state = (installer.PACKAGE / name).read_bytes().replace(b'"plugin_version": "0.3.4"', b'"plugin_version": "0.3.3"')
-        with tempfile.TemporaryDirectory() as folder:
-            project = Path(folder).resolve()
-            old = project / ".agents" / name
-            old.parent.mkdir(parents=True)
-            old.write_bytes(released_state)
-            preview = installer.install(project, False, True)
-            self.assertEqual([name], preview["updated_files"])
-            self.assertEqual(released_state, old.read_bytes())
-            self.assertTrue(installer.install(project, True, True)["ok"])
-            self.assertEqual(old.read_bytes(), (installer.PACKAGE / name).read_bytes())
-            again = installer.install(project, False, True)
-            self.assertEqual([], again["updated_files"])
-            self.assertEqual([], again["new_files"])
+        current = (installer.PACKAGE / name).read_text(encoding="utf-8")
+        for previous in ("0.3.3", "0.3.4"):
+            with self.subTest(previous=previous), tempfile.TemporaryDirectory() as folder:
+                project = Path(folder).resolve()
+                old = project / ".agents" / name
+                old.parent.mkdir(parents=True)
+                released = current.replace('"plugin_version": "0.3.5"', f'"plugin_version": "{previous}"')
+                released = released.replace('        "visibility": "private_run_record",\n', "")
+                released = released.replace('"not_offered",\n          "recorded"', '"not_offered",\n          "offered"')
+                old.write_bytes(released.encode())
+                preview = installer.install(project, False, True)
+                self.assertEqual([name], preview["updated_files"])
+                self.assertEqual(released.encode(), old.read_bytes())
+                self.assertTrue(installer.install(project, True, True)["ok"])
+                self.assertEqual(old.read_bytes(), (installer.PACKAGE / name).read_bytes())
+                again = installer.install(project, False, True)
+                self.assertEqual([], again["updated_files"])
+                self.assertEqual([], again["new_files"])
 
     def test_public_builder_reads_only_reviewed_bytes(self):
         release = load_path("release_inputs_for_test", PLUGIN.parents[1] / "validation/release_inputs.py")

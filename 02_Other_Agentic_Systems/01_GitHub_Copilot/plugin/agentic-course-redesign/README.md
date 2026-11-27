@@ -1,6 +1,6 @@
 # Agentic Course Redesign for GitHub Copilot
 
-Use version 0.3.4 to improve a single activity, a set of materials or an entire course. Open a project Session in the Copilot app and select the installed course-redesign orchestrator skill. [Review materials in Copilot](skills/course-redesign-orchestrator/references/native-intake.md). [Install or remove the plugin](PARTICIPANT_QUICK_START.md)
+Use version 0.3.5 to improve a single activity, a set of materials or an entire course. Open a project Session in the Copilot app and select the installed course-redesign orchestrator skill. [Review materials in Copilot](skills/course-redesign-orchestrator/references/native-intake.md). [Install or remove the plugin](PARTICIPANT_QUICK_START.md)
 
 ## Start with your course
 
@@ -66,6 +66,6 @@ function; adding an MCP server or plugin does not fix poisoned history. This
 compatibility path changes no workflow semantics and adds no MCP server, hook,
 authentication, or permission.
 
-The preserved rollback package is `0.3.3`.
+The preserved rollback package is `0.3.4`.
 
 </details>

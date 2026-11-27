@@ -1,6 +1,6 @@
 # Agentic Course Redesign for GitHub Copilot
 
-Version 0.3.4 works in the GitHub Copilot app. Install the plugin for your account or add the skill and specialists to a single course project. [Installation and removal](PARTICIPANT_INSTALLATION.md)
+Version 0.3.5 works in the GitHub Copilot app. Install the plugin for your account or add the skill and specialists to a single course project. [Installation and removal](PARTICIPANT_INSTALLATION.md)
 
 Open a project **Session** in **Interactive** mode and choose the installed course-redesign orchestrator skill. Use a model included with your Copilot plan.
 
@@ -44,7 +44,7 @@ The repository marketplace manifest is
 links, command-line alternatives, verification, the first project-session
 prompt, and removal instructions.
 
-The native package preserves the complete six-skill v0.3.4 workflow text and
+The native package preserves the complete six-skill v0.3.5 workflow text and
 adds Copilot-specific guidance for choices and older host versions. Helpers remain
 byte-identical to the canonical core. Its ten Copilot agents preserve the full
 specialist role contracts and add the host dialogue boundary while retaining
@@ -87,7 +87,7 @@ project task, recover durable state read-only, and confirm whether the preceding
 edit already succeeded before continuing. Installing another plugin or MCP
 server does not repair poisoned history.
 
-Rollback remains the prior package `0.3.3`; rollback is a separate
+Rollback remains the prior package `0.3.4`; rollback is a separate
 operator decision and does not activate or install either version.
 
 ## Project-local overlay

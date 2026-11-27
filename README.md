@@ -44,7 +44,7 @@ Each app has its own installer, so choose the edition for your app to use the sh
 | Google Antigravity | [Antigravity installation](02_Other_Agentic_Systems/04_Google_Antigravity/README.md) |
 | OpenCode | [OpenCode installation](02_Other_Agentic_Systems/03_OpenCode/README.md) |
 
-Version 0.3.4 includes six skills and ten specialist roles. Each course has its own source permissions, decisions and outputs. [Publication status](04_Documentation/PUBLICATION_STATUS.md)
+Version 0.3.5 includes six skills and ten specialist roles. Each course has its own source permissions, decisions and outputs. [Publication status](04_Documentation/PUBLICATION_STATUS.md)
 
 ## Repository map
 

@@ -1,5 +1,9 @@
 # Publication and version history
 
+## Version 0.3.5
+
+Version 0.3.5 corrects the final message after a teacher chooses to finish. The versioned report records the package checks and the observation that led to the change. [0.3.5 validation](../05_Validation/VALIDATION_REPORT_v0.3.5.md)
+
 ## Version 0.3.4
 
 Version 0.3.4 was released on GitHub on 27 November 2026. It adds model choice, reviews of teaching materials in their intended apps and an optional second opinion. All five editions are in the release. Codex users can install it from the `agentic-course-redesign-system` repository marketplace. [GitHub release 0.3.4](https://github.com/gpochs/Agentic-Course-Redesign-System/releases/tag/v0.3.4) · [Release checks](../05_Validation/VALIDATION_REPORT_v0.3.4.md)

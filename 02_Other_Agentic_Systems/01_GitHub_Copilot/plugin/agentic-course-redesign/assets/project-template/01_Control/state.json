@@ -1,7 +1,7 @@
 {
   "schema_version": 8,
   "plugin_id": "agentic-course-redesign",
-  "plugin_version": "0.3.4",
+  "plugin_version": "0.3.5",
   "status": "candidate_not_active",
   "state_owner": "course_design_orchestrator",
   "umbrella_entry_routing": {
@@ -855,10 +855,11 @@
         }
       },
       "trigger_guidance_offer": {
+        "visibility": "private_run_record",
         "status": "not_offered",
         "allowed_statuses": [
           "not_offered",
-          "offered"
+          "recorded"
         ],
         "entry_requires": [
           "system_improvement_review_offer.status_is_requested_or_declined",

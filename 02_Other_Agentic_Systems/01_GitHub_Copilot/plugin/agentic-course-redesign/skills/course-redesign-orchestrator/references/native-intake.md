@@ -1,6 +1,6 @@
 # Redesign a course with GitHub Copilot: a teacher's guide
 
-Release `0.3.4` of the native `agentic-course-redesign` plugin.
+Release `0.3.5` of the native `agentic-course-redesign` plugin.
 
 This guide follows the nine steps you see in the conversation. At every
 decision Copilot waits for your reply. Nothing here skips or replaces one of
@@ -167,6 +167,8 @@ redesign process worked. If you do not reply, it waits. Your answer completes St
 separate later decision.
 
 ### Step 10 · Would you like a second opinion?
+
+Treat a decline as applying only to the choice the teacher declined. If they decline a future second opinion while asking to design a lesson, continue the lesson. A Step 9 decline of process improvement alone leaves Step 10 available. When the teacher explicitly ends the interaction, or declines the last optional review after the course is complete, reply with one plain-language sentence naming the accepted items and where they actually received them. For a chat handover, say “You accepted the worksheet and teaching note here in the chat.” If no items were accepted, acknowledge that choice. Mention a saved file only after a verified write at that destination. Keep permissions, internal status, retention, future runs and scheduling out of the farewell. Stop without a question, another offer or a tool call. If the teacher explicitly asks for a second opinion or another action, follow that request and its normal approval steps.
 
 After your final choices and Step 9, choose **Skip** to finish immediately, **Prepare a review** for a copy-ready packet you can use yourself, or **Explore a different model** to compare suitable receiving models. Ask Copilot to show a short progress list in the conversation, covering Steps 1–9, their decisions and any skipped work.
 

@@ -35,7 +35,7 @@ The workspace overlay includes native rules, slash commands, six skills, ten rea
 
 Machine-readable release identity is exposed at the top level of
 `adapter-manifest.json` as platform `google-antigravity`, adapter version
-`0.3.4`, and status `candidate_not_active`.
+`0.3.5`, and status `candidate_not_active`.
 
 It does **not** install or access Antigravity, change global configuration or
 IDE permissions, activate a runtime, register a schedule, connect an MCP
@@ -149,7 +149,7 @@ PASS does not prove Antigravity runtime behaviour; see
 
 ## Source and licence
 
-`adapter-manifest.json` records the actual SHA-256 values of the shared v0.3.4
+`adapter-manifest.json` records the actual SHA-256 values of the shared v0.3.5
 canonical files used and every adapter output covered by integrity checks. The
 shared source was read only. Adapted material remains under the included MIT
 licence; third-party and data boundaries are in `THIRD_PARTY_NOTICES.md`.

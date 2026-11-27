@@ -2035,7 +2035,12 @@ def _validate_production_hitl3_offer(
     if not isinstance(trigger_guidance, dict):
         errors.append(f"{label}.approvals.trigger_guidance_offer must be an object")
         trigger_guidance = {}
-    if trigger_guidance.get("allowed_statuses") != ["not_offered", "offered"]:
+    # Schema-8 projects created through 0.3.4 used "offered" for this receipt.
+    private_record = "visibility" in trigger_guidance
+    if private_record and trigger_guidance["visibility"] != "private_run_record":
+        errors.append(f"{label} trigger guidance is private to the run record")
+    completed_guidance = "recorded" if private_record else "offered"
+    if trigger_guidance.get("allowed_statuses") != ["not_offered", completed_guidance]:
         errors.append(f"{label} trigger-guidance statuses are missing or reordered")
     if trigger_guidance.get("entry_requires") != [
         "system_improvement_review_offer.status_is_requested_or_declined",
@@ -2112,8 +2117,8 @@ def _validate_production_hitl3_offer(
                 errors.append(f"{label} complete_dormant termination is missing {field}")
         if run.get("next_permitted_action") != "none_course_run_complete_dormant_wait_for_fresh_trigger":
             errors.append(f"{label} complete_dormant run must expose no continuation action")
-        if guidance_status != "offered":
-            errors.append(f"{label} closeout must persist one trigger-guidance offer")
+        if guidance_status != completed_guidance:
+            errors.append(f"{label} closeout must persist one trigger-guidance receipt")
         if not isinstance(guidance_offer, dict):
             errors.append(f"{label} trigger-guidance offer receipt must be an object")
         else:

@@ -5,6 +5,10 @@ description: Plan a course or revise one activity, compare teaching options, and
 
 # Course Redesign Orchestrator
 
+Treat a decline as applying only to the choice the teacher declined. If they decline a future second opinion while asking to design a lesson, continue the lesson. A Step 9 decline of process improvement alone leaves Step 10 available. When the teacher explicitly ends the interaction, or declines the last optional review after the course is complete, reply with one plain-language sentence naming the accepted items and where they actually received them. For a chat handover, say “You accepted the worksheet and teaching note here in the chat.” If no items were accepted, acknowledge that choice. Mention a saved file only after a verified write at that destination. Keep permissions, internal status, retention, future runs and scheduling out of the farewell. Stop without a question, another offer or a tool call. If the teacher explicitly asks for a second opinion or another action, follow that request and its normal approval steps.
+
+Keep future-run and trigger guidance only in the private run record. Its receipt records internal bookkeeping, never a message to the teacher. Show it only if the teacher asks about starting another run or scheduling.
+
 At the start of a new redesign, offer **Match models by task**, **Keep the current model throughout**, or **Choose at each step**. On deferral, continue in the current authorised session. Accept a choice already given. Agree the named model, task and account plan once before specialist work. See the [model plan](references/model-plan.md) for current capability and subscription checks, six stages, ten specialist roles, allowed fallbacks and actual execution evidence. On resume use the agreed plan.
 
 For an actual capability gap use the [role-specific evidence and tool checks](references/tool-fit.md).

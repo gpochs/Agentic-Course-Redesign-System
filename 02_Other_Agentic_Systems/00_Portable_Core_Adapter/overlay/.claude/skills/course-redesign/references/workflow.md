@@ -266,12 +266,9 @@ and one versioned proposal; `declined` creates no system work. Reusable-system
 work may begin only after the recorded separate request, and it never reopens
 the completed course run.
 
-After recording `complete_dormant`, offer this informational trigger guidance
-once: future redesign work starts only from a fresh manual trigger, or from a
-fresh scheduled trigger under a separately activated runtime and separately
-approved, unexpired schedule contract. The offer creates or registers no task,
-automation, schedule, hook, connector, permission, or immediate run. Silence on
-the guidance offer requires no follow-up. Never continue the dormant run.
+Keep future-run and trigger guidance only in the private run record. Its receipt records internal bookkeeping, never a message to the teacher. Show it only if the teacher asks about starting another run or scheduling. The private record contains informational trigger guidance. It creates or registers no task, automation, schedule, hook, connector, permission, or immediate run. Never continue the dormant run.
+
+Treat a decline as applying only to the choice the teacher declined. If they decline a future second opinion while asking to design a lesson, continue the lesson. A Step 9 decline of process improvement alone leaves Step 10 available. When the teacher explicitly ends the interaction, or declines the last optional review after the course is complete, reply with one plain-language sentence naming the accepted items and where they actually received them. For a chat handover, say “You accepted the worksheet and teaching note here in the chat.” If no items were accepted, acknowledge that choice. Mention a saved file only after a verified write at that destination. Keep permissions, internal status, retention, future runs and scheduling out of the farewell. Stop without a question, another offer or a tool call. If the teacher explicitly asks for a second opinion or another action, follow that request and its normal approval steps.
 
 ## Separate reusable-system lifecycle
 

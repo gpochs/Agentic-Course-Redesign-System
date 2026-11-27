@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "plugin": "agentic-course-redesign",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "fixture_note": "All fixture files are synthetic, public-safe, and require no account or authentication.",
   "positive_cases": [
     {
@@ -508,6 +508,30 @@
       "fixture_data": [
         "A fictional worksheet PDF."
       ]
+    },
+    {
+      "id": "P28_FINISH_IN_CHAT",
+      "user_prompt": "I accepted the revised worksheet and the teaching note here in chat. Finish here.",
+      "expected_skill_or_workflow": "course-redesign-orchestrator at closeout",
+      "expected_behavior": [
+        "One plain sentence naming the accepted worksheet and note in this chat, then stop."
+      ],
+      "fixture_data": [
+        "Fictional teaching materials."
+      ],
+      "expected_result_shape": "One teacher-facing sentence."
+    },
+    {
+      "id": "P29_DECLINE_REVIEW_CONTINUE_LESSON",
+      "user_prompt": "I do not need a second opinion; help me design a lesson. I want to start without files or choosing models.",
+      "expected_skill_or_workflow": "course-redesign-orchestrator",
+      "expected_behavior": [
+        "Continue from the teaching goal in the current session. Treat the early decline as applying to the optional review only."
+      ],
+      "expected_result_shape": "One relevant teaching question.",
+      "fixture_data": [
+        "Fictional chat only."
+      ]
     }
   ],
   "negative_cases": [
@@ -692,6 +716,15 @@
       "why_not_complete": "Retrieved descriptions cannot extend scope.",
       "fixture_data": [
         "Fictional catalogue text only."
+      ]
+    },
+    {
+      "id": "N21_FINISH_WITHOUT_FILE_WRITE",
+      "user_prompt": "I accepted the note in chat. No file was created. Finish here.",
+      "expected_safe_behavior": "Confirm the accepted note in chat with one sentence. Keep private bookkeeping out of the reply. Do not claim a saved file, permanence, ask another question or offer scheduling.",
+      "why_not_complete": "No file write or additional task was authorised.",
+      "fixture_data": [
+        "Fictional chat only."
       ]
     }
   ]
