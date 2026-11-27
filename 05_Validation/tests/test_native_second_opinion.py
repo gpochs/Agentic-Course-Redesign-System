@@ -19,7 +19,7 @@ class NativeSecondOpinionTests(unittest.TestCase):
         features = {
             "claude": ("Side chat", "Computer use"),
             "opencode": ("Review", "OpenCode Browse"),
-            "antigravity": ("Walkthrough", "Artifacts"),
+            "antigravity": ("Walkthrough", "Artifacts", "empty workspace", "verify the reviewer’s file and tool access", "manual text-only handover"),
             "copilot": ("Canvas", "Computer Use"),
             "copilot-project": ("Canvas", "Computer Use"),
         }
