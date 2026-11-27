@@ -15,8 +15,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 PLUGIN = ROOT / "plugins" / "agentic-course-redesign"
-OPENAI_PACKAGE_VERSION = "0.3.1"
-BASE_WORKFLOW_VERSION = "0.3.1"
+OPENAI_PACKAGE_VERSION = "0.3.2"
+BASE_WORKFLOW_VERSION = "0.3.2"
 
 
 def load(name: str, relative: str):
@@ -174,8 +174,9 @@ def main() -> int:
     )
     checks.append(
         check(
-            "Skip for now" in umbrella_skill and "one question at a time" in umbrella_metadata,
-            "umbrella routes a first-time lecturer through a single source choice",
+            all(term in umbrella_skill for term in ("Skip for now", "Ask one unresolved", "Choose any that apply"))
+            and "I want to choose what changes" in umbrella_metadata,
+            "umbrella supports source combinations, skipping and one teaching decision",
         )
     )
     display_names = []
@@ -238,7 +239,7 @@ def main() -> int:
     checks.append(
         check(
             state.get("plugin_version") == BASE_WORKFLOW_VERSION,
-            "template preserves v0.3.1 workflow base",
+            "template preserves v0.3.2 workflow base",
         )
     )
     checks.append(check(state.get("status") == "candidate_not_active", "template runtime inactive"))
@@ -352,7 +353,9 @@ def main() -> int:
     dialogue_markers = (
         "Ask one unresolved",
         "Before using a native choice card, follow the live host tool contract",
-        "complete, mutually exclusive option set and a custom-answer path without omission",
+        "single-choice card for a complete set of mutually exclusive options and a custom-answer path",
+        "real multi-select card for independent options",
+        "complete set, combinations and a custom answer",
         "Never prune, hide or combine valid choices merely to fit a card",
         "If a native card is unavailable or unsupported, its capacity is unknown",
         "complete set exceeds that capacity",

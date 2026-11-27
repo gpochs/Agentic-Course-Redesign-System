@@ -1,4 +1,4 @@
 interface:
-  display_name: "Course Redesign System"
-  short_description: "Validate and govern the reusable runtime."
-  default_prompt: "Use $course-redesign-system only after verified handoff, HITL 3 acceptance, and a separate yes; prepare one proposal only."
+  display_name: "Review the redesign process"
+  short_description: "Suggest improvements for the next course redesign."
+  default_prompt: "Use $course-redesign-system. After I accept the materials, help me decide whether a change to the redesign process would be useful."

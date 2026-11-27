@@ -1,50 +1,19 @@
 # Start a course redesign
 
-Tell the orchestrator what you would like learners to do better. For example,
-"I teach a first-year seminar. Students give opinions in discussion. I want
-them to support a claim with evidence."
+Start with a sentence about what you teach and what you want your learners to do. For example, “My students can describe two theories but struggle to choose between them in a new case. Help me redesign one lesson.” You can also begin with an existing course, a single activity or a fictional example.
 
-The plugin asks once how you want to start. The check helps you keep course
-materials and student information in an appropriate environment.
+1. **Start with your course.** Choose any mix of a learning platform such as Moodle or OLAT, files on your computer or in the cloud, a learning app such as Kahoot!, Mentimeter, Klicker or H5P, and other sources such as a website, video or design reference. You can add a description, start with your description alone, or choose **Skip for now**. The check helps keep course and student information in the right place. Skipping takes you straight to the teaching goal. You can still design, produce and review new materials.
+2. **Choose the materials we can use.** Describe the type before sharing a private link or file. Say which items may be read, who can see the results and whether the plugin may work in the chosen app. Different items can carry different permissions. If one is unavailable, work with the rest. When you want editable files, choose a dedicated course folder or private draft. A OneDrive folder syncs to the cloud.
+3. **Check the course brief.** Correct a short summary of your learners, goals and constraints. An approved syllabus may already describe the programme, prerequisites or assessment. The plugin asks about missing details only when they would affect a decision. “I’m unsure” or “leave that open” are useful answers. Describe any access need in general terms, such as “the whole activity must work with a keyboard”.
+4. **Choose what to focus on.** See where students practise the intended skill and what they are asked to do in the assessment. Say what matters most to you. You can keep the current approach, change the suggested focus or choose another.
+5. **Choose which changes to make.** Review a concrete before-and-after example and its supporting evidence. Consider the time and work it would take. You can adopt one suggestion, adapt another and leave the rest.
+6. **Review the plan and files.** Check the exact drafts, who will see them and what will change before creating them. If you have a design reference, identify what to preserve, such as the heading style and layout of your existing slides.
+7. **Try the drafts.** Open an editable file or private draft. Attempt a quiz question, recalculate a spreadsheet, or navigate an activity as a learner. The plugin tells you which checks it performed and what it could not verify. Once the drafts are ready, you first confirm that drafting is complete, then decide separately whether to save the named handover document.
+8. **Decide what to use.** Review each finished item. Use it as it stands, ask for a change or leave it out. You might say, “Keep the question on slide four, but give students a chance to answer before showing the graph.”
+9. **Finish or suggest an improvement.** You can finish here or ask for a written suggestion about the redesign process. You decide separately about any future changes or scheduled work.
 
-- **Use existing materials.** Choose this to work from a presentation,
-  document, spreadsheet, quiz, website, app or learning management system.
-  Describe the category first, before sharing a file or opening a private page.
-  The orchestrator asks the next relevant handling question in ordinary
-  language. You can change to the other route at any time.
-- **Skip for now.** Continue immediately from a general teaching goal, a
-  description suitable to share here or a fictional example. You can design
-  activities, develop assessments, review a draft and produce new materials.
-  If you later want to use a private file or LMS course, the orchestrator
-  checks that particular source when you need it.
+The plugin shows one decision at a time. For a choice with defined answers, it uses a card when the app can show every option. If several answers can apply, you can select or type a combination. Use your own words for teaching priorities, trade-offs and feedback.
 
-For a durable project, choose one new, dedicated output folder. The orchestrator
-shows you the planned paths before creating it. A personal OneDrive is
-cloud-synchronised. Choose a location appropriate for the output audience.
-Skipping keeps existing inputs out of the run. You can permit generic public
-research separately. If you use existing materials, the orchestrator records
-which sources, tools and audiences you approved and keeps original files intact.
+For an online course, open the specific course or draft in the in-app browser if available. Select the tab you want the plugin to use and sign in yourself. You can also use an authorised export or a description. If a copied course links to another quiz, app or resource, the plugin checks which copy will be edited. For a local file, ask to see the editable version or preview in the app that runs it.
 
-When you review the course brief, consider what is taught, practised and assessed across slides, handouts, rubrics, prior course requirements, local or cloud files and activities in the LMS. You choose which parts to share. If a specialist needs something, the orchestrator explains which decision it affects and offers a way to proceed without it. For a new tool or connection you can compare its access, possible cost and fallback before choosing.
-
-You can start with one sentence about what learners should be able to do. Later, the orchestrator may ask one question about their starting point, the place of the course in a programme, an assessment rule or an access barrier. An authorised syllabus or curriculum can answer many of these questions for you. “I don't know” and “I'd rather skip that” are valid responses. For accessibility, a general design need such as “the activity must work with a keyboard” is enough. Keep individual accommodation records with your institution.
-
-## Your decisions during the redesign
-
-1. **Course brief.** Check the goal, learners, constraints, sources and roles.
-2. **Research focus (HITL 1).** Review what the five specialists noticed. Pick,
-   revise or reject the issues you want them to investigate.
-3. **Design decisions (HITL 2).** Consider a concrete example and its evidence.
-   Tell the orchestrator what you would keep or change and why.
-4. **Production.** Approve the blueprint, audience and exact draft targets. You
-   can see what a quiz, slide, worksheet or interactive page looks like in the
-   intended setting. The orchestrator returns to you at the named artifact and
-   handoff decisions.
-5. **Final review (HITL 3).** Review the editable materials, previews, QA evidence
-   and any limits on what was tested. Accept, ask for specific revisions or reject.
-
-The orchestrator offers a choice card when the app supports the options.
-Use your own words for teaching priorities and feedback. If you see a suggested
-choice, the orchestrator waits for your submitted decision. Only explicit
-approval of the named target permits a write. After acceptance, the orchestrator
-offers a separate review of the reusable workflow; you may decline it.
+If an optional tool would help with a particular task, the plugin explains what it adds, the material it would receive and any cost. For example, you can choose a writing skill for the student instructions in this batch of worksheets, ask for help finding it, or continue with the built-in editing tools. You can change your mind before the next task.

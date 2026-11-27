@@ -1,11 +1,12 @@
 # Workflow overview
 
-## Decision flow
+Teachers can start with a mix of learning platforms, apps and files, or just a teaching goal. They choose the focus, see examples of the proposed changes, approve the plan, try drafts and decide what to use. The participant guide describes all nine steps. [Start a course redesign](../03_Shared_Workflow_Core/PARTICIPANT_QUICK_START.md)
+
+## Technical decision flow for maintainers
 
 Every human-in-the-loop phase uses one shared dialogue contract. The
 orchestrator is the sole lecturer-facing interface and asks one unresolved
-consequential question at a time. It uses a native card only when the live host
-can show the complete mutually exclusive option set plus a custom-answer path.
+consequential question at a time. It uses a native single-choice card for a complete mutually exclusive option set plus a custom-answer path. Independent choices use a genuine multi-select control or one numbered chat question accepting combinations.
 If that control is unavailable or unsupported, its capacity is unknown, or the
 complete set exceeds its capacity, the orchestrator shows every valid numbered
 option plus Other in one ordinary-chat question. It never prunes, hides or

@@ -1,8 +1,8 @@
 # Agentic Course Redesign for ChatGPT and Codex
 
-Start a conversation with **Agentic Course Redesign** and describe one thing you want learners to do better. You can redesign one quiz, a course module or an entire course. This folder contains version **0.3.1**.
+Start a conversation with **Agentic Course Redesign** and describe one thing you want learners to do better. You can redesign one quiz, a course module or an entire course. This folder contains version **0.3.2**.
 
-**Use existing materials** starts a short check before the agent opens your files. **Skip for now** takes you straight to your teaching goal. You can finish the redesign from that goal alone. If you later want to use a private file or LMS, the orchestrator asks about that item when you need it.
+In **Step 1 · Start with your course**, choose any mix of a learning platform, local or cloud files, learning apps or other sources. You can add a description or choose **Skip for now** to start with your teaching goal. You can still finish the redesign and receive actual materials. If you add a private source later, the plugin checks that item when you need it. [Follow the nine teaching steps](plugins/agentic-course-redesign/assets/PARTICIPANT_QUICK_START.md)
 
 ## What to share first
 

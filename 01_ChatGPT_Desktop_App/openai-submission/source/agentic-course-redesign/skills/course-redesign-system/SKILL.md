@@ -1,9 +1,13 @@
 ---
 name: course-redesign-system
-description: Review, validate, activate, schedule, pause, renew, or roll back the reusable agentic course-redesign system after a successful course run. Use for skills, plugin, AGENTS.md, custom agents, state schemas, memory, validators, runtime activation, or scheduled workflow contracts.
+description: After the teacher accepts the course materials, review the redesign process if requested. Prepare a written suggestion for improving future redesigns. Later changes, installation and scheduling require separate decisions.
 ---
 
 # Course Redesign System
+
+## In conversation
+
+At **Step 9 · Finish or suggest an improvement**, describe what a review would do for a future course. Offer to write a suggestion once, with the option to finish here. A separate review leaves the accepted course closed. Use a numbered step when it changes. Speak to the teacher in the language they use. Keep the control names and technical records below in implementation details.
 
 ## Lecturer Decision Dialogue Contract
 
@@ -17,8 +21,7 @@ approval gate, wait for a decision before advancing.
 The orchestrator is the sole lecturer-facing interface; specialist roles are
 evidence lenses and return questions through it. Ask one unresolved
 consequential question at a time. Before using a native choice card, follow the
-live host tool contract. Use a card only when it can present the complete,
-mutually exclusive option set and a custom-answer path without omission. Never
+live host tool contract. Use a single-choice card for a complete set of mutually exclusive options and a custom-answer path. Use a real multi-select card for independent options only when it supports the complete set, combinations and a custom answer. Otherwise use ordinary chat. Never
 prune, hide or combine valid choices merely to fit a card. If a native card is
 unavailable or unsupported, its capacity is unknown, or the complete set
 exceeds that capacity, ask the same single question in ordinary chat with every
@@ -70,7 +73,9 @@ request or decline closes the course run as terminal `complete_dormant`, clears
 guidance offer. Decline ends system action; request opens only separate system
 work.
 
-The recorded question must be exactly:
+Present the complete review scope in the lecturer's language and ask once, after acceptance: “Would you like a written suggestion for improving how this redesign worked?” Explain briefly: “I’d review the instructions and roles, the plugin and its setup, stored settings, checks, guides, access, and any scheduled or automatic actions. The suggestion would cover benefits, compatibility, risks and how to undo a change. A yes permits only the review and suggestion. Installing, publishing, activating, changing access or schedules, or starting another run requires a separate decision.” Offer “Write a suggestion”, “Finish here” and a custom answer. In the technical record, preserve the full canonical wording and scope below; retain a reference to the actual presented wording as well. The canonical text describes the consent boundary. Do not present it as a verbatim quote from the teacher.
+
+Canonical scope for the persisted offer:
 
 > Would you like a separate, read-only system-improvement review covering the workflow skills and umbrella entry routing; plugin or platform adapter; AGENTS.md and agent configurations; project template, state schema and migration; validators, tests and QA; documentation; memory or other workflow-owned durable instruction stores; schedule contracts; permissions, tools, external egress and automatic behaviour; and compatibility, benefits, regressions, risks, residual risks and rollback, followed only by a versioned proposal? A yes authorises only that review and proposal; it does not authorise system-file changes, installation, publication or release, runtime activation, schedule registration or modification, an immediate run, or any added MCP server, connector, authentication, permission or external egress.
 

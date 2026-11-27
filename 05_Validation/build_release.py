@@ -10,6 +10,7 @@ import os
 import stat
 import subprocess
 import re
+import tempfile
 import zipfile
 from pathlib import Path
 
@@ -83,15 +84,7 @@ def source_files() -> list[Path]:
     return sorted(paths, key=lambda item: item.relative_to(ROOT).as_posix().casefold())
 
 
-def inventory_bytes(paths: list[Path], version: str) -> bytes:
-    records = [
-        {
-            "relative_path": path.relative_to(ROOT).as_posix(),
-            "bytes": path.stat().st_size,
-            "sha256": sha256(path),
-        }
-        for path in paths
-    ]
+def inventory_bytes(records: list[dict], version: str) -> bytes:
     payload = {
         "schema_version": 1,
         "bundle_root_name": ARCHIVE_ROOT,
@@ -116,22 +109,32 @@ def build(version: str) -> dict[str, object]:
             f"release version {version!r} does not match canonical core version {expected_version!r}"
         )
     paths = source_files()
-    inventory = inventory_bytes(paths, version)
     DIST.mkdir(parents=True, exist_ok=True)
     archive_path = DIST / f"Agentic-Course-Redesign-System_v{version}.zip"
     inventory_path = DIST / "package-inventory.json"
-    inventory_path.write_bytes(inventory)
-    with zipfile.ZipFile(archive_path, "w") as archive:
-        for path in paths:
-            rel = path.relative_to(ROOT).as_posix()
-            add_bytes(archive, path.read_bytes(), f"{ARCHIVE_ROOT}/{rel}")
-        add_bytes(archive, inventory, f"{ARCHIVE_ROOT}/package-inventory.json")
-    with zipfile.ZipFile(archive_path) as archive:
-        bad_member = archive.testzip()
-        member_count = len(archive.namelist())
-    archive_hash = sha256(archive_path)
     sidecar = DIST / f"Agentic-Course-Redesign-System_v{version}.sha256.txt"
-    sidecar.write_text(f"{archive_hash}  {archive_path.name}\n", encoding="ascii")
+    with tempfile.TemporaryDirectory(dir=DIST) as temp:
+        staging = Path(temp)
+        candidate = staging / archive_path.name
+        records = []
+        with zipfile.ZipFile(candidate, "w") as archive:
+            for path in paths:
+                name = path.relative_to(ROOT).as_posix()
+                data = path.read_bytes()
+                records.append({"relative_path": name, "bytes": len(data), "sha256": sha256_bytes(data)})
+                add_bytes(archive, data, f"{ARCHIVE_ROOT}/{name}")
+            inventory = inventory_bytes(records, version)
+            add_bytes(archive, inventory, f"{ARCHIVE_ROOT}/package-inventory.json")
+        with zipfile.ZipFile(candidate) as archive:
+            bad_member = archive.testzip()
+            member_count = len(archive.namelist())
+        if bad_member is not None:
+            raise ValueError(f"archive integrity check failed for {bad_member}")
+        archive_hash = sha256(candidate)
+        (staging / inventory_path.name).write_bytes(inventory)
+        (staging / sidecar.name).write_text(f"{archive_hash}  {archive_path.name}\n", encoding="ascii")
+        for output in (archive_path, inventory_path, sidecar):
+            (staging / output.name).replace(output)
     return {
         "schema_version": 1,
         "pass": bad_member is None,

@@ -147,6 +147,36 @@ class ReleaseValidationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "canonical core version"):
             BUILD_RELEASE.build(wrong)
 
+    def test_build_inventories_the_bytes_actually_read(self):
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            source = root / "lesson.md"
+            source.write_bytes(b"reviewed lesson")
+            original_read = Path.read_bytes
+            reads = []
+
+            def read_then_update(path):
+                data = original_read(path)
+                if path == source:
+                    reads.append(data)
+                    source.write_bytes(b"next revision")
+                return data
+
+            with (
+                patch.object(BUILD_RELEASE, "ROOT", root),
+                patch.object(BUILD_RELEASE, "DIST", root / "dist"),
+                patch.object(BUILD_RELEASE, "source_files", return_value=[source]),
+                patch.object(Path, "read_bytes", read_then_update),
+            ):
+                result = BUILD_RELEASE.build(BUILD_RELEASE.current_version())
+            self.assertEqual(reads, [b"reviewed lesson"])
+            with zipfile.ZipFile(root / result["archive"]) as archive:
+                prefix = BUILD_RELEASE.ARCHIVE_ROOT
+                data = archive.read(f"{prefix}/lesson.md")
+                inventory = json.loads(archive.read(f"{prefix}/package-inventory.json"))
+            self.assertEqual(data, reads[0])
+            self.assertEqual(inventory["files"][0]["sha256"], hashlib.sha256(data).hexdigest().upper())
+
     def test_malformed_inventory_returns_structured_finding(self):
         with tempfile.TemporaryDirectory() as raw:
             archive = self.make_archive(

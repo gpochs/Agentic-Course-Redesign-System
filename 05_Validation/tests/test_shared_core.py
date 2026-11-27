@@ -98,6 +98,27 @@ def load_tagged_v022_state() -> dict:
 
 
 class SharedCoreTests(unittest.TestCase):
+    def test_context_is_optional_and_the_gate_links_its_examples(self) -> None:
+        orchestrator = CORE / "agent-skills/course-redesign-orchestrator"
+        skill = (orchestrator / "SKILL.md").read_text(encoding="utf-8")
+        gate = skill.split("### Gate 1:", 1)[1].split("\n### ", 1)[0].casefold()
+        for requirement in ("source-free route", "one optional question", "open contextual questions"):
+            with self.subTest(requirement=requirement):
+                self.assertIn(requirement, gate)
+        self.assertIn("references/role-evidence.md#asking-about-course-context", gate)
+        role_guide = (orchestrator / "references/role-evidence.md").read_text(encoding="utf-8")
+        self.assertIn("### Asking about course context", role_guide)
+
+    def test_materials_entry_point_routes_to_the_linked_copy_check(self) -> None:
+        materials = CORE / "agent-skills/course-redesign-materials"
+        skill = (materials / "SKILL.md").read_text(encoding="utf-8")
+        self.assertIn("references/artifact-review.md#when-the-lecturer-authorises-copies-only", skill)
+        guide = (materials / "references/artifact-review.md").read_text(encoding="utf-8")
+        copy_check = guide.split("## When the lecturer authorises copies only", 1)[1].split("\n## ", 1)[0].casefold()
+        for requirement in ("before each write", "stable id", "separately approved copy", "hold that write", "after saving"):
+            with self.subTest(requirement=requirement):
+                self.assertIn(requirement, copy_check)
+
     @classmethod
     def setUpClass(cls) -> None:
         cls.setup = load_module("shared_setup", SETUP_PATH)
@@ -954,7 +975,7 @@ class SharedCoreTests(unittest.TestCase):
 
     def test_shared_state_is_schema_8_inactive_unscheduled_and_pre_source(self) -> None:
         self.assertEqual(self.state["schema_version"], 8)
-        self.assertEqual(self.state["plugin_version"], "0.3.1")
+        self.assertEqual(self.state["plugin_version"], "0.3.2")
         self.assertEqual(self.state["status"], "candidate_not_active")
         self.assertEqual(self.state["schedules"], [])
         self.assertEqual(

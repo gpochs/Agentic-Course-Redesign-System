@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.2 — 2026-11-27
+
+- Teachers can start with any mix of an online course, shared or local files, and learning apps. Choosing **Skip for now** takes them straight to their teaching goal. Each source can be added later.
+- Nine numbered teaching steps show where the teacher is in the redesign. A lecturer can choose among proposals, explain a preference in their own words, and inspect each editable draft before deciding whether to use it.
+- The assistant suggests a writing, design, research or browser tool when it can name the task it would help with. It offers setup help, checks what the lecturer agrees to share, and carries on if they decline.
+- The release inventory now records the exact bytes written into each archive. CI verifies the downloaded validation dependency against its published digest.
+
 ## 0.3.1 — 2026-11-27
 
 - The early course brief now draws on an approved syllabus, curriculum, study programme or module description. The orchestrator reuses known facts and asks one consequential question at a time about learners, outcomes, assessment or teaching constraints.

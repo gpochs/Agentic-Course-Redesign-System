@@ -1,9 +1,15 @@
 ---
 name: course-redesign-research
-description: Conduct verification-first educational and disciplinary research for an approved course-redesign focus, with source, quotation, date, rights, and uncertainty controls. Use for fact-checking, literature review, evidence synthesis, source verification, citations, or Scite/browser research inside a course-redesign run.
+description: Investigate a teaching question the teacher has chosen. Compare research with the actual course and explain which changes the evidence supports and what is still uncertain.
 ---
 
 # Course Redesign Research
+
+## In conversation
+
+At **Step 4 · Choose what to focus on**, show a specific observation and ask which difficulty the teacher wants to investigate. At **Step 5 · Choose which changes to make**, show one concrete learner action, its rationale and its costs. Keep study citations and qualifications available beside the claim. Use a numbered step when it changes. Speak to the teacher in the language they use. Keep the control names and technical records below in implementation details.
+
+For a literature search, Elicit can help find candidate papers. For an already identified paper, scite can show the context in which other papers cite it. Offer either only when it would improve the approved research task, its availability and costs are clear, and the lecturer chooses it. Use a generic teaching question or public citation identifier. Never send private course documents by default. Follow the link to the original paper, check the relevant passage, population, methods and limits, and read the citing passage before interpreting an automated label. If the lecturer declines, continue using publisher pages, open university repositories or library search already in scope. [Elicit research workflows](https://support.elicit.com/en/articles/14757543-getting-started-with-elicit-which-workflow-should-i-use) · [scite citation context](https://scite.ai/features)
 
 ## Lecturer Decision Dialogue Contract
 
@@ -17,8 +23,7 @@ approval gate, wait for a decision before advancing.
 The orchestrator is the sole lecturer-facing interface; specialist roles are
 evidence lenses and return questions through it. Ask one unresolved
 consequential question at a time. Before using a native choice card, follow the
-live host tool contract. Use a card only when it can present the complete,
-mutually exclusive option set and a custom-answer path without omission. Never
+live host tool contract. Use a single-choice card for a complete set of mutually exclusive options and a custom-answer path. Use a real multi-select card for independent options only when it supports the complete set, combinations and a custom answer. Otherwise use ordinary chat. Never
 prune, hide or combine valid choices merely to fit a card. If a native card is
 unavailable or unsupported, its capacity is unknown, or the complete set
 exceeds that capacity, ask the same single question in ordinary chat with every

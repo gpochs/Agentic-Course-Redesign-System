@@ -20,8 +20,8 @@ REVIEW = ROOT / "openai-submission" / "review"
 EXPECTED_REPOSITORY = "https://github.com/gpochs/Agentic-Course-Redesign-System"
 EXPECTED_PUBLISHER = "GIAN PETER OCHSNER"
 EXPECTED_WEBSITE = EXPECTED_REPOSITORY
-OPENAI_PACKAGE_VERSION = "0.3.1"
-BASE_WORKFLOW_VERSION = "0.3.1"
+OPENAI_PACKAGE_VERSION = "0.3.2"
+BASE_WORKFLOW_VERSION = "0.3.2"
 EXPECTED_PRIVACY = f"{EXPECTED_REPOSITORY}/blob/63d7464dc3c75634e08c04fca78e2e50bf250ed1/docs/PRIVACY.md"
 EXPECTED_SUPPORT = f"{EXPECTED_REPOSITORY}/blob/v0.2.5/docs/SUPPORT.md"
 EXPECTED_TERMS = f"{EXPECTED_REPOSITORY}/blob/v0.2.5/docs/TERMS.md"
@@ -157,7 +157,7 @@ def main() -> int:
     interface = manifest.get("interface", {})
 
     check("stable package name", manifest.get("name") == "agentic-course-redesign")
-    check("v0.3.1 OpenAI package version", manifest.get("version") == OPENAI_PACKAGE_VERSION)
+    check("v0.3.2 OpenAI package version", manifest.get("version") == OPENAI_PACKAGE_VERSION)
     check(
         "valid package name syntax",
         bool(re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,63}", str(manifest.get("name", "")))),
@@ -176,7 +176,7 @@ def main() -> int:
     check("short description length", 0 < len(interface.get("shortDescription", "")) <= 30)
     long_description = interface.get("longDescription", "")
     check("short readable directory description", 0 < len(long_description) <= 2400)
-    markers = ("Skip for now", "Ten specialists", "approve the blueprint", "browser preview")
+    markers = ("Skip for now", "Ten specialists", "approve the plan", "browser preview")
     check("listing explains entry, lecturer choices and review", all(marker in long_description for marker in markers))
     listing_copy = (REVIEW / "LISTING_COPY.md").read_text(encoding="utf-8")
     check("published description and reviewed text match exactly", long_description in listing_copy)
@@ -199,6 +199,13 @@ def main() -> int:
     )
     check("starter prompts match and meet final limits", prompts_valid)
     check("starter prompt version matches manifest", prompts_payload.get("version") == manifest.get("version"))
+    public_copy = "\n".join([long_description, *capabilities, *manifest_prompts])
+    internal_language = re.search(
+        r"\b(?:HITL(?:[ -]?\d+)?|Gate[ -]?\d+[A-Z]?|run[_ -]id|egress|RPI|subagent|orchestrator)\b",
+        public_copy,
+        flags=re.IGNORECASE,
+    )
+    check("lecturer-facing listing and starter prompts use ordinary language", internal_language is None)
 
     for field in ("logo", "composerIcon"):
         declared = interface.get(field, "")
@@ -280,12 +287,15 @@ def main() -> int:
     )
     check(
         "umbrella explains source-free entry and asks about one decision",
-        "Skip for now" in umbrella_skill and "one question at a time" in umbrella_metadata,
+        all(term in umbrella_skill for term in ("Skip for now", "Ask one unresolved", "Choose any that apply"))
+            and "I want to choose what changes" in umbrella_metadata,
     )
     dialogue_markers = (
         "Ask one unresolved",
         "Before using a native choice card, follow the live host tool contract",
-        "complete, mutually exclusive option set and a custom-answer path without omission",
+        "single-choice card for a complete set of mutually exclusive options and a custom-answer path",
+        "real multi-select card for independent options",
+        "complete set, combinations and a custom answer",
         "Never prune, hide or combine valid choices merely to fit a card",
         "If a native card is unavailable or unsupported, its capacity is unknown",
         "complete set exceeds that capacity",
@@ -331,7 +341,7 @@ def main() -> int:
     )
     check("public template uses state schema 8", public_state.get("schema_version") == 8)
     check(
-        "public template preserves v0.3.1 workflow base",
+        "public template preserves v0.3.2 workflow base",
         public_state.get("plugin_version") == BASE_WORKFLOW_VERSION,
     )
     check("public template remains inactive", public_state.get("status") == "candidate_not_active")
@@ -443,6 +453,10 @@ def main() -> int:
         {
             "P16_PROGRESSIVE_MODULE_BRIEF",
             "N14_PERSONAL_ACCOMMODATION_RECORD",
+            "P17_MIXED_MATERIALS",
+            "P18_TEACHER_LANGUAGE",
+            "P19_INDEPENDENT_CHOICES",
+            "N15_TOOL_SUGGESTION_IS_NOT_APPROVAL",
             "P07_PRODUCTION_CLOSE_AND_HITL3",
             "P08_POST_HITL3_SYSTEM_REVIEW_OFFER",
             "N07_SKIP_PRODUCTION_HANDOFF",

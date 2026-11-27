@@ -24,7 +24,7 @@ Open **Agentic Course Redesign** in a fresh task. Try this with any subject or l
 
 > My learners can recall the terms but struggle to apply them. Help me redesign one lesson. I want to start from this description.
 
-The first question explains why the system checks who may process course material. Choose **Skip for now** to work from a general description or a fictional example. You can research a focus, choose a change, approve a blueprint and receive an editable teaching artefact on this route. If you later introduce a file or a private course page, the orchestrator checks that specific source with you when it is needed.
+Step 1 lets you combine a course in a learning platform, local or cloud files, learning apps, websites and a description. The plugin explains why it checks who may use the materials. Choose **Skip for now** to continue from your teaching goal and create new materials. If you add private materials later, it checks those items when needed. [The nine teaching steps](03_Shared_Workflow_Core/PARTICIPANT_QUICK_START.md)
 
 The lecturer chooses the focus, decides which researched changes to adopt and reviews the actual outputs. For example, a suggested change to a lecture might become a prediction prompt in the slide deck, a worked example in the handout and a transfer question in an LMS quiz. Each output has its own audience, approved destination and review.
 
@@ -41,7 +41,7 @@ When you describe the course, start with the change you want learners to make. I
 | Google Antigravity | [Antigravity installation](02_Other_Agentic_Systems/04_Google_Antigravity/README.md) |
 | OpenCode | [OpenCode installation](02_Other_Agentic_Systems/03_OpenCode/README.md) |
 
-Version 0.3.1 includes six skills and ten specialist roles. Each course has its own source permissions, decisions and outputs. [Publication status](04_Documentation/PUBLICATION_STATUS.md)
+Version 0.3.2 includes six skills and ten specialist roles. Each course has its own source permissions, decisions and outputs. [Publication status](04_Documentation/PUBLICATION_STATUS.md)
 
 ## Repository map
 

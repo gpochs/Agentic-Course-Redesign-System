@@ -14,8 +14,8 @@ from unittest import mock
 
 
 PLUGIN = Path(__file__).resolve().parent.parent
-OPENAI_PACKAGE_VERSION = "0.3.1"
-BASE_WORKFLOW_VERSION = "0.3.1"
+OPENAI_PACKAGE_VERSION = "0.3.2"
+BASE_WORKFLOW_VERSION = "0.3.2"
 
 
 def load(name: str, relative: str):
@@ -1099,7 +1099,7 @@ class DistributionTests(unittest.TestCase):
         description = interface["longDescription"]
         self.assertLessEqual(len(description), 2400)
         self.assertIn("Skip for now", description)
-        self.assertIn("approve the blueprint", description)
+        self.assertIn("approve the plan", description)
         self.assertIn("browser preview", description)
         listing = (system_root / "openai-submission/review/LISTING_COPY.md").read_text(encoding="utf-8")
         self.assertIn(description, listing)
@@ -1154,7 +1154,9 @@ class DistributionTests(unittest.TestCase):
         markers = (
             "Ask one unresolved",
             "Before using a native choice card, follow the live host tool contract",
-            "complete, mutually exclusive option set and a custom-answer path without omission",
+            "single-choice card for a complete set of mutually exclusive options and a custom-answer path",
+            "real multi-select card for independent options",
+            "complete set, combinations and a custom answer",
             "Never prune, hide or combine valid choices merely to fit a card",
             "If a native card is unavailable or unsupported, its capacity is unknown",
             "complete set exceeds that capacity",

@@ -1,9 +1,15 @@
 ---
 name: course-redesign-materials
-description: Produce and independently validate approved editable course materials in formats required by the supplied context, including documents, slides, PDFs, worksheets, assessment files and facilitator guides. Use after exact-target approval for design, citations, media, accessibility, formatting, rendering or package QA.
+description: Make approved teaching materials such as slides, handouts, spreadsheets, quizzes or private online activities. Open the actual drafts and test what a learner would do before the teacher reviews them.
 ---
 
 # Course Redesign Materials
+
+## In conversation
+
+At **Step 6 · Review the plan and files**, name the actual files or private draft activities. At **Step 7 · Try the drafts**, show the exact version in its intended view and say what was tested. Ask “What would you change on this slide?” At **Step 8 · Decide what to use**, keep acceptance, revision and rejection available for each item. Use a numbered step when it changes. Speak to the teacher in the language they use. Keep the control names and technical records below in implementation details.
+
+If a previous confirmation is missing or cannot be verified, check your own records first. Never ask the teacher for internal IDs, run details, fingerprints or a missing approval record. Explain only the real teaching consequence: “I still need to check which two drafts you want to hand over” or “Wo soll ich die fertigen Unterlagen ablegen?” If the exact object is already known, simply ask the person to confirm the named action. Keep the extra technical confirmation, if the host genuinely requires one, after this explanation and fill it out for them to review.
 
 ## Lecturer Decision Dialogue Contract
 
@@ -17,8 +23,7 @@ approval gate, wait for a decision before advancing.
 The orchestrator is the sole lecturer-facing interface; specialist roles are
 evidence lenses and return questions through it. Ask one unresolved
 consequential question at a time. Before using a native choice card, follow the
-live host tool contract. Use a card only when it can present the complete,
-mutually exclusive option set and a custom-answer path without omission. Never
+live host tool contract. Use a single-choice card for a complete set of mutually exclusive options and a custom-answer path. Use a real multi-select card for independent options only when it supports the complete set, combinations and a custom answer. Otherwise use ordinary chat. Never
 prune, hide or combine valid choices merely to fit a card. If a native card is
 unavailable or unsupported, its capacity is unknown, or the complete set
 exceeds that capacity, ask the same single question in ordinary chat with every

@@ -33,9 +33,11 @@ def install(project: Path, apply: bool, upgrade: bool = False) -> dict:
     conflicts = []
     expected = {}
     payload = verified_public_payload(PACKAGE)
-    previous = {}
+    previous = []
     if upgrade:
-        previous = json.loads(reviewed_file(REVIEW, "project-upgrade-from-0.3.0.json").read_text(encoding="utf-8"))
+        for version in ("0.3.0", "0.3.1"):
+            snapshot = reviewed_file(REVIEW, f"project-upgrade-from-{version}.json")
+            previous.append(json.loads(snapshot.read_text(encoding="utf-8")))
     for name, content in payload.items():
         relative = Path(name)
         if relative.parts[0] not in COMPONENTS:
@@ -51,7 +53,7 @@ def install(project: Path, apply: bool, upgrade: bool = False) -> dict:
             current = hash_file(dest)
             if current == expected[name]:
                 continue
-            if current == previous.get(name):
+            if any(current == snapshot.get(name) for snapshot in previous):
                 updates[name] = current
             else:
                 conflicts.append(name)
@@ -98,7 +100,7 @@ def install(project: Path, apply: bool, upgrade: bool = False) -> dict:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--project", type=Path, required=True)
-    parser.add_argument("--upgrade", action="store_true", help="Update only exact, unmodified copies from release 0.3.0.")
+    parser.add_argument("--upgrade", action="store_true", help="Update only exact, unmodified copies from releases 0.3.0 and 0.3.1.")
     parser.add_argument("--apply", action="store_true", help="Create previewed files without overwriting existing files.")
     args = parser.parse_args()
     try:

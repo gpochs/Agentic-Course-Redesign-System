@@ -6,9 +6,7 @@ Every approval belongs to one run and records the run ID, run-contract ID/versio
 
 The orchestrator is the sole lecturer-facing interface and specialist roles are
 evidence lenses. Ask one unresolved consequential question at a time. Before
-using a native choice card, follow the live host tool contract. Use a card only
-when it can present the complete mutually exclusive option set and a
-custom-answer path without omission. Never prune, hide or combine valid choices
+using a native choice card, follow the live host tool contract. Use a single-choice card for a complete mutually exclusive option set with a custom-answer path. Independent choices require a complete multi-select card or ordinary chat accepting any combination. Never prune, hide or combine valid choices
 merely to fit a card. If a native card is unavailable or unsupported, its
 capacity is unknown, or the complete set exceeds that capacity, ask the same
 single question in ordinary chat with every valid numbered option plus `Other -
@@ -33,7 +31,7 @@ authority gate, lineage record or approval token defined below.
 
 ## Gate 0A — material and processing-environment eligibility
 
-Start with a brief reason and a choice to use existing materials or **Skip for now**.
+Start at Step 1 with a brief reason. Accept any mix of LMS, local or cloud files, learning apps, other sources and a description. **Skip for now** continues immediately without opening existing sources. Use a complete multi-select card or one numbered question in ordinary chat. Review access separately for the chosen items.
 An explicit Skip continues the redesign from a general description or fictional
 example. A formal run records its zero-source scope via the source-free helper
 option. No material classification is implied. Gate 0 confirms the empty
