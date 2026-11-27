@@ -2,7 +2,7 @@
 
 ## Version 0.3.5
 
-Version 0.3.5 corrects the final message after a teacher chooses to finish. The versioned report records the package checks and the observation that led to the change. [0.3.5 validation](../05_Validation/VALIDATION_REPORT_v0.3.5.md)
+Version 0.3.5 corrects the final message after a teacher chooses to finish. On 27 November 2026, the publisher withdrew the pending 0.3.4 submission and uploaded the 0.3.5 draft for OpenAI’s checks. The published directory version was still 0.2.5 at that check. The versioned report records the package checks and the observation that led to the change. [0.3.5 validation](../05_Validation/VALIDATION_REPORT_v0.3.5.md)
 
 ## Version 0.3.4
 
