@@ -4,6 +4,7 @@ import importlib.util
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -46,6 +47,17 @@ class RepositorySemanticTests(unittest.TestCase):
                 [],
                 rel_path,
             )
+
+    def test_worktree_pointer_is_not_a_release_input(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / ".git").write_text("gitdir: ../worktrees/example", encoding="utf-8")
+            course_file = root / "course.md"
+            course_file.write_text("Check this file.", encoding="utf-8")
+            with patch.object(self.validator, "ROOT", root):
+                files, findings = self.validator.source_files()
+            self.assertEqual(files, [course_file])
+            self.assertEqual(findings, [])
 
     def test_all_system_lifecycle_entries_keep_separate_gates(self) -> None:
         for rel_path in self.validator.SYSTEM_LIFECYCLE_PATHS:
