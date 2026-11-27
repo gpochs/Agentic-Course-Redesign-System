@@ -1,17 +1,18 @@
 # Agentic Course Redesign System
 
-Agentic Course Redesign System is a course-independent, lecturer-controlled
-workflow for analysing, researching, redesigning, producing and validating
-course materials. It is designed for school, vocational, professional and
-higher-education contexts. The workflow adapts to the supplied course rather
-than assuming a subject, level, grading scale or assessment format.
+Use Agentic Course Redesign to improve a lesson, an assessment or a whole course.
+Tell the assistant what you teach and what you would like learners to do better.
+It can work from a description, a folder of teaching materials, an online course
+or a mix. You choose the focus and review the changes before using them with
+learners. The same workflow serves school, vocational, professional and
+higher-education courses.
 
 This repository contains:
 
 - a skills-only plugin and project template for supported ChatGPT Desktop,
   ChatGPT Work and Codex surfaces;
-- portable, project-local adapters for GitHub Copilot, Claude Code, OpenCode
-  and Google Antigravity;
+- editions for GitHub Copilot, Claude Code, OpenCode and Google Antigravity,
+  with installation instructions for each host;
 - one shared workflow core so the platform adapters do not drift; and
 - validation, privacy, security and release controls.
 
@@ -58,6 +59,10 @@ Version 0.3.2 includes six skills and ten specialist roles. Each course has its 
 
 Choose a local working copy, a cloud document or a draft in your LMS. For a browser task, open the exact page and grant the host access to it. The orchestrator can show an editable slide, document, worksheet, website, quiz or LMS activity in the available review surface. If the host cannot open the original format, the lecturer can inspect an export and follow the remaining native checks.
 
+For example, you might teach from slides, collect predictions in Mentimeter or Kahoot!, and give feedback in Moodle, OLAT or another learning platform. Tell the assistant where each part lives and which copies it may change. In Codex, you can open the course page in the in-app browser and review the draft there. A linked quiz or chatbot can belong to a different course, so the assistant checks its destination before editing.
+
+If a particular task would benefit from extra help, the assistant explains what a tool would do, what it would need to access and how to set it up. You can choose to use it or continue with the tools you already have.
+
 Before accepting a change, try the intended student task. For a quiz, check scoring and feedback. For slides, inspect reading order and speaker notes. For a sheet, check an input, a formula and the displayed result. The handoff records the exact copy or draft that was inspected. [Lecturer guide](04_Documentation/LECTURER_GETTING_STARTED.md)
 
 ## Safety by default
@@ -69,10 +74,10 @@ Before accepting a change, try the intended student task. For a quiz, check scor
 - Student personal data, submissions, grades and credentials are excluded by
   default.
 - Answer keys and unreleased assessments remain lecturer-only.
-- External research or connectors require source-class and egress approval.
-- Course production begins only after an approved blueprint and exact targets.
-- A completed course run cannot be resumed; a new trigger creates fresh lineage.
-- System changes, activation and an expiring schedule are separate later gates.
+- You decide which information may be shared with an external research service.
+- Before making materials, the assistant shows you the teaching plan and the copies it would edit.
+- Each completed redesign keeps its own decisions. Starting another course or redesign opens a fresh record.
+- At the end you can ask for a review of the workflow. Changing it or setting a schedule takes a separate decision.
 
 See [Lecturer getting started](04_Documentation/LECTURER_GETTING_STARTED.md),
 [workflow overview](04_Documentation/WORKFLOW_OVERVIEW.md), and

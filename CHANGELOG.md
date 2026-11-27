@@ -6,6 +6,7 @@
 - Nine numbered teaching steps show where the teacher is in the redesign. A lecturer can choose among proposals, explain a preference in their own words, and inspect each editable draft before deciding whether to use it.
 - The assistant suggests a writing, design, research or browser tool when it can name the task it would help with. It offers setup help, checks what the lecturer agrees to share, and carries on if they decline.
 - The release inventory now records the exact bytes written into each archive. CI verifies the downloaded validation dependency against its published digest.
+- Handover checks each planned file or online draft against its own accepted review. Teachers can confirm the handover in English or German.
 
 ## 0.3.1 — 2026-11-27
 
