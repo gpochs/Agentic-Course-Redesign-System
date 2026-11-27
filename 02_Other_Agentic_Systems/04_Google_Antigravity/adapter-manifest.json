@@ -53,8 +53,8 @@
     },
     {
       "path": "course-project-template/AGENTS.md",
-      "sha256": "955b518f34169b81bcd494e21ff003e12c8d8b7ffa9e1e013988d0160864ee7c",
-      "bytes": 45088
+      "sha256": "dfa8e19a9a811feb7688b08c895a76ce8bd2aa2ccbca49226065beb14e05bcbc",
+      "bytes": 45380
     },
     {
       "path": "course-project-template/01_Control/GATES.md",
@@ -301,8 +301,8 @@
     },
     {
       "path": "workspace-overlay/.agents/skills/course-redesign-orchestrator/SKILL.md",
-      "bytes": 23900,
-      "sha256": "4b430c331f2a1e8c94fe2c60ca849a0f6425ed8d7683949f7737ab6f409c125f"
+      "bytes": 23957,
+      "sha256": "dac3f5f797078a4b2b005d4e44adc4d7110febb20536dbecdaf35d17959976d5"
     },
     {
       "path": "workspace-overlay/.agents/skills/course-redesign-research/SKILL.md",
@@ -446,8 +446,8 @@
     },
     {
       "path": "workspace-overlay/AGENTS.md",
-      "bytes": 45088,
-      "sha256": "955b518f34169b81bcd494e21ff003e12c8d8b7ffa9e1e013988d0160864ee7c"
+      "bytes": 45380,
+      "sha256": "dfa8e19a9a811feb7688b08c895a76ce8bd2aa2ccbca49226065beb14e05bcbc"
     },
     {
       "path": "workspace-overlay/PROJECT_SETUP.md",

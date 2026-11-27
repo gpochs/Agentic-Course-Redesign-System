@@ -37,6 +37,21 @@ class RepositorySemanticTests(unittest.TestCase):
             self.assertIn("such as one from another developer", text)
             self.assertIn("You can accept that limited review or finish", text)
 
+    def test_deferred_models_allow_materials_or_teaching_goal_from_installed_templates(self) -> None:
+        templates = (ROOT / "03_Shared_Workflow_Core/course-project-template/AGENTS.md",
+                     ROOT / "01_ChatGPT_Desktop_App/openai-submission/source/agentic-course-redesign/assets/project-template/AGENTS.md",
+                     ROOT / "01_ChatGPT_Desktop_App/plugins/agentic-course-redesign/assets/project-template/AGENTS.md",
+                     ROOT / "02_Other_Agentic_Systems/01_GitHub_Copilot/plugin/agentic-course-redesign/assets/project-template/AGENTS.md",
+                     ROOT / "02_Other_Agentic_Systems/04_Google_Antigravity/workspace-overlay/AGENTS.md")
+        for template in templates:
+            with self.subTest(template=template):
+                wording = template.read_text(encoding="utf-8")
+                self.assertIn("current authorised session", wording)
+                self.assertIn("materials question or **Skip for now** without requiring a model plan", wording)
+                self.assertIn("go straight to their teaching goal", wording)
+                self.assertIn("before delegating or using a new model, account or destination", wording)
+                self.assertNotIn("After the teacher approves the named task/model/account plan, offer the materials question", wording)
+
     def test_role_tool_checks_reach_the_matching_guide_and_keep_teacher_authority(self) -> None:
         skills = ROOT / "03_Shared_Workflow_Core/agent-skills"
         guide = skills / "course-redesign-orchestrator/references/tool-fit.md"

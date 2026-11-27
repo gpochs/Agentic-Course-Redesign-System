@@ -5,7 +5,7 @@ description: Plan a course or revise one activity, compare teaching options, and
 
 # Course Redesign Orchestrator
 
-At the start of a new redesign, offer **Match models by task**, **Keep the current model throughout**, or **Choose at each step**. Accept a choice already given. Agree the named model, task and account plan once before specialist work. See the [model plan](references/model-plan.md) for current capability and subscription checks, six stages, ten specialist roles, allowed fallbacks and actual execution evidence. On resume use the agreed plan.
+At the start of a new redesign, offer **Match models by task**, **Keep the current model throughout**, or **Choose at each step**. On deferral, continue in the current authorised session. Accept a choice already given. Agree the named model, task and account plan once before specialist work. See the [model plan](references/model-plan.md) for current capability and subscription checks, six stages, ten specialist roles, allowed fallbacks and actual execution evidence. On resume use the agreed plan.
 
 For an actual capability gap use the [role-specific evidence and tool checks](references/tool-fit.md).
 
