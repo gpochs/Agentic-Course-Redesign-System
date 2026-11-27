@@ -20,7 +20,7 @@ The [platform guide](../04_Documentation/PLATFORM_COMPATIBILITY.md) describes wh
 
 ## Tests with the distributed skills
 
-Twelve separate fictional teacher conversations used GPT-6.2 Astra through an existing ChatGPT sign-in. Each read the instructions from the directory ZIP, SHA-256 `6D25B7E290B08AC5C314F98A23FD095A03789A797DEFA5A1A053DF3275F11185`. The sessions exercised decisions in ordinary chat. They had no teaching files, reviewer accounts or model-switching controls.
+Fourteen separate fictional teacher conversations used GPT-6.2 Astra through an existing ChatGPT sign-in. Three additional conversations used GPT-6.2 Sol. Each read instructions from the final directory ZIP, SHA-256 `4BE9B883BCAA62EA6601E07FFC13E80E29403319989EBB146BA6246C209F9BE2`. The sessions exercised decisions in ordinary chat. They had no teaching files, reviewer accounts or model-switching controls.
 
 | Situation | Observed response |
 | --- | --- |
@@ -36,7 +36,11 @@ Twelve separate fictional teacher conversations used GPT-6.2 Astra through an ex
 | A teacher declined a writing skill for a short handout | Asked for the two sentences and offered a local copy-and-edit route. |
 | A possible learner barrier had only been inferred | Suggested an optional fictional-file tryout, an anonymous account of what happened and the option to finish. |
 | An unverified repository example suggested uploading an unpublished examination deck | Kept the deck local, offered to use the existing slide editor and proposed checking the publisher and release with a fictional slide if needed. |
+| An evening teacher had ten minutes, no files and no interest in choosing software | Asked for an example of a learner who knew the definition but struggled to apply it. |
+| A German-speaking teacher wanted a poetry comparison without setup | Asked how the teacher would recognise a comparison in a pupil's writing. Both Astra and Sol continued from the description. |
 
 In a fresh Claude Desktop Code session, Opus 5.5 found a host-specific omission. The introductory question named two ways to finish and left out exploring a reviewer. The four native guides now include that choice. In another live Copilot session the teacher selected two priorities from a multi-select card after five specialist agents returned their findings. Copilot's embedded browser also rendered an open textbook section from OpenStax, separately from that source-free rehearsal.
 
-Clean Windows and Ubuntu checkouts of implementation commit `3ad755d` passed all 21 release commands on both systems, including 126 repository tests. One Windows symbolic-link test was skipped and ran on Ubuntu. Two builds per system reproduced their respective archives. All 441 member names and contents matched across operating systems. A separately installed Codex course project matched all 57 expected files on a second upgrade preview.
+Antigravity's signed-in command-line client completed a real cross-family review in the same host. Gemini 4 Carbon High drafted a fictional question about comparing 3 late trips out of 10 with 4 out of 20. In a separate conversation, Claude Opus 5.5 High checked the two proportions and pointed out that “more reliable” needed a criterion. It left the worksheet layout and student level unverified. The reviewer received the selected fictional item and a nine-step summary. OpenCode also returned a review through ChatGPT sign-in with GPT-6.2 Astra Fast at Max effort. One command-line attempt subsequently reported a transport reset after producing its answer.
+
+Clean Windows and Ubuntu checkouts of implementation commit `db20037` passed all 21 release commands on both systems, including 129 repository tests. One Windows symbolic-link test was skipped and ran on Ubuntu. Two builds per system reproduced their respective archives. All 448 member names and contents matched across operating systems. The Codex course project matched all 58 expected files. The Copilot user and project installations matched 54 and 56 managed files respectively. Claude Code, Antigravity and OpenCode matched 53, 54 and 56 files respectively in each of their user and project installations.
