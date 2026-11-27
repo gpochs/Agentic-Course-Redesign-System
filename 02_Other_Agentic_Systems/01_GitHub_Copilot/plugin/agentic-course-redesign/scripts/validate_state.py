@@ -1255,12 +1255,30 @@ def _validate_legacy_preserved_schedule_history(
     return covered
 
 
+def _material_targets_by_path(plan: object) -> dict[str, dict]:
+    targets = plan.get("approved_material_targets") if isinstance(plan, dict) else None
+    if not isinstance(targets, list):
+        return {}
+    return {row["relative_path"]: row for row in targets
+            if isinstance(row, dict) and isinstance(row.get("relative_path"), str)}
+
+
+def _working_draft_paths(plan: object) -> set[str]:
+    return {path for path, row in _material_targets_by_path(plan).items() if row.get("target_type") == "working_copy"}
+
+
 def _validate_gate_progression_and_source_binding(
     run: dict, label: str, data: dict, errors: list[str]
 ) -> None:
     approvals = run.get("approvals", {})
     if not isinstance(approvals, dict):
         return
+    final_gate = approvals.get("hitl_3")
+    final_decision = final_gate.get("decision") if isinstance(final_gate, dict) else None
+    version = re.fullmatch(r"(\d+)\.(\d+)\.(\d+)", str(data.get("plugin_version", "")))
+    legacy_project = version is not None and tuple(map(int, version.groups())) < (0, 3, 3)
+    if not legacy_project and isinstance(final_decision, dict) and "item_decisions" not in final_decision:
+        errors.append(f"{label} the current workflow requires a final item_decisions record")
     expected = _expected_lineage(run)
     template_only = run.get("template_only") is True
     gates = {
@@ -1500,21 +1518,20 @@ def _validate_gate_progression_and_source_binding(
         "approved_blueprint_reference"
     ):
         errors.append(f"{label} approved Gate 3 requires a blueprint reference")
-    if gates["artefact_gate"].get("status") == "complete":
+    review_status = gates["artefact_gate"].get("status")
+    if review_status == "complete" or gates["artefact_gate"].get("artefacts"):
         artefacts = gates["artefact_gate"].get("artefacts")
-        approved_targets = {
-            item["relative_path"]: item
-            for item in gates["gate_3"].get("approved_material_targets", [])
-            if isinstance(item, dict) and isinstance(item.get("relative_path"), str)
-        }
-        required_drafts = {
-            path for path, target in approved_targets.items()
-            if target.get("target_type") == "working_copy"
-        }
+        approved_targets = _material_targets_by_path(gates["gate_3"])
+        required_drafts = _working_draft_paths(gates["gate_3"])
         reviewed_paths = set()
+        accepted_paths = set()
+        reviewed_draft_ids = set()
+        reviewed_external_objects = set()
         if not isinstance(artefacts, list) or not artefacts:
-            errors.append(f"{label} completed artefact gate must record accepted artefacts")
+            errors.append(f"{label} draft review must record the lecturer's decisions")
         else:
+            if review_status not in {"in_progress", "complete", "rejected"}:
+                errors.append(f"{label} draft reviews cannot precede the artefact gate")
             for index, artefact in enumerate(artefacts):
                 if not isinstance(artefact, dict):
                     errors.append(f"{label} artefact receipt {index} must be an object")
@@ -1527,23 +1544,110 @@ def _validate_gate_progression_and_source_binding(
                     errors.append(f"{label} completed artefact gate repeats a target review")
                 else:
                     reviewed_paths.add(path)
+                artefact_id = artefact.get("artefact_id")
+                if isinstance(path, str) and path in required_drafts and isinstance(artefact_id, str):
+                    if artefact_id in reviewed_draft_ids:
+                        errors.append(f"{label} different working drafts cannot share an artefact_id")
+                    reviewed_draft_ids.add(artefact_id)
+                outcome = artefact.get("decision")
                 if target is not None and isinstance(target.get("external_draft"), dict):
                     object_id = artefact.get("external_object_id")
-                    expected = target["external_draft"].get("object_id")
-                    if not isinstance(object_id, str) or not object_id.strip() or (
-                        expected is not None and expected != object_id
-                    ):
+                    destination = target["external_draft"]
+                    expected = destination.get("object_id")
+                    needs_id = expected is not None or outcome != "excluded" or "external_object_id" in artefact
+                    if needs_id and (not isinstance(object_id, str) or not object_id.strip()
+                                     or (expected is not None and expected != object_id)):
                         errors.append(f"{label} artefact receipt {index} needs the verified external object ID")
+                    if isinstance(object_id, str) and object_id.strip():
+                        identity = (destination.get("origin"), destination.get("container_id"), object_id)
+                        if all(isinstance(part, str) for part in identity):
+                            if identity in reviewed_external_objects:
+                                errors.append(f"{label} two drafts cite the same external object")
+                            reviewed_external_objects.add(identity)
                 elif "external_object_id" in artefact:
                     errors.append(f"{label} artefact receipt {index} has no approved external draft")
-                if artefact.get("decision") != "accepted":
-                    errors.append(f"{label} artefact receipt {index} must be accepted")
-                for field in ("artefact_id", "acceptance_reference", "qa_reference", "recorded_at"):
-                    if not artefact.get(field):
+                fields = ["artefact_id", "recorded_at"]
+                if outcome == "accepted":
+                    fields.extend(("acceptance_reference", "qa_reference"))
+                    if target is not None:
+                        accepted_paths.add(path)
+                elif outcome in ("excluded", "revision_requested"):
+                    fields.extend(("reply_reference", "decision_note"))
+                    if artefact.get("acceptance_reference"):
+                        errors.append(f"{label} {outcome} artefact cannot claim acceptance")
+                    if outcome == "revision_requested" and review_status != "in_progress":
+                        errors.append(f"{label} a requested revision is still open")
+                else:
+                    errors.append(f"{label} artefact receipt {index} has an unknown decision")
+                for field in fields:
+                    if not isinstance(artefact.get(field), str) or not artefact[field].strip():
                         errors.append(f"{label} artefact receipt {index} is missing {field}")
-            for path in sorted(required_drafts - reviewed_paths):
-                kind = "private draft" if "external_draft" in approved_targets[path] else "working-copy"
-                errors.append(f"{label} completed artefact gate is missing a {kind} review for {path}")
+            if review_status in {"complete", "rejected"}:
+                for path in sorted(required_drafts - reviewed_paths):
+                    kind = "private draft" if "external_draft" in approved_targets[path] else "working-copy"
+                    errors.append(f"{label} completed artefact gate is missing a {kind} review for {path}")
+                included = accepted_paths & required_drafts if required_drafts else accepted_paths
+                if review_status == "complete" and not included:
+                    errors.append(f"{label} no draft was accepted for handover")
+                if review_status == "rejected" and included:
+                    errors.append(f"{label} a rejected batch cannot include an accepted draft")
+
+
+def _validate_final_item_decisions(approvals: dict, decision: dict, status: str,
+                                   label: str, errors: list[str]) -> None:
+    """Bind each final teaching decision to a draft eligible for handover."""
+    review_gate = approvals.get("artefact_gate")
+    plan = approvals.get("gate_3")
+    if not isinstance(review_gate, dict) or not isinstance(plan, dict):
+        return  # The prerequisite gate validator reports malformed gates.
+    reviews = review_gate.get("artefacts")
+    if not isinstance(reviews, list):
+        return
+    if "item_decisions" not in decision:
+        # Historical all-accepted runs used one final lecturer decision.
+        if not any(isinstance(row, dict) and row.get("decision") == "excluded" for row in reviews):
+            return
+    items = decision.get("item_decisions", {})
+    if not isinstance(items, dict):
+        errors.append(f"{label} final item decisions must map exact draft targets to replies")
+        return
+    if items and status == "not_started":
+        errors.append(f"{label} final item decisions cannot precede final review")
+    if not items and status in {"not_started", "awaiting_lecturer_decision"}:
+        return
+    working = _working_draft_paths(plan)
+    eligible = {
+        row["target"]: row for row in reviews
+        if isinstance(row, dict) and isinstance(row.get("target"), str)
+        and row["target"] in working and row.get("decision") == "accepted"
+    }
+    outcomes = set()
+    for path, item in items.items():
+        source = eligible.get(path)
+        if source is None or not isinstance(item, dict) or item.get("artefact_id") != source.get("artefact_id"):
+            errors.append(f"{label} final item decision does not match a reviewed draft: {path}")
+            continue
+        outcome = item.get("decision")
+        if outcome not in ("accepted", "excluded", "revision_requested"):
+            errors.append(f"{label} final item {path} has an unknown decision")
+            continue
+        outcomes.add(outcome)
+        reply = item.get("reply_reference")
+        if not isinstance(reply, str) or not reply.strip() or reply == source.get("acceptance_reference"):
+            errors.append(f"{label} final item {path} needs the lecturer's reply reference")
+    if status in {"accepted", "rejected"}:
+        if items.keys() != eligible.keys():
+            errors.append(f"{label} final review must account for each handed-over draft")
+        if "revision_requested" in outcomes:
+            errors.append(f"{label} final review still has an unresolved item revision")
+        if status == "accepted" and "accepted" not in outcomes:
+            errors.append(f"{label} final acceptance requires a draft the lecturer chose to use")
+        if status == "rejected" and outcomes != {"excluded"}:
+            errors.append(f"{label} a rejected final review must exclude every draft")
+    if status in {"rejected", "revision_requested"} and decision.get("final_acceptance_reference"):
+        errors.append(f"{label} a rejection or open revision cannot claim final acceptance")
+    if status in {"revision_requested", "conditional_acceptance_pending_verification"} and "revision_requested" not in outcomes:
+        errors.append(f"{label} name the draft that needs a revision")
 
 
 def _validate_production_hitl3_offer(
@@ -1640,6 +1744,18 @@ def _validate_production_hitl3_offer(
     if handoff.get("required_standalone_line") != "APPROVE PRODUCTION HANDOFF":
         errors.append(f"{label} production handoff approval token is missing or changed")
     handoff_target = handoff.get("exact_handoff_target")
+    draft_gate = approvals.get("artefact_gate")
+    draft_reviews = draft_gate.get("artefacts") if isinstance(draft_gate, dict) else None
+    if production_index >= 3 and isinstance(draft_reviews, list):
+        has_exclusions = any(isinstance(row, dict) and row.get("decision") == "excluded" for row in draft_reviews)
+        if has_exclusions or "included_targets" in handoff:
+            drafts = _working_draft_paths(approvals.get("gate_3"))
+            accepted = {row["target"] for row in draft_reviews if isinstance(row, dict)
+                        and row.get("decision") == "accepted" and isinstance(row.get("target"), str)}
+            listed = handoff.get("included_targets")
+            if (not isinstance(listed, list) or any(not isinstance(path, str) for path in listed)
+                    or len(listed) != len(set(listed)) or set(listed) != (drafts & accepted)):
+                errors.append(f"{label} handover must list exactly the working drafts the lecturer kept")
     if production_index >= 3:
         if template_only:
             errors.append(f"{label} template cannot be advanced past handoff approval")
@@ -1769,6 +1885,7 @@ def _validate_production_hitl3_offer(
             if not decision.get("corrections_verification_reference"):
                 errors.append(f"{label} conditional HITL3 acceptance requires verified corrections")
 
+    _validate_final_item_decisions(approvals, decision, hitl3_status, label, errors)
     offer_gate = approvals.get("system_improvement_review_offer", {})
     if not isinstance(offer_gate, dict):
         errors.append(f"{label}.approvals.system_improvement_review_offer must be an object")

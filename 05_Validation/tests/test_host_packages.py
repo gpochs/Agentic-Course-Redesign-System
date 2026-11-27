@@ -36,6 +36,10 @@ class HostPackageTests(unittest.TestCase):
                     for phrase in ("1. Start with your course", "Kahoot!", "Mentimeter", "Skip for now",
                                    "multi-select", "The drafts are ready for handover."):
                         self.assertIn(phrase, conversation)
+                    if portable:
+                        guide = (base / "SKILL.md").read_text(encoding="utf-8")
+                        self.assertIn("OpenCode and the project-only GitHub Copilot installation", guide)
+                        self.assertIn("stages/course-redesign-<stage>/GUIDE.md", guide)
                     if host == "antigravity":
                         self.assertLessEqual(len(conversation.encode("utf-8")), 24000)
                         self.assertIn("](STAGES.md)", conversation)
@@ -43,6 +47,10 @@ class HostPackageTests(unittest.TestCase):
                         canonical = (builder.CORE / "agent-skills/course-redesign-orchestrator/SKILL.md").read_text(encoding="utf-8")
                         self.assertTrue(canonical.rstrip().endswith(rest.rstrip()))
                         self.assertIn("### Production declaration and handoff", rest)
+                    self.assertEqual(
+                        (builder.CORE / "scripts/validate_state.py").read_bytes(),
+                        (base / "scripts/validate_state.py").read_bytes(),
+                    )
                     self.assertTrue((base / "scripts/setup_course_project.py").is_file())
                     state = json.loads((base / "assets/project-template/01_Control/state.json").read_text(encoding="utf-8"))
                     self.assertEqual(8, state["schema_version"])

@@ -240,6 +240,24 @@ class RepositorySemanticTests(unittest.TestCase):
                     }
                     self.assertIn(expected_detail, details, findings)
 
+    def test_portable_confirmation_wording_still_requires_each_safeguard(self) -> None:
+        entry = ROOT / "02_Other_Agentic_Systems/00_Portable_Core_Adapter/overlay/.claude/skills/course-redesign/references/workflow.md"
+        original = entry.read_text(encoding="utf-8")
+        mutations = {
+            "a distinct submitted reply reference": "two completed current-lineage replies",
+            "include that destination in the submitted text": "second reply repeats the exact target",
+            "Reject a combined reply or changed destination": "token-only or combined approval fails closed",
+            "before inviting the lecturer's final decisions": "HITL3 remains closed until handoff verification",
+        }
+        with tempfile.TemporaryDirectory() as raw:
+            candidate = Path(raw) / "workflow.md"
+            for safeguard, expected in mutations.items():
+                with self.subTest(safeguard=safeguard):
+                    self.assertIn(safeguard, original)
+                    candidate.write_text(original.replace(safeguard, "unspecified"), encoding="utf-8")
+                    details = {finding["detail"] for finding in self.validator.validate_orchestration_entry(candidate)}
+                    self.assertIn(expected, details)
+
     def test_missing_system_gate_token_fails_closed(self) -> None:
         source = (
             ROOT

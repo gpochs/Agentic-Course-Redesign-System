@@ -15,8 +15,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 PLUGIN = ROOT / "plugins" / "agentic-course-redesign"
-OPENAI_PACKAGE_VERSION = "0.3.2"
-BASE_WORKFLOW_VERSION = "0.3.2"
+OPENAI_PACKAGE_VERSION = "0.3.3"
+BASE_WORKFLOW_VERSION = "0.3.3"
 
 
 def load(name: str, relative: str):
@@ -239,7 +239,7 @@ def main() -> int:
     checks.append(
         check(
             state.get("plugin_version") == BASE_WORKFLOW_VERSION,
-            "template preserves v0.3.2 workflow base",
+            "template preserves v0.3.3 workflow base",
         )
     )
     checks.append(check(state.get("status") == "candidate_not_active", "template runtime inactive"))
@@ -285,6 +285,12 @@ def main() -> int:
             and "register_or_modify_schedule"
             in offer_gate.get("authority_on_request", {}).get("does_not_authorise", []),
             "system-review response grants proposal authority only",
+        )
+    )
+    checks.append(
+        check(
+            run_template["approvals"]["hitl_3"]["decision"].get("item_decisions") == {},
+            "each new final review starts with no teacher decisions on individual drafts",
         )
     )
     premature = copy.deepcopy(state)

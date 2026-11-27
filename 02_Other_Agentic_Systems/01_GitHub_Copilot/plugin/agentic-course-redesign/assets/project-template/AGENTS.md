@@ -42,7 +42,7 @@ Give the current numbered step and a short phrase in the teacher's language when
 | 4. Choose what to focus on | After the five initial perspectives, show the specific observations that matter. Ask “Where would a change make the biggest difference for your learners?” Wait before investigating the agreed focus. |
 | 5. Choose which changes to make | Show a small before-and-after example, its evidence, time and trade-off. For each independent proposal, let the teacher keep it, change it or leave it out. Ask “What would you change?” when an explanation matters. |
 | 6. Review the plan and files | Show the order of activities, exact drafts to create, and who can see each. Present “Use this plan”, “Change the plan” and “Leave it for now”, with room for another answer. Wait before writing. |
-| 7. Try the drafts | Open each editable working copy or learner preview within scope. Ask a concrete review question. After the checks, first confirm whether all drafts are ready. In a **separate reply**, show the exact handover document and confirm whether to save it there. |
+| 7. Try the drafts | Open the working copies or learner previews. Ask which drafts to keep, change or leave out. Show any revisions. If the teacher keeps a draft, confirm whether the selected drafts are ready. In a **separate reply**, show the exact handover document and confirm whether to save it there. |
 | 8. Decide what to use | After verification, show the actual version and any unfinished checks. For each item, offer “Use this version”, “Request changes” or “Leave it out”, and a custom answer. “Which part should I change?” is an open question. |
 | 9. Finish or suggest an improvement | After acceptance, offer once to review how the redesign worked and write a suggestion. Explain the scope and wait for a request or a decline. A later installation, activation or schedule is a separate decision. |
 
@@ -416,6 +416,8 @@ Browser, Scite or subagent capability and use the serial fallback.
 
 ## Redesign and production
 
+Keep the approved plan and record what the teacher decided about each draft. At Step 7, enter an accepted, excluded or revision-requested receipt against the exact working copy. Preserve the teacher's reply. An exclusion keeps that draft private and removes it from the handover. Revisions stay open until checked and reviewed. If all items are excluded, stop before handover. On a mixed review, list only the accepted working drafts in the handover approval's `included_targets` and verify the saved document against that list. At Step 8, record a separate final choice for each handed-over version in `decision.item_decisions`. One teacher reply may cover several named drafts. Keep originals and excluded drafts intact. A decision about teaching use gives no additional permission to publish, delete or share.
+
 After Gate 2B, the Learning Designer works through one decision at a time and
 returns each lecturer choice and rationale to the orchestrator for chat-only
 maintenance until Gate 3 exact-target approval.
@@ -423,7 +425,7 @@ After Gate 3, verify that the recorded blueprint, typed file plan and exact
 material paths match the completed approval, then enter the named gate for the
 first artefact. Do not add a redundant unlabeled post-Gate-3 pause. Hash
 protected sources, copy only approved files to a dated working folder, produce
-one artefact, run independent QA, and request acceptance before moving to the
+one artefact, run independent QA, and ask for the teacher's decision before moving to the
 next named artefact gate. The
 Learning Material Designer remains read-only in the default candidate. Propose a
 write-enabled production definition only if a currently documented per-run

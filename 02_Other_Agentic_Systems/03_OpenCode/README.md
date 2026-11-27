@@ -32,8 +32,8 @@ For an online activity, you can lend its tab with the optional Browse extension 
 ## Manual project overlay
 
 
-Adapter release: `0.3.2`. Shared semantic base: inactive candidate
-`ACR-SYS-20261127-003` version `0.3.2`.
+Adapter release: `0.3.3`. Shared semantic base: inactive candidate
+`ACR-SYS-20261127-004` version `0.3.3`.
 
 This overlay adds ten project-local OpenCode V2 subagent profiles to the
 portable core. OpenCode V2 natively discovers the core's root `AGENTS.md` and

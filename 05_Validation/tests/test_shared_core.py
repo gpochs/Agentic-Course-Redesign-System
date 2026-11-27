@@ -807,6 +807,10 @@ class SharedCoreTests(unittest.TestCase):
                 **lineage,
                 "decision": "accept",
                 "final_acceptance_reference": "HITL3-ACCEPT-001",
+                "item_decisions": {
+                    working_target: {"artefact_id": "ARTEFACT-SYNTHETIC-001", "decision": "accepted",
+                                     "reply_reference": "REPLY-HITL3-001"}
+                },
                 "reply_reference": "REPLY-HITL3-001",
                 "validation_status": "passed",
                 "recorded_at": "2026-08-21T10:04:00Z",
@@ -907,8 +911,141 @@ class SharedCoreTests(unittest.TestCase):
         self.assertTrue(any("repeats a target review" in err for err in self.validator.validate(state)))
         receipts[-1].update(target=handout, artefact_id="HANDOUT", qa_reference="QA-HANDOUT",
                             acceptance_reference="REVIEW-HANDOUT")
+        run["approvals"]["hitl_3"]["decision"]["item_decisions"][handout] = {
+            "artefact_id": "HANDOUT", "decision": "accepted", "reply_reference": "REPLY-HITL3-001",
+        }
         self.assertEqual(self.validator.validate(state), [])
         receipts.append({**receipts[-1], "target": release, "artefact_id": "RELEASE-HANDOUT"})
+        self.assertEqual(self.validator.validate(state), [])
+
+    def mixed_draft_state(self) -> tuple[dict, dict]:
+        state, run = self.completed_run_state()
+        gates = run["approvals"]
+        targets = gates["gate_3"]["approved_material_targets"]
+        kept = targets[0]["relative_path"]
+        excluded = kept.rsplit("/", 1)[0] + "/Optional-map-extension.md"
+        targets.append({**targets[0], "relative_path": excluded})
+        gates["artefact_gate"]["artefacts"].append({
+            "target": excluded, "artefact_id": "OPTIONAL-MAP", "decision": "excluded",
+            "reply_reference": "REPLY-LEAVE-IT-OUT", "decision_note": "Leave it out.",
+            "recorded_at": "2026-08-21T10:04:00Z",
+        })
+        gates["production_completion"]["handoff_approval"]["included_targets"] = [kept]
+        return state, run
+
+    def test_mixed_draft_handover_through_cli(self) -> None:
+        state, run = self.mixed_draft_state()
+        gates = run["approvals"]
+        declined = gates["artefact_gate"]["artefacts"][1]["target"]
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / "state.json"
+            cmd = [sys.executable, "-B", str(CORE / "scripts/validate_state.py"), str(path)]
+            path.write_text(json.dumps(state), encoding="utf-8")
+            result = subprocess.run(cmd, capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            gates["production_completion"]["handoff_approval"]["included_targets"].append(declined)
+            path.write_text(json.dumps(state), encoding="utf-8")
+            result = subprocess.run(cmd, capture_output=True, text=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("drafts the lecturer kept", result.stdout + result.stderr)
+
+    def test_each_exclusion_needs_a_named_draft_and_the_teachers_decision(self) -> None:
+        for key, invalid in (("reply_reference", ""), ("decision_note", "   "), ("target", "unapproved"),
+                             ("acceptance_reference", "NOT-AN-ACCEPTANCE"), ("decision", "revision_requested"),
+                             ("artefact_id", "ARTEFACT-SYNTHETIC-001")):
+            with self.subTest(key=key):
+                state, run = self.mixed_draft_state()
+                run["approvals"]["artefact_gate"]["artefacts"][1][key] = invalid
+                self.assertTrue(self.validator.validate(state))
+        state, run = self.mixed_draft_state()
+        run["approvals"]["production_completion"]["handoff_approval"].pop("included_targets")
+        self.assertTrue(any("drafts the lecturer kept" in e for e in self.validator.validate(state)))
+
+    def test_all_excluded_or_pending_drafts_cannot_authorise_handover(self) -> None:
+        for outcome, expected_status in (("excluded", "rejected"), ("revision_requested", "in_progress")):
+            with self.subTest(outcome=outcome):
+                state, run = self.accepted_before_review_state()
+                gates = run["approvals"]
+                review = gates["artefact_gate"]
+                receipt = review["artefacts"][0]
+                receipt.pop("acceptance_reference")
+                receipt.update(decision=outcome, reply_reference="STEP7-REPLY", decision_note="Skip or revise this draft.")
+                self.assertTrue(self.validator.validate(state))
+                template_gates = state["run_template"]["approvals"]
+                for gate in ("production_completion", "hitl_3"):
+                    gates[gate] = copy.deepcopy(template_gates[gate])
+                review["status"] = expected_status
+                review["approval_id"] = None
+                review["approval_receipt"] = copy.deepcopy(template_gates["artefact_gate"]["approval_receipt"])
+                self.assertEqual(self.validator.validate(state), [])
+
+    def test_final_item_choices_follow_the_handed_over_versions(self) -> None:
+        state, run = self.mixed_draft_state()
+        gates = run["approvals"]
+        receipt = gates["artefact_gate"]["artefacts"][1]
+        kept, optional = gates["gate_3"]["approved_material_targets"]
+        optional_path = optional["relative_path"]
+        receipt.update(decision="accepted", acceptance_reference="STEP7-OTHER", qa_reference="QA-OTHER")
+        receipt.pop("decision_note")
+        receipt.pop("reply_reference")
+        gates["production_completion"]["handoff_approval"]["included_targets"].append(optional_path)
+        decisions = gates["hitl_3"]["decision"]["item_decisions"]
+        self.assertTrue(any("each handed-over draft" in e for e in self.validator.validate(state)))
+        decisions[optional_path] = {"artefact_id": "OPTIONAL-MAP", "decision": "excluded", "reply_reference": "STEP8-MIX"}
+        self.assertEqual(self.validator.validate(state), [])
+        for key, value in (("artefact_id", decisions[kept["relative_path"]]["artefact_id"]),
+                           ("decision", "revision_requested"), ("reply_reference", "STEP7-OTHER")):
+            with self.subTest(key=key):
+                previous = decisions[optional_path][key]
+                decisions[optional_path][key] = value
+                self.assertTrue(self.validator.validate(state))
+                decisions[optional_path][key] = previous
+        # If both drafts are declined at final review, receipt records must not claim use.
+        open_state, open_run = self.accepted_before_review_state()
+        run.update({key: open_run[key] for key in ("status", "termination", "current_gate", "next_permitted_action")})
+        state["active_run_id"] = open_state["active_run_id"]
+        for key in ("system_improvement_review_offer", "trigger_guidance_offer"):
+            gates[key] = open_run["approvals"][key]
+        decisions[kept["relative_path"]]["decision"] = "excluded"
+        self.assertTrue(any("chose to use" in e for e in self.validator.validate(state)))
+        gates["hitl_3"].update(status="rejected")
+        gates["hitl_3"]["decision"].update(decision="reject", final_acceptance_reference=None)
+        self.assertEqual(self.validator.validate(state), [])
+        decisions[optional_path]["decision"] = "revision_requested"
+        gates["hitl_3"].update(status="revision_requested")
+        gates["hitl_3"]["decision"].update(decision="request_revision")
+        self.assertEqual(self.validator.validate(state), [])
+
+    def test_mixed_external_drafts_bind_the_kept_and_excluded_objects(self) -> None:
+        state, run = self.mixed_draft_state()
+        gates = run["approvals"]
+        plan = gates["gate_3"]
+        snapshot = {}
+        for target, receipt in zip(plan["approved_material_targets"], gates["artefact_gate"]["artefacts"]):
+            draft = dict(origin="https://lms.example.edu", container_id="course-11", draft_name=receipt["artefact_id"],
+                         action="create_draft", visibility="restricted_draft")
+            target["external_draft"] = draft
+            snapshot[target["relative_path"]] = draft.copy()
+            receipt["external_object_id"] = "page-" + receipt["artefact_id"]
+        plan["approval_receipt"]["external_draft_targets"] = snapshot
+        self.assertEqual(self.validator.validate(state), [])
+        kept, excluded = gates["artefact_gate"]["artefacts"]
+        excluded["external_object_id"] = kept["external_object_id"]
+        self.assertTrue(any("same external object" in e for e in self.validator.validate(state)))
+        # A planned new quiz that was declined before creation has no saved object ID.
+        del excluded["external_object_id"]
+        self.assertEqual(self.validator.validate(state), [])
+        target = plan["approved_material_targets"][1]
+        target["external_draft"].update(action="edit_draft", object_id="quiz-123")
+        snapshot[target["relative_path"]] = target["external_draft"].copy()
+        self.assertTrue(any("verified external object ID" in e for e in self.validator.validate(state)))
+
+    def test_old_confirmed_records_remain_readable_but_new_runs_require_final_item_choices(self) -> None:
+        state, run = self.completed_run_state()
+        run["approvals"]["hitl_3"]["decision"].pop("item_decisions")
+        self.assertTrue(any("item_decisions" in e for e in self.validator.validate(state)))
+        state["plugin_version"] = "0.3.2"
+        state["run_template"]["approvals"]["hitl_3"]["decision"].pop("item_decisions")
         self.assertEqual(self.validator.validate(state), [])
 
     def test_teacher_confirmations_preserve_the_reply_language_and_scope(self) -> None:
@@ -1055,7 +1192,7 @@ class SharedCoreTests(unittest.TestCase):
 
     def test_shared_state_is_schema_8_inactive_unscheduled_and_pre_source(self) -> None:
         self.assertEqual(self.state["schema_version"], 8)
-        self.assertEqual(self.state["plugin_version"], "0.3.2")
+        self.assertEqual(self.state["plugin_version"], "0.3.3")
         self.assertEqual(self.state["status"], "candidate_not_active")
         self.assertEqual(self.state["schedules"], [])
         self.assertEqual(

@@ -42,7 +42,7 @@ When you describe the course, start with the change you want learners to make. I
 | Google Antigravity | [Antigravity installation](02_Other_Agentic_Systems/04_Google_Antigravity/README.md) |
 | OpenCode | [OpenCode installation](02_Other_Agentic_Systems/03_OpenCode/README.md) |
 
-Version 0.3.2 includes six skills and ten specialist roles. Each course has its own source permissions, decisions and outputs. [Publication status](04_Documentation/PUBLICATION_STATUS.md)
+Version 0.3.3 includes six skills and ten specialist roles. Each course has its own source permissions, decisions and outputs. [Publication status](04_Documentation/PUBLICATION_STATUS.md)
 
 ## Repository map
 

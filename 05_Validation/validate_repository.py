@@ -15,7 +15,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent.parent
-CURRENT_VERSION = "0.3.2"
+CURRENT_VERSION = "0.3.3"
 CURRENT_OPENAI_PACKAGE_VERSION = CURRENT_VERSION
 CURRENT_STATE_SCHEMA = 8
 EXPECTED_TOP_LEVEL = {
@@ -291,6 +291,22 @@ def validate_orchestration_entry(path: Path) -> list[dict[str, str]]:
             handoff_position : min(question_position, max(handoff_position, hitl_position) + 240)
         ]
         terminal_context = text[max(0, declaration_position - 300) : question_position]
+        # The portable guides explain the replies before listing the older command words.
+        # Their shared dialogue section specifies what a submitted reply must contain.
+        before_declaration = text[:declaration_position]
+        bound_separate_replies = (
+            "a distinct submitted reply reference to the current run and approved scope" in before_declaration
+            and "two separate confirmations" in before_declaration
+            and "record each actual reply as a standalone line and bind it to the current run, run contract, task, shared context, source manifest, access policy and plan" in before_declaration
+        )
+        target_in_reply = (
+            "show the actual handover destination before the second, separate reply and include that destination in the submitted text" in before_declaration
+            and "the next reply must approve that exact location" in before_declaration
+        )
+        verify_before_review = (
+            "reopen it and verify its contents and scope before inviting the lecturer's final decisions"
+            in verification_context
+        )
         terminal_requirements = {
             "two completed current-lineage replies": (
                 (
@@ -302,6 +318,7 @@ def validate_orchestration_entry(path: Path) -> list[dict[str, str]]:
                     )
                 )
                 and "second" in declaration_context
+                or bound_separate_replies
             ),
             "both confirmations require standalone lines": (
                 terminal_context.count("standalone line") >= 2
@@ -316,10 +333,16 @@ def validate_orchestration_entry(path: Path) -> list[dict[str, str]]:
             "second reply repeats the exact target": (
                 bool(re.search(r"exact.{0,160}target", terminal_context))
                 and "repeat" in terminal_context
+                or target_in_reply
             ),
             "token-only or combined approval fails closed": (
                 "token" in terminal_context
                 and ("invalid" in terminal_context or "insufficient" in terminal_context)
+                or (
+                    "a card that submits only a label cannot do that" in before_declaration
+                    and "reject a combined reply or changed destination" in handoff_context
+                    and target_in_reply
+                )
             ),
             "handoff is independently reopened or verified": (
                 "verify" in verification_context
@@ -336,7 +359,7 @@ def validate_orchestration_entry(path: Path) -> list[dict[str, str]]:
                     "hitl 3 remains forbidden",
                     "do not mark the course redesign complete until",
                 )
-            ),
+            ) or verify_before_review,
             "unconditional current-lineage HITL3 acceptance precedes the offer": bool(
                 re.search(
                     r"(?:unconditional current-lineage(?: hitl 3)? acceptance|"

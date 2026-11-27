@@ -20,8 +20,8 @@ REVIEW = ROOT / "openai-submission" / "review"
 EXPECTED_REPOSITORY = "https://github.com/gpochs/Agentic-Course-Redesign-System"
 EXPECTED_PUBLISHER = "GIAN PETER OCHSNER"
 EXPECTED_WEBSITE = EXPECTED_REPOSITORY
-OPENAI_PACKAGE_VERSION = "0.3.2"
-BASE_WORKFLOW_VERSION = "0.3.2"
+OPENAI_PACKAGE_VERSION = "0.3.3"
+BASE_WORKFLOW_VERSION = "0.3.3"
 EXPECTED_PRIVACY = f"{EXPECTED_REPOSITORY}/blob/63d7464dc3c75634e08c04fca78e2e50bf250ed1/docs/PRIVACY.md"
 EXPECTED_SUPPORT = f"{EXPECTED_REPOSITORY}/blob/v0.2.5/docs/SUPPORT.md"
 EXPECTED_TERMS = f"{EXPECTED_REPOSITORY}/blob/v0.2.5/docs/TERMS.md"
@@ -157,7 +157,7 @@ def main() -> int:
     interface = manifest.get("interface", {})
 
     check("stable package name", manifest.get("name") == "agentic-course-redesign")
-    check("v0.3.2 OpenAI package version", manifest.get("version") == OPENAI_PACKAGE_VERSION)
+    check("v0.3.3 OpenAI package version", manifest.get("version") == OPENAI_PACKAGE_VERSION)
     check(
         "valid package name syntax",
         bool(re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,63}", str(manifest.get("name", "")))),
@@ -341,7 +341,7 @@ def main() -> int:
     )
     check("public template uses state schema 8", public_state.get("schema_version") == 8)
     check(
-        "public template preserves v0.3.2 workflow base",
+        "public template preserves v0.3.3 workflow base",
         public_state.get("plugin_version") == BASE_WORKFLOW_VERSION,
     )
     check("public template remains inactive", public_state.get("status") == "candidate_not_active")
@@ -412,6 +412,8 @@ def main() -> int:
         in offer_gate.get("authority_on_request", {}).get("does_not_authorise", []),
     )
     run_template = public_state.get("run_template", {})
+    check("new final review has no preselected draft decisions",
+          run_template["approvals"]["hitl_3"]["decision"].get("item_decisions") == {})
     closeout = next(
         (
             item
@@ -451,6 +453,8 @@ def main() -> int:
     check(
         "reviewer cases cover final sequence and authority",
         {
+            "P20_LEAVE_DRAFT_OUT",
+            "N16_OMISSION_IS_NOT_APPROVAL",
             "P16_PROGRESSIVE_MODULE_BRIEF",
             "N14_PERSONAL_ACCOMMODATION_RECORD",
             "P17_MIXED_MATERIALS",

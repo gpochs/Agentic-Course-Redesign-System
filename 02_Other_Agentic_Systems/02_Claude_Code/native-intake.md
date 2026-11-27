@@ -1,6 +1,6 @@
 # Native progressive intake in Claude Code
 
-This page shows lecturers and the orchestrator how the first conversation of a course redesign runs in Claude Code. It follows the numbered teaching steps and the English and German handover wording of the public Codex edition `0.3.2`. It adds no decision, permission, automation or schedule. The six shared skills remain the only workflow contract. Where this page and a skill differ, the skill wins.
+This page shows lecturers and the orchestrator how the first conversation of a course redesign runs in Claude Code. It follows the numbered teaching steps and the English and German handover wording of the Codex edition `0.3.3`. It adds no decision, permission, automation or schedule. The six shared skills remain the only workflow contract. Where this page and a skill differ, the skill wins.
 
 Host behaviour was checked against the public Claude Code documentation on 2026-11-27. It depends on the installed version, the surface (terminal, IDE extension, desktop app) and local settings. Anything marked **Not verified** was not confirmed and must not be relied on.
 
@@ -162,7 +162,7 @@ Compare it with the start time and cite the two entries."
 >
 > O: Left out. Nothing was written to Moodle or saved for the quiz. Slide 4 works without it, and the two-minute question gives you the explanation you wanted to see.
 
-A decline ends that optional idea. O continues with the agreed slide deck and records acceptance and independent checks for the saved version before asking about handover.
+A decline ends that optional idea. For the planned slide deck, the lecturer can choose the saved version, request a change or leave it out. O preserves the original filename in the plan and records the lecturer’s reply. A change means trying the revised slide and deciding again. If the lecturer leaves out this sole planned file, it stays private and there is nothing to hand over. O offers to stop or revisit the slide. In the example below, the lecturer has chosen the checked slide deck.
 
 **Handover, in two separate replies.** O first asks whether the drafts are ready, then shows the exact save location and asks whether to save there. If a card cannot submit both the exact wording and the target, O gives a complete line to copy, in the lecturer's language.
 
@@ -183,7 +183,7 @@ A decline ends that optional idea. O continues with the agreed slide deck and re
 
 "Yes", "looks good" or one reply for both does not count. If L declines or wants a different place, O changes nothing and asks where the finished material should go ("Wo soll ich die fertigen Unterlagen ablegen?").
 
-**Step 8. Decide what to use.** After the handover is saved and checked, L reviews the finished slide once more and chooses **Use this version**, **Request changes** or **Leave it out**.
+**Step 8. Decide what to use.** After the handover is saved and checked, L reviews the included slide once more and chooses **Use this version**, **Request changes** or **Leave it out**.
 
 ### The same conversation without each capability
 

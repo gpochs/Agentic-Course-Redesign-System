@@ -12,4 +12,4 @@ Ten specialists help you check evidence, plan teaching and assessment, and make 
 
 Combine local or cloud documents, a learning platform and teaching apps as needed. You can share one item or agree on a batch. When a tool would help, you can choose it or continue with the tools already available.
 
-Review editable slides, handouts, spreadsheets, quizzes, web pages or online course activities using the tools available to you. Open a working copy, browser preview or student view, then decide which items to accept, revise or reject.
+Review editable slides, handouts, spreadsheets, quizzes, web pages or online course activities using the tools available to you. Open a working copy, browser preview or student view, then decide which items to accept, revise or reject. After trying the drafts, you can leave one out and hand over the others. The omitted draft stays in its working location.

@@ -86,7 +86,7 @@ decision process.
 - Named artefact gates and independent QA govern production.
 - Production cannot enter HITL 3 until a completed current-lineage reply
   confirms the drafts are ready, a second completed reply explicitly approves saving the handover document at its exact destination, and the handover is independently verified. The accepted phrases have English and German forms. The original technical confirmations remain valid.
-- **HITL 3** is the lecturer's decision on the produced files.
+- **HITL 3** records the lecturer's final decision on each draft. A named exclusion stays out of delivery. A revision returns that item to the lecturer for review.
 - Only unconditional current-lineage HITL 3 acceptance causes the orchestrator
   to ask whether the lecturer wants a separate read-only system-improvement
   review. A yes permits evidence review and a versioned proposal only; it does

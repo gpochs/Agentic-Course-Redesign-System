@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Preview or apply deterministic v0.3.2 non-Copilot adapter reconciliation."""
+"""Preview or apply deterministic v0.3.3 non-Copilot adapter reconciliation."""
 
 from __future__ import annotations
 
@@ -16,8 +16,8 @@ SCRIPT_PATH = Path(__file__).resolve()
 REPOSITORY_ROOT = SCRIPT_PATH.parents[3]
 ADAPTERS_ROOT = REPOSITORY_ROOT / "02_Other_Agentic_Systems"
 CORE_ROOT = REPOSITORY_ROOT / "03_Shared_Workflow_Core"
-VERSION = "0.3.2"
-PROPOSAL_ID = "ACR-SYS-20261127-003"
+VERSION = "0.3.3"
+PROPOSAL_ID = "ACR-SYS-20261127-004"
 
 SOURCE_RELATIVES = (
     "VERSION",
@@ -284,7 +284,7 @@ def refresh_thin_manifest(folder: str, hashes: dict[str, str], apply: bool) -> b
     }
     if folder == "01_GitHub_Copilot":
         manifest["native_plugin"].update(proposal_id=PROPOSAL_ID, package_version=VERSION,
-            base_semantic_version=VERSION, rollback_package_version="0.3.0")
+            base_semantic_version=VERSION, rollback_package_version="0.3.2")
     manifest["files"] = inventory(root, manifest_path)
     overlay = root / "overlay"
     manifest["overlay_files"] = sorted(
@@ -316,7 +316,7 @@ def refresh_antigravity_manifest(
         "validated_base_version": VERSION,
         "adapter_release_version": VERSION,
         "workflow_semantics": (
-            "reconciled to shared course-independent schema-8 candidate v0.3.2; "
+            "reconciled to shared course-independent schema-8 candidate v0.3.3; "
             "adds adaptive one-decision lecturer interaction and deterministic "
             "preview-first Gate-0A eligibility generation; "
             "candidate remains inactive and adds no permission, external egress, "

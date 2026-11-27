@@ -119,8 +119,8 @@ def validate(source: Path | None = None) -> list[str]:
     else:
         if contract.get("gate_order") != EXPECTED_GATE_ORDER:
             fail(errors, "shared adapter contract gate order is incomplete or reordered")
-        if contract.get("core_version") != "0.3.2":
-            fail(errors, "shared adapter contract core_version must be 0.3.2")
+        if contract.get("core_version") != "0.3.3":
+            fail(errors, "shared adapter contract core_version must be 0.3.3")
         if contract.get("state_schema_version") != 8:
             fail(errors, "shared adapter contract state_schema_version must be 8")
         routing = contract.get("umbrella_entry_routing", {})
@@ -164,22 +164,22 @@ def validate(source: Path | None = None) -> list[str]:
         except (OSError, json.JSONDecodeError) as exc:
             fail(errors, f"{folder}: invalid manifest: {exc}")
             continue
-        if manifest.get("adapter_version") != "0.3.2":
-            fail(errors, f"{folder}: adapter_version must be 0.3.2")
+        if manifest.get("adapter_version") != "0.3.3":
+            fail(errors, f"{folder}: adapter_version must be 0.3.3")
         if manifest.get("platform") != PLATFORMS[folder]:
             fail(errors, f"{folder}: incorrect or missing normalized platform")
         if manifest.get("status") != "candidate_not_active":
             fail(errors, f"{folder}: status must be candidate_not_active")
         if manifest.get("overlay_root") != "overlay":
             fail(errors, f"{folder}: overlay_root must be overlay")
-        expected_compose = [] if folder == "00_Portable_Core_Adapter" else ["portable-core@0.3.2"]
+        expected_compose = [] if folder == "00_Portable_Core_Adapter" else ["portable-core@0.3.3"]
         if manifest.get("compose_after") != expected_compose:
-            fail(errors, f"{folder}: compose_after is not aligned to portable core 0.3.2")
+            fail(errors, f"{folder}: compose_after is not aligned to portable core 0.3.3")
         provenance = manifest.get("source_provenance", {})
-        if provenance.get("system_id") != "ACR-SYS-20261127-003":
-            fail(errors, f"{folder}: source proposal ID must be ACR-SYS-20261127-003")
-        if provenance.get("version") != "0.3.2":
-            fail(errors, f"{folder}: shared semantic source version must be 0.3.2")
+        if provenance.get("system_id") != "ACR-SYS-20261127-004":
+            fail(errors, f"{folder}: source proposal ID must be ACR-SYS-20261127-004")
+        if provenance.get("version") != "0.3.3":
+            fail(errors, f"{folder}: shared semantic source version must be 0.3.3")
         hashes = provenance.get("hashes", {})
         if not hashes or any(
             not isinstance(value, str) or not SHA256.fullmatch(value)
@@ -344,7 +344,7 @@ def validate(source: Path | None = None) -> list[str]:
             "DECLARE PRODUCTION COMPLETE",
             "APPROVE PRODUCTION HANDOFF",
             "reopen it and verify",
-            "Do not enter HITL 3 until this saved handoff verification passes",
+            "verify its contents and scope before inviting the lecturer's final decisions",
             "## HITL 3: final lecturer acceptance",
             "all editable deliverables and representative previews",
             "known limitations and rights boundaries",
@@ -465,7 +465,7 @@ if __name__ == "__main__":
         if path.is_file()
     )
     print(
-        f"PASS: 3 release-0.3.2 adapters, {non_manifest_count} frozen non-manifest "
+        f"PASS: 3 release-0.3.3 adapters, {non_manifest_count} frozen non-manifest "
         f"files, {overlay_count} overlay files, and 20 native role wrappers are "
         "project-local, fail-closed, and "
         f"hash-consistent{source_note}"
