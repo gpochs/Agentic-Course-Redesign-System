@@ -9,7 +9,7 @@ python 02_Other_Agentic_Systems/build_host_package.py claude <new-plugin-directo
 claude plugin validate <new-plugin-directory>
 ```
 
-Open your course project, reload plugins and choose a Fable or Opus model included with your Claude subscription. Start with `/gpochs-course-redesign` or select the installed course-redesign orchestrator skill. Each specialist inherits the conversation model.
+Open your course project, reload plugins and choose a Fable or Opus model included with your Claude subscription. Start with `/gpochs-course-redesign` or select the installed course-redesign orchestrator skill. Specialists inherit the conversation model by default. When you approve task-specific assignments, a supported Agent call can select another permitted Claude model and effort for that task.
 
 ## Start with your course
 
