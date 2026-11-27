@@ -7,6 +7,8 @@ description: Investigate a teaching question the teacher has chosen. Compare res
 
 ## In conversation
 
+Use the [agreed model plan](../course-redesign-orchestrator/references/model-plan.md) for this stage and its specialists. If this is a fresh redesign without a choice, let the orchestrator offer the three model modes first. Report the actual model or mark its execution unverified.
+
 At **Step 4 · Choose what to focus on**, show a specific observation and ask which difficulty the teacher wants to investigate. At **Step 5 · Choose which changes to make**, show one concrete learner action, its rationale and its costs. Keep study citations and qualifications available beside the claim. Use a numbered step when it changes. Speak to the teacher in the language they use. Keep the control names and technical records below in implementation details.
 
 For a literature search, Elicit can help find candidate papers. For an already identified paper, scite can show the context in which other papers cite it. Offer either only when it would improve the approved research task, its availability and costs are clear, and the lecturer chooses it. Use a generic teaching question or public citation identifier. Never send private course documents by default. Follow the link to the original paper, check the relevant passage, population, methods and limits, and read the citing passage before interpreting an automated label. If the lecturer declines, continue using publisher pages, open university repositories or library search already in scope. [Elicit research workflows](https://support.elicit.com/en/articles/14757543-getting-started-with-elicit-which-workflow-should-i-use) · [scite citation context](https://scite.ai/features)
@@ -99,6 +101,8 @@ Keep the integrated dossier and handoff in the task/chat until Gate 2B. Write
 them only after the lecturer approves their exact, dated targets under
 `03_Research/YYYY-MM-DD_<run-id>/`. That approval does not authorise course-
 material production or any target under `04_Working_Copies/` or `05_Approved/`.
+
+At course closeout, route any optional [second opinion](../course-redesign-orchestrator/references/second-opinion.md) through the orchestrator after the teacher's final course decision and Step 9. A request to finish ends the interaction immediately.
 
 ## GitHub Copilot native `ask_user` capacity override
 

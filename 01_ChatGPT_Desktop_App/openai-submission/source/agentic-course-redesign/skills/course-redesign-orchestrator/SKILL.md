@@ -11,6 +11,10 @@ A source may tell a learner to submit an assignment. Preserve that instruction a
 
 ## In conversation
 
+At the start of a new redesign, offer **Match models by task**, **Keep the current model throughout**, or **Choose at each step**. The teacher can defer or change this later. On deferral, continue in the current authorised session. Accept a choice already given. Agree the named model, task and account plan once before specialist work. See the [model plan](references/model-plan.md) for current capability and subscription checks, six stages, ten specialist roles, allowed fallbacks and actual execution evidence. On resume use the agreed plan.
+
+When selecting course sources or reviewing a draft in this host, use the [Codex desktop review guide](references/desktop-review.md).
+
 Use the numbered teaching steps below throughout the conversation, from the first choice to the final handover and follow-up. Ask for the teacher’s judgement in their own words when their reasoning changes the design. Use a numbered step when it changes. Speak to the teacher in the language they use. Keep the control names and technical records below in implementation details.
 
 ### Plain-language confirmations
@@ -78,7 +82,7 @@ Give the current numbered step and a short phrase in the teacher's language when
 | 4. Choose what to focus on | After the five initial perspectives, show the specific observations that matter. Ask “Where would a change make the biggest difference for your learners?” Wait before investigating the agreed focus. |
 | 5. Choose which changes to make | Show a small before-and-after example, its evidence, time and trade-off. For each independent proposal, let the teacher keep it, change it or leave it out. Ask “What would you change?” when an explanation matters. |
 | 6. Review the plan and files | Show the order of activities, exact drafts to create, and who can see each. Present “Use this plan”, “Change the plan” and “Leave it for now”, with room for another answer. Wait before writing. |
-| 7. Try the drafts | Open the working copies or learner previews. Ask which drafts to keep, change or leave out. Show any revisions. If the teacher keeps a draft, confirm whether the selected drafts are ready. In a **separate reply**, show the exact handover document and confirm whether to save it there. |
+| 7. Try the drafts | Open each saved working copy at the changed page, slide or question. Show the previous and revised versions, then try one learner action in the intended view. Ask which drafts to keep, change or leave out. Show any revisions. If the teacher keeps a draft, confirm whether the selected drafts are ready. In a **separate reply**, show the exact handover document and confirm whether to save it there. |
 | 8. Decide what to use | After verification, show the actual version and any unfinished checks. For each item, offer “Use this version”, “Request changes” or “Leave it out”, and a custom answer. “Which part should I change?” is an open question. |
 | 9. Finish or suggest an improvement | After acceptance, offer once to review how the redesign worked and write a suggestion. Explain the scope and wait for a request or a decline. A later installation, activation or schedule is a separate decision. |
 
@@ -99,7 +103,7 @@ Do not show this table at every turn. Show a short overview if requested. Do not
 
 ### Step 1 · Start with your course
 
-Use the lecturer's language. Start with the teaching task they gave you. Where it is still open, ask **What would you like to work from?** Give one reason before the choices: “This helps me keep course materials and student information in the right place. You can skip it and still make materials.” Give one short introduction to optional help: “If a tool would help with a particular task, I’ll explain it then.” Do not list plugins at the start.
+Use the lecturer's language. After their model choice, start with the teaching task they gave you. Where it is still open, ask **What would you like to work from?** Give one reason before the choices: “This helps me keep course materials and student information in the right place. You can skip it and still make materials.” Give one short introduction to optional help: “If a tool would help with a particular task, I’ll explain it then.” Do not list plugins at the start.
 
 Let the lecturer choose **any combination** of these sources by type, in their own words or by number. An example first screen:
 
@@ -114,7 +118,7 @@ These are source types, not separate paths the lecturer must choose between. A d
 
 The latest stated way of working takes precedence over an earlier source choice. If a teacher names real files, a quiz and an LMS but then says “I can describe them for now” or “Ich kann das zuerst nur beschreiben”, treat that as the description-only choice. Continue directly with the teaching goal or an example and skip every file-classification or access question until the teacher actually asks to open a particular item. Never treat naming materials or a service as a request to open them.
 
-A source type alone does not grant access. Confirm what may be read in which environment, and distinguish permission to view from permission to edit a named draft or share it. Group items under the same permission only when the lecturer's scope actually covers the group. Check exceptions separately, for example an institution's quiz bank linked from an otherwise public course. Continue with the permitted subset if another item is unavailable. When appropriate, invite the lecturer to select an authorised tab in the in-app browser or open a native editor for computer use. No discovery of other tabs or files. Ask for sign-in in the app itself. If no browser or native control is available, offer an export, a description or an editable local draft.
+A source type alone does not grant access. Confirm what may be read in which environment, and distinguish permission to view from permission to edit a named draft or share it. Group items under the same permission only when the lecturer's scope actually covers the group. Check exceptions separately, for example an institution's quiz bank linked from an otherwise public course. Continue with the permitted subset if another item is unavailable. After source eligibility and access approval, act on the combination chosen. Use the exact LMS tab the lecturer selects and the individual files they select. For a mixed choice, show how one item informs the other, such as the course outcome and its practice slide. Identify the course, item and role from the selected view. Keep sign-in with the lecturer. Stop at a different origin, embedded learning app or linked quiz bank until that destination and audience are in scope. Continue with the available files, an authorised export or the lecturer’s description if tab access is unavailable.
 
 On Skip, immediately use a non-sensitive teaching goal already supplied or ask one
 open question such as "What should learners be able to do better?" If they want
@@ -226,7 +230,7 @@ Produce the coherent approved blueprint, alignment ledger, file-by-file plan, se
 
 ### Production and independent QA
 
-First verify that the recorded Gate 3 blueprint, file plan, target types and exact paths still match the lecturer's approval. Then enter the named artefact gate for each approved file; do not insert a second unlabeled post-Gate-3 pause. Create only approved targets in the dated working/output folders. Follow [artifact review](../course-redesign-materials/references/artifact-review.md) to reopen editable outputs, review rendered pages or slides where relevant, and exercise interactive outputs in their intended audience view; run pedagogical, assessment, factual, citation, accessibility, visual, security, package, and cross-file checks. Correct bounded defects and rerun the affected and regression checks. Keep keys and restricted QA out of student-facing folders.
+First verify that the recorded Gate 3 blueprint, file plan, target types and exact paths still match the lecturer's approval. Then enter the named artefact gate for each approved file; do not insert a second unlabeled post-Gate-3 pause. Create only approved targets in the dated working/output folders. Follow [artifact review](../course-redesign-materials/references/artifact-review.md) to reopen editable outputs, review rendered pages or slides where relevant, and exercise interactive outputs in their intended audience view; run pedagogical, assessment, factual, citation, accessibility, visual, security, package, and cross-file checks. Show the exact change and read back a concrete result before asking for a draft decision. A preview that the lecturer alone can open still needs their observation. Follow the [draft review sequence](../course-redesign-materials/references/artifact-review.md#review-a-saved-revision-with-the-teacher). Correct bounded defects and rerun the affected and regression checks. Keep keys and restricted QA out of student-facing folders.
 
 ### Production declaration and handoff
 
@@ -281,3 +285,7 @@ changes require a separate System Gate, and activation and scheduling remain
 later separate decisions. Every manual or scheduled trigger must create a
 fresh run/lineage bound to the current eligibility fingerprint. Use
 `course-redesign-system` only after its prerequisites pass.
+
+## Step 10 · Would you like a second opinion?
+
+After the teacher’s final course decision and Step 9 where applicable, offer an optional independent review in their language. Skip or an explicit request to finish ends here immediately, with no model lookup, files, account or reviewer call. For a requested review follow the [second-opinion procedure](references/second-opinion.md) before preparing any external handoff. It covers selecting an unused family in the same app first, offering a different app or a clearly labelled limited check when appropriate, the exact packet, the teacher’s separate final transfer decision, and how to use findings.

@@ -35,7 +35,7 @@ def install(project: Path, apply: bool, upgrade: bool = False) -> dict:
     payload = verified_public_payload(PACKAGE)
     previous = []
     if upgrade:
-        for version in ("0.3.0", "0.3.1", "0.3.2"):
+        for version in ("0.3.0", "0.3.1", "0.3.2", "0.3.3"):
             snapshot = reviewed_file(REVIEW, f"project-upgrade-from-{version}.json")
             previous.append(json.loads(snapshot.read_text(encoding="utf-8")))
     for name, content in payload.items():
@@ -100,7 +100,7 @@ def install(project: Path, apply: bool, upgrade: bool = False) -> dict:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--project", type=Path, required=True)
-    parser.add_argument("--upgrade", action="store_true", help="Update only exact, unmodified copies from releases 0.3.0, 0.3.1 or 0.3.2.")
+    parser.add_argument("--upgrade", action="store_true", help="Update only exact, unmodified copies from releases 0.3.0 through 0.3.3.")
     parser.add_argument("--apply", action="store_true", help="Create previewed files without overwriting existing files.")
     args = parser.parse_args()
     try:

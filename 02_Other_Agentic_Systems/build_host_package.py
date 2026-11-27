@@ -29,9 +29,22 @@ def write(path, value):
 # New canonical references are named explicitly for a maintainer running the
 # builder before staging this release. All other copied paths must be recorded.
 NEW_GUIDES = ("course-redesign-materials/references/artifact-review.md",
-              "course-redesign-orchestrator/references/role-evidence.md")
+              "course-redesign-orchestrator/references/role-evidence.md",
+              "course-redesign-orchestrator/references/second-opinion.md",
+              "course-redesign-orchestrator/references/model-plan.md")
 ROLE_GUIDE = Path(NEW_GUIDES[1])
 NATIVE_GUIDE = ROLE_GUIDE.with_name("native-intake.md")
+
+
+def link_review_entry(content, skill):
+    """Place the host guide at the entry used for the next source or draft."""
+    guide = ("references/native-intake.md" if skill == "course-redesign-orchestrator"
+             else "../course-redesign-orchestrator/references/native-intake.md")
+    heading = "## In conversation\n"
+    if content.count(heading) != 1:
+        raise ValueError(f"Expected a single conversation section in {skill}")
+    instruction = f"Use [this app's review guide]({guide}) to select a course tab or files and open a saved draft with the teacher."
+    return content.replace(heading, heading + "\n" + instruction + "\n", 1)
 
 
 def link_native_intake(content):
@@ -134,9 +147,12 @@ def render(host, output):
         manifest_dir = ".claude-plugin" if host == "claude" else ".antigravity-plugin"
         write(output / manifest_dir / "plugin.json", json.dumps(metadata, indent=2))
     copy_tree(CORE / "agent-skills", stage_root)
-    if host == "copilot-project":
-        orchestrator = Path("course-redesign-orchestrator/SKILL.md")
-        copy_file(edition / "plugin" / NAME / "skills" / orchestrator, stage_root / orchestrator)
+    for skill in ("course-redesign-orchestrator", "course-redesign-setup", "course-redesign-materials", "course-redesign-assessment"):
+        entry = stage_root / skill / "SKILL.md"
+        if host == "copilot-project":
+            copy_file(edition / "plugin" / NAME / "skills" / skill / "SKILL.md", entry)
+        else:
+            write(entry, link_review_entry(entry.read_text(encoding="utf-8"), skill))
     if host == "antigravity":
         # Antigravity reads a maximum of 24,000 bytes from a skill body.
         # Keep the opening conversation in the entry point and preserve the

@@ -1,4 +1,12 @@
-# Codex 0.3.3 release checks
+# Codex 0.3.4 release checks
+
+The skills-only ZIP contains 60 files. Two independent builds produced SHA-256 `5C3786DFC3B8CDED0EB0A60EC27162D67E9C9375C654EA202D394C916200FC14`. All 62 package checks passed, including the ten role instructions, direct-entry guide links, the pending preview status and byte identity with the marketplace runtime. The reviewer pack contains 27 positive and 19 negative cases. The 47 structural forward checks passed. The installed official skill validator accepted all six skills in each package. The standalone plugin validator was unavailable.
+
+The 33 Codex helper tests had 32 passes and one Windows symbolic-link skip. In a disposable Windows project, all 54 files from the tagged 0.3.3 project installation matched the frozen prior hashes. The 0.3.4 installer updated 23 and added three. All 57 project files matched the new package after installation. A repeat preview found zero changes.
+
+The repository tests exercise all three model-choice modes, the 16 task assignments, a change of account after plan approval, and a fallback route with unverified execution. Separate tests exercise the final review packet, including its exact content and receiver, and show that changing the model, account, cost or file invalidates the transfer receipt. The validator tests run without sending anything to a reviewer. For observed host behaviour and current installation evidence see the [0.3.4 system report](../05_Validation/VALIDATION_REPORT_v0.3.4.md).
+
+## Codex 0.3.3 release checks
 
 A teacher can try two approved drafts, keep the worksheet and leave the quiz out of the handover. The working quiz stays in its original draft location. Each included item still needs a final teaching decision. A requested revision stays open, and excluding every draft stops the handover.
 

@@ -189,3 +189,7 @@ and a valid offset timestamp. An active trigger must fall on or after contract
 activation and before expiry. Pausing, expiry or cancellation disables future
 triggers but preserves contract and run history; an on/after-expiry trigger
 records an expired no-course-action receipt rather than analysing the course.
+
+## Optional second opinion after the teacher's final decision
+
+Keep Step 9 and the course termination receipt intact. The optional Step 10 is a separate, read-only review. On Skip, finish immediately without preparing a packet or using files, accounts or model tools. The orchestrator follows its second-opinion reference. Selection, original-file authority and final approval of the exact transfer are distinct. Applying a finding needs new approval and a checked revision.

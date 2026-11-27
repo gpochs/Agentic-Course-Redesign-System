@@ -44,6 +44,11 @@ class HostPackageTests(unittest.TestCase):
                     for phrase in ("1. Start with your course", "Kahoot!", "Mentimeter", "Skip for now",
                                    "multi-select", "The drafts are ready for handover."):
                         self.assertIn(phrase, conversation)
+                    for skill in ("course-redesign-orchestrator", "course-redesign-materials", "course-redesign-setup", "course-redesign-assessment"):
+                        entry = stages / skill / name
+                        guide_link = "references/native-intake.md" if skill == "course-redesign-orchestrator" else "../course-redesign-orchestrator/references/native-intake.md"
+                        self.assertIn(f"]({guide_link})", entry.read_text(encoding="utf-8"))
+                        self.assertEqual((stages / builder.NATIVE_GUIDE).resolve(), (entry.parent / guide_link).resolve())
                     if host in {"copilot", "copilot-project"}:
                         self.assertEqual("0.3.4", (base / "VERSION").read_text().strip())
                         self.assertIn("](references/native-intake.md)", conversation.split("### Plain-language confirmations")[0])

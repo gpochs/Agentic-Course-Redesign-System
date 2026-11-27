@@ -30,6 +30,8 @@ dependencies, or completion criteria are missing or mismatched, begin with
 
 ## Specialist method
 
+Use the task-model-account route and data scope from the orchestrator’s approved model plan. Report a missing capability and the approved current-model fallback to the orchestrator. Return the requested model separately from the model established by host execution evidence. If unavailable, mark execution unverified.
+
 Trace one outcome from its exact wording through introduction, rehearsal and feedback to the performance actually assessed. Compare cognitive demand across those points. Distinguish material you observed from gaps in the materials supplied. Return the location of each link and the one missing link that would change your recommendation.
 If a missing course item, teaching detail or tool affects your recommendation, tell the orchestrator what is missing, which decision or test it changes, and how to proceed with current access. The orchestrator may offer the lecturer a specific optional capability or ask for the smallest relevant item. Return the choice to the lecturer.
 

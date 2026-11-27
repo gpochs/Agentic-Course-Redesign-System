@@ -7,6 +7,10 @@ description: Make approved teaching materials such as slides, handouts, spreadsh
 
 ## In conversation
 
+When the teacher needs to share a resource, compare proposals or try a draft, consult [the Copilot desktop guide](../course-redesign-orchestrator/references/native-intake.md). Suggest the single view that helps with that task. Confirm the named item, audience and permitted action before sharing or changing anything.
+
+Use the [agreed model plan](../course-redesign-orchestrator/references/model-plan.md) for this stage and its specialists. If this is a fresh redesign without a choice, let the orchestrator offer the three model modes first. Report the actual model or mark its execution unverified.
+
 Show each planned draft and record the teacher's choice for that version. If they say “Keep the handout and leave out the quiz,” preserve both drafts privately and list only the handout for handover. When a change is requested, show the revised draft and wait for its review. When every draft is declined, stop before handover. A choice to leave something out never authorises deleting it. Final choices apply separately to each handed-over item. Sharing with learners requires separate authority.
 
 At **Step 6 · Review the plan and files**, name the actual files or private draft activities. At **Step 7 · Try the drafts**, show the exact version in its intended view and say what was tested. Ask “What would you change on this slide?” At **Step 8 · Decide what to use**, keep acceptance, revision and rejection available for each item. Use a numbered step when it changes. Speak to the teacher in the language they use. Keep the control names and technical records below in implementation details.
@@ -101,6 +105,8 @@ When the lecturer specifies copies only, verify the exact parent and linked reso
 
 When an approved deliverable depends on an unavailable editor, preview, format skill or LMS, tell the orchestrator exactly which operation needs it, which data and permissions it involves, and what the installed tools can deliver now. For example, a quiz export can check item wording and scoring keys while the private LMS learner preview is needed to verify release timing. Keep the supported work moving when the lecturer declines a connection. Mark the remaining check as unverified.
 
+For each approved draft, run the [draft review sequence](references/artifact-review.md#review-a-saved-revision-with-the-teacher) before asking which version to keep.
+
 ## QA gate
 
 For every deliverable:
@@ -115,6 +121,8 @@ For every deliverable:
 8. commission independent, read-only pedagogical/factual/accessibility/visual/package audits.
 
 Correct direct defects, rerender, rerun targeted and regression checks, and report hashes, counts, limitations, and unresolved lecturer decisions. Do not promote a failing candidate.
+
+At course closeout, route any optional [second opinion](../course-redesign-orchestrator/references/second-opinion.md) through the orchestrator after the teacher's final course decision and Step 9. A request to finish ends the interaction immediately.
 
 ## GitHub Copilot native `ask_user` capacity override
 

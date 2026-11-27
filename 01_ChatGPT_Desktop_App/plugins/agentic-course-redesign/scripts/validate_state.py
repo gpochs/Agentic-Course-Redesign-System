@@ -3301,6 +3301,11 @@ def validate(data: dict) -> list[str]:
             errors.append(f"runs[{index}] must be an object")
             continue
         label = f"runs[{index}]"
+        if "model_routing" in run:
+            try:
+                _verify_model_routing(run)
+            except ValueError as error:
+                errors.append(f"{label}: {error}")
         run_id = run.get("run_id")
         if not run_id:
             errors.append(f"{label} is missing run_id")
@@ -3407,13 +3412,207 @@ def validate(data: dict) -> list[str]:
     return errors
 
 
+MODEL_TASKS = frozenset({
+    "course-redesign-orchestrator", "course-redesign-setup", "course-redesign-research",
+    "course-redesign-assessment", "course-redesign-materials", "course-redesign-system",
+    "course-mapper", "active-learning-researcher", "ai-integration-researcher",
+    "student-experience-critic", "learning-designer", "assessment-alignment-designer",
+    "learning-material-designer", "source-verification-citation-auditor",
+    "evidence-feasibility-red-team", "artefact-accessibility-visual-qa",
+})
+
+
+def _model_plan_digest(run_id, plan):
+    if not isinstance(run_id, str) or not run_id.strip():
+        raise ValueError("model plan needs a run ID")
+    if not isinstance(plan, dict) or set(plan) != {"mode", "routes"}:
+        raise ValueError("model plan needs a mode and explicit routes")
+    if plan["mode"] not in ("match_tasks", "keep_current", "choose_each_step"):
+        raise ValueError("unknown model selection mode")
+    if not isinstance(plan["routes"], list) or not plan["routes"]:
+        raise ValueError("name the model routes")
+    ids, covered = set(), set()
+    for route in plan["routes"]:
+        required = {"id", "tasks", "model", "family", "account", "app", "effort", "scope", "usage", "checked_on", "evidence"}
+        if not isinstance(route, dict) or set(route) != required:
+            raise ValueError("each model route must bind the task, capability evidence, account and scope")
+        if not all(isinstance(route[k], str) and route[k].strip() for k in required - {"tasks"}):
+            raise ValueError("model route details must be nonempty")
+        if route["id"] in ids:
+            raise ValueError("model route IDs must be unique")
+        ids.add(route["id"])
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", route["checked_on"]):
+            raise ValueError("model capability evidence needs its check date")
+        datetime.strptime(route["checked_on"], "%Y-%m-%d")
+        tasks = route["tasks"]
+        if not isinstance(tasks, list) or not tasks or any(not isinstance(t, str) or t not in MODEL_TASKS for t in tasks):
+            raise ValueError("route tasks must name the six stages or a distributed specialist")
+        if len(set(tasks)) != len(tasks):
+            raise ValueError("duplicate task on a model route")
+        covered.update(tasks)
+    if covered != MODEL_TASKS:
+        raise ValueError("model routes must cover the six stages and ten specialists")
+    if plan["mode"] == "keep_current" and ids != {"current"}:
+        raise ValueError("single-model mode permits only the current route")
+    return _canonical_json_sha256({"run_id": run_id, **plan})
+
+
+def _verify_model_routing(run):
+    """Optional for existing schema-8 runs. An agreed route alone is never evidence of execution."""
+    record = run["model_routing"]
+    if not isinstance(record, dict) or set(record) - {"mode", "routes", "approval_digest", "approval_reference", "executions"}:
+        raise ValueError("invalid model routing record")
+    plan = {k: record.get(k) for k in ("mode", "routes")}
+    digest = _model_plan_digest(run["run_id"], plan)
+    if record.get("approval_digest") != digest or not isinstance(record.get("approval_reference"), str) or not record["approval_reference"].strip():
+        raise ValueError("model routing approval must match the named task/model/account plan")
+    routes = {r["id"]: r for r in plan["routes"]}
+    events = record.get("executions", [])
+    if not isinstance(events, list):
+        raise ValueError("model executions must be a list")
+    for event in events:
+        if not isinstance(event, dict) or set(event) != {"task", "route", "status", "observed_model", "evidence"}:
+            raise ValueError("invalid model execution entry")
+        route = routes.get(event["route"]) if isinstance(event["route"], str) else None
+        if route is None or event["task"] not in route["tasks"]:
+            raise ValueError("execution used an unapproved task/model route")
+        if not isinstance(event["evidence"], str) or not event["evidence"].strip():
+            raise ValueError("name the runtime evidence or missing check")
+        if event["status"] == "verified":
+            if route["model"].casefold() in {"auto", "unknown", "current", "unverified", "current session"}:
+                raise ValueError("an automatic or unknown model label cannot verify an execution")
+            if event["observed_model"] != route["model"]:
+                raise ValueError("observed model differs from the approved route")
+        elif event["status"] != "unverified" or event["observed_model"] is not None:
+            raise ValueError("an unverified execution cannot claim an observed model")
+
+
+def _verify_second_opinion(state: dict, record: dict, require_approval: bool) -> str:
+    """Check a separate read-only packet against a final course decision. No attachment or network access."""
+    def fields(value, required, optional=()):
+        if not isinstance(value, dict) or not set(required) <= set(value) <= set(required) | set(optional):
+            raise ValueError("unexpected or missing fields in second-opinion record")
+
+    def text_fields(value, names):
+        for name in names:
+            if not isinstance(value[name], str) or not value[name].strip():
+                raise ValueError(f"second opinion requires a nonempty {name}")
+
+    fields(record, ("run_id", "packet"), ("approval",))
+    run = next((item for item in state["runs"] if item["run_id"] == record["run_id"]), None)
+    if run is None:
+        raise ValueError("second opinion needs the recorded course run")
+    approvals = run["approvals"]
+    final = approvals["hitl_3"]["status"]
+    if not ((run["status"] == "complete_dormant" and final == "accepted") or
+            final == "rejected" or approvals["artefact_gate"]["status"] == "rejected"):
+        raise ValueError("second opinion requires a final course decision and ordinary closeout where applicable")
+
+    packet = record["packet"]
+    fields(packet, ("author_families", "destination", "prompt", "steps", "items"), ("limited_review",))
+    text_fields(packet, ("prompt",))
+    destination = packet["destination"]
+    fields(destination, ("app", "account", "audience", "model", "family", "cost", "access_evidence", "billing_basis"))
+    text_fields(destination, destination)
+    if destination["billing_basis"] not in ("existing_subscription", "free"):
+        raise ValueError("reviewer access must use the confirmed existing subscription or free access")
+    authors = packet["author_families"]
+    if not isinstance(authors, list) or not authors:
+        raise ValueError("identify the originating model families")
+    for family in [*authors, destination["family"]]:
+        if not isinstance(family, str) or not re.fullmatch("[a-z]+(?:-[a-z]+)*", family):
+            raise ValueError("use a canonical family name such as gpt, claude or gemini, without a version")
+    unknown = {"unknown", "unverified", "auto", "current"}
+    if unknown.intersection(authors) or destination["family"] in unknown:
+        raise ValueError("a different model family requires known author and reviewer families")
+    routing = run.get("model_routing", {})
+    routes = {entry["id"]: entry for entry in routing.get("routes", [])}
+    observed_families = {routes[e["route"]]["family"].casefold() for e in routing.get("executions", [])
+                         if e["status"] == "verified"}
+    if not observed_families.issubset(authors):
+        raise ValueError("review packet omits a model family observed in the redesign")
+    reviewer = destination["family"]
+    if reviewer in authors:
+        limited = packet.get("limited_review")
+        fields(limited, ("kind", "primary_family", "primary_model", "eligible_families", "contributions", "reason", "reply_reference"))
+        text_fields(limited, ("kind", "primary_family", "primary_model", "reason", "reply_reference"))
+        eligible = limited["eligible_families"]
+        if not isinstance(eligible, list) or reviewer not in eligible or any(f not in authors for f in eligible):
+            raise ValueError("a contributing reviewer requires exhaustion of the eligible unused families")
+        contributions = limited["contributions"]
+        if not isinstance(contributions, dict) or set(contributions) != set(authors) or limited["primary_family"] not in authors:
+            raise ValueError("show what each family did and identify the primary author")
+        text_fields(contributions, contributions)
+        expected_kind = "limited_second_look"
+        if reviewer == limited["primary_family"]:
+            expected_kind = "same_model" if destination["model"].casefold() == limited["primary_model"].casefold() else "same_family"
+        if limited["kind"] != expected_kind:
+            raise ValueError("label the check according to the reviewer's actual involvement")
+    elif "limited_review" in packet:
+        raise ValueError("the limited-review receipt is reserved for a contributing family")
+    steps = packet["steps"]
+    if not isinstance(steps, list) or len(steps) != 9:
+        raise ValueError("include all nine core steps")
+    for number, step in enumerate(steps, 1):
+        fields(step, ("step", "status", "summary"))
+        text_fields(step, ("status", "summary"))
+        if type(step["step"]) is not int or step["step"] != number or step["status"] not in ("completed", "skipped", "unverified", "inapplicable"):
+            raise ValueError("identify each step in order and state its evidence status")
+
+    items = packet["items"]
+    if not isinstance(items, list):
+        raise ValueError("packet items must be an explicit list, which may be empty")
+    names = set()
+    for item in items:
+        expected = {"kind", "name", "revision", "sha256", "disclosure_reference"}
+        if isinstance(item, dict) and item.get("kind") == "original":
+            expected.add("original_selection_reference")
+        fields(item, expected)
+        text_fields(item, expected)
+        if item["kind"] not in ("output", "original") or not re.fullmatch(r"[A-Fa-f0-9]{64}", item["sha256"]):
+            raise ValueError("each selected item needs its kind, revision and content digest")
+        if item["name"].casefold() in names:
+            raise ValueError("use an unambiguous name for each selected attachment")
+        names.add(item["name"].casefold())
+    digest = _canonical_json_sha256({"run_id": record["run_id"], "packet": packet})
+    if "approval" in record:
+        approval = record["approval"]
+        fields(approval, ("packet_sha256", "reply_reference"))
+        text_fields(approval, ("packet_sha256", "reply_reference"))
+        if approval["packet_sha256"] != digest:
+            raise ValueError("final transfer approval does not match the exact preview")
+        if "limited_review" in packet and approval["reply_reference"] == packet["limited_review"]["reply_reference"]:
+            raise ValueError("the choice of a limited review cannot approve the transfer")
+        if any(approval["reply_reference"] in (item["disclosure_reference"], item.get("original_selection_reference")) for item in items):
+            raise ValueError("the final transfer decision must be separate from file selection")
+    elif require_approval:
+        raise ValueError("a fresh final transfer approval is required")
+    return digest
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("state", type=Path)
+    parser.add_argument("--second-opinion", type=Path, help="Validate a separate local review packet for a completed decision.")
+    parser.add_argument("--require-transfer-approval", action="store_true", help="Require the final receipt bound to this exact packet.")
+    parser.add_argument("--model-plan-preview", type=Path, help="Check a proposed run-local model plan without activating or writing it.")
+    parser.add_argument("--run-id", help="Run to bind to the model plan preview.")
     args = parser.parse_args()
+    if bool(args.model_plan_preview) != bool(args.run_id) or (args.model_plan_preview and args.second_opinion):
+        parser.error("use --model-plan-preview with --run-id, independently of --second-opinion")
+    if args.require_transfer_approval and args.second_opinion is None:
+        parser.error("--require-transfer-approval requires --second-opinion")
+    packet_digest = None
+    plan_digest = None
     try:
         data = json.loads(args.state.read_text(encoding="utf-8"))
         errors = validate(data)
+        if args.model_plan_preview and not errors:
+            plan = json.loads(args.model_plan_preview.read_text(encoding="utf-8"))
+            plan_digest = _model_plan_digest(args.run_id, plan)
+        if args.second_opinion and not errors:
+            record = json.loads(args.second_opinion.read_text(encoding="utf-8"))
+            packet_digest = _verify_second_opinion(data, record, args.require_transfer_approval)
     except Exception as exc:
         errors = [f"{type(exc).__name__}: {exc}"]
     result = {
@@ -3421,6 +3620,10 @@ def main() -> int:
         "state": args.state.as_posix() if not args.state.is_absolute() else args.state.name,
         "errors": errors,
     }
+    if plan_digest is not None:
+        result["plan_sha256"] = plan_digest
+    if packet_digest is not None:
+        result["packet_sha256"] = packet_digest
     print(json.dumps(result, indent=2))
     return 0 if not errors else 1
 

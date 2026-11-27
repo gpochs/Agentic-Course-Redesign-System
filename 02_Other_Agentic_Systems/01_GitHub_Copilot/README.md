@@ -44,7 +44,7 @@ The repository marketplace manifest is
 links, command-line alternatives, verification, the first project-session
 prompt, and removal instructions.
 
-The native package preserves the complete six-skill v0.3.3 workflow text and
+The native package preserves the complete six-skill v0.3.4 workflow text and
 adds Copilot-specific guidance for choices and older host versions. Helpers remain
 byte-identical to the canonical core. Its ten Copilot agents preserve the full
 specialist role contracts and add the host dialogue boundary while retaining

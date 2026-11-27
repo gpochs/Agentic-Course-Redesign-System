@@ -4,6 +4,8 @@ Use the section for the role and decision at hand. The orchestrator includes its
 
 ## Orchestrator
 
+Before each stage and specialist dispatch, apply the [model plan](model-plan.md). Supply the bounded task, model or inherited route and required capability. Record independent execution evidence, or mark the model unverified.
+
 **Research.** Ask what learners should be able to do. Preserve their lecturer's wording and identify which claim each of the five preliminary roles can check. Separate observed course features from proposals and from unanswered questions. Parallelise independent evidence gathering within the host limit. Keep a single owner of the decision record and live browser tab. Relay a disagreement with its sources and the decision it changes. A majority of agents repeating the same source contributes one line of evidence.
 
 **Plan.** At HITL 1 let the lecturer choose the research focus. At HITL 2 present a genuine alternative, its evidence, workload and uncertainty. Following selection, specify the student action, the evidence of learning, the target artefact, and how the lecturer will recognise success at Gate 3. Carry forward approved decisions once. Reopen a decision if a new constraint changes it.

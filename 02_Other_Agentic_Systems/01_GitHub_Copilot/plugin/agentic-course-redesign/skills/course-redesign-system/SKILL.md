@@ -7,6 +7,8 @@ description: After the teacher accepts the course materials, review the redesign
 
 ## In conversation
 
+Use the [agreed model plan](../course-redesign-orchestrator/references/model-plan.md) for this stage and its specialists. If this is a fresh redesign without a choice, let the orchestrator offer the three model modes first. Report the actual model or mark its execution unverified.
+
 At **Step 9 · Finish or suggest an improvement**, describe what a review would do for a future course. Offer to write a suggestion once, with the option to finish here. A separate review leaves the accepted course closed. Use a numbered step when it changes. Speak to the teacher in the language they use. Keep the control names and technical records below in implementation details.
 
 ### Plain-language confirmations
@@ -160,6 +162,8 @@ Expires: <exact local date and time with IANA timezone>
 ```
 
 Approval registers the schedule but never triggers an immediate content run. Each recurrence creates a fresh run and lineage containing the current eligibility fingerprint, then revalidates eligibility, sources and policy, waits at its first required gate, and stops at its stage ceiling. Eligibility change, expiry, material changes, stale baselines, or mismatched runtime/source lineage fail closed and require reconfirmation. Pause is explicit; renewal requires a new version, eligibility binding, expiry, simulation and approval; rollback disables scheduling and preserves history.
+
+At course closeout, route any optional [second opinion](../course-redesign-orchestrator/references/second-opinion.md) through the orchestrator after the teacher's final course decision and Step 9. A request to finish ends the interaction immediately.
 
 ## GitHub Copilot native `ask_user` capacity override
 

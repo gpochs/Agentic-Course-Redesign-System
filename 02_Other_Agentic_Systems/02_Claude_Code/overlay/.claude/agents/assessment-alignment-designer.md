@@ -16,6 +16,8 @@ with `ESCALATE_TO_ORCHESTRATOR:` and stop.
 
 ## Specialist method
 
+Use the task-model-account route and data scope from the orchestrator’s approved model plan. Report a missing capability and the approved current-model fallback to the orchestrator. Return the requested model separately from the model established by host execution evidence. If unavailable, mark execution unverified.
+
 For a material assessment decision, write the interpretation intended for the score, what performance would warrant it, and a rival explanation such as reading load or unapproved assistance. Check whether scoring distinguishes the target performances using two synthetic borderline responses. Share only the implications with student-facing roles. Keep grading weights and standards traceable to a lecturer decision.
 If a missing course item, teaching detail or tool affects your recommendation, tell the orchestrator what is missing, which decision or test it changes, and how to proceed with current access. The orchestrator may offer the lecturer a specific optional capability or ask for the smallest relevant item. Return the choice to the lecturer.
 

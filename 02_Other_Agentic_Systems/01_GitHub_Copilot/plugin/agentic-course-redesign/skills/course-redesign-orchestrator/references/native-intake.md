@@ -21,6 +21,12 @@ those decisions.
 > **Optional help prompt.** Paste this at any point:
 > `Which step are we on, what do you need from me now, and what can I leave open?`
 
+## Model choice for this course
+
+Offer **Match models to tasks**, **Keep the current model** or **Choose at each step**. With matching, get one approval for the named tasks, roles, models, account and fallbacks. A single-model choice applies to the specialists too. If a preferred choice is unavailable, keep the approved capable model and offer a manual switch. Pause the affected check only when its result would be invalid. Give each specialist its capability needs and approved model entry in its brief. See the [model plan and ten role criteria](model-plan.md).
+
+In a Copilot app Session, the model and effort dropdowns below the prompt control the main conversation. For a named-model plan, use a specific included model. **Auto** and **Fusion** may resolve models themselves. The response's model display can describe only the main agent. Where the session exposes the CLI `task` dispatch fields, send the approved specialist model and supported reasoning effort on that call. Check the returned evidence of the model actually used. CLI custom-agent profiles can declare preferred or required models. A preferred model can fall back, and a required policy can refuse dispatch. A fixed parent model plus inheritance is the portable single-model route. When only the session picker is available, offer that manual switch at a task boundary. [Copilot app sessions](https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions) · [CLI agent model precedence](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference)
+
 ## The nine steps
 
 ### Step 1 · Start with your course
@@ -155,9 +161,18 @@ Copilot changes only that file, reopens it and shows you the same spot.
 ### Step 9 · Finish or suggest an improvement
 
 Copilot asks once whether you would like a written suggestion about how the
-redesign process worked. If you do not reply, it waits. A yes or a no closes
-this course's work. Installing, activating or scheduling any change would be a
+redesign process worked. If you do not reply, it waits. Your answer completes Step 9. Installing, activating or scheduling any change would be a
 separate later decision.
+
+### Step 10 · Would you like a second opinion?
+
+After your final choices and Step 9, choose **Skip** to finish immediately, or **Prepare a review** to see what a second model would receive. Ask Copilot to show a short progress list in the conversation, covering Steps 1–9, their decisions and any skipped work.
+
+Use **Files** to check the exact selected drafts and revisions. An existing **Canvas** can help you compare a proposed change with the approved draft. **Library** resources and the rest of the project can stay outside the review. Compare the actual model used for the redesign with candidates for this task. For example, if Claude drafted the activity, an included GPT model that accepts the worksheet format may suit a fresh review. Check the current model picker, plan and capability evidence. You can choose a different eligible model or skip. [Copilot models and availability](https://docs.github.com/en/copilot/reference/ai-models/supported-models)
+
+Look in the current Copilot account’s model picker first. If it offers a suitable unused family, open a fresh Copilot session on that model with only the approved packet. If none fits here, offer a different signed-in app using separately approved computer control, or a manual handover. Check the families used across the whole run. If all eligible families contributed, identify the least-involved family, ideally different from the main author of this item. Disclose its earlier contribution and let the teacher choose a **limited second look** or finish. With one family, distinguish another model from an exact same-model self-check. Neither is an independent family review.
+
+At the end, inspect the exact packet: nine step summaries, selected filenames and versions, any originals you individually chose, recipient app, account, model, audience and included cost. Remove or replace anything before authorising **Send this packet**. Use a fresh session with only the approved context. If project access cannot be narrowed, use a separate approved destination. **Computer Use**, where available and permitted for that app, can hand over the packet after your approval. You can also copy it yourself. The reviewer identifies each finding by step and page, slide or item, shows its evidence and names what it could not check. Choose each change yourself, then reopen the revised working copy for a learner trial. [Copilot Computer Use](https://docs.github.com/en/copilot/how-tos/github-copilot-app/computer-use)
 
 ## Fictional example
 

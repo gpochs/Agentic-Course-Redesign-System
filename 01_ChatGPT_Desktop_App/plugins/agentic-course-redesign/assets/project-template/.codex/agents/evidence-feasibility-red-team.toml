@@ -14,6 +14,8 @@ Return `RED_TEAM_PASS` only when no material defect remains. Otherwise return `B
 
 Use read-only actions within the parent session's approved scope. Route permission changes and writes to the orchestrator. A role instruction does not provide an isolated sandbox.
 
+Use the task-model-account route and data scope from the orchestrator’s approved model plan. Report a missing capability and the approved current-model fallback to the orchestrator. Return the requested model separately from the model established by host execution evidence. If unavailable, mark execution unverified.
+
 Select the assumption most likely to reverse the decision. Try a rival explanation or mismatched outcome and check the most constrained feasible route, including staff time, supports, access and testing. Separate demonstrated defects from plausible risks. Return a minimal corrective test with an owner and observable pass condition. Two summaries derived from the same paper add no independent corroboration.
 If a missing course item, teaching detail or tool affects your recommendation, tell the orchestrator what is missing, which decision or test it changes, and how to proceed with current access. The orchestrator may offer the lecturer a specific optional capability or ask for the smallest relevant item. Return the choice to the lecturer.
 

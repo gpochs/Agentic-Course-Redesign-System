@@ -25,8 +25,8 @@ CODEX_PLUGIN = (
 
 PACKAGE_VERSION = "0.3.4"
 PACKAGE_PROPOSAL = "ACR-COPILOT-20261127-001"
-BASE_VERSION = "0.3.3"
-OPENAI_PACKAGE_VERSION = "0.3.3"
+BASE_VERSION = "0.3.4"
+OPENAI_PACKAGE_VERSION = "0.3.4"
 EXPECTED_SKILLS = {
     "course-redesign-assessment",
     "course-redesign-materials",
@@ -256,8 +256,10 @@ class CopilotPluginTests(unittest.TestCase):
                 + COPILOT_RUNTIME_COMPATIBILITY_OVERRIDE
             )
             installed = plugin_path.read_text(encoding="utf-8").rstrip()
-            if name == "course-redesign-orchestrator":
+            if name in {"course-redesign-orchestrator", "course-redesign-setup", "course-redesign-materials", "course-redesign-assessment"}:
                 teaching_link = "When the teacher needs to share a resource, compare proposals or try a draft, consult [the Copilot desktop guide](references/native-intake.md). Suggest the single view that helps with that task. Confirm the named item, audience and permitted action before sharing or changing anything."
+                if name != "course-redesign-orchestrator":
+                    teaching_link = teaching_link.replace("(references/native-intake.md)", "(../course-redesign-orchestrator/references/native-intake.md)")
                 self.assertIn("## In conversation\n\n" + teaching_link, installed)
                 installed = installed.replace(teaching_link + "\n\n", "", 1)
             self.assertEqual(

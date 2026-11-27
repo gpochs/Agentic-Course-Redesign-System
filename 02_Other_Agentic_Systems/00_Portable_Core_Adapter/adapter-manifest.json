@@ -1,30 +1,33 @@
 {
   "schema_version": "1.0",
   "adapter_id": "portable-core",
-  "adapter_version": "0.3.3",
+  "adapter_version": "0.3.4",
   "platform": "portable",
   "status": "candidate_not_active",
   "overlay_root": "overlay",
   "compose_after": [],
   "source_provenance": {
-    "system_id": "ACR-SYS-20261127-004",
-    "version": "0.3.3",
+    "system_id": "ACR-SYS-20261127-005",
+    "version": "0.3.4",
     "source_status": "approved inactive candidate; not activated",
     "origin_label": "03_Shared_Workflow_Core",
     "hash_algorithm": "sha256",
     "hashes": {
-      "VERSION": "a0dc8325e2fbe558e09bf7d61260ca378151b0a3f875dd8b46ecd3693e34c10b",
-      "adapter-contract.json": "d202402559e4b8c99c44ff756985791cdbf6896e09ff75016fdb307822d796cd",
-      "course-project-template/AGENTS.md": "396ddd11d9dbeca31dfbb3c8af254468a364dbcd219663455ce2eae7374e5731",
-      "course-project-template/01_Control/GATES.md": "d2d81682f2f794ee610bf31e88819c16815fd31fefe6cf95eef520cacd9d2a7e",
+      "VERSION": "027a61167f091a427fa7844dcac0c5141bafbcbdcadc7e04a93578147ab956f2",
+      "adapter-contract.json": "89f0eba6cbf3df5afee8f33d84f6f83b73f3c3a691231e8fde3d6e91e1a71591",
+      "course-project-template/AGENTS.md": "955b518f34169b81bcd494e21ff003e12c8d8b7ffa9e1e013988d0160864ee7c",
+      "course-project-template/01_Control/GATES.md": "4ac8af12921e6729f41a071134091e73e4a1a255a73439f01ba0c1e392ceab19",
       "course-project-template/01_Control/material-processing-eligibility.template.json": "efe8b8d8d6e7ba3cd9b0dc21e1f014ad65206aaa609468555974949e4496fbed",
-      "course-project-template/01_Control/state.json": "f429749a6247b4eb8cd185909c94e8ded058a90d1ce2d242fadd946b1b230e44",
-      "agent-skills/course-redesign-assessment/SKILL.md": "07d16eee5e097c97470bcf8a62a4a1d0b3367526dfe645511fb364b70c29e30a",
-      "agent-skills/course-redesign-materials/SKILL.md": "b337400db3bf9f949ddc5d1e8141271576268ff3c9a334ed266abea8fa874c5e",
-      "agent-skills/course-redesign-orchestrator/SKILL.md": "480e96270789ecbed69fc107e1853a5a82a723d4589c523972654a77718e7431",
-      "agent-skills/course-redesign-research/SKILL.md": "60045e2c3850159c106f0ac703f5c8de295f30892369f85fb01dd080fdc4b823",
-      "agent-skills/course-redesign-setup/SKILL.md": "8aba1420b213645768f9c3f439b91231575e4081762f590d590134a611388b7c",
-      "agent-skills/course-redesign-system/SKILL.md": "520447d93740cd480bcc817dbaa018e6313ee241dce6a08e860f6a637e984b24",
+      "course-project-template/01_Control/state.json": "47c02a33109b55dc5e3153f9ab993c6635687d409a717bbeda7cc13d13477902",
+      "agent-skills/course-redesign-assessment/SKILL.md": "355ed018fd0c52ff0d8d17ee57a4820d95af92afd15a3ce907ff899cffa466c1",
+      "agent-skills/course-redesign-materials/SKILL.md": "62a357030b739254c02251bbd442839e3ee72c8537097fa62656d19ca2bab12f",
+      "agent-skills/course-redesign-materials/references/artifact-review.md": "f928efa6b44771ec7ea50e7c5785ba882d0c89dc6064a384dcd9d4595e1a2aa2",
+      "agent-skills/course-redesign-orchestrator/references/second-opinion.md": "3ab337e206d0fb72749501792bd5b256480d6beb4e8d57dc02b2f8ac19b2293c",
+      "agent-skills/course-redesign-orchestrator/references/model-plan.md": "04670c023c59ca56dcb1f8d8980a50e04ebaaf534b0913eed5ae58e45d177aae",
+      "agent-skills/course-redesign-orchestrator/SKILL.md": "9ae189858b79788164fb0a1db52c4a60a013f5e89fe1bf9577e460300b443001",
+      "agent-skills/course-redesign-research/SKILL.md": "48ff8a3054c495262d1b6aa132826b535b9c9768e0cd4ca0c65490ff875f14f6",
+      "agent-skills/course-redesign-setup/SKILL.md": "31b2322868418301b0449dd0e6bdc3cded7dde881282aff43fb6885c65e5d458",
+      "agent-skills/course-redesign-system/SKILL.md": "d085d3b492bfdf57994c5d7e65b433381018a8f100de068011ec9653ee55d94c",
       "scripts/create_material_processing_eligibility.py": "cb27aa8d29daf4d9097a575cdf7308af31b1b797c89de0bbe669a7337764a7c5"
     }
   },
@@ -53,19 +56,29 @@
       "sha256": "a6c9e3b56be936571ed0e79d2e4bfa8ea2920a85f758d73d3bada8d746497903"
     },
     {
+      "path": "overlay/.claude/skills/course-redesign/references/model-plan.md",
+      "bytes": 10394,
+      "sha256": "04670c023c59ca56dcb1f8d8980a50e04ebaaf534b0913eed5ae58e45d177aae"
+    },
+    {
       "path": "overlay/.claude/skills/course-redesign/references/role-contracts.md",
       "bytes": 3727,
       "sha256": "d732e3b147c87b75637ee74b74d076c1ae789c0515ac552cdc88e019318b9acd"
     },
     {
+      "path": "overlay/.claude/skills/course-redesign/references/second-opinion.md",
+      "bytes": 10813,
+      "sha256": "3ab337e206d0fb72749501792bd5b256480d6beb4e8d57dc02b2f8ac19b2293c"
+    },
+    {
       "path": "overlay/.claude/skills/course-redesign/references/workflow.md",
-      "bytes": 25300,
-      "sha256": "08c400fbb8a1e5fa06501455828f9fcbdde8691bc04be928c0493ee741835aee"
+      "bytes": 25440,
+      "sha256": "6bd7e1f67a62d1541158d7947cc92fc38a5f2df7356609e473a0c2624d387fb3"
     },
     {
       "path": "overlay/.claude/skills/course-redesign/SKILL.md",
-      "bytes": 4155,
-      "sha256": "dad590f59da67c2f53aecdb98d7526c59eeee7a22f02b58e865ed37354003ff0"
+      "bytes": 4827,
+      "sha256": "407a319cfaae9afa7d71a473f2338510d1a26a0d9c5ba08fa8082bfad54f2755"
     },
     {
       "path": "overlay/AGENTS.md",
@@ -75,23 +88,25 @@
     {
       "path": "README.md",
       "bytes": 6204,
-      "sha256": "3ec16a2d759698d7ca7bdb35af01c2ebcee61ee054b49394159c70bb5321a1fd"
+      "sha256": "73088778e2289ba592aa3bd4099f9c2de0e2b6ab33103155e1d09949477623e8"
     },
     {
       "path": "validation/reconcile_adapters.py",
-      "bytes": 18228,
-      "sha256": "fbd3c16dc888d9c53c698c2b4dcaf8662e0dee209da03af211aaed4c2ccd2de9"
+      "bytes": 18982,
+      "sha256": "ee1aa8dcfcc92fa059271f3b221ba8900649622933fda9c103da403ae1739352"
     },
     {
       "path": "validation/validate_adapters.py",
       "bytes": 22613,
-      "sha256": "0e04d98e77512ac2e676f28062d1ec0a29d048d15d525c32523ef195bf7901b2"
+      "sha256": "e03e7ce32c6811505dbce6597a4c5948588dd9f4035a73d819cd92e6d8ba2c65"
     }
   ],
   "overlay_files": [
     ".claude/skills/course-redesign/SKILL.md",
     ".claude/skills/course-redesign/references/control-contract.md",
+    ".claude/skills/course-redesign/references/model-plan.md",
     ".claude/skills/course-redesign/references/role-contracts.md",
+    ".claude/skills/course-redesign/references/second-opinion.md",
     ".claude/skills/course-redesign/references/workflow.md",
     "AGENTS.md"
   ],

@@ -16,8 +16,8 @@ SCRIPT_PATH = Path(__file__).resolve()
 REPOSITORY_ROOT = SCRIPT_PATH.parents[3]
 ADAPTERS_ROOT = REPOSITORY_ROOT / "02_Other_Agentic_Systems"
 CORE_ROOT = REPOSITORY_ROOT / "03_Shared_Workflow_Core"
-VERSION = "0.3.3"
-PROPOSAL_ID = "ACR-SYS-20261127-004"
+VERSION = "0.3.4"
+PROPOSAL_ID = "ACR-SYS-20261127-005"
 
 SOURCE_RELATIVES = (
     "VERSION",
@@ -28,6 +28,9 @@ SOURCE_RELATIVES = (
     "course-project-template/01_Control/state.json",
     "agent-skills/course-redesign-assessment/SKILL.md",
     "agent-skills/course-redesign-materials/SKILL.md",
+    "agent-skills/course-redesign-materials/references/artifact-review.md",
+    "agent-skills/course-redesign-orchestrator/references/second-opinion.md",
+    "agent-skills/course-redesign-orchestrator/references/model-plan.md",
     "agent-skills/course-redesign-orchestrator/SKILL.md",
     "agent-skills/course-redesign-research/SKILL.md",
     "agent-skills/course-redesign-setup/SKILL.md",
@@ -198,11 +201,16 @@ def reconcile_roles_and_copilot(apply: bool) -> list[str]:
     opener = brief[brief.index("### Step 1 "):brief.index("The latest stated way of working")].strip()
     portable = ADAPTERS_ROOT / "00_Portable_Core_Adapter/overlay/.claude/skills/course-redesign"
     antigravity = ADAPTERS_ROOT / "04_Google_Antigravity/workspace-overlay/.agents/skills"
+    for guide_name in ("model-plan.md", "second-opinion.md"):
+        emit(portable / "references" / guide_name, (skills / "course-redesign-orchestrator/references" / guide_name).read_bytes())
     for path in (portable / "references/workflow.md", antigravity / "course-redesign-orchestrator/SKILL.md"):
         text = path.read_text(encoding="utf-8")
         marker = "<!-- teaching conversation -->"
         end = "<!-- end teaching conversation -->"
-        detail = "\n\n".join((marker, teaching_steps, opener, confirmations, end))
+        parts = [marker, teaching_steps, opener, confirmations, end]
+        if path == antigravity / "course-redesign-orchestrator/SKILL.md":
+            parts.insert(1, "When selecting course tabs or files and trying a saved draft, use the [Antigravity review guide](references/native-intake.md).")
+        detail = "\n\n".join(parts)
         if marker in text:
             before, existing = text.split(marker, 1)
             text = before + detail + existing.split(end, 1)[1]
@@ -225,8 +233,10 @@ def reconcile_roles_and_copilot(apply: bool) -> list[str]:
             data = builder.read_reviewed(source)
             if extra is not None:
                 data = data.decode("utf-8").replace("\r\n", "\n").rstrip() + "\n\n" + extra
-            if folder == "agent-skills" and rel.as_posix() == "course-redesign-orchestrator/SKILL.md":
-                data = contract.link_desktop_guide(data)
+            if folder == "agent-skills" and rel.name == "SKILL.md" and rel.parent.name in {
+                "course-redesign-orchestrator", "course-redesign-setup", "course-redesign-materials", "course-redesign-assessment"
+            }:
+                data = contract.link_desktop_guide(data, rel.parent.name)
             if folder == "agent-skills" and rel == builder.ROLE_GUIDE:
                 data = host_role_guide(copilot, plugin / "skills", data)
             emit(target, data)
@@ -320,9 +330,8 @@ def refresh_antigravity_manifest(
         "validated_base_version": VERSION,
         "adapter_release_version": VERSION,
         "workflow_semantics": (
-            "reconciled to shared course-independent schema-8 candidate v0.3.3; "
-            "adds adaptive one-decision lecturer interaction and deterministic "
-            "preview-first Gate-0A eligibility generation; "
+            "shared schema-8 version 0.3.4 with scoped desktop source selection, "
+            "per-draft learner previews and observed task checks; "
             "candidate remains inactive and adds no permission, external egress, "
             "runtime activation, or schedule registration"
         ),

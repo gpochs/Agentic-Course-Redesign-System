@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.4 — 2026-11-27
+
+- Teachers can match models to tasks, keep the current model for all roles, or choose at each step. A run-local plan binds each task to eligible models, accounts and data scopes and distinguishes proposed routes from observed execution.
+
+- An optional second opinion follows the teacher’s last course decision. The teacher can finish immediately, prepare a manual review, or approve an exact packet for a model from another family. The review describes all nine steps and only the selected output versions.
+
+- Choose a permitted course tab, files, or both. When an LMS links to a separate learning app, the remaining approved resources can still be used.
+- Compare a handout, learning-outcomes slide or quiz with its previous version where the host can display it. Try the learner task in the appropriate view, check the result and decide which drafts to keep. Each host guide gives a fallback for unavailable views.
+
 ## 0.3.3 — 2026-11-27
 
 - After looking at a draft, a teacher can leave it out and still take the other agreed materials forward. The handover can distinguish a quiz that the teacher declined from a worksheet that still needs another review.
