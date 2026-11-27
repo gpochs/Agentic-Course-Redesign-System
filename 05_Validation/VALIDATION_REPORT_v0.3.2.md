@@ -23,11 +23,35 @@ To repeat the mixed-materials check, start a fresh conversation and say, “Ich 
 
 ## Verification
 
+On 27 November 2026, fresh Windows and Ubuntu checkouts of the same runtime commit (`fa8b713`) passed all 22 validation commands. The suite included the real v0.2.2 migration fixture, source and package validation for every adapter, final-reply and artifact-receipt checks, repeat builds and archive verification. Each environment reproduced its own archive digest. All 422 member names and their extracted bytes matched between the two operating systems.
+
+| Unit suite | Windows | Ubuntu |
+| --- | ---: | ---: |
+| Repository and shared workflow contracts | 114 | 114 |
+| Shared eligibility helpers | 7 passed, 1 skipped | 8 |
+| Codex edition | 30 passed, 1 skipped | 31 |
+| GitHub Copilot edition | 23 | 23 |
+| Antigravity edition | 20 | 20 |
+| **Total** | **194 passed, 2 skipped** | **196 passed** |
+
+The two Windows skips required permission to create directory links. Both passed on Ubuntu. The source-free workflow test checked the route through final handover, per-item acceptance and closeout using simulated teacher decisions.
+
 The directory archive contains 57 reviewed files and matches the repository plugin at runtime. It passed 53 checks against the archive. On Windows, a project upgraded from 0.3.1 through the tested candidate to the finished package. All 54 project files matched their intended release bytes, a second invocation proposed zero changes, and a fresh Codex app-server process discovered the six project-scoped skills as enabled. The [Codex validation report](../01_ChatGPT_Desktop_App/VALIDATION_REPORT.md) gives the archive digest and reproduction commands.
 
 A private vocational numeracy exercise tested an editable presentation and spreadsheet. Earlier teacher approvals were simulated. Sol supplied the learner task, slide sequence, cells and formula. Its native session enforced read-only access, so a local writer created the two Office files. A separate check opened the presentation in PowerPoint, confirmed 11 editable text objects on each slide and visually inspected both rendered slides. Excel calculated a full-pack order of six for a target of 86 units with 14 in stock and packs of 12, seven when the target rose to 87, and zero when stock already covered demand. A zero pack size displayed an input message. Neither file was published to learners.
 
 An independent Astra review found that the original formula could still calculate a fractional pack size pasted over the input validation. The revised formula checks that all three inputs are numeric whole numbers, that demand and stock are nonnegative and that each pack contains at least one item. Excel 16 recalculated a scratch copy in a separate process. All nine cases passed, including an exact pack boundary, one unit over, stock equal to or greater than demand, a zero pack size, a pasted decimal or text, an empty demand cell and negative stock. The preferred private workbook is `Revised-working-copy/Supplier-order-check.xlsx` relative to the pilot folder. The baseline remains in its original working-copy folder.
+
+## Other desktop editions
+
+| Host | Observed on Windows |
+| --- | --- |
+| Claude Code | Fable 5.2 saved a change to the Claude edition's own source. The adapter installed in both account and project scope, with 50 files at each scope. The host registry showed it enabled. |
+| Antigravity | Gemini 4 Carbon High saved a change to its edition's source. Both installations contained 51 files and the host registry showed the plugin enabled. Its strict validator reported that only the first 24,000 bytes of a 31,918-byte instruction body would load. Moving the later procedure to a linked reference allowed validation to pass for all six skills and ten agents. After Skip, a fresh session asked whether learners should find one best route or defend their choice with map evidence. |
+| OpenCode | Both installations contained 50 files and OpenCode discovered their agents. GPT-6.2 Astra Fast at Max reasoning used a paired read-only Edge tab, opened the public repository, identified its Codex edition folder and closed that tab. A fresh installed-project session respected Skip and asked the teacher what map evidence learners should use to justify a route. |
+| GitHub Copilot | Opus 5.5 at Extra High reasoning wrote its edition's teaching guide. The Copilot CLI reported 0.3.2 enabled. The user installation contained 51 files and the project installation contained 50 files. |
+
+Across the eight user and project installations for these four hosts, all 403 file contents matched their corresponding package.
 
 ## Evidence for the interaction choices
 
