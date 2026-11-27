@@ -181,8 +181,8 @@
     },
     {
       "path": "validation/validate_adapter.py",
-      "bytes": 44233,
-      "sha256": "974dca403db9a7f0feb56800b2fc94baba280724113a9e0ae261c3ab14e2ebdf"
+      "bytes": 44213,
+      "sha256": "745c269564041792400eff365885252d9fa44d67e882e3199389a5d87d3391f1"
     },
     {
       "path": "VALIDATION_REPORT.md",
@@ -301,8 +301,8 @@
     },
     {
       "path": "workspace-overlay/.agents/skills/course-redesign-orchestrator/SKILL.md",
-      "bytes": 25120,
-      "sha256": "1910ca6288f7d327105455f1025fc8864f5a309abafc0af3f425ce3cfb61a92a"
+      "bytes": 25128,
+      "sha256": "ebf64234cda3ec3a752613125c19736599ca63a6d9bbc881d775d3142c6de0a9"
     },
     {
       "path": "workspace-overlay/.agents/skills/course-redesign-research/SKILL.md",
@@ -346,13 +346,13 @@
     },
     {
       "path": "workspace-overlay/.agents/skills/course-redesign-system/SKILL.md",
-      "bytes": 7819,
-      "sha256": "eede7e20cbfc29d0920d31a1ac81a1eafe609229a60703fbaa61daaaf9d5993f"
+      "bytes": 7806,
+      "sha256": "f8d399a205d4a297f4afe336f116f42a0e7b00cded465b31d383284cad3e22d6"
     },
     {
       "path": "workspace-overlay/.agents/workflows/course-redesign-continue.md",
-      "bytes": 2373,
-      "sha256": "0c9856c432ed1e6841926a87118f21cb45a8d4c10b2a4d269a28f9784f2a7cac"
+      "bytes": 2349,
+      "sha256": "2806de1a364a5e69f06dd8134613c78bd6ef34fc8d7a887db7afc241f842b731"
     },
     {
       "path": "workspace-overlay/.agents/workflows/course-redesign-start.md",

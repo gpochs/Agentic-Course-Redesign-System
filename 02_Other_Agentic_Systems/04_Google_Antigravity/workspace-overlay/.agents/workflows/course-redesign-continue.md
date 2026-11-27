@@ -27,8 +27,7 @@ description: Continue only the next lecturer-approved course-redesign stage whil
    `requested` or `declined` response closes the course run as terminal
    `complete_dormant`, records termination, clears `active_run_id`, and forbids
    resumption. `requested` authorises only separate system review and one
-   versioned proposal; `declined` ends without system work. Persist one
-   informational manual/optional-automation trigger-guidance offer, but create
+   versioned proposal; `declined` ends without system work. Keep future-run guidance only in the private run record and create
    or register nothing. Only a fresh trigger creates another run.
    No response authorises edits, install/publish/release, activation, schedule
    changes, an immediate run, MCP/connectors/authentication, permissions or

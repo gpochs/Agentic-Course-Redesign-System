@@ -37,8 +37,7 @@ external egress.
 
 Silence remains `offered_awaiting_response` and closes nothing. An explicit
 request or decline closes the course run as terminal `complete_dormant`, clears
-`active_run_id`, prevents resumption, and persists one informational trigger-
-guidance offer. Decline ends system action; request opens only separate system
+`active_run_id`, prevents resumption, and records future-run guidance privately. Decline ends system action; request opens only separate system
 work. The guidance registers and triggers nothing.
 
 ## Improvement proposal

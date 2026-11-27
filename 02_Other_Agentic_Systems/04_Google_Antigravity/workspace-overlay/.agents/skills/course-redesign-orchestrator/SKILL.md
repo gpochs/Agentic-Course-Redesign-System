@@ -232,7 +232,7 @@ top-level `active_run_id`, and never resume that run. `requested` authorises
 only a separate read-only system review and one versioned proposal; `declined`
 ends system action.
 
-Persist one informational trigger-guidance offer after closeout: a manual
+Keep the informational trigger-guidance offer in the private run record. A manual
 trigger creates a fresh run and lineage; optional scheduling requires an exact
 course/project, active matching runtime, current eligibility fingerprint,
 timezone, recurrence, non-null expiry, no-write simulation, and separate

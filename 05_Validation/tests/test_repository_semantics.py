@@ -25,6 +25,15 @@ class RepositorySemanticTests(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.validator = load_validator()
 
+    def test_portable_project_control_keeps_post_finish_guidance_private(self) -> None:
+        overlay = ROOT / "02_Other_Agentic_Systems/00_Portable_Core_Adapter/overlay"
+        envelope = (overlay / "AGENTS.md").read_text(encoding="utf-8")
+        self.assertIn("Record future-run guidance once in the private run record", envelope)
+        self.assertNotIn("Offer manual/optional-automation trigger guidance", envelope)
+        workflow = (overlay / ".claude/skills/course-redesign/references/workflow.md").read_text(encoding="utf-8")
+        self.assertIn("only in the private run record", workflow)
+        self.assertIn("Stop without a question", workflow)
+
     def test_teacher_can_start_without_an_upfront_model_decision(self) -> None:
         guides = (ROOT / "03_Shared_Workflow_Core/PARTICIPANT_QUICK_START.md",
                   ROOT / "04_Documentation/LECTURER_GETTING_STARTED.md")

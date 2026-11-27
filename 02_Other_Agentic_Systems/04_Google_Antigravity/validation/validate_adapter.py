@@ -610,7 +610,7 @@ def validate_workflow_completeness(
             "requested",
             "declined",
             "complete_dormant",
-            "Persist one informational manual/optional-automation trigger-guidance offer",
+            "Keep future-run guidance only in the private run record",
             "Only a fresh trigger creates another run",
         ),
         "system_review": (
