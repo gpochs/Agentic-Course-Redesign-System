@@ -20,7 +20,7 @@ The [platform guide](../04_Documentation/PLATFORM_COMPATIBILITY.md) describes wh
 
 ## Tests with the distributed skills
 
-Fourteen separate fictional teacher conversations used GPT-6.2 Astra through an existing ChatGPT sign-in. Three additional conversations used GPT-6.2 Sol. Each read instructions from the final directory ZIP, SHA-256 `4BE9B883BCAA62EA6601E07FFC13E80E29403319989EBB146BA6246C209F9BE2`. The sessions exercised decisions in ordinary chat. They had no teaching files, reviewer accounts or model-switching controls.
+Fourteen separate fictional teacher conversations used GPT-6.2 Astra through an existing ChatGPT sign-in. Three additional conversations used GPT-6.2 Sol. They read the distributed skills from the directory candidate with SHA-256 `4BE9B883BCAA62EA6601E07FFC13E80E29403319989EBB146BA6246C209F9BE2`. These sessions exercised decisions in ordinary chat without teaching files, reviewer accounts or model-switching controls. The Codex package report identifies the shipped archive.
 
 | Situation | Observed response |
 | --- | --- |
@@ -40,6 +40,8 @@ Fourteen separate fictional teacher conversations used GPT-6.2 Astra through an 
 | A German-speaking teacher wanted a poetry comparison without setup | Asked how the teacher would recognise a comparison in a pupil's writing. Both Astra and Sol continued from the description. |
 
 In a fresh Claude Desktop Code session, Opus 5.5 found a host-specific omission. The introductory question named two ways to finish and left out exploring a reviewer. The four native guides now include that choice. In another live Copilot session the teacher selected two priorities from a multi-select card after five specialist agents returned their findings. Copilot's embedded browser also rendered an open textbook section from OpenStax, separately from that source-free rehearsal.
+
+Claude Desktop with Fable 5.2 subsequently found all three options in the installed guide and identified the teacher's separate installation decision. In a fresh Copilot session, Opus 5.5 Extra High read the installed version and four native references. It identified that a new project chat can carry project context beyond the selected worksheet excerpt. It offered a manual route where the receiving context could not be limited. No real course material was transferred in either check.
 
 Antigravity's signed-in command-line client completed a real cross-family review in the same host. Gemini 4 Carbon High drafted a fictional question about comparing 3 late trips out of 10 with 4 out of 20. In a separate conversation, Claude Opus 5.5 High checked the two proportions and pointed out that “more reliable” needed a criterion. It left the worksheet layout and student level unverified. The reviewer received the selected fictional item and a nine-step summary. OpenCode also returned a review through ChatGPT sign-in with GPT-6.2 Astra Fast at Max effort. One command-line attempt subsequently reported a transport reset after producing its answer.
 
