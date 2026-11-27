@@ -1,7 +1,7 @@
 # GitHub Copilot adapter
 
-Adapter semantic release: `0.2.4`. Native Copilot package:
-`0.2.4-copilot.2`. Candidate proposal: `ACR-SYS-20260822-008`.
+Adapter semantic release: `0.3.0`. Native Copilot package:
+`0.3.0`. Candidate proposal: `ACR-SYS-20261127-001`.
 
 This adapter now provides two ways to use Agentic Course Redesign with GitHub
 Copilot:
@@ -13,7 +13,7 @@ Copilot:
    core overlay and this adapter's `overlay/` into one reviewed course
    project.
 
-Both routes preserve the v0.2.4 Copilot workflow semantics: pre-source Gate 0A,
+Both routes preserve the v0.3.0 Copilot workflow semantics: pre-source Gate 0A,
 schema-8 lineage, lecturer-controlled gates, verified production handoff before
 HITL 3, terminal `complete_dormant` lifecycle, and a separate system-review
 decision. Neither route starts a course run merely because files are installed.
@@ -39,7 +39,7 @@ The repository marketplace manifest is
 links, command-line alternatives, verification, the first project-session
 prompt, and removal instructions.
 
-The native package preserves the complete six-skill v0.2.4 workflow text and
+The native package preserves the complete six-skill v0.3.0 workflow text and
 adds one exact Copilot-only card-capacity override to each skill; helpers remain
 byte-identical to the canonical core. Its ten Copilot agents preserve the full
 specialist role contracts and add the host dialogue boundary while retaining
@@ -62,8 +62,7 @@ listing every valid numbered option plus `Other`, then wait. For very long
 sets, use dependency chunks only when choices share evidence or constrain one
 another. Keep every valid option visible across chunks and let the lecturer
 split, merge, reorder or rename the grouping. Recommendations are never
-preselected, custom answers are preserved and confirmed, blank or `Skip`
-cannot advance, and exact authority gates remain separate.
+preselected, custom answers are preserved and confirmed, An unanswered approval cannot advance. Choosing “Skip for now” at onboarding starts a source-free redesign, and exact authority gates remain separate.
 
 In GitHub Copilot App/CLI 1.0.80 with an OpenAI-compatible BYOK provider such
 as CommandCode Chat Completions, a built-in `apply_patch` call can be stored as
@@ -83,7 +82,7 @@ project task, recover durable state read-only, and confirm whether the preceding
 edit already succeeded before continuing. Installing another plugin or MCP
 server does not repair poisoned history.
 
-Rollback remains the prior package `0.2.4-copilot.1`; rollback is a separate
+Rollback remains the prior package `0.2.4-copilot.2`; rollback is a separate
 operator decision and does not activate or install either version.
 
 ## Project-local overlay

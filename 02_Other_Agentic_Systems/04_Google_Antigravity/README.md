@@ -1,7 +1,23 @@
 # Google Antigravity adapter for Agentic Course Redesign
 
-Adapter version `0.2.4` is a project-local, course-independent inactive
-candidate reconciled to shared candidate `ACR-SYS-20260822-007` v0.2.4. It
+## Install the native plugin
+
+For global use, build into `~/.gemini/config/plugins/agentic-course-redesign`. For a single project, use `<project>/.agents/plugins/agentic-course-redesign`. Expand the home path in your shell and choose a new destination. From the repository root use Python 3.11 or newer.
+
+```shell
+python 02_Other_Agentic_Systems/build_host_package.py antigravity <new-plugin-directory>
+agy plugin validate --strict <new-plugin-directory>
+```
+
+Open Customizations in Antigravity and confirm the six skills and ten specialists. Use the orchestrator with the highest reasoning setting your existing subscription offers for Gemini 4 Carbon. Specialists inherit the selected model. Try “Redesign my course from a description and skip the material check for now.” The lecturer still approves the design and each working draft. If the user chooses an LMS, invite them to open the specific course in the host browser before showing a draft. The standalone plugin and the earlier workspace overlay below are alternative installation routes.
+
+[Google Antigravity plugin installation](https://antigravity.google/docs/plugins)
+
+## Manual project overlay
+
+
+Adapter version `0.3.0` is a project-local, course-independent inactive
+candidate reconciled to shared candidate `ACR-SYS-20261127-001` v0.3.0. It
 adapts to the lecturer-supplied subject, educational level, learners,
 objectives, assessment, language, constraints, and material formats. It makes
 pre-source Gate 0A, the one-decision lecturer interaction contract, verified
@@ -17,7 +33,7 @@ helpers, and the inactive Gate/state scaffold.
 
 Machine-readable release identity is exposed at the top level of
 `adapter-manifest.json` as platform `google-antigravity`, adapter version
-`0.2.4`, and status `candidate_not_active`.
+`0.3.0`, and status `candidate_not_active`.
 
 It does **not** install or access Antigravity, change global configuration or
 IDE permissions, activate a runtime, register a schedule, connect an MCP
@@ -131,7 +147,7 @@ PASS does not prove Antigravity runtime behaviour; see
 
 ## Source and licence
 
-`adapter-manifest.json` records the actual SHA-256 values of the shared v0.2.4
+`adapter-manifest.json` records the actual SHA-256 values of the shared v0.3.0
 canonical files used and every adapter output covered by integrity checks. The
 shared source was read only. Adapted material remains under the included MIT
 licence; third-party and data boundaries are in `THIRD_PARTY_NOTICES.md`.

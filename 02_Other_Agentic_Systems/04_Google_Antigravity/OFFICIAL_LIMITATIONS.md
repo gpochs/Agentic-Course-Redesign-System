@@ -1,8 +1,10 @@
 # Official Antigravity limitations and non-claims
 
-Checked against Google documentation on 2026-08-20. This adapter was built and
-validated as files only; Antigravity was not opened, installed, accessed, or
-signed into.
+The native 0.3.0 plugin was validated and installed on 27 November 2026.
+Google supports workspace and user-wide plugin discovery.
+[Antigravity plugins](https://antigravity.google/docs/plugins)
+
+The project-overlay observations below were recorded on 20 August 2026.
 
 ## Confirmed IDE conventions used
 

@@ -23,10 +23,10 @@ CODEX_PLUGIN = (
     / "agentic-course-redesign"
 )
 
-PACKAGE_VERSION = "0.2.4-copilot.2"
-PACKAGE_PROPOSAL = "ACR-SYS-20260822-008"
-BASE_VERSION = "0.2.4"
-OPENAI_PACKAGE_VERSION = "0.2.5"
+PACKAGE_VERSION = "0.3.0"
+PACKAGE_PROPOSAL = "ACR-SYS-20261127-001"
+BASE_VERSION = "0.3.0"
+OPENAI_PACKAGE_VERSION = "0.3.0"
 EXPECTED_SKILLS = {
     "course-redesign-assessment",
     "course-redesign-materials",
@@ -68,7 +68,7 @@ FORBIDDEN_MANIFEST_KEYS = {
 }
 COPILOT_AGENT_DIALOGUE_SUFFIX = """## Copilot lecturer-question boundary
 
-When this manually selected profile must surface a lecturer-only question, it
+When this assigned read-only profile must surface a lecturer-only question, it
 must return it through the orchestrator and keep one unresolved consequential
 question at a time. Use the native `ask_user` card for the complete valid option
 set whenever the live GitHub Copilot host accepts it. A live Copilot host has
@@ -84,7 +84,7 @@ explain the grouping, and let the lecturer split, merge, reorder or rename it.
 Preserve custom answers and confirm their interpretation; recap each chunk and
 gate. Mark only the safest truthful, evidence-aligned, reversible recommendation
 and never preselect it. Select a factual declaration only when true; uncertainty
-fails closed. Blank or `Skip` cannot advance. Keep every exact authority gate
+fails closed. An unanswered approval cannot advance. Choosing “Skip for now” at onboarding starts a source-free redesign. Keep every exact authority gate
 separate from design preferences."""
 COPILOT_CHOICE_CAPACITY_OVERRIDE = """## GitHub Copilot native `ask_user` capacity override
 
@@ -208,7 +208,7 @@ class CopilotPluginTests(unittest.TestCase):
         )
         self.assertEqual(
             adapter_manifest["native_plugin"]["rollback_package_version"],
-            "0.2.4-copilot.1",
+            "0.2.4-copilot.2",
         )
 
     def test_marketplace_points_to_repository_relative_native_plugin(self) -> None:
@@ -290,7 +290,7 @@ class CopilotPluginTests(unittest.TestCase):
             self.assertEqual(header["name"], name)
             self.assertEqual(header["description"], source["description"])
             self.assertEqual(header["tools"], ["read", "search"])
-            self.assertTrue(header["disable-model-invocation"])
+            self.assertFalse(header["disable-model-invocation"])
             self.assertTrue(header["user-invocable"])
             canonical_body = source["developer_instructions"].strip()
             replacement = COPILOT_AGENT_BODY_REPLACEMENTS.get(name)
@@ -406,7 +406,7 @@ class CopilotPluginTests(unittest.TestCase):
         setup = (
             PLUGIN / "skills" / "course-redesign-setup" / "SKILL.md"
         ).read_text(encoding="utf-8")
-        self.assertIn("../../PARTICIPANT_QUICK_START.md", setup)
+        self.assertIn("PARTICIPANT_QUICK_START.md", setup)
         self.assertIn("../../scripts/setup_course_project.py", setup)
         self.assertIn(
             "../../scripts/create_material_processing_eligibility.py", setup
@@ -594,7 +594,7 @@ class CopilotPluginTests(unittest.TestCase):
                 "every valid option visible across chunks",
                 "never preselect",
                 "uncertainty fails closed",
-                "blank or `Skip`",
+                "Skip for now",
                 "authority gates",
             ):
                 self.assertIn(phrase, text, f"{path}: {phrase}")
@@ -650,7 +650,7 @@ class CopilotPluginTests(unittest.TestCase):
             "gpochs/Agentic-Course-Redesign-System",
             guide,
         )
-        self.assertIn("Begin with Gate 0A only", guide)
+        self.assertIn("Offer the short onboarding or Skip for now", guide)
         self.assertIn("copilot plugin uninstall agentic-course-redesign", guide)
         self.assertIn("without a support SLA", guide)
         normalized_guide = " ".join(guide.split())
@@ -660,7 +660,7 @@ class CopilotPluginTests(unittest.TestCase):
             'expected "function"',
             "type=custom",
             "fresh task",
-            "0.2.4-copilot.1",
+            "0.2.4-copilot.2",
             "native `ask_user` card",
             "complete valid option set",
             "at least five explicit choices plus a custom-answer field",

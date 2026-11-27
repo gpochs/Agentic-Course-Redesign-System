@@ -1,14 +1,29 @@
 # OpenCode V2 adapter
 
-Adapter release: `0.2.4`. Shared semantic base: inactive candidate
-`ACR-SYS-20260822-007` version `0.2.4`.
+## Install the native skills and agents
+
+OpenCode discovers Markdown skills and subagents at project or account scope. From the repository root, build the edition into a new directory with Python 3.11 or newer.
+
+```shell
+python 02_Other_Agentic_Systems/build_host_package.py opencode <new-package-directory>
+```
+
+For global use, copy the generated `skills/course-redesign/` into `~/.config/opencode/skills/` and the ten `agents/*.md` into `~/.config/opencode/agents/`. For one project, use `<project>/.opencode/skills/` and `<project>/.opencode/agents/` instead. Review filename collisions before copying. The skill contains the six stage guides, reference material, setup scripts and course template. OpenCode uses its existing provider connection. Select an included model in the desktop app and start a fresh local session, then ask it to use the course-redesign skill. Try “Skip the material check and design from my goal.” The lecturer still approves the plan and each output. The project overlay below is also available for existing layouts.
+
+[OpenCode skills](https://opencode.ai/docs/skills/) · [OpenCode subagents](https://opencode.ai/docs/agents/)
+
+## Manual project overlay
+
+
+Adapter release: `0.3.0`. Shared semantic base: inactive candidate
+`ACR-SYS-20261127-001` version `0.3.0`.
 
 This overlay adds ten project-local OpenCode V2 subagent profiles to the
 portable core. OpenCode V2 natively discovers the core's root `AGENTS.md` and
 the compatibility skill at `.claude/skills/course-redesign/`, so no duplicate
 instruction file or `opencode.jsonc` is needed.
 
-Release `0.2.4` inherits the portable core's pre-source Gate 0A, unchanged
+Release `0.3.0` inherits the portable core's pre-source Gate 0A, unchanged
 schema-8 lineage vocabulary, one-decision interaction contract, verified
 production handoff before HITL 3, terminal `complete_dormant` lifecycle, and
 one-time informational trigger guidance. OpenCode documents a native question

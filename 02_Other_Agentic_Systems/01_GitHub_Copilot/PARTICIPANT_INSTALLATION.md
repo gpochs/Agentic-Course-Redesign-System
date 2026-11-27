@@ -1,5 +1,10 @@
 # Install Agentic Course Redesign in the GitHub Copilot app
 
+## Use in one project
+
+For project-scoped use, run `python 02_Other_Agentic_Systems/build_host_package.py copilot-project <new-package-directory>` from the release repository. Copy its `skills/course-redesign` directory under your project's `.github/skills/` and its ten agent files under `.github/agents/` after checking for existing names. For a user-wide install use the marketplace steps below. Select Opus or another included model in the Copilot app. No model API key is required.
+
+
 This guide is for course participants using the standalone GitHub Copilot app.
 The plugin is a static skills-and-agents package; it does not run a publisher
 server or create a support subscription.
@@ -51,7 +56,7 @@ Work in a project **Session**, not the general **Chats** area:
 ```text
 /agentic-course-redesign/course-redesign-orchestrator
 
-Set up an agentic redesign project for this one course. Begin with Gate 0A only. Do not list, open, copy, hash, upload, or change course files yet. Ask me only for the minimum processing-eligibility information, present the proposed setup, and then stop for my approval.
+Set up an agentic redesign project for this one course. Offer the short onboarding or Skip for now. Do not list, open, copy, hash, upload, or change course files yet. If I skip, continue from my description through every design and production decision.
 ```
 
 If the app does not autocomplete that qualified slash name, select the
@@ -79,7 +84,7 @@ constrain one another. Keep every valid option visible across chunks; you may
 split, merge, reorder or rename their grouping. Recommendations are
 evidence-aligned, reversible, and never preselected; factual declarations must
 be true, uncertainty fails closed, custom answers are preserved and confirmed,
-blank or `Skip` cannot advance, and exact authority approvals remain separate.
+An unanswered approval cannot advance. Choosing “Skip for now” at onboarding starts a source-free redesign, and exact authority approvals remain separate.
 
 ## Copilot 1.0.80 BYOK compatibility
 
@@ -118,7 +123,7 @@ server or plugin does not repair poisoned task history; no MCP, hook,
 authentication, or additional permission is required or added.
 
 Rollback, if deliberately chosen by the operator, is
-`0.2.4-copilot.1`; rollback does not install or activate itself.
+`0.2.4-copilot.2`; rollback does not install or activate itself.
 
 ## Remove
 

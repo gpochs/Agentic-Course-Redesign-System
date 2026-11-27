@@ -9,52 +9,15 @@ import json
 import zipfile
 from pathlib import Path
 
+from release_inputs import portable_sources
 
 ROOT = Path(__file__).resolve().parent.parent
 DIST = ROOT / "dist"
 INVENTORY = DIST / "package-inventory.json"
-EXCLUDED_PARTS = {
-    ".git",
-    ".mypy_cache",
-    ".pytest_cache",
-    ".ruff_cache",
-    ".venv",
-    "__pycache__",
-    "dist",
-    "env",
-    "venv",
-}
-EXCLUDED_NAMES = {
-    "package-inventory.json",
-}
-EXCLUDED_REPORT_PREFIXES = ("forward-test-report", "local-", "portable-bundle-validation")
 
 
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest().upper()
-
-
-def source_files() -> list[Path]:
-    paths = []
-    for path in ROOT.rglob("*"):
-        if not path.is_file():
-            continue
-        relative = path.relative_to(ROOT)
-        if any(part in EXCLUDED_PARTS for part in relative.parts):
-            continue
-        if (
-            path.name in EXCLUDED_NAMES
-            or path.name.startswith("~$")
-            or (
-                relative.parts[0] == "validation"
-                and path.suffix.casefold() == ".json"
-                and path.name.startswith(EXCLUDED_REPORT_PREFIXES)
-            )
-            or path.suffix.casefold() in {".log", ".pyc", ".tmp", ".temp"}
-        ):
-            continue
-        paths.append(path)
-    return sorted(paths, key=lambda item: item.relative_to(ROOT).as_posix().casefold())
 
 
 def write_inventory(paths: list[Path]) -> None:
@@ -69,7 +32,7 @@ def write_inventory(paths: list[Path]) -> None:
     payload = {
         "schema_version": 1,
         "bundle_root_name": "Agentic_Course_Redesign",
-        "inventory_scope": "all public bundle source files excluding dist, generated local reports, caches, environments, bytecode, temporary files, and this inventory file",
+        "inventory_scope": "reviewed portable release members in portable-files.json",
         "file_count": len(records),
         "files": records,
     }
@@ -85,9 +48,9 @@ def add_file(archive: zipfile.ZipFile, source: Path, arcname: str) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--version", default="0.2.4")
+    parser.add_argument("--version", default="0.3.0")
     args = parser.parse_args()
-    paths = source_files()
+    paths = portable_sources()
     DIST.mkdir(parents=True, exist_ok=True)
     write_inventory(paths)
     archive_path = DIST / f"Agentic_Course_Redesign_v{args.version}.zip"

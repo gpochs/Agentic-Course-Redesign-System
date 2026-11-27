@@ -3,91 +3,25 @@
 You do not need to write a master prompt. The installed skill or project
 adapter should guide the setup conversationally.
 
-## 1. Confirm the processing environment before sharing a path
+## Start from an idea or from materials
 
-The orchestrator first asks Gate 0A questions without requesting a course path,
-one unresolved declaration at a time. It uses a clickable card only when the
-live host can show the complete mutually exclusive option set plus a
-custom-answer path. If that control is unavailable or unsupported, its capacity
-is unknown, or the complete set exceeds its capacity, the orchestrator lists
-every valid numbered option plus **Other - type your answer** in ordinary chat,
-and waits. It never prunes, hides or combines valid choices to fit a card.
-State whether the material is privately owned, rightsholder-authorised,
-appropriately licensed/public, institution-internal/restricted, mixed or
-uncertain; also confirm AI-processing authority for the selected provider,
-sensitivity and assessment security.
+Install the [edition for your platform](../README.md#choose-an-installation). Open a fresh chat for one course, select **Agentic Course Redesign** and describe what you want learners to do better. A sentence is enough.
 
-On a personal or unmanaged system, public availability alone is not enough.
-Proceed only for privately owned/rightsholder-authorised or appropriately
-licensed/public material with explicit processing authority. For internal or
-restricted institutional material, use only an institution-approved exact
-environment and record its current policy reference, scope and expiry. Product
-availability and institutional policy can change, so verify them at the time
-of use. Mixed or uncertain material must be segregated or the run stops.
+> I teach a short evening course. Learners can follow my example, but they struggle with a new problem. Can we redesign the practice task?
 
-## 2. Create one project per course
+**Skip for now** starts from your description or a fictional example. You can continue through research, planning, production and review and receive an actual artefact. You can introduce existing materials later.
 
-In ChatGPT Desktop, Codex or another supported agentic workspace, create a new
-project for one course. Create or select a short isolated folder on your
-personal computer or lecturer-controlled storage, for example:
+**Check my materials** starts a short conversation about the material you intend to open. Public material may carry licence conditions. Your own private draft, an internal course page and a confidential assessment may each require a different environment. The orchestrator asks only for the information that changes how it may use this source. You can move ahead with other work while a source remains unresolved.
 
-- Windows: `C:\CourseProjects\Biology\Year2`
-- macOS/Linux: `~/CourseProjects/Biology/Year2`
+## Give the orchestrator the right workspace
 
-A personal OneDrive is convenient across devices but is cloud-synchronised.
-Store protected, copyrighted or assessment material there only if the relevant
-institutional and rights rules permit it. Do not point the system at a broad
-home, drive or multi-course folder.
+For local work, choose a folder for this course and keep your originals separate. For cloud work, choose the exact document and a working copy. For an LMS, choose the course, the draft activity and the audience. In ChatGPT Desktop Work or Codex, open the browser from the toolbar or press **Ctrl+Shift+B** on Windows or **Command+Shift+B** on macOS. Open the page and allow access when the host asks. You decide whether to use the browser, share a copy or continue from your description. [OpenAI browser guide](https://help.openai.com/en/articles/20001277-using-the-built-in-browser-in-the-chatgpt-desktop-app)
 
-## 3. Install or copy the correct adapter
+## Inspect an actual result
 
-- ChatGPT Desktop/Work/Codex: follow `01_ChatGPT_Desktop_App/README.md`.
-- GitHub Copilot app/CLI: follow
-  `02_Other_Agentic_Systems/01_GitHub_Copilot/PARTICIPANT_INSTALLATION.md` for
-  the recommended native plugin. Its project-local overlay remains an
-  advanced/manual alternative.
-- Claude Code, OpenCode or Antigravity: use only the matching folder under
-  `02_Other_Agentic_Systems/`.
+Ask to see the editable file or draft, then try a student action. For example, answer one quiz item to check feedback, enter a different value in a spreadsheet or follow the sequence from the slide to its exercise. Ask for changes in your own words. The orchestrator carries those changes into the working copy and shows what it verified. A preview that omits formulas, answer feedback or accessibility information calls for a check in the native application.
 
-An adapter is not activated merely because its source exists in this
-repository. Installing the Copilot plugin adds reusable skills and agents but
-does not inspect a course, activate a runtime or start a redesign. For a manual
-overlay, review it and copy it into the one course workspace using the
-documented preview-first route.
-
-## 4. Add course evidence
-
-Put copied current materials in `00_Source_Materials/`, including relevant
-plans, slides, workbooks, assessments and keys. Put programme requirements,
-learner profile, accessibility guidance, assessment policy, grading rules,
-permitted-tool guidance and lecturer style examples in `00_Context/`.
-
-Keep originals elsewhere. Add no unrelated course. Exclude student personal
-data, identifiable submissions, grades, credentials and secrets unless a
-separately approved institutional workflow explicitly permits them.
-
-## 5. Start the guided run
-
-Start a new task in the course project and say:
-
-> Set up an agentic redesign project for this one course.
-
-In ChatGPT Desktop Work/Codex, type `@` first and choose **Agentic Course
-Redesign**. If the app flattens a skills-only plugin, the entry with that name
-is the umbrella orchestrator: it starts protected setup or continues the
-current verified run and calls the bounded specialist skills when authorised.
-
-The system asks only questions that materially change the analysis. It
-preserves a custom answer verbatim, confirms how it will be represented, and
-shows an editable recap before continuing through a cluster or gate. A
-recommendation identifies the safest truthful evidence-aligned reversible
-option, is never preselected, and must not replace your factual declaration.
-Blank, skipped or uncertain required answers remain unresolved. Before any
-specialist reads protected files, review the exact source manifest, source
-classes, data and rights statement, teacher-only assessment boundary,
-permitted roles/tools/egress, output audiences and actual workspace.
-
-## 6. Make the decisions
+## Make the decisions
 
 The lecturer remains the expert in the loop. For a very long decision, the
 orchestrator may propose a cluster only when choices share evidence or constrain
@@ -126,7 +60,7 @@ fresh run manually and how an optional schedule can be planned for a named
 course, timezone, recurrence and expiry. The offer itself neither starts a run
 nor creates automation.
 
-## 7. Keep control
+## Keep control
 
 At any time you may pause, narrow scope or reject a proposal. Silence, a prior
 approval, installation, a schedule or a tool's availability never authorises a

@@ -1,31 +1,31 @@
 {
   "schema_version": "1.0",
   "adapter_id": "portable-core",
-  "adapter_version": "0.2.4",
+  "adapter_version": "0.3.0",
   "platform": "portable",
   "status": "candidate_not_active",
   "overlay_root": "overlay",
   "compose_after": [],
   "source_provenance": {
-    "system_id": "ACR-SYS-20260822-007",
-    "version": "0.2.4",
+    "system_id": "ACR-SYS-20261127-001",
+    "version": "0.3.0",
     "source_status": "approved inactive candidate; not activated",
     "origin_label": "03_Shared_Workflow_Core",
     "hash_algorithm": "sha256",
     "hashes": {
-      "VERSION": "1725bfa6524c5265e7c171cf06568417d39b947fff49c242f03859479c82334b",
-      "adapter-contract.json": "e2f520af6078cfa7425531264beccaa0829a105c43efcf6ccb1f3ae63590cc0c",
-      "course-project-template/AGENTS.md": "148b318158a281a2090f02d3e2d4504134b8c6c0f84b1c6068126a03ceb137b7",
-      "course-project-template/01_Control/GATES.md": "afc227d4d95b9ad404a9dd59c8503d74c48aef8c720678c83cf9be3183d6c475",
+      "VERSION": "d915cc95d6ca8f47ae297713ed46d4e5c5d99ddd29fc3c61e263bdf305f2b5b0",
+      "adapter-contract.json": "767ac02a4d5a4609e1b39680a37865b145679455923f50305b038c46fb09c2d5",
+      "course-project-template/AGENTS.md": "e50bfc9027fd0b849a3e47c37c848686d747828a01b1bb2504fe0c74323d224e",
+      "course-project-template/01_Control/GATES.md": "0b7f286327f8aba3445695cdef91ff89fe4320e90bbbe868643f7b82b22ce5f8",
       "course-project-template/01_Control/material-processing-eligibility.template.json": "efe8b8d8d6e7ba3cd9b0dc21e1f014ad65206aaa609468555974949e4496fbed",
-      "course-project-template/01_Control/state.json": "5afbfadb8f6c7404ac100eb1614a52cddc14b662704b0ef9e67d2f69920c85ab",
-      "agent-skills/course-redesign-assessment/SKILL.md": "d5cd1ceb5599c0a8aec524d4a14edeaeaf8003d5cdebc727f08fca92fca7ea92",
-      "agent-skills/course-redesign-materials/SKILL.md": "9e8edf03feb861f0c573c0fc349721f892ce1a41218996677d498b3b6e0b4fc2",
-      "agent-skills/course-redesign-orchestrator/SKILL.md": "3ea1b3e886a4d48278f0dfad76ebad4a11ea679d1c3d5d0586ccf3dca5bc8c70",
-      "agent-skills/course-redesign-research/SKILL.md": "8fb45d10bf88b981bab861a5cb89402e9e6df7c76e7ecd95d1230a4e47f61e5a",
-      "agent-skills/course-redesign-setup/SKILL.md": "8b05ee5fabdd3dbab6b0b03eb813acba0f1012c2e7efd58e8150da5ea7c9d524",
-      "agent-skills/course-redesign-system/SKILL.md": "0fbd735a1af4cb2424943e527b1857d0b7fbe76e59dd586b368ee7390a12ee75",
-      "scripts/create_material_processing_eligibility.py": "45540d84de61e6300d4a98c301abd1bd3a27491ad65ced6a5daa4a3e6afa27ac"
+      "course-project-template/01_Control/state.json": "372816ec22b325717bc2feadcd80b736c21bbfc8fd99f57b6bc98f6dc2dba901",
+      "agent-skills/course-redesign-assessment/SKILL.md": "9b25cb6d8b1df29aaf73aaed2b06500aa0b7e026cf0b5609d49c26136cda5a0e",
+      "agent-skills/course-redesign-materials/SKILL.md": "d8da6390e077e63a367273af71d5303c8b45823ba800cd7f04e8a53aa24e3e16",
+      "agent-skills/course-redesign-orchestrator/SKILL.md": "f6f5ccf3d9bc32ae2f016d85ed25d50c970108cd2d1fe1d04a290b5d1869c980",
+      "agent-skills/course-redesign-research/SKILL.md": "fe341cb3f97c6da4cff2dfed348f2fa7416a1b0aad56dee65e15ddfb2f7ed106",
+      "agent-skills/course-redesign-setup/SKILL.md": "50fab84981a86046ba7515a0b4d74a634b358ee5cb60c9126b37b15ef7a7c0e2",
+      "agent-skills/course-redesign-system/SKILL.md": "f83ab4d273256d439b23d55c879e32cf3cd70e94e402475a010aa376877c1537",
+      "scripts/create_material_processing_eligibility.py": "cb27aa8d29daf4d9097a575cdf7308af31b1b797c89de0bbe669a7337764a7c5"
     }
   },
   "semantic_derivation": {
@@ -49,8 +49,8 @@
     },
     {
       "path": "overlay/.claude/skills/course-redesign/references/control-contract.md",
-      "bytes": 5817,
-      "sha256": "813907da1353170696d2d2f9c81f1d3b3f506f5bd21edeedaf1d1b1d2d79f9a7"
+      "bytes": 6369,
+      "sha256": "a1a766b99b57bcb32f9cd2e2cfead81f9fc822ef9a229a7669a25f574ca2e4d5"
     },
     {
       "path": "overlay/.claude/skills/course-redesign/references/role-contracts.md",
@@ -59,33 +59,33 @@
     },
     {
       "path": "overlay/.claude/skills/course-redesign/references/workflow.md",
-      "bytes": 15321,
-      "sha256": "c4d058808571f2c10862ecd69477fc918249e13c985dc9e20eaab9e79563bc58"
+      "bytes": 15656,
+      "sha256": "081fccdf7fad1b3f582970d196a49e4b1f2d55bc2673901627906536078c0da4"
     },
     {
       "path": "overlay/.claude/skills/course-redesign/SKILL.md",
-      "bytes": 3676,
-      "sha256": "14167ea1c7c4c74752f12fcb294bf94ec9fd7a67ed58c6a1a23e4657ad439029"
+      "bytes": 4404,
+      "sha256": "7efbf3abbc2ffbb14b02fb5cc9965c4e5f5583e90c7925772734cf4a1d5c9e5d"
     },
     {
       "path": "overlay/AGENTS.md",
-      "bytes": 4681,
-      "sha256": "3527bedbf858bd7e08385f56f9b65328fe3ced0a788e41f2e9bd93de0c32819b"
+      "bytes": 5259,
+      "sha256": "4b3482e1a8c0d675c7081d1f711952a94d8c6e54c3b3ae293ff8b2acbda3802b"
     },
     {
       "path": "README.md",
-      "bytes": 5373,
-      "sha256": "adc98bbf9d2115989a7b375b38101091df33cff112b82ff4947a7404a645a450"
+      "bytes": 5243,
+      "sha256": "37f02d2e76b0d3f359b3f3b0f1842b46d73b765d47b56be2af658905be6d6179"
     },
     {
       "path": "validation/reconcile_adapters.py",
-      "bytes": 10566,
-      "sha256": "22de4b2f6bb01f2bdff5d20608d34412ca3a8c10bc69bae5590b6976a826483b"
+      "bytes": 14507,
+      "sha256": "35e2d5f51d0e5561c3a20677f44768514f61eae17bda1562926d9bf7b614daef"
     },
     {
       "path": "validation/validate_adapters.py",
-      "bytes": 22586,
-      "sha256": "9095eadca9be599a08f40b282ac07d9c26022f1f45cfe8963b9d3d905b0721e5"
+      "bytes": 22601,
+      "sha256": "88ac84f745266f932ef1960f05af6312a2742c003dfc7b1b449e546b4ba44625"
     }
   ],
   "overlay_files": [

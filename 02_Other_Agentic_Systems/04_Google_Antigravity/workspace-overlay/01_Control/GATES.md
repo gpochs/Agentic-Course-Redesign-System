@@ -24,7 +24,7 @@ jointly affects usability, inclusion, workload and engagement.
 Preserve custom answers exactly and confirm their canonical interpretation.
 Reflect each consequence in the chat/current-state decision ledger and show an
 editable recap at each cluster or gate end. Skip or blank leaves a required
-question unresolved. The safest truthful, evidence-aligned and reversible
+question unresolved. Choosing the offered onboarding route “Skip for now” answers that question and advances to the teaching goal. The safest truthful, evidence-aligned and reversible
 option may be marked `Recommended` but is never preselected. Factual
 declarations say “select only if true”; uncertainty fails closed. At major
 pedagogical gates, ask for the lecturer's criteria and preliminary view before
@@ -33,8 +33,16 @@ authority gate, lineage record or approval token defined below.
 
 ## Gate 0A — material and processing-environment eligibility
 
-This gate precedes any course-source path, filename, list, read, copy, hash or
-other intake. Ask only for the material category, environment category,
+Start with a brief reason and a choice to use existing materials or **Skip for now**.
+An explicit Skip continues the redesign from a general description or fictional
+example. A formal run records its zero-source scope via the source-free helper
+option. No material classification is implied. Gate 0 confirms the empty
+manifest, permitted tools and audiences. All later gates retain their normal
+order and authority. For a new private source, address handling when it is
+needed and preserve unrelated redesign work.
+
+For existing materials, this gate precedes any course-source path, filename,
+list, read, copy, hash or other intake. Ask only for the material category, environment category,
 internal/restricted and student-data flags, sensitivity classification,
 assessment-security classification and authority to handle that assessment
 security class, then record a canonical fingerprint. Null, inconsistent,
@@ -81,6 +89,14 @@ design/citation plan, QA criteria, and typed exact material targets: working
 copies under `04_Working_Copies/` and accepted releases under `05_Approved/`.
 The approved plan is verified once, then production proceeds through the named
 gate for each artefact; there is no additional unlabeled approval pause.
+
+For a private LMS or cloud draft, show the exact service, course/folder,
+draft name, action and permitted audience beside its working-copy review file
+in this same approval. Use the optional `external_draft` binding and the
+destination snapshot in the materials skill's artefact review guide. On resume
+verify both the local record and the remote object. A working-copy file alone
+authorises local production. A separate explicit instruction is needed to
+publish or change recipients.
 
 ## Production completion and handoff
 

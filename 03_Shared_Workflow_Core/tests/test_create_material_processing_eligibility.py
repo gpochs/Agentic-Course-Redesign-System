@@ -7,6 +7,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 
@@ -69,6 +70,51 @@ class EligibilityGeneratorTests(unittest.TestCase):
 
     def run_command(self, command: list[str]) -> subprocess.CompletedProcess[str]:
         return subprocess.run(command, check=False, capture_output=True, text=True)
+
+    def test_source_free_run_can_verify_empty_inputs_but_cannot_read_an_existing_source(self) -> None:
+        command = [
+            sys.executable, str(SCRIPT), "--source-free", "--project", str(self.project),
+            "--eligibility-id", "FROM-BRIEF", "--lecturer-declaration-reference", "REPLY-SKIP",
+            "--recorded-at", "2026-11-27T12:00:00+01:00",
+        ]
+        receipt = self.project / "01_Control/material-processing-eligibility.json"
+        preview = self.run_command(command)
+        self.assertEqual(preview.returncode, 0, preview.stderr + preview.stdout)
+        self.assertFalse(receipt.exists())
+        self.assertFalse(json.loads(preview.stdout)["source_intake_permitted"])
+        applied = self.run_command(command + ["--apply"])
+        self.assertEqual(applied.returncode, 0, applied.stderr + applied.stdout)
+        record = json.loads(receipt.read_text(encoding="utf-8"))
+        module = load_source_manifest()
+        self.assertFalse(module.validate_eligibility(receipt)["ok"])
+        self.assertTrue(module.validate_eligibility(receipt, allow_source_free=True)["ok"])
+        manifest = self.project / "01_Control/source-hashes.csv"
+        with patch.object(module, "enumerate_files", side_effect=AssertionError("unexpected source access")):
+            result = module.create(self.project, manifest, False, receipt)
+            self.assertTrue(result["ok"], result)
+            self.assertEqual(result["row_count"], 0)
+            self.assertFalse(module.create(self.project, manifest, True, receipt)["ok"])
+            self.assertTrue(module.verify(self.project, manifest, receipt)["ok"])
+            self.assertFalse(module.verify(self.project, self.project / "private-course-item", receipt)["ok"])
+            with manifest.open("ab") as handle:
+                handle.write(b"private-item\\n")
+            self.assertFalse(module.verify(self.project, manifest, receipt)["ok"])
+        blocked = self.run_command([
+            sys.executable, str(CORE / "scripts/fingerprint_file.py"), str(self.project / "must-not-open"),
+            "--mode", "course-source", "--eligibility-record", str(receipt),
+        ])
+        self.assertNotEqual(blocked.returncode, 0)
+        self.assertIn("source-free scope", blocked.stdout)
+        policy = json.loads((CORE / "course-project-template/01_Control/source-access-policy.template.json").read_text())
+        policy["material_processing_eligibility_fingerprint"] = record["fingerprint"]
+        target = self.project / "01_Control/source-access-policy.json"
+        target.write_text(json.dumps(policy), encoding="utf-8")
+        policy_command = [sys.executable, str(CORE / "scripts/fingerprint_file.py"), str(target),
+                          "--mode", "policy", "--eligibility-record", str(receipt)]
+        self.assertEqual(self.run_command(policy_command).returncode, 0)
+        policy["per_source_entries"].append({"relative_path": "private-course-item"})
+        target.write_text(json.dumps(policy), encoding="utf-8")
+        self.assertNotEqual(self.run_command(policy_command).returncode, 0)
 
     def test_preview_is_deterministic_and_writes_nothing(self) -> None:
         first = self.run_command(self.command())

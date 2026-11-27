@@ -14,8 +14,8 @@ from unittest import mock
 
 
 PLUGIN = Path(__file__).resolve().parent.parent
-OPENAI_PACKAGE_VERSION = "0.2.5"
-BASE_WORKFLOW_VERSION = "0.2.4"
+OPENAI_PACKAGE_VERSION = "0.3.0"
+BASE_WORKFLOW_VERSION = "0.3.0"
 
 
 def load(name: str, relative: str):
@@ -878,7 +878,7 @@ class StateTests(unittest.TestCase):
         )
         run = state["run_template"]
         self.assertEqual(state["schema_version"], 8)
-        self.assertEqual(state["plugin_version"], "0.2.4")
+        self.assertEqual(state["plugin_version"], BASE_WORKFLOW_VERSION)
         self.assertEqual(
             state["umbrella_entry_routing"]["initial_gate"],
             "GATE_0A_AWAITING_MATERIAL_ENVIRONMENT_ELIGIBILITY",
@@ -1028,7 +1028,21 @@ class StateTests(unittest.TestCase):
 
 
 class DistributionTests(unittest.TestCase):
-    def test_v025_manifest_and_marketplace_metadata(self):
+    def test_public_builder_reads_only_reviewed_bytes(self):
+        release = load_path("release_inputs_for_test", PLUGIN.parents[1] / "validation/release_inputs.py")
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder).resolve()
+            approved = root / "lesson.md"
+            approved.write_text("approved", encoding="utf-8")
+            (root / "unrelated-notes.md").write_text("fixture", encoding="utf-8")
+            reviewed = {"lesson.md": release.hashlib.sha256(b"approved").hexdigest().upper()}
+            with mock.patch.object(release, "ADAPTER", root), mock.patch.object(release, "public_manifest", return_value=reviewed):
+                self.assertEqual(release.verified_public_payload(root), {"lesson.md": b"approved"})
+                approved.write_text("revised", encoding="utf-8")
+                with self.assertRaises(ValueError):
+                    release.verified_public_payload(root)
+
+    def test_manifest_and_marketplace_metadata(self):
         system_root = PLUGIN.parents[1]
         plugin_manifest = json.loads(
             (PLUGIN / ".codex-plugin/plugin.json").read_text(encoding="utf-8")
@@ -1050,64 +1064,24 @@ class DistributionTests(unittest.TestCase):
         )
         self.assertEqual(
             interface["privacyPolicyURL"],
-            "https://github.com/gpochs/Agentic-Course-Redesign-System/blob/v0.2.5/docs/PRIVACY.md",
+            "https://github.com/gpochs/Agentic-Course-Redesign-System/blob/63d7464dc3c75634e08c04fca78e2e50bf250ed1/docs/PRIVACY.md",
         )
         self.assertEqual(
             interface["termsOfServiceURL"],
             "https://github.com/gpochs/Agentic-Course-Redesign-System/blob/v0.2.5/docs/TERMS.md",
         )
-        self.assertNotIn("supportURL", interface)
+        self.assertEqual(interface["supportURL"], "https://github.com/gpochs/Agentic-Course-Redesign-System/blob/v0.2.5/docs/SUPPORT.md")
         self.assertEqual(interface["category"], "Education & Research")
         self.assertEqual(interface["displayName"], "Agentic Course Redesign")
         self.assertLessEqual(len(interface["displayName"]), 30)
         self.assertLessEqual(len(interface["shortDescription"]), 30)
         description = interface["longDescription"]
-        flattened_description = " ".join(description.split())
         self.assertLessEqual(len(description), 2400)
-        self.assertEqual(description.count("◆"), 5)
-        self.assertGreaterEqual(description.count("•"), 10)
-        self.assertNotRegex(description, r"\bWork\b")
-        required_listing_markers = (
-            "LECTURER / TEACHER CONTROL",
-            "Course Redesign Orchestrator",
-            "Course Mapper and Learning-Outcomes Auditor",
-            "Active-Learning Researcher",
-            "AI Integration and AI-Competence Researcher",
-            "Student Experience, Accessibility and Workload Proxy Critic",
-            "Assessment and Constructive-Alignment Designer",
-            "Source Verification and Citation Auditor",
-            "Evidence and Feasibility Red Team",
-            "Learning Designer",
-            "Learning Material Designer",
-            "Artefact Accessibility and Visual QA Auditor",
-            "Gate 0A:",
-            "Gate 0:",
-            "Gate 1:",
-            "HITL 1",
-            "HITL 2",
-            "HITL 3",
-            "Research",
-            "red-team review",
-            "Material production",
-            "assessment-security QA",
-            "production handoff",
-            "final system review",
-            "complete and dormant",
-            "One unresolved question at a time",
-            "Use a card only if the live host can show the complete option set plus custom answer",
-            "Verified current Codex in Plan mode: 2–3 explicit choices plus automatic Other",
-            "If capacity is unknown, unavailable or exceeded",
-            "ordinary chat with every valid numbered option plus Other, then wait",
-            "Never prune, hide or combine valid options to fit a card",
-            "dependency-based chunks with every option visible",
-            "lecturer may split, merge, reorder or rename them",
-        )
-        listing_copy = (
-            system_root / "openai-submission/review/LISTING_COPY.md"
-        ).read_text(encoding="utf-8")
-        for marker in required_listing_markers:
-            self.assertIn(marker, flattened_description)
-            self.assertIn(marker, listing_copy)
+        self.assertIn("Skip for now", description)
+        self.assertIn("approve the blueprint", description)
+        self.assertIn("browser preview", description)
+        listing = (system_root / "openai-submission/review/LISTING_COPY.md").read_text(encoding="utf-8")
+        self.assertIn(description, listing)
         self.assertEqual(len(interface["defaultPrompt"]), 3)
         self.assertTrue(all("@" not in item and len(item) <= 128 for item in interface["defaultPrompt"]))
         self.assertTrue((PLUGIN / interface["logo"].removeprefix("./")).is_file())
@@ -1122,16 +1096,8 @@ class DistributionTests(unittest.TestCase):
         skill = (orchestrator / "SKILL.md").read_text(encoding="utf-8")
         self.assertIn('display_name: "Agentic Course Redesign"', metadata)
         self.assertIn("$course-redesign-orchestrator", metadata)
-        for marker in (
-            "live host contract can show the complete option set plus a custom answer",
-            "verified Codex supports exactly two or three explicit choices plus automatic Other",
-            "capacity is unknown, unavailable or exceeded",
-            "show every valid numbered option plus Other",
-            "Never prune, hide or combine valid choices to fit cards",
-            "keep every option visible in dependency chunks",
-            "let the lecturer control grouping",
-        ):
-            self.assertIn(marker, metadata)
+        self.assertIn("one question at a time", metadata)
+        self.assertIn("Skip for now", skill)
         self.assertIn("### Umbrella entry, Gate 0A and Gate 0", skill)
         self.assertIn("course-redesign-setup", skill)
         self.assertIn("course-redesign-system", skill)

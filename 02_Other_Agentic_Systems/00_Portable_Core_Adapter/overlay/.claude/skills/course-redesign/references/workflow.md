@@ -36,7 +36,7 @@ and obtain confirmation before using that mapping.
 Recommendations must be the safest truthful, evidence-aligned, reversible
 option available and are never preselected. Make a factual declaration only
 when it is true; missing or uncertain facts fail closed and become a question
-or explicit blocker. Blank, skipped, partial, or ambiguous answers do not
+or explicit blocker. At a required approval, blank, partial, or ambiguous answers do not
 resolve a decision or advance a gate.
 
 Before every gate, recap the resolved decisions, current dependency clusters,
@@ -58,7 +58,9 @@ to active-learning format, workload, support, or alternatives.
 
 ## Gate 0A: pre-source processing eligibility
 
-Before source discovery, ask only non-identifying questions needed to classify
+Offer Skip for now before asking for details. Continue from the description and record an empty source set using the setup stage. Ask one material-specific question only when a real source is introduced. All approval, production and acceptance stages apply on this route.
+
+For lecturer-selected source discovery, ask only non-identifying questions needed to classify
 ownership/authorisation, licence and AI-processing authority, institutional
 sensitivity, intended environment, and whether the collection is mixed or
 uncertain. Do not enumerate, open, hash, copy, upload, or describe any course
@@ -76,7 +78,7 @@ component has an eligible route.
 Persist the decision as a versioned processing-eligibility record with a
 canonical SHA-256 fingerprint. A pass permits only the next source-boundary
 step; it grants no source, role, tool, egress, audience, write, or gate
-authority. A blocked or route-only result is a hard stop in this environment.
+authority. A blocked or route-only result excludes that source. Offer to continue with the source-free route.
 
 When the canonical shared helper is present, use
 `scripts/create_material_processing_eligibility.py` in preview mode to produce

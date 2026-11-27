@@ -89,39 +89,26 @@ def main() -> int:
         }.items()
         if not path.is_file()
     ]
-    if missing:
-        result = {
-            "schema_version": 1,
-            "pass": bool(args.allow_missing),
-            "status": "skipped_missing_validator_scripts"
-            if args.allow_missing
-            else "failed_missing_validator_scripts",
-            "missing": missing,
-            "validators": [],
-        }
-        print(json.dumps(result, indent=2))
-        return 0 if result["pass"] else 1
-
     records = []
     for package_label, plugin in PLUGIN_ROOTS.items():
-        records.append(
-            run_validator(
+        if plugin_validator.is_file():
+            records.append(run_validator(
                 f"official plugin validator: {package_label}",
                 [sys.executable, str(plugin_validator), str(plugin)],
-            )
-        )
-        for skill in sorted((plugin / "skills").iterdir()):
-            if skill.is_dir():
-                records.append(
-                    run_validator(
+            ))
+        if skill_validator.is_file():
+            for skill in sorted((plugin / "skills").iterdir()):
+                if skill.is_dir():
+                    records.append(run_validator(
                         f"official quick validator: {package_label}: {skill.name}",
                         [sys.executable, str(skill_validator), str(skill)],
-                    )
-                )
+                    ))
+    passed = all(item["status"] == "passed" for item in records)
     result = {
         "schema_version": 1,
-        "pass": all(item["status"] == "passed" for item in records),
-        "status": "passed" if all(item["status"] == "passed" for item in records) else "failed",
+        "pass": passed and (not missing or args.allow_missing),
+        "status": "failed" if not passed else "partial_missing_validators" if missing else "passed",
+        "missing": missing,
         "validators": records,
     }
     print(json.dumps(result, indent=2))

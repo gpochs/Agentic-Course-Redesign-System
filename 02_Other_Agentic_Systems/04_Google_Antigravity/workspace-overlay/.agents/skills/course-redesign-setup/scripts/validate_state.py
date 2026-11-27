@@ -5,10 +5,12 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib.util
 import json
 import re
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urlsplit
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 
@@ -251,6 +253,15 @@ def _nonexpired_offset_datetime(value: object) -> bool:
     )
 
 
+def _source_manifest_module():
+    spec = importlib.util.spec_from_file_location("_acr_source_manifest", Path(__file__).with_name("source_manifest.py"))
+    if spec is None or spec.loader is None:
+        raise ImportError("missing eligibility validator")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def _validate_material_processing_eligibility(data: dict, errors: list[str]) -> None:
     eligibility = data.get("material_processing_eligibility", {})
     if not isinstance(eligibility, dict):
@@ -319,6 +330,9 @@ def _validate_material_processing_eligibility(data: dict, errors: list[str]) -> 
             errors.append("pending Gate 0A cannot contain an approval receipt or fingerprint")
         if decision.get("outcome") is not None:
             errors.append("pending Gate 0A cannot contain a decision outcome")
+        return
+    if "input_mode" in eligibility:
+        errors.extend(_source_manifest_module().source_free_errors(eligibility))
         return
     actual = eligibility.get("fingerprint")
     if not isinstance(actual, str) or actual != _canonical_eligibility_fingerprint(eligibility):
@@ -417,7 +431,13 @@ def _safe_relative_path(value: object) -> bool:
     if not isinstance(value, str) or not value or "\\" in value or value.startswith("/"):
         return False
     parts = value.split("/")
-    return all(part not in {"", ".", ".."} for part in parts)
+    # Targets must name the same ordinary files on supported Windows and Unix hosts.
+    return all(
+        part and not part.endswith((" ", "."))
+        and not re.search(r'[<>:"|?*\x00-\x1f]', part)
+        and not re.fullmatch(r"(?:CON|PRN|AUX|NUL|COM[1-9¹²³]|LPT[1-9¹²³])(?:\..*)?", part, re.I)
+        for part in parts
+    )
 
 
 def _validate_research_targets(gate: dict, errors: list[str]) -> None:
@@ -463,6 +483,41 @@ def _validate_research_targets(gate: dict, errors: list[str]) -> None:
         errors.append("an approved Gate 2B must name both research dossier and research handoff targets")
 
 
+def _valid_draft_origin(value: object) -> bool:
+    if not isinstance(value, str) or any(ord(c) < 32 or c.isspace() or c in "*\\?#@%" for c in value):
+        return False
+    try:
+        url = urlsplit(value)
+        return bool(
+            url.scheme == "https" and url.hostname and not url.path
+            and not url.netloc.endswith(":") and url.port != 0
+        )
+    except ValueError:
+        return False
+
+
+def _validate_external_draft(target: dict, label: str, errors: list[str]) -> None:
+    draft = target["external_draft"]
+    if target.get("target_type") != "working_copy" or not isinstance(draft, dict):
+        errors.append(f"{label} external_draft must bind a working-copy review record")
+        return
+    fields = {"origin", "container_id", "draft_name", "action", "visibility"}
+    if draft.get("action") == "edit_draft":
+        fields.add("object_id")
+    if set(draft) != fields:
+        errors.append(f"{label} external_draft must name the exact fields for its action")
+    if draft.get("action") not in ("create_draft", "edit_draft"):
+        errors.append(f"{label} external_draft action must create or edit a draft")
+    if draft.get("visibility") != "restricted_draft":
+        errors.append(f"{label} external_draft requires restricted draft visibility")
+    if not _valid_draft_origin(draft.get("origin")):
+        errors.append(f"{label} external_draft requires a credential-free HTTPS origin")
+    for field in fields & {"container_id", "object_id", "draft_name"}:
+        value = draft.get(field)
+        if not isinstance(value, str) or not value.strip() or value.strip() == "*":
+            errors.append(f"{label} external_draft needs an exact {field}")
+
+
 def _validate_material_targets(gate: dict, errors: list[str]) -> None:
     if "approved_exact_targets" in gate:
         errors.append("Gate 3 must use approved_material_targets, not approved_exact_targets")
@@ -483,19 +538,33 @@ def _validate_material_targets(gate: dict, errors: list[str]) -> None:
         errors.append("Gate 3 must require exact material targets before production")
     if rules.get("gate_2b_research_target_approval_is_not_material_write_authority") is not True:
         errors.append("Gate 3 must not inherit material write authority from Gate 2B")
+    external_targets = {}
+    seen_paths = set()
     for index, target in enumerate(targets):
         if not isinstance(target, dict):
             errors.append(f"Gate 3 material target {index} must be an object")
             continue
         target_type = target.get("target_type")
         relative_path = target.get("relative_path")
-        required_prefix = expected_map.get(target_type)
+        required_prefix = expected_map.get(target_type) if isinstance(target_type, str) else None
         if required_prefix is None:
             errors.append(f"Gate 3 material target {index} has invalid target_type")
         if not _safe_relative_path(relative_path) or not (
             required_prefix and relative_path.startswith(required_prefix)
         ):
             errors.append(f"Gate 3 material target {index} violates its required prefix")
+            continue
+        if relative_path.casefold() in seen_paths:
+            errors.append(f"Gate 3 material target {index} repeats a local target")
+        seen_paths.add(relative_path.casefold())
+        if "external_draft" in target:
+            _validate_external_draft(target, f"Gate 3 material target {index}", errors)
+            external_targets[relative_path] = target["external_draft"]
+    if gate.get("status") == "approved":
+        receipt = gate.get("approval_receipt")
+        approved = receipt.get("external_draft_targets", {}) if isinstance(receipt, dict) else {}
+        if approved != external_targets:
+            errors.append("Gate 3 external draft targets differ from the approved destination snapshot")
     if gate.get("status") == "approved" and not targets:
         errors.append("an approved Gate 3 must name at least one exact material target")
 
@@ -1334,6 +1403,10 @@ def _validate_gate_progression_and_source_binding(
             errors.append(f"{label} run source policy {field} does not match current top-level policy")
     if not verification.get("source_manifest_fingerprint"):
         errors.append(f"{label} advanced gates require a verified source-manifest fingerprint")
+    if eligibility.get("input_mode") == "source_free":
+        empty = hashlib.sha256(_source_manifest_module().EMPTY_MANIFEST).hexdigest().upper()
+        if verification.get("source_manifest_fingerprint") != empty or top_manifest != "01_Control/source-hashes.csv":
+            errors.append(f"{label} source-free run must use the verified zero-input manifest")
 
     gate0a = gates["gate_0a"]
     if gate0a.get("validation_status") != "passed" or gate0a.get(
@@ -1404,10 +1477,11 @@ def _validate_gate_progression_and_source_binding(
     if gates["artefact_gate"].get("status") == "complete":
         artefacts = gates["artefact_gate"].get("artefacts")
         approved_targets = {
-            item.get("relative_path")
+            item["relative_path"]: item
             for item in gates["gate_3"].get("approved_material_targets", [])
-            if isinstance(item, dict)
+            if isinstance(item, dict) and isinstance(item.get("relative_path"), str)
         }
+        pending_external = {path for path, target in approved_targets.items() if "external_draft" in target}
         if not isinstance(artefacts, list) or not artefacts:
             errors.append(f"{label} completed artefact gate must record accepted artefacts")
         else:
@@ -1415,13 +1489,27 @@ def _validate_gate_progression_and_source_binding(
                 if not isinstance(artefact, dict):
                     errors.append(f"{label} artefact receipt {index} must be an object")
                     continue
-                if artefact.get("target") not in approved_targets:
+                path = artefact.get("target")
+                target = approved_targets.get(path) if isinstance(path, str) else None
+                if target is None:
                     errors.append(f"{label} artefact receipt {index} is not a Gate-3 target")
+                elif isinstance(target.get("external_draft"), dict):
+                    pending_external.discard(path)
+                    object_id = artefact.get("external_object_id")
+                    expected = target["external_draft"].get("object_id")
+                    if not isinstance(object_id, str) or not object_id.strip() or (
+                        expected is not None and expected != object_id
+                    ):
+                        errors.append(f"{label} artefact receipt {index} needs the verified external object ID")
+                elif "external_object_id" in artefact:
+                    errors.append(f"{label} artefact receipt {index} has no approved external draft")
                 if artefact.get("decision") != "accepted":
                     errors.append(f"{label} artefact receipt {index} must be accepted")
                 for field in ("artefact_id", "acceptance_reference", "qa_reference", "recorded_at"):
                     if not artefact.get(field):
                         errors.append(f"{label} artefact receipt {index} is missing {field}")
+            if pending_external:
+                errors.append(f"{label} completed artefact gate is missing a private draft review")
 
 
 def _validate_production_hitl3_offer(

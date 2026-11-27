@@ -1,14 +1,30 @@
 # Claude Code adapter
 
-Adapter release: `0.2.4`. Shared semantic base: inactive candidate
-`ACR-SYS-20260822-007` version `0.2.4`.
+## Install for an account or a project
+
+From the repository root, build the standalone plugin with Python 3.11 or newer. For a personal installation, pass a new directory under `~/.claude/skills/agentic-course-redesign`. For one course project, use `<project>/.claude/skills/agentic-course-redesign`. Expand the home path in your shell. The builder refuses to replace an existing directory.
+
+```shell
+python 02_Other_Agentic_Systems/build_host_package.py claude <new-plugin-directory>
+claude plugin validate <new-plugin-directory>
+```
+
+Open a trusted local Claude Code project and reload plugins. Invoke `/gpochs-course-redesign` or the namespaced `course-redesign-orchestrator` skill. Select an included Fable or Opus model in Claude. Agents inherit the session model. Start with a course description, choose **Skip for now**, and review an editable example after the usual human decisions. If native delegation or a choice card is unavailable, the orchestrator can run the perspectives sequentially and ask the same question in chat. The older overlay below remains available for existing project layouts.
+
+[Claude skill discovery](https://code.claude.com/docs/en/skills) · [Skill-directory plugins](https://code.claude.com/docs/en/plugins/create)
+
+## Manual project overlay
+
+
+Adapter release: `0.3.0`. Shared semantic base: inactive candidate
+`ACR-SYS-20261127-001` version `0.3.0`.
 
 This overlay adds a project `CLAUDE.md`, one path-scoped rule, and ten
 project-local Claude Code subagents to the portable core. It does not open or
 configure Claude Code, install a plugin, add hooks, define MCP servers, or alter
 user/managed settings.
 
-Release `0.2.4` inherits the portable core's pre-source Gate 0A, unchanged
+Release `0.3.0` inherits the portable core's pre-source Gate 0A, unchanged
 schema-8 lineage vocabulary, one-decision interaction contract, verified
 production handoff before HITL 3, terminal `complete_dormant` lifecycle, and
 one-time informational trigger guidance. Claude Code's documented

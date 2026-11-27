@@ -1,4 +1,14 @@
-# Validation report — Google Antigravity adapter v0.2.4
+# Antigravity release validation
+
+## Version 0.3.0, 27 November 2026
+
+Google’s installed CLI accepted the standalone package with
+`agy plugin validate --strict --json`. It identified six skills and ten
+subagents and returned no findings. A user-wide install reported 0.3.0
+enabled. The workspace copy matched the package file for file. All twenty
+Antigravity tests passed, including the eligibility helper’s non-overwrite test.
+
+## Historical overlay validation for version 0.2.4
 
 - Date: 2026-08-22
 - Status: PASS for static files, canonical schema-8 parity, fail-closed

@@ -1,12 +1,13 @@
 # Agentic Course Redesign for GitHub Copilot
 
 This native GitHub Copilot plugin packages the six Agentic Course Redesign
-workflow skills and ten manually selected specialist agents. Its workflow
-semantics mirror Agentic Course Redesign System `0.2.4`; the Copilot semantic
-adapter is `0.2.4` and the packaging revision is `0.2.4-copilot.2`.
+workflow skills and ten read-only specialists available for scoped delegation. Its workflow
+semantics mirror Agentic Course Redesign System `0.3.0`; the Copilot semantic
+adapter is `0.3.0` and the packaging revision is `0.3.0`.
 
-The plugin is course-independent. It adapts to a lecturer-supplied course only
-after the processing-eligibility and human-approval gates permit that work.
+Start with any course description. Choose **Skip for now** to design without
+existing sources, or check the handling of the materials you want to use.
+The lecturer approves the plan and reviews each editable draft.
 Installing it does not inspect course files, activate a runtime, register a
 schedule, or start a redesign.
 
@@ -55,7 +56,7 @@ function; adding an MCP server or plugin does not fix poisoned history. This
 compatibility path changes no workflow semantics and adds no MCP server, hook,
 authentication, or permission.
 
-The preserved rollback package is `0.2.4-copilot.1`.
+The preserved rollback package is `0.2.4-copilot.2`.
 
 ## Support and cost boundary
 

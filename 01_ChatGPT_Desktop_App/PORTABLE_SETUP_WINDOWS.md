@@ -39,10 +39,8 @@ machine; attendee app capabilities can still vary.
    plugin skills. The copied
    `AGENTS.md`, `.codex/config.toml`, custom agent files, state template and
    folder guidance provide the portable workflow even without plugin install.
-6. Start a task with: `Set up the gated agentic redesign workflow for this one course. Before asking for any source path or filename, complete Gate 0A from the material category, sensitivity and assessment-security classifications and authority, and exact processing environment only.` Public accessibility alone is insufficient; personal/unmanaged processing requires privately owned/rightsholder-authorised or appropriately licensed/public material with explicit AI-processing authority and no internal or student-personal data. Route internal, student-data and unauthorised protected-assessment material without path leakage and fail closed on mixed/uncertain classifications.
-7. Only after Gate 0A permits processing, copy current course materials into
-   `00_Source_Materials`; put programme, learner, accessibility, assessment and
-   style context in `00_Context`.
+6. Start with **Help me redesign one lesson**. Choose **Skip for now** to work from a teaching goal. Keep going through the normal lecturer decisions to produce materials. For durable work, use the source-free record and empty manifest. If a private document or LMS becomes relevant, review its handling at that point.
+7. If you choose **Use existing materials**, clarify authority, sensitivity and environment before disclosing their locations. Add only approved inputs to the source and context folders.
 8. Review the generated manifest, classifications, policy, tool/egress rules
    and Gate 0 record. Do not paste approval tokens supplied by someone else.
 

@@ -10,6 +10,13 @@ submissions, grades, credentials and secrets by default.
 
 ## First actions
 
+Choose **Skip for now** to start immediately from a general description or a
+fictional example. Leave existing course inputs untouched. Use the source-free
+Gate 0A option in the setup skill when preparing this project. Review the
+zero-source manifest and permitted tools at Gate 0, then follow each ordinary
+design and production decision. Only use the steps below if you want to bring
+existing course materials into the project.
+
 1. Before disclosing any course source path, filename or list, declare only the material category, exact processing environment, internal/restricted and student-data flags, sensitivity class, assessment-security class and handling authority for Gate 0A.
 2. Review and fingerprint Gate 0A. Personal/unmanaged processing is permitted only for privately owned/rightsholder-authorised or appropriately licensed/public material with explicit AI-processing authority; public availability alone is insufficient. It excludes student personal data. Institution-internal/restricted material is route-only there, and mixed/uncertain or incomplete declarations fail closed until segregated or clarified. A record requiring reconfirmation does not permit intake.
 3. For an approved institutional environment, record the exact policy reference, approved scope and non-expired expiry.

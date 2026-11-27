@@ -15,8 +15,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 PLUGIN = ROOT / "plugins" / "agentic-course-redesign"
-OPENAI_PACKAGE_VERSION = "0.2.5"
-BASE_WORKFLOW_VERSION = "0.2.4"
+OPENAI_PACKAGE_VERSION = "0.3.0"
+BASE_WORKFLOW_VERSION = "0.3.0"
 
 
 def load(name: str, relative: str):
@@ -124,18 +124,16 @@ def main() -> int:
     skills = sorted(PLUGIN.glob("skills/*/SKILL.md"))
     skill_names = {path.parent.name for path in skills}
     checks.append(check(skill_names == public_scrub.EXPECTED_SKILLS, "exact six bounded plugin skills", sorted(skill_names)))
-    non_ascii_skills = [
-        path.relative_to(PLUGIN).as_posix()
-        for path in skills
-        if not path.read_text(encoding="utf-8").isascii()
-    ]
-    checks.append(
-        check(
-            not non_ascii_skills,
-            "validator-portable ASCII skill files",
-            non_ascii_skills,
-        )
-    )
+    invalid_skill_text = []
+    for path in sorted((PLUGIN / "skills").rglob("*.md")):
+        try:
+            contents = path.read_text(encoding="utf-8")
+        except UnicodeDecodeError:
+            invalid_skill_text.append(path.relative_to(PLUGIN).as_posix())
+            continue
+        if any(ord(character) < 32 and character not in "\n\r\t" for character in contents):
+            invalid_skill_text.append(path.relative_to(PLUGIN).as_posix())
+    checks.append(check(not invalid_skill_text, "portable UTF-8 skill instructions and references", invalid_skill_text))
     checks.append(check((PLUGIN / "assets/PARTICIPANT_QUICK_START.md").is_file(), "participant onboarding asset present"))
     prompt_errors = []
     for skill_path in skills:
@@ -174,35 +172,10 @@ def main() -> int:
             "flattened picker exposes full-workflow umbrella entry",
         )
     )
-    strong_prompt_markers = (
-        "live host contract can show the complete option set plus a custom answer",
-        "verified Codex supports exactly two or three explicit choices plus automatic Other",
-        "capacity is unknown, unavailable or exceeded",
-        "show every valid numbered option plus Other",
-        "Never prune, hide or combine valid choices to fit cards",
-        "keep every option visible in dependency chunks",
-        "let the lecturer control grouping",
-    )
     checks.append(
         check(
-            all(marker in umbrella_metadata for marker in strong_prompt_markers),
-            "umbrella prompt preserves every option and lecturer-controlled grouping",
-        )
-    )
-    capacity_docs = "\n".join(
-        (ROOT / name).read_text(encoding="utf-8")
-        for name in ("README.md", "INSTALLATION.md", "VALIDATION_REPORT.md")
-    )
-    checks.append(
-        check(
-            "current verified Codex" in capacity_docs
-            and "exactly two or three explicit" in capacity_docs
-            and "free-form `Other`" in capacity_docs
-            and "available only in Plan mode" in capacity_docs
-            and "Outside\n  Plan mode the card is unavailable" in capacity_docs
-            and "Work's exact maximum is not independently documented" in capacity_docs
-            and "capacity is unknown, unavailable or exceeded" in capacity_docs,
-            "adapter docs separate verified Codex capacity from unknown Work capacity",
+            "Skip for now" in umbrella_skill and "one question at a time" in umbrella_metadata,
+            "umbrella routes a first-time lecturer through a single source choice",
         )
     )
     display_names = []
@@ -243,8 +216,14 @@ def main() -> int:
     agent_errors = []
     for path, data in agent_definitions:
         instructions = data.get("developer_instructions", "")
-        if data.get("sandbox_mode") != "read-only":
-            agent_errors.append(f"{path.name}: sandbox is not read-only")
+        if data.get("name") != path.stem.replace("-", "_") or not data.get("description"):
+            agent_errors.append(f"{path.name}: missing or inconsistent custom role metadata")
+        if {"sandbox_mode", "approval_policy", "model_provider", "mcp_servers"} & data.keys():
+            agent_errors.append(f"{path.name}: unsupported attempt to override the parent session")
+        if data.get("features", {}).get("request_permissions_tool") is not False:
+            agent_errors.append(f"{path.name}: permission escalation must stay with the orchestrator")
+        if "Use read-only actions" not in instructions:
+            agent_errors.append(f"{path.name}: missing advisory read-only role boundary")
         for token in required_agent_tokens:
             if token not in instructions:
                 agent_errors.append(f"{path.name}: missing {token}")
@@ -259,7 +238,7 @@ def main() -> int:
     checks.append(
         check(
             state.get("plugin_version") == BASE_WORKFLOW_VERSION,
-            "template preserves v0.2.4 workflow base",
+            "template preserves v0.3.0 workflow base",
         )
     )
     checks.append(check(state.get("status") == "candidate_not_active", "template runtime inactive"))

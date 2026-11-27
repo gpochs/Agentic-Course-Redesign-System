@@ -12,8 +12,8 @@ from pathlib import Path, PurePosixPath
 
 SCRIPT = Path(__file__).resolve()
 DEFAULT_ROOT = SCRIPT.parents[3]
-PACKAGE_VERSION = "0.2.4-copilot.2"
-PACKAGE_PROPOSAL = "ACR-SYS-20260822-008"
+PACKAGE_VERSION = "0.3.0"
+PACKAGE_PROPOSAL = "ACR-SYS-20261127-001"
 PLUGIN_RELATIVE = PurePosixPath(
     "02_Other_Agentic_Systems/01_GitHub_Copilot/plugin/"
     "agentic-course-redesign"
@@ -70,7 +70,7 @@ FORBIDDEN_FILES = {
 }
 COPILOT_AGENT_DIALOGUE_SUFFIX = """## Copilot lecturer-question boundary
 
-When this manually selected profile must surface a lecturer-only question, it
+When this assigned read-only profile must surface a lecturer-only question, it
 must return it through the orchestrator and keep one unresolved consequential
 question at a time. Use the native `ask_user` card for the complete valid option
 set whenever the live GitHub Copilot host accepts it. A live Copilot host has
@@ -86,7 +86,7 @@ explain the grouping, and let the lecturer split, merge, reorder or rename it.
 Preserve custom answers and confirm their interpretation; recap each chunk and
 gate. Mark only the safest truthful, evidence-aligned, reversible recommendation
 and never preselect it. Select a factual declaration only when true; uncertainty
-fails closed. Blank or `Skip` cannot advance. Keep every exact authority gate
+fails closed. An unanswered approval cannot advance. Choosing “Skip for now” at onboarding starts a source-free redesign. Keep every exact authority gate
 separate from design preferences."""
 COPILOT_CHOICE_CAPACITY_OVERRIDE = """## GitHub Copilot native `ask_user` capacity override
 
@@ -232,13 +232,13 @@ def validate(root: Path = DEFAULT_ROOT) -> list[dict[str, str]]:
     if adapter_manifest is not None:
         native = adapter_manifest.get("native_plugin")
         if (
-            adapter_manifest.get("adapter_version") != "0.2.4"
+            adapter_manifest.get("adapter_version") != "0.3.0"
             or adapter_manifest.get("status") != "candidate_not_active"
             or not isinstance(native, dict)
             or native.get("proposal_id") != PACKAGE_PROPOSAL
             or native.get("package_version") != PACKAGE_VERSION
-            or native.get("base_semantic_version") != "0.2.4"
-            or native.get("rollback_package_version") != "0.2.4-copilot.1"
+            or native.get("base_semantic_version") != "0.3.0"
+            or native.get("rollback_package_version") != "0.2.4-copilot.2"
             or native.get("status") != "candidate_not_active"
             or native.get("install_specification")
             != "agentic-course-redesign@agentic-course-redesign-system"
@@ -415,7 +415,7 @@ def validate(root: Path = DEFAULT_ROOT) -> list[dict[str, str]]:
             header.get("name") != name
             or header.get("description") != source.get("description")
             or header.get("tools") != ["read", "search"]
-            or header.get("disable-model-invocation") is not True
+            or header.get("disable-model-invocation") is not False
             or header.get("user-invocable") is not True
         ):
             add(findings, root, agents[name], "agent_boundary_mismatch")
@@ -655,7 +655,7 @@ def validate(root: Path = DEFAULT_ROOT) -> list[dict[str, str]]:
         required_phrases = (
             "agentic-course-redesign@agentic-course-redesign-system",
             "copilot plugin marketplace add gpochs/Agentic-Course-Redesign-System",
-            "Begin with Gate 0A only",
+            "Offer the short onboarding or Skip for now",
             "copilot plugin uninstall agentic-course-redesign",
             "without a support SLA",
             "Copilot 1.0.80 BYOK",
@@ -663,7 +663,7 @@ def validate(root: Path = DEFAULT_ROOT) -> list[dict[str, str]]:
             'expected "function"',
             "type=custom",
             "fresh task",
-            "0.2.4-copilot.1",
+            "0.2.4-copilot.2",
             "native `ask_user` card",
             "complete valid option set",
             "at least five explicit choices plus a custom-answer field",

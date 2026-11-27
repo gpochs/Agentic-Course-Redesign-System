@@ -5,6 +5,8 @@ description: Set up and verify one protected, project-local Antigravity workspac
 
 # Course Redesign Setup
 
+Offer two ways to start after explaining that classification protects learners and course material. “Check my material” handles one source category at a time; “Skip for now” immediately continues from a general description or fictional example through all human decisions and production. For that route use the shared setup helper with `--source-free` and an empty source set. Classification and routing questions below apply only before using an existing source. If the lecturer later wants a restricted source, check it at the point of use.
+
 Set up one course only. Do not combine unrelated courses in one workspace,
 source manifest, access policy, run, or approval record.
 Adapt to the supplied school, vocational, professional, higher-education, or

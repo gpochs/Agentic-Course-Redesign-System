@@ -8,6 +8,7 @@ import hashlib
 import json
 import re
 import zipfile
+from release_inputs import public_manifest, reviewed_file, verified_public_payload
 from pathlib import Path, PurePosixPath
 from xml.etree import ElementTree
 
@@ -19,10 +20,11 @@ REVIEW = ROOT / "openai-submission" / "review"
 EXPECTED_REPOSITORY = "https://github.com/gpochs/Agentic-Course-Redesign-System"
 EXPECTED_PUBLISHER = "GIAN PETER OCHSNER"
 EXPECTED_WEBSITE = EXPECTED_REPOSITORY
-OPENAI_PACKAGE_VERSION = "0.2.5"
-BASE_WORKFLOW_VERSION = "0.2.4"
-EXPECTED_PRIVACY = f"{EXPECTED_REPOSITORY}/blob/v{OPENAI_PACKAGE_VERSION}/docs/PRIVACY.md"
-EXPECTED_TERMS = f"{EXPECTED_REPOSITORY}/blob/v{OPENAI_PACKAGE_VERSION}/docs/TERMS.md"
+OPENAI_PACKAGE_VERSION = "0.3.0"
+BASE_WORKFLOW_VERSION = "0.3.0"
+EXPECTED_PRIVACY = f"{EXPECTED_REPOSITORY}/blob/63d7464dc3c75634e08c04fca78e2e50bf250ed1/docs/PRIVACY.md"
+EXPECTED_SUPPORT = f"{EXPECTED_REPOSITORY}/blob/v0.2.5/docs/SUPPORT.md"
+EXPECTED_TERMS = f"{EXPECTED_REPOSITORY}/blob/v0.2.5/docs/TERMS.md"
 EXPECTED_SKILLS = {
     "course-redesign-assessment",
     "course-redesign-materials",
@@ -31,20 +33,7 @@ EXPECTED_SKILLS = {
     "course-redesign-setup",
     "course-redesign-system",
 }
-EXPECTED_SKILL_TREE = {
-    "course-redesign-assessment/SKILL.md": "D5CD1CEB5599C0A8AEC524D4A14EDEAEAF8003D5CDEBC727F08FCA92FCA7EA92",
-    "course-redesign-assessment/agents/openai.yaml": "99C9A0CDD4F77C25F5E95E08CE186F61F26F594B71842ADCEFD35D0EA05BCB9D",
-    "course-redesign-materials/SKILL.md": "9E8EDF03FEB861F0C573C0FC349721F892CE1A41218996677D498B3B6E0B4FC2",
-    "course-redesign-materials/agents/openai.yaml": "A3875FF6A5578D3F2682F25220FF6980D5E05EAA706197C9337BA5DD8ADB6604",
-    "course-redesign-orchestrator/SKILL.md": "3EA1B3E886A4D48278F0DFAD76EBAD4A11EA679D1C3D5D0586CCF3DCA5BC8C70",
-    "course-redesign-orchestrator/agents/openai.yaml": "25FFAEECEE576DC7F30FE8048CB90891D4E572B30583025AAEB926AE8FD3BF10",
-    "course-redesign-research/SKILL.md": "8FB45D10BF88B981BAB861A5CB89402E9E6DF7C76E7ECD95D1230A4E47F61E5A",
-    "course-redesign-research/agents/openai.yaml": "FB892DB9BEF735D1469688D809A0B7AD471F6D17C03A52F8ABAD97D5EDC7537F",
-    "course-redesign-setup/SKILL.md": "8B05EE5FABDD3DBAB6B0B03EB813ACBA0F1012C2E7EFD58E8150DA5EA7C9D524",
-    "course-redesign-setup/agents/openai.yaml": "DE5AA571087522017783BBE0D3F104B9D6AD2BA661A556977A9866B95110CED8",
-    "course-redesign-system/SKILL.md": "0FBD735A1AF4CB2424943E527B1857D0B7FBE76E59DD586B368EE7390A12EE75",
-    "course-redesign-system/agents/openai.yaml": "2A58F3C0CE5BA4B7A10D87B89A9A5EC656B0A77E15F9EF9C60E1FB8ED8031104",
-}
+EXPECTED_SKILL_TREE = json.loads((REVIEW / "skill-digests.json").read_text(encoding="utf-8"))
 RUNTIME_TREES = (".codex-plugin", "assets", "scripts", "skills")
 DISALLOWED_MANIFEST_KEYS = {
     "apps",
@@ -66,13 +55,10 @@ REQUIRED_OWNER_MARKERS = {
     "[SUPPORTED_COUNTRIES_OR_REGIONS]",
     "[POLICY_ATTESTATION_OWNER]",
 }
-OWNER_BLOCKERS = [
-    "re-confirm the verified publisher identity and update manifest publisher fields only if needed",
-    "re-confirm the owning OpenAI organization/project and Apps Management Write submitter",
-    "re-confirm that the published website, support, privacy-policy, and terms HTTPS pages remain accurate",
-    "re-confirm supported countries or regions",
-    "complete the v0.2.5 policy attestations",
-    "run the OpenAI v0.2.5 skill safety/security scans and complete review",
+PORTAL_CHECKS = [
+    "Confirm the existing listing, publisher and workspace in the portal.",
+    "Check the platform scan status and resolve any findings.",
+    "Check review and publication status for the submitted version.",
 ]
 
 
@@ -81,22 +67,22 @@ def digest(path: Path) -> str:
 
 
 def tree_records(root: Path) -> dict[str, str]:
+    # Limit byte reads to reviewed, regular files, even in a developer's working tree.
+    plugin = PUBLIC_PLUGIN if root.is_relative_to(PUBLIC_PLUGIN) else CUSTOM_PLUGIN
+    subtree = root.relative_to(plugin)
     return {
-        path.relative_to(root).as_posix(): digest(path)
-        for path in sorted(root.rglob("*"))
-        if path.is_file() and "__pycache__" not in path.parts and path.suffix != ".pyc"
+        Path(name).relative_to(subtree).as_posix(): digest(reviewed_file(plugin, name))
+        for name in public_manifest()
+        if Path(name).is_relative_to(subtree)
     }
 
 
 def runtime_records(plugin: Path) -> dict[str, str]:
-    records: dict[str, str] = {}
-    for name in RUNTIME_TREES:
-        subtree = plugin / name
-        if not subtree.exists():
-            continue
-        for relative, value in tree_records(subtree).items():
-            records[f"{name}/{relative}"] = value
-    return records
+    return {
+        name: digest(reviewed_file(plugin, name))
+        for name in public_manifest()
+        if Path(name).parts[0] in RUNTIME_TREES
+    }
 
 
 def svg_dimensions(path: Path) -> tuple[float, float]:
@@ -119,10 +105,12 @@ def validate_archive(path: Path) -> list[str]:
         return ["requested skills-only ZIP is missing"]
     expected = {
         f"agentic-course-redesign/{relative}"
-        for relative in tree_records(PUBLIC_PLUGIN)
+        for relative in public_manifest()
     }
     with zipfile.ZipFile(path) as archive:
         bad = archive.testzip()
+        if len(archive.namelist()) != len(set(archive.namelist())):
+            failures.append("duplicate ZIP member")
         names = {name for name in archive.namelist() if not name.endswith("/")}
         if bad:
             failures.append(f"ZIP CRC failure: {bad}")
@@ -141,7 +129,7 @@ def validate_archive(path: Path) -> list[str]:
                 "ZIP membership differs from public source: "
                 f"missing={sorted(expected - names)} extra={sorted(names - expected)}"
             )
-        for relative, expected_hash in tree_records(PUBLIC_PLUGIN).items():
+        for relative, expected_hash in public_manifest().items():
             member = f"agentic-course-redesign/{relative}"
             if member in names:
                 actual = hashlib.sha256(archive.read(member)).hexdigest().upper()
@@ -162,13 +150,14 @@ def main() -> int:
         if not condition:
             failures.append(detail or label)
 
+    verified_public_payload(PUBLIC_PLUGIN)
     manifest_path = PUBLIC_PLUGIN / ".codex-plugin" / "plugin.json"
     check("public manifest exists", manifest_path.is_file())
     manifest = json.loads(manifest_path.read_text(encoding="utf-8")) if manifest_path.is_file() else {}
     interface = manifest.get("interface", {})
 
     check("stable package name", manifest.get("name") == "agentic-course-redesign")
-    check("v0.2.5 OpenAI package version", manifest.get("version") == OPENAI_PACKAGE_VERSION)
+    check("v0.3.0 OpenAI package version", manifest.get("version") == OPENAI_PACKAGE_VERSION)
     check(
         "valid package name syntax",
         bool(re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,63}", str(manifest.get("name", "")))),
@@ -186,67 +175,14 @@ def main() -> int:
     check("display name length", 0 < len(interface.get("displayName", "")) <= 30)
     check("short description length", 0 < len(interface.get("shortDescription", "")) <= 30)
     long_description = interface.get("longDescription", "")
-    flattened_description = re.sub(r"\s+", " ", long_description).strip()
-    check("long description present", 0 < len(long_description) <= 4000)
-    listing_markers = (
-        "LECTURER / TEACHER CONTROL",
-        "Course Redesign Orchestrator",
-        "Course Mapper and Learning-Outcomes Auditor",
-        "Active-Learning Researcher",
-        "AI Integration and AI-Competence Researcher",
-        "Student Experience, Accessibility and Workload Proxy Critic",
-        "Assessment and Constructive-Alignment Designer",
-        "Source Verification and Citation Auditor",
-        "Evidence and Feasibility Red Team",
-        "Learning Designer",
-        "Learning Material Designer",
-        "Artefact Accessibility and Visual QA Auditor",
-        "Gate 0A:",
-        "Gate 0:",
-        "Gate 1:",
-        "HITL 1",
-        "HITL 2",
-        "HITL 3",
-        "Research",
-        "red-team review",
-        "Material production",
-        "assessment-security QA",
-        "production handoff",
-        "final system review",
-        "complete and dormant",
-        "One unresolved question at a time",
-        "Use a card only if the live host can show the complete option set plus custom answer",
-        "Verified current Codex in Plan mode: 2–3 explicit choices plus automatic Other",
-        "If capacity is unknown, unavailable or exceeded",
-        "ordinary chat with every valid numbered option plus Other, then wait",
-        "Never prune, hide or combine valid options to fit a card",
-        "dependency-based chunks with every option visible",
-        "lecturer may split, merge, reorder or rename them",
-    )
-    check(
-        "compact scannable public description",
-        len(long_description) <= 2400
-        and long_description.count("◆") == 5
-        and long_description.count("•") >= 10
-        and all(heading in long_description for heading in ("SPECIALIST TEAM (10)", "GATED WORKFLOW", "DECISION DIALOGUE", "BOUNDARY")),
-    )
-    check(
-        "public description preserves roles, lifecycle and dialogue contract",
-        all(marker in flattened_description for marker in listing_markers),
-    )
-    check(
-        "public description makes no unsupported Work cardinality claim",
-        re.search(r"\bWork\b", long_description) is None,
-    )
+    check("short readable directory description", 0 < len(long_description) <= 2400)
+    markers = ("Skip for now", "Ten specialists", "approve the blueprint", "browser preview")
+    check("listing explains entry, lecturer choices and review", all(marker in long_description for marker in markers))
     listing_copy = (REVIEW / "LISTING_COPY.md").read_text(encoding="utf-8")
-    normalized_listing_copy = " ".join(listing_copy.split())
-    check(
-        "listing copy preserves manifest description markers",
-        all(marker in normalized_listing_copy for marker in listing_markers),
-    )
+    check("published description and reviewed text match exactly", long_description in listing_copy)
     check("published developer identity", interface.get("developerName") == EXPECTED_PUBLISHER)
     check("website URL matches repository root", interface.get("websiteURL") == EXPECTED_WEBSITE)
-    check("privacy URL is pinned to v0.2.5", interface.get("privacyPolicyURL") == EXPECTED_PRIVACY)
+    check("privacy URL matches the maintained public policy", interface.get("privacyPolicyURL") == EXPECTED_PRIVACY)
     check("terms URL is pinned to v0.2.5", interface.get("termsOfServiceURL") == EXPECTED_TERMS)
     capabilities = interface.get("capabilities", [])
     check("capability count and shape", isinstance(capabilities, list) and len(capabilities) <= 20 and all(isinstance(item, str) and 0 < len(item) <= 120 for item in capabilities))
@@ -295,11 +231,11 @@ def main() -> int:
     custom_skill_records = tree_records(CUSTOM_PLUGIN / "skills")
     public_skill_records = tree_records(PUBLIC_PLUGIN / "skills")
     check(
-        "all six custom skill trees are byte-for-byte unchanged from v0.2.4",
+        "all six custom skill trees are byte-for-byte consistent with reviewed release hashes",
         custom_skill_records == EXPECTED_SKILL_TREE,
     )
     check(
-        "all six public skill trees are byte-for-byte unchanged from v0.2.4",
+        "all six public skill trees are byte-for-byte consistent with reviewed release hashes",
         public_skill_records == EXPECTED_SKILL_TREE,
     )
     check(
@@ -342,18 +278,9 @@ def main() -> int:
         and "APPROVE SYSTEM FILES" in system_skill
         and "A token-only reply is" in system_skill,
     )
-    strong_prompt_markers = (
-        "live host contract can show the complete option set plus a custom answer",
-        "verified Codex supports exactly two or three explicit choices plus automatic Other",
-        "capacity is unknown, unavailable or exceeded",
-        "show every valid numbered option plus Other",
-        "Never prune, hide or combine valid choices to fit cards",
-        "keep every option visible in dependency chunks",
-        "let the lecturer control grouping",
-    )
     check(
-        "public umbrella prompt preserves every option and lecturer-controlled grouping",
-        all(marker in umbrella_metadata for marker in strong_prompt_markers),
+        "umbrella explains source-free entry and asks about one decision",
+        "Skip for now" in umbrella_skill and "one question at a time" in umbrella_metadata,
     )
     dialogue_markers = (
         "Ask one unresolved",
@@ -404,7 +331,7 @@ def main() -> int:
     )
     check("public template uses state schema 8", public_state.get("schema_version") == 8)
     check(
-        "public template preserves v0.2.4 workflow base",
+        "public template preserves v0.3.0 workflow base",
         public_state.get("plugin_version") == BASE_WORKFLOW_VERSION,
     )
     check("public template remains inactive", public_state.get("status") == "candidate_not_active")
@@ -534,8 +461,8 @@ def main() -> int:
     checklist = (REVIEW / "LISTING_METADATA_CHECKLIST.md").read_text(encoding="utf-8")
     check("all owner markers are explicit", all(marker in checklist for marker in REQUIRED_OWNER_MARKERS))
     check(
-        "no fabricated support URL in candidate manifest",
-        "supportURL" not in manifest and "supportURL" not in interface,
+        "listing links to the public customer support page",
+        "supportURL" not in manifest and interface.get("supportURL") == EXPECTED_SUPPORT,
     )
 
     if args.archive:
@@ -546,14 +473,15 @@ def main() -> int:
         "schema_version": 1,
         "pass": not failures,
         "package_validation": "passed" if not failures else "failed",
-        "submission_ready": False,
+        "package_ready_for_upload": not failures,
+        "portal_status": "not_observed_by_offline_validator",
         "public_source_file_count": len(tree_records(PUBLIC_PLUGIN)),
         "skill_count": len(actual_skills),
         "positive_case_count": len(positives),
         "negative_case_count": len(negatives),
         "checks": checks,
         "failures": failures,
-        "owner_submission_blockers": OWNER_BLOCKERS,
+        "portal_checks": PORTAL_CHECKS,
     }
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0 if result["pass"] else 1

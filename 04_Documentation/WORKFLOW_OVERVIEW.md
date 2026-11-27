@@ -19,7 +19,7 @@ and no conversational selection replaces an authority gate.
 One isolated course project
         |
 Gate 0A: material basis + provider/environment eligibility
-        | eligible here, or route/segregate/stop before source paths
+        | skip and continue from a description, or check a specific source
         |
 Gate 0: sources, data, rights, tools, egress, audiences
         |
@@ -70,7 +70,7 @@ decision process.
 
 ## Gate semantics
 
-- **Gate 0A** occurs before a source path is requested, listed, read, copied or
+- **Gate 0A** offers a short source check and an explicit **Skip for now** route. Skip can reach all later gates and produce a new artefact from the course description. The source-specific check occurs before a source path is requested, listed, read, copied or
   fingerprinted. It records the material basis, AI-processing authority,
   sensitivity, assessment security, selected provider and approved environment.
   Institution-internal/restricted, mixed or uncertain material routes or blocks

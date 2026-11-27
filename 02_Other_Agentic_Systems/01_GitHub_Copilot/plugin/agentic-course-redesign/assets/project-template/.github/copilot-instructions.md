@@ -40,7 +40,7 @@ or cannot present the complete valid set, ask one ordinary chat question
 listing every valid numbered option plus `Other`, then wait. Mark the safest
 truthful, evidence-aligned, reversible recommendation but never preselect it.
 Select factual declarations only when true; uncertainty fails closed. Preserve
-and confirm custom answers. A blank or `Skip` response cannot advance.
+and confirm custom answers. An unanswered approval cannot advance. Choosing “Skip for now” at onboarding starts a source-free redesign.
 
 For very long sets, create dependency chunks only when choices share evidence
 or constrain one another; keep every valid option visible across chunks and let
