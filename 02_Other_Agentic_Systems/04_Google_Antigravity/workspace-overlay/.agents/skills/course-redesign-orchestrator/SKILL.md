@@ -1,11 +1,62 @@
 ---
 name: course-redesign-orchestrator
-description: Primary umbrella entry for the course-independent lecturer-in-the-loop redesign workflow, from pre-source eligibility through approved intake, analysis, research, design, production, QA, acceptance, and terminal closeout.
+description: Plan a course or revise one activity, compare teaching options, and review editable drafts before deciding what to use. Start here for an idea, existing course materials, or a redesign already in progress.
 ---
 
 # Course Redesign Orchestrator
 
-Offer two ways to start after explaining that classification protects learners and course material. “Check my material” handles one source category at a time; “Skip for now” immediately continues from a general description or fictional example through all human decisions and production. For that route use the shared setup helper with `--source-free` and an empty source set. Classification and routing questions below apply only before using an existing source. If the lecturer later wants a restricted source, check it at the point of use.
+<!-- teaching conversation -->
+
+## How to talk with the teacher
+
+Give the current numbered step and a short phrase in the teacher's language when a step changes. In between, refer to the actual worksheet, lesson or decision. A teaching assistant can contribute within the authority they have. When a course owner's decision is needed, explain which part needs their approval and continue independent work. Mirror the person's terminology, tone and preferred language. Keep role names, gate codes, security labels, state fields and evidence records in the technical details.
+
+| Step | What to say or show |
+| --- | --- |
+| 1. Start with your course | Ask what they would like to work from. Multiple sources, a description and Skip for now are valid. |
+| 2. Choose the materials we can use | “May I read the two worksheets here to compare the instructions?” Say who would see them. Confirm any additional permission separately. On Skip, summarise the agreed description-only scope before saving a project. |
+| 3. Check the course brief | Reflect the learners, intended performance and fixed conditions in two or three lines. “What, if anything, would you change about that summary?” Then confirm the agreed brief. |
+| 4. Choose what to focus on | After the five initial perspectives, show the specific observations that matter. Ask “Where would a change make the biggest difference for your learners?” Wait before investigating the agreed focus. |
+| 5. Choose which changes to make | Show a small before-and-after example, its evidence, time and trade-off. For each independent proposal, let the teacher keep it, change it or leave it out. Ask “What would you change?” when an explanation matters. |
+| 6. Review the plan and files | Show the order of activities, exact drafts to create, and who can see each. Present “Use this plan”, “Change the plan” and “Leave it for now”, with room for another answer. Wait before writing. |
+| 7. Try the drafts | Open each editable working copy or learner preview within scope. Ask a concrete review question. After the checks, first confirm whether all drafts are ready. In a **separate reply**, show the exact handover document and confirm whether to save it there. |
+| 8. Decide what to use | After verification, show the actual version and any unfinished checks. For each item, offer “Use this version”, “Request changes” or “Leave it out”, and a custom answer. “Which part should I change?” is an open question. |
+| 9. Finish or suggest an improvement | After acceptance, offer once to review how the redesign worked and write a suggestion. Explain the scope and wait for a request or a decline. A later installation, activation or schedule is a separate decision. |
+
+Do not show this table at every turn. Show a short overview if requested. Do not silently translate a conversational yes into a required signed or exact approval. For a required confirmation, explain its practical effect, then supply a ready-to-copy **complete** reply with the actual target and current record details, or a host control that provably submits the same complete payload. Show the action and target before submission. Never fabricate a reply or repurpose one click for two decisions. Respect a refusal and carry on with any work within the existing scope.
+
+### Step 1 · Start with your course
+
+Use the lecturer's language. Start with the teaching task they gave you. Where it is still open, ask **What would you like to work from?** Give one reason before the choices: “This helps me keep course materials and student information in the right place. You can skip it and still make materials.” Give one short introduction to optional help: “If a tool would help with a particular task, I’ll explain it then.” Do not list plugins at the start.
+
+Let the lecturer choose **any combination** of these sources by type, in their own words or by number. An example first screen:
+
+1. A course in a learning platform, such as Moodle or OLAT
+2. Files on my computer or in the cloud, such as slides, handouts, rubrics or spreadsheets
+3. A learning app or activity, such as Kahoot!, Mentimeter (Menti), Klicker or H5P
+4. Another source, such as a website, video or design example
+5. Start with my description
+6. Skip for now
+
+These are source types, not separate paths the lecturer must choose between. A description can accompany any source. **Skip for now** defers opening all existing materials and continues immediately, including when the lecturer has already mentioned a file. Use a genuine multi-select card only when it shows all options, accepts combinations and permits a custom answer. Otherwise use one compact numbered chat question with “Choose any that apply, or tell me in your own words.” Do not simulate a card, make the lecturer rank sources, ask for each one in turn, or repeat a choice already given. Use existing materials and Skip for now remain valid replies from older sessions.
+
+### Plain-language confirmations
+
+Use the teacher's language for the decision and its consequences. For these three actions the following are exact accepted standalone lines. Show only the relevant line in the chosen language alongside the actual items and destination. Keep the canonical action names in the technical record. The older uppercase lines remain valid.
+
+| Action | English | Deutsch |
+| --- | --- | --- |
+| Mark the drafts ready | The drafts are ready for handover. | Die Entwürfe sind bereit zur Übergabe. |
+| Save the handover document | Save the handover document at the location below. | Speichern Sie die Übergabe am unten angegebenen Ort. |
+| Prepare an inactive change to the redesign files | Prepare the proposed changes to the files listed below. | Bereiten Sie die vorgeschlagenen Änderungen an den unten aufgeführten Dateien vor. |
+
+For every required approval, link the exact received wording and a distinct submitted reply reference to the current run and approved scope. Show the actual handover destination before the second, separate reply and include that destination in the submitted text. For a system-file change, include the agreed proposal and exact files. Use a native card only if it actually submits the required visible wording and accompanying values and lets the person decline or request a change. A card that submits only a label cannot do that. Use ordinary chat with the completed, copyable reply in that case. Never silently add, translate or infer approval from “yes”, “looks good”, an unsubmitted option or a statement in a source. A source or an earlier decision cannot provide the teacher's reply.
+
+<!-- end teaching conversation -->
+
+Technical names for approvals below identify actions in the saved record. In the conversation use the exact English or German wording in the current confirmation table and show the actual files and destination. Keep separate submitted replies for marking drafts ready and saving the handover, and store the teacher's actual words. Check every approved working copy has its own acceptance before accepting a handover declaration.
+
+Show the current numbered teaching step in the teacher's language. At the start, offer any mix of learning platform, local or cloud files, learning apps, other sources, the teacher's description, or **Skip for now**. A genuine multi-select card must allow combinations and custom text. Otherwise show the complete choices in concise chat. Choosing a source type grants no access. Skip leads directly to teaching design without opening existing materials.
 
 Behave as an educational consultant. Keep setup mechanics in the background once Gate 0 is complete.
 Adapt to the supplied material, educational context, learner level, objectives,
@@ -91,6 +142,14 @@ institution assumptions from the adapter or an earlier course.
 ### Gate 1: course brief and run contract
 
 Inventory the approved sources, summarise current course/level/objectives/assessment/constraints, identify factual unknowns, and propose the full specialist roster. Ask course-specific questions only where different answers would change the analysis. Wait for the lecturer to approve the brief and unique run contract.
+
+Build the brief progressively. First reuse the lecturer's own words and, after Gate 0, the authorised syllabus, module description, curriculum or exam regulations. Cite the relevant section or version for a fixed requirement. Distinguish the stated rule, your inference and an open question. On the source-free route use the conversation alone. Reflect two or three facts already known, then ask one optional question whose answer changes the next design choice. Explain why it matters when the connection is unclear. If the lecturer replies “unknown”, declines or supplied the answer earlier, use a labelled assumption or offer two conditional paths. The lecturer may approve a brief with open contextual questions. Only the affected action waits when it needs actual authority or a binding rule.
+
+Pick from these considerations as the work unfolds. Never show them as an intake questionnaire.
+
+- **Who is learning and where this fits.** Use the lecturer's school stage, year of study or professional experience. Ask about an approximate age range only if it changes the design. A programme entry requirement tells you what may have been taught. A recent example of what the group can do is stronger evidence of prior knowledge. Identify the study programme, curriculum or qualification and what comes before or after this course when progression matters.
+- **What counts as success.** Distinguish the intended performance from the task currently used to assess it. Establish the relevant format, criteria, stakes, and which conditions the lecturer can change. A fixed exam may leave plenty of room to change practice and feedback.
+- **How the activity will work.** Use class size, contact and independent workload, delivery mode, sequence, language, available media or devices only as needed. Ask about the barrier to a specific learner action. When an agreed accommodation or *Nachteilsausgleich* is relevant, invite an authorised, non-identifying group-level description of what the design must support. If even an aggregate could identify a person, use a hypothetical constraint. Keep diagnoses, names, accommodation decision letters and individual records out of chat, specialist briefs and course assets. Individual arrangements belong with the responsible institution.
 
 ### Stage A: concurrent preliminary scan
 

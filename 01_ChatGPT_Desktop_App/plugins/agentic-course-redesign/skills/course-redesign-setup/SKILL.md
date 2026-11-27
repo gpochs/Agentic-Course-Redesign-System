@@ -1,9 +1,13 @@
 ---
 name: course-redesign-setup
-description: Set up one protected project for a course-independent agentic redesign workflow, from a general teaching goal or from materials the lecturer chooses to open. Use when a lecturer wants to create, initialise, install, or organise a course-redesign project, source manifest, access policy, agents, or folder structure.
+description: Start a course redesign with a description or a mix of learning platforms, apps and files. Use this to choose materials, agree who can use them and set up a separate working folder.
 ---
 
 # Course Redesign Setup
+
+## In conversation
+
+Ask what the teacher wants to work from. Accept multiple sources in one answer. In German, for example: **Schritt 1 · Womit möchten Sie beginnen?** “Sie können mehrere Quellen nennen, den Kurs kurz beschreiben oder diesen Schritt überspringen.” Discuss access only for the selected material. Continue immediately when they skip. Use a numbered step when it changes. Speak to the teacher in the language they use. Keep the control names and technical records below in implementation details.
 
 ## Lecturer Decision Dialogue Contract
 
@@ -17,8 +21,7 @@ approval gate, wait for a decision before advancing.
 The orchestrator is the sole lecturer-facing interface; specialist roles are
 evidence lenses and return questions through it. Ask one unresolved
 consequential question at a time. Before using a native choice card, follow the
-live host tool contract. Use a card only when it can present the complete,
-mutually exclusive option set and a custom-answer path without omission. Never
+live host tool contract. Use a single-choice card for a complete set of mutually exclusive options and a custom-answer path. Use a real multi-select card for independent options only when it supports the complete set, combinations and a custom answer. Otherwise use ordinary chat. Never
 prune, hide or combine valid choices merely to fit a card. If a native card is
 unavailable or unsupported, its capacity is unknown, or the complete set
 exceeds that capacity, ask the same single question in ordinary chat with every
@@ -46,10 +49,31 @@ Set up one course only. Do not combine unrelated courses in one project or sourc
 
 ## Participant onboarding
 
-Start with the orchestrator's two-way choice. Introduce controls as they become
+### Step 1 · Start with your course
+
+Use the lecturer's language. Start with the teaching task they gave you. Where it is still open, ask **What would you like to work from?** Give one reason before the choices: “This helps me keep course materials and student information in the right place. You can skip it and still make materials.” Give one short introduction to optional help: “If a tool would help with a particular task, I’ll explain it then.” Do not list plugins at the start.
+
+Let the lecturer choose **any combination** of these sources by type, in their own words or by number. An example first screen:
+
+1. A course in a learning platform, such as Moodle or OLAT
+2. Files on my computer or in the cloud, such as slides, handouts, rubrics or spreadsheets
+3. A learning app or activity, such as Kahoot!, Mentimeter (Menti), Klicker or H5P
+4. Another source, such as a website, video or design example
+5. Start with my description
+6. Skip for now
+
+These are source types, not separate paths the lecturer must choose between. A description can accompany any source. **Skip for now** defers opening all existing materials and continues immediately, including when the lecturer has already mentioned a file. Use a genuine multi-select card only when it shows all options, accepts combinations and permits a custom answer. Otherwise use one compact numbered chat question with “Choose any that apply, or tell me in your own words.” Do not simulate a card, make the lecturer rank sources, ask for each one in turn, or repeat a choice already given. Use existing materials and Skip for now remain valid replies from older sessions.
+
+The latest stated way of working takes precedence over an earlier source choice. If a teacher names real files, a quiz and an LMS but then says “I can describe them for now” or “Ich kann das zuerst nur beschreiben”, treat that as the description-only choice. Continue directly with the teaching goal or an example and skip every file-classification or access question until the teacher actually asks to open a particular item. Never treat naming materials or a service as a request to open them.
+
+A source type alone does not grant access. Confirm what may be read in which environment, and distinguish permission to view from permission to edit a named draft or share it. Group items under the same permission only when the lecturer's scope actually covers the group. Check exceptions separately, for example an institution's quiz bank linked from an otherwise public course. Continue with the permitted subset if another item is unavailable. When appropriate, invite the lecturer to select an authorised tab in the in-app browser or open a native editor for computer use. No discovery of other tabs or files. Ask for sign-in in the app itself. If no browser or native control is available, offer an export, a description or an editable local draft.
+
+Introduce the actual source-handling check only for selected existing materials. Introduce controls as they become
 relevant. `PARTICIPANT_QUICK_START.md` is at the shared-core root or under
 `assets/` in the Codex plugin. Local and cloud-synced output folders have
 different audiences; use the lecturer's chosen authorised location.
+
+Before source access, one optional teaching question is enough: “What would you like learners to do better?” Use a goal the lecturer already gave. Someone who is unsure can start with a fictional example. Keep cohort, programme, assessment and accessibility questions for the point where their answers affect a real choice. An optional context question never requires a file or a personal disclosure.
 
 ### Continue after Skip for now
 

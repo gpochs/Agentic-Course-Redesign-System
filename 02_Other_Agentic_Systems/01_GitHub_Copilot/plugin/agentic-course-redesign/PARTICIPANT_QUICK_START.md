@@ -1,22 +1,6 @@
-# Participant quick start — GitHub Copilot app
+# Start a course redesign in the GitHub Copilot app
 
-These instructions are for the standalone GitHub Copilot app, not GitHub
-Desktop or an editor extension.
-
-## Before installation
-
-You need a GitHub account, access to a GitHub Copilot plan, the GitHub Copilot
-app installed and signed in, Git installed, and Python 3 available as `python`
-for the packaged deterministic helpers. If your Copilot access is managed by
-an organization, its administrator may restrict the app or third-party plugin
-marketplaces.
-
-The plugin uses your existing Copilot access. It does not require an external
-model provider, API key, MCP server, publisher account, or publisher-operated
-service.
-
-Read the [lecturer’s walkthrough](assets/PARTICIPANT_QUICK_START.md) for
-the skip route, tool choices, and an example of the first decision.
+Sign in to the GitHub Copilot app with your existing plan. Choose a model included in your plan. For files and saved projects, the packaged helpers use Python 3.11 or later. The marketplace route uses Git. Check with your administrator if your organisation restricts third-party plugins.
 
 ## Install
 
@@ -51,33 +35,48 @@ copilot plugin install agentic-course-redesign@agentic-course-redesign-system
 copilot plugin list
 ```
 
-## Start one course project
+## Install for one project
 
-Use a project **Session**, not the app's general **Chats** area.
+For instructions for a single project, see the [Copilot installation guide](https://github.com/gpochs/Agentic-Course-Redesign-System/blob/main/02_Other_Agentic_Systems/01_GitHub_Copilot/PARTICIPANT_INSTALLATION.md).
 
-1. Add or select one isolated folder or repository for one course.
-2. Start a new session inside that project.
-3. Choose **Interactive** mode.
-4. Paste:
+## Open a course project
 
-   ```text
-   /agentic-course-redesign/course-redesign-orchestrator
+1. Open one course folder in a new project **Session**.
+2. Choose **Interactive** mode.
+3. With the account plugin, select the installed course-redesign orchestrator skill or type `/agentic-course-redesign/course-redesign-orchestrator` if Copilot offers it. For a project-only installation, ask for the `course-redesign` skill.
+4. Start with an example of your own, like the one below. Share the kind of material first. Keep individual learner records and teacher-only answers private.
 
-   Set up an agentic redesign project for this one course. Offer the short onboarding or Skip for now. Do not list, open, copy, hash, upload, or change course files yet. If I skip, continue from my description through every design and production decision.
-   ```
+## Start with your course
 
-   If the app does not autocomplete the qualified slash name, select the
-   `course-redesign-orchestrator` skill from the installed
-   `agentic-course-redesign` plugin and paste the remaining text.
+> My students tend to choose the right answer but cannot explain it. Help me revise one quiz question and its feedback. I may choose Skip for now and begin with this teaching goal alone.
 
-Do not initially disclose student personal data, submissions, grades,
-credentials, secrets, source filenames, or source paths. Only use material you
-are authorized to process with AI.
+1. **Start with your course.** Describe what you want learners to do. Choose **Skip for now** to go straight from your description to design, drafting and review. The material check helps keep course and student information in the right place.
+2. **Choose the materials we can use.** You can combine a course site such as Moodle or OLAT, Word or PowerPoint files, cloud slides or spreadsheets, learning apps such as Kahoot! or Mentimeter, and other resources. Select several, name your own, or continue with just your teaching goal. You decide which items may be opened and who can see the drafts.
+3. **Check the course brief.** Correct what the plugin understood. Leave a question open if the answer is unclear. Use your own words when explaining your priorities or giving feedback.
 
-Installation alone does not inspect files, start a redesign, activate a
-runtime, register automation, or schedule a run.
+Later you choose the focus, compare suggested changes, approve the plan and files, try each draft, and decide what to use. The plugin briefly introduces optional tools and recommends one when it would help with a particular task. It explains the benefit, access and any cost. You can approve that task or batch, ask for setup help, or use the built-in option. Student materials and teacher-only keys have separate destinations.
 
+[Follow all nine teaching steps](assets/PARTICIPANT_QUICK_START.md).
 
+## Remove
+
+In **Settings → Plugins**, uninstall `agentic-course-redesign`, then remove
+the `agentic-course-redesign-system` marketplace.
+
+```powershell
+copilot plugin uninstall agentic-course-redesign
+copilot plugin marketplace remove agentic-course-redesign-system
+```
+
+Remove the plugin first: Copilot normally refuses to remove a marketplace while
+one of its plugins remains installed.
+
+## Costs and support
+
+The plugin itself is free. Use the models covered by your existing Copilot plan. GitHub's usage limits and your organisation's policies still apply. For account access or a blocked installation, contact GitHub or your organisation's IT team. The publisher provides the plugin as-is, without a support SLA.
+
+<details>
+<summary>For maintainers troubleshooting an older Copilot installation</summary>
 
 ## Copilot dialogue behavior
 
@@ -93,7 +92,7 @@ long sets, it may use dependency chunks only where choices share evidence or
 constrain one another. Keep every valid option visible across chunks; you may
 split, merge, reorder or rename their grouping. Recommendations are
 evidence-aligned, reversible, and never preselected; factual declarations must
-be true, uncertainty fails closed, custom answers are preserved and confirmed,
+be true, uncertainty fails closed, custom answers are preserved and confirmed.
 An unanswered approval cannot advance. Choosing “Skip for now” at onboarding starts a source-free redesign, and exact authority approvals remain separate.
 
 ## Copilot 1.0.80 BYOK compatibility
@@ -133,25 +132,6 @@ server or plugin does not repair poisoned task history; no MCP, hook,
 authentication, or additional permission is required or added.
 
 Rollback, if deliberately chosen by the operator, is
-`0.2.4-copilot.2`; rollback does not install or activate itself.
+`0.3.0`; rollback does not install or activate itself.
 
-## Remove
-
-In **Settings → Plugins**, uninstall `agentic-course-redesign`, then remove
-the `agentic-course-redesign-system` marketplace.
-
-```powershell
-copilot plugin uninstall agentic-course-redesign
-copilot plugin marketplace remove agentic-course-redesign-system
-```
-
-Remove the plugin first: Copilot normally refuses to remove a marketplace while
-one of its plugins remains installed.
-
-## Cost and support boundary
-
-The plugin is provided free of charge and as-is. It has no publisher-operated
-server, API key, MCP service, authentication service, paid hosting, telemetry,
-or support SLA. Your normal GitHub Copilot plan, usage limits, organization
-policies, and any associated GitHub costs still apply. Account, policy, or
-platform problems belong with GitHub or your organization's IT support.
+</details>

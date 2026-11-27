@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "plugin": "agentic-course-redesign",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "prompts": [
-    "Start from a teaching goal. I want to redesign a lesson without opening my course files.",
-    "Help me improve an activity, an assessment and the materials my students will use.",
-    "Resume my course redesign and show me the next decision I need to make."
+    "Help me improve a lesson. I want to start with my teaching goal and skip sharing files.",
+    "I have a syllabus. Help me decide what to keep and what to change.",
+    "Resume my course redesign. Show me the next decision in plain language."
   ]
 }

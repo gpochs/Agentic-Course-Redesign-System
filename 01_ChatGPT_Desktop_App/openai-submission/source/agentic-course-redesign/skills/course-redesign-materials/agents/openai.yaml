@@ -1,4 +1,4 @@
 interface:
-  display_name: "Course Redesign Materials"
-  short_description: "Produce and validate accessible course files."
-  default_prompt: "Use $course-redesign-materials to create only the approved course files and run full independent artefact QA."
+  display_name: "Make and check teaching materials"
+  short_description: "Create editable drafts and try them as a learner."
+  default_prompt: "Use $course-redesign-materials. Create the teaching materials we agreed on and show me how they work."

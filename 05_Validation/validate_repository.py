@@ -15,7 +15,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent.parent
-CURRENT_VERSION = "0.3.0"
+CURRENT_VERSION = "0.3.2"
 CURRENT_OPENAI_PACKAGE_VERSION = CURRENT_VERSION
 CURRENT_STATE_SCHEMA = 8
 EXPECTED_TOP_LEVEL = {
@@ -303,8 +303,16 @@ def validate_orchestration_entry(path: Path) -> list[dict[str, str]]:
                 )
                 and "second" in declaration_context
             ),
-            "both approval tokens are standalone lines": terminal_context.count("standalone line")
-            >= 2,
+            "both confirmations require standalone lines": (
+                terminal_context.count("standalone line") >= 2
+                or (
+                    "exact accepted standalone lines" in text
+                    and "the drafts are ready for handover." in text
+                    and "die entwürfe sind bereit zur übergabe." in text
+                    and "speichern sie die übergabe am unten angegebenen ort." in text
+                    and "save the handover document at the location below." in text
+                )
+            ),
             "second reply repeats the exact target": (
                 bool(re.search(r"exact.{0,160}target", terminal_context))
                 and "repeat" in terminal_context
@@ -368,8 +376,14 @@ def validate_orchestration_entry(path: Path) -> list[dict[str, str]]:
                         "detail": phrase,
                     }
                 )
+        offer_context = text[max(0, question_position - 1800) : question_position]
+        if "exactly once" not in offer_context and "ask once" not in offer_context:
+            findings.append({
+                "path": display_path(path),
+                "kind": "system_review_offer_control_missing",
+                "detail": "offer once after acceptance",
+            })
         for phrase in (
-            "exactly once",
             "authorises only that review and proposal",
             "does not authorise system-file changes",
             "offered_awaiting_response",

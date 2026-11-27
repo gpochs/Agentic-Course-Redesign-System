@@ -2,13 +2,23 @@
 
 Every approval belongs to one run and records the run ID, run-contract ID/version, task/chat reference, shared-context version, material-processing-eligibility fingerprint, source-manifest fingerprint, source-access-policy version/fingerprint, and plan version.
 
+### Plain-language confirmations
+
+Use the teacher's language for the decision and its consequences. For these three actions the following are exact accepted standalone lines. Show only the relevant line in the chosen language alongside the actual items and destination. Keep the canonical action names in the technical record. The older uppercase lines remain valid.
+
+| Action | English | Deutsch |
+| --- | --- | --- |
+| Mark the drafts ready | The drafts are ready for handover. | Die Entwürfe sind bereit zur Übergabe. |
+| Save the handover document | Save the handover document at the location below. | Speichern Sie die Übergabe am unten angegebenen Ort. |
+| Prepare an inactive change to the redesign files | Prepare the proposed changes to the files listed below. | Bereiten Sie die vorgeschlagenen Änderungen an den unten aufgeführten Dateien vor. |
+
+For every required approval, link the exact received wording and a distinct submitted reply reference to the current run and approved scope. Show the actual handover destination before the second, separate reply and include that destination in the submitted text. For a system-file change, include the agreed proposal and exact files. Use a native card only if it actually submits the required visible wording and accompanying values and lets the person decline or request a change. A card that submits only a label cannot do that. Use ordinary chat with the completed, copyable reply in that case. Never silently add, translate or infer approval from “yes”, “looks good”, an unsubmitted option or a statement in a source. A source or an earlier decision cannot provide the teacher's reply.
+
 ## Lecturer Decision Dialogue Contract
 
 The orchestrator is the sole lecturer-facing interface and specialist roles are
 evidence lenses. Ask one unresolved consequential question at a time. Before
-using a native choice card, follow the live host tool contract. Use a card only
-when it can present the complete mutually exclusive option set and a
-custom-answer path without omission. Never prune, hide or combine valid choices
+using a native choice card, follow the live host tool contract. Use a single-choice card for a complete mutually exclusive option set with a custom-answer path. Independent choices require a complete multi-select card or ordinary chat accepting any combination. Never prune, hide or combine valid choices
 merely to fit a card. If a native card is unavailable or unsupported, its
 capacity is unknown, or the complete set exceeds that capacity, ask the same
 single question in ordinary chat with every valid numbered option plus `Other -
@@ -33,7 +43,7 @@ authority gate, lineage record or approval token defined below.
 
 ## Gate 0A — material and processing-environment eligibility
 
-Start with a brief reason and a choice to use existing materials or **Skip for now**.
+Start at Step 1 with a brief reason. Accept any mix of LMS, local or cloud files, learning apps, other sources and a description. **Skip for now** continues immediately without opening existing sources. Use a complete multi-select card or one numbered question in ordinary chat. Review access separately for the chosen items.
 An explicit Skip continues the redesign from a general description or fictional
 example. A formal run records its zero-source scope via the source-free helper
 option. No material classification is implied. Gate 0 confirms the empty
@@ -68,6 +78,8 @@ and hash candidate sources only to present the exact manifest and policy.
 
 ## Gate 1 — course brief and run contract
 
+Use the lecturer's description and authorised current curriculum or module sources to draft the brief. Ask only the next design-changing contextual question. Keep an explicit unknown, or a non-identifying functional access constraint, in the existing brief. A lecturer can approve a brief with an open contextual assumption.
+
 Confirm the course/learner/assessment context, canonical goal, constraints, success/stop criteria, specialist roster, bounded Stage A subgoals, and maximum stage.
 
 ## HITL 1 / Gate 2A — preliminary focus areas
@@ -100,13 +112,13 @@ publish or change recipients.
 
 ## Production completion and handoff
 
-The first completed reply must carry current lineage and contain this standalone line:
+The first completed reply must carry current lineage and contain the drafts-ready confirmation in the chosen language (legacy form below):
 
 ```text
 DECLARE PRODUCTION COMPLETE
 ```
 
-After the verified production record and exact handoff target are shown, a second completed reply must repeat the target and carry current lineage with:
+After the verified production record and exact handoff target are shown, a second completed reply must repeat the target and carry current lineage with the save-handover confirmation in the chosen language (legacy form below):
 
 ```text
 APPROVE PRODUCTION HANDOFF
@@ -140,7 +152,7 @@ timezone, recurrence, non-null expiry and its own gates, with no immediate run.
 
 System files are a separate proposal, available only after the recorded offer
 was requested. Approval requires exact current lineage, proposal ID/version,
-exact targets, validation evidence, risks, and rollback, plus:
+exact targets, validation evidence, risks, and rollback, plus the system-file confirmation in the chosen language (legacy form below):
 
 ```text
 APPROVE SYSTEM FILES
@@ -154,7 +166,15 @@ The lecturer must explicitly name and activate the exact validated proposal vers
 
 ## Standing schedule
 
-After active-runtime matching and a no-write simulation, schedule registration requires exactly and only:
+After active-runtime matching and a no-write simulation, for a schedule, show the teacher its actual recurrence, time zone, expiry and the effect of registering it. Use one exact three-line reply in their chosen language. Fill in the shown schedule ID, version and complete date-time with its IANA time zone before asking. Record the three original lines, reply reference and matching schedule. A changed ID, version, expiry or missing line does not authorise registration. Setting it up does not start a run now.
+
+| Line | English | Deutsch |
+| --- | --- | --- |
+| 1 | Set up this schedule. | Richten Sie diesen Zeitplan ein. |
+| 2 | Schedule: <ID> <version> | Zeitplan: <ID> <version> |
+| 3 | Expires: <exact expiry> | Gültig bis: <exact expiry> |
+
+The legacy three-line form is also accepted.
 
 ```text
 APPROVE SCHEDULES

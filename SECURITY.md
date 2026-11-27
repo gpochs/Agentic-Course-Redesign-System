@@ -18,17 +18,21 @@ the affected version, platform and minimal synthetic reproduction.
 The main risks are prompt injection in course files, unintended egress of
 protected material, answer-key leakage, overly broad filesystem writes,
 stale approval lineage, adapter drift, malicious dependencies and accidental
-publication. Gate 0A offers a source-free route through the full workflow. Access to existing course material needs a scoped decision. The workflow treats course content as untrusted evidence, records
-exact eligibility and source/access lineage, restricts writes to approved
-targets, separates audiences and requires human decisions at gates.
+publication. A teacher can choose **Skip for now** and finish a redesign from a
+description. Before opening existing course material, the assistant checks
+which items the teacher may use, where they may be processed and who may see
+the result. It records that decision and the identity of each approved copy.
 
-In a personal or otherwise unmanaged environment, Gate 0A permits source
+In a personal or otherwise unmanaged environment, the workflow permits source
 processing only when the lecturer has both a valid material basis—private
 ownership, rightsholder authorisation or an appropriate licence/public-use
 basis—and authority to process it with the selected provider. Public
 availability alone is insufficient. Institution-internal or restricted
 material is route-only until the exact approved environment, scope and policy
-reference are confirmed. Mixed or uncertain collections fail closed.
+reference are confirmed. If permission is unclear for one source, leave that
+source closed. Work can continue with a description and any separately
+cleared items. A permission covering one file does not extend to a linked quiz,
+chatbot or shared question bank.
 
 ## Instructions embedded in teaching materials
 

@@ -1,9 +1,15 @@
 ---
 name: course-redesign-materials
-description: Produce and independently validate approved editable course materials in formats required by the supplied context, including documents, slides, PDFs, worksheets, assessment files and facilitator guides. Use after exact-target approval for design, citations, media, accessibility, formatting, rendering or package QA.
+description: Make approved teaching materials such as slides, handouts, spreadsheets, quizzes or private online activities. Open the actual drafts and test what a learner would do before the teacher reviews them.
 ---
 
 # Course Redesign Materials
+
+## In conversation
+
+At **Step 6 · Review the plan and files**, name the actual files or private draft activities. At **Step 7 · Try the drafts**, show the exact version in its intended view and say what was tested. Ask “What would you change on this slide?” At **Step 8 · Decide what to use**, keep acceptance, revision and rejection available for each item. Use a numbered step when it changes. Speak to the teacher in the language they use. Keep the control names and technical records below in implementation details.
+
+If a previous confirmation is missing or cannot be verified, check your own records first. Never ask the teacher for internal IDs, run details, fingerprints or a missing approval record. Explain only the real teaching consequence: “I still need to check which two drafts you want to hand over” or “Wo soll ich die fertigen Unterlagen ablegen?” If the exact object is already known, simply ask the person to confirm the named action. Keep the extra technical confirmation, if the host genuinely requires one, after this explanation and fill it out for them to review.
 
 ## Lecturer Decision Dialogue Contract
 
@@ -17,8 +23,7 @@ approval gate, wait for a decision before advancing.
 The orchestrator is the sole lecturer-facing interface; specialist roles are
 evidence lenses and return questions through it. Ask one unresolved
 consequential question at a time. Before using a native choice card, follow the
-live host tool contract. Use a card only when it can present the complete,
-mutually exclusive option set and a custom-answer path without omission. Never
+live host tool contract. Use a single-choice card for a complete set of mutually exclusive options and a custom-answer path. Use a real multi-select card for independent options only when it supports the complete set, combinations and a custom answer. Otherwise use ordinary chat. Never
 prune, hide or combine valid choices merely to fit a card. If a native card is
 unavailable or unsupported, its capacity is unknown, or the complete set
 exceeds that capacity, ask the same single question in ordinary chat with every
@@ -88,6 +93,8 @@ when resolving a pedagogical or accessibility trade-off.
 
 Use separate student and teacher targets. Scan visible text, editable layers, text boxes, comments, notes, metadata, alt text, hidden objects, model responses, and derived PDFs for key leakage. Accessible assessment derivatives must expose only the assigned item, never an entire secure bank.
 
+When the lecturer specifies copies only, verify the exact parent and linked resource identities in the editor before each write and after saving. A duplicated LMS course can reference an original quiz or chatbot knowledge base. Follow the [copy and dependency check](references/artifact-review.md#when-the-lecturer-authorises-copies-only).
+
 ## Missing production or preview access
 
 When an approved deliverable depends on an unavailable editor, preview, format skill or LMS, tell the orchestrator exactly which operation needs it, which data and permissions it involves, and what the installed tools can deliver now. For example, a quiz export can check item wording and scoring keys while the private LMS learner preview is needed to verify release timing. Keep the supported work moving when the lecturer declines a connection. Mark the remaining check as unverified.
@@ -109,7 +116,7 @@ Correct direct defects, rerender, rerun targeted and regression checks, and repo
 
 ## GitHub Copilot native `ask_user` capacity override
 
-This Copilot-only host rule applies the shared core's host-capacity contract to the demonstrated GitHub Copilot host; it changes no option, gate, evidence requirement, or workflow meaning. Keep one unresolved consequential question at a time. Use the native `ask_user` card for the complete valid option set whenever the live GitHub Copilot host accepts it. A live Copilot host has demonstrated at least five explicit choices plus a custom-answer field; this is an observed capability, not a maximum. Do not state or assume an unsupported maximum. Never prune, hide or combine valid choices merely to fit a card. If the host rejects or cannot present the complete valid set, ask one ordinary chat question listing every valid numbered option plus `Other`, then wait. For very long sets, dependency chunks are allowed only when choices share evidence or constrain one another; keep every valid option visible across chunks, explain the grouping, and let the lecturer split, merge, reorder or rename it.
+This Copilot-only host rule applies the shared core's host-capacity contract to the demonstrated GitHub Copilot host; it changes no option, gate, evidence requirement, or workflow meaning. Keep one unresolved consequential question at a time. Use the native `ask_user` card for the complete valid option set whenever the live GitHub Copilot host accepts it. A live Copilot host has demonstrated at least five explicit choices plus a custom-answer field; this is an observed capability, not a maximum. Do not state or assume an unsupported maximum. Never prune, hide or combine valid choices merely to fit a card. If the host rejects or cannot present the complete valid set, ask one ordinary chat question listing every valid numbered option plus `Other`, then wait. For very long sets, dependency chunks are allowed only when choices share evidence or constrain one another; keep every valid option visible across chunks, explain the grouping, and let the lecturer split, merge, reorder or rename it. A card that returns one choice cannot record a mix of tools or materials. For course sources use a verified multi-select only if it accepts all six options, combinations and a custom answer. Otherwise offer the full numbered set in one chat question. Ask about teaching priorities and feedback in the person's own words. Confirm access to a named task or batch when needed.
 
 ## GitHub Copilot 1.0.80 BYOK file-mutation override
 

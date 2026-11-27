@@ -98,6 +98,27 @@ def load_tagged_v022_state() -> dict:
 
 
 class SharedCoreTests(unittest.TestCase):
+    def test_context_is_optional_and_the_gate_links_its_examples(self) -> None:
+        orchestrator = CORE / "agent-skills/course-redesign-orchestrator"
+        skill = (orchestrator / "SKILL.md").read_text(encoding="utf-8")
+        gate = skill.split("### Gate 1:", 1)[1].split("\n### ", 1)[0].casefold()
+        for requirement in ("source-free route", "one optional question", "open contextual questions"):
+            with self.subTest(requirement=requirement):
+                self.assertIn(requirement, gate)
+        self.assertIn("references/role-evidence.md#asking-about-course-context", gate)
+        role_guide = (orchestrator / "references/role-evidence.md").read_text(encoding="utf-8")
+        self.assertIn("### Asking about course context", role_guide)
+
+    def test_materials_entry_point_routes_to_the_linked_copy_check(self) -> None:
+        materials = CORE / "agent-skills/course-redesign-materials"
+        skill = (materials / "SKILL.md").read_text(encoding="utf-8")
+        self.assertIn("references/artifact-review.md#when-the-lecturer-authorises-copies-only", skill)
+        guide = (materials / "references/artifact-review.md").read_text(encoding="utf-8")
+        copy_check = guide.split("## When the lecturer authorises copies only", 1)[1].split("\n## ", 1)[0].casefold()
+        for requirement in ("before each write", "stable id", "separately approved copy", "hold that write", "after saving"):
+            with self.subTest(requirement=requirement):
+                self.assertIn(requirement, copy_check)
+
     @classmethod
     def setUpClass(cls) -> None:
         cls.setup = load_module("shared_setup", SETUP_PATH)
@@ -869,6 +890,86 @@ class SharedCoreTests(unittest.TestCase):
         state["plugin_version"] = "0.2.4"
         self.assertEqual(self.validator.validate(state), [])
 
+    def test_completed_material_review_covers_each_working_copy_once(self) -> None:
+        state, run = self.completed_run_state()
+        targets = run["approvals"]["gate_3"]["approved_material_targets"]
+        receipts = run["approvals"]["artefact_gate"]["artefacts"]
+        first = targets[0]
+        folder = first["relative_path"].rsplit("/", 1)[0]
+        handout = f"{folder}/Handout.md"
+        release = "05_Approved/Handout.md"
+        targets.append({**first, "relative_path": handout})
+        targets.append({**first, "relative_path": release, "target_type": "approved_release"})
+        errors = self.validator.validate(state)
+        self.assertTrue(any(handout in err and "missing a working-copy review" in err for err in errors))
+        self.assertFalse(any(release in err for err in errors))
+        receipts.append(dict(receipts[0]))
+        self.assertTrue(any("repeats a target review" in err for err in self.validator.validate(state)))
+        receipts[-1].update(target=handout, artefact_id="HANDOUT", qa_reference="QA-HANDOUT",
+                            acceptance_reference="REVIEW-HANDOUT")
+        self.assertEqual(self.validator.validate(state), [])
+        receipts.append({**receipts[-1], "target": release, "artefact_id": "RELEASE-HANDOUT"})
+        self.assertEqual(self.validator.validate(state), [])
+
+    def test_teacher_confirmations_preserve_the_reply_language_and_scope(self) -> None:
+        confirmations = (
+            ("The drafts are ready for handover.", "Save the handover document at the location below.",
+             "Prepare the proposed changes to the files listed below."),
+            ("Die Entwürfe sind bereit zur Übergabe.", "Speichern Sie die Übergabe am unten angegebenen Ort.",
+             "Bereiten Sie die vorgeschlagenen Änderungen an den unten aufgeführten Dateien vor."),
+        )
+        for declare, hand_over, prepare in confirmations:
+            with self.subTest(declaration=declare):
+                state, run = self.completed_run_state()
+                production = run["approvals"]["production_completion"]
+                first = production["declaration"]["completed_reply"]
+                second = production["handoff_approval"]["completed_reply"]
+                first["standalone_line"] = declare
+                second["standalone_line"] = hand_over
+                update = state["activation"]["system_update"]
+                state["activation"]["validation_run_id"] = "CHECK"
+                exact_target = "agent-skills/course-redesign-materials/SKILL.md"
+                update.update(status="candidate_change_approved", proposal_id="SYNTHETIC-PROPOSAL",
+                              proposal_version="v1", proposal_reference="DEMO",
+                              proposed_exact_targets=[exact_target])
+                approval = update["approval"]
+                approval.update(self.validator._expected_lineage(run))
+                approval.update(standalone_line=prepare, proposal_id=update["proposal_id"], proposal_version="v1",
+                                validation_run_id="CHECK", approved_exact_targets=[exact_target],
+                                completed_reply_reference="REVIEW-CANDIDATE", validation_status="passed",
+                                recorded_at="2026-08-21T10:10:00Z",
+                                system_improvement_review_offer_reference="OFFER-001")
+                self.assertEqual(self.validator.validate(state), [])
+                self.assertEqual(first["standalone_line"], declare)
+                self.assertEqual(second["standalone_line"], hand_over)
+                self.assertEqual(approval["standalone_line"], prepare)
+                for receipt in (first, second, approval):
+                    actual = receipt["standalone_line"]
+                    for incomplete in ("yes", "Ja", actual + "\\n" + actual):
+                        receipt["standalone_line"] = incomplete
+                        self.assertTrue(self.validator.validate(state))
+                    receipt["standalone_line"] = actual
+                second["repeated_exact_handoff_target"] = "04_Working_Copies/other.md"
+                self.assertTrue(any("repeat the exact handoff target" in error for error in self.validator.validate(state)))
+
+    def test_schedule_approvals_require_matching_labels_values_and_expiry(self) -> None:
+        for first, label, expiry in (
+            ("Set up this schedule.", "Schedule:", "Expires:"),
+            ("Richten Sie diesen Zeitplan ein.", "Zeitplan:", "Gültig bis:"),
+        ):
+            with self.subTest(first=first):
+                state, contract = self.historical_schedule_state("paused")
+                approval = contract["lecturer_approval"]
+                approval.update(line_1=first, line_2=f"{label} {contract['contract_id']} {contract['contract_version']}",
+                                line_3=f"{expiry} {contract['expires_at']}")
+                self.assertEqual(self.validator.validate(state), [])
+                for field, incorrect in (("line_1", "yes"), ("line_2", f"{label} OTHER v1"),
+                                         ("line_3", f"{expiry} 2025-12-30T23:59:59+00:00[UTC]")):
+                    actual = approval[field]
+                    approval[field] = incorrect
+                    self.assertTrue(self.validator.validate(state))
+                    approval[field] = actual
+
     def test_external_draft_receipt_binds_destination_and_saved_identity(self) -> None:
         state, run = self.completed_run_state()
         gate = run["approvals"]["gate_3"]
@@ -954,7 +1055,7 @@ class SharedCoreTests(unittest.TestCase):
 
     def test_shared_state_is_schema_8_inactive_unscheduled_and_pre_source(self) -> None:
         self.assertEqual(self.state["schema_version"], 8)
-        self.assertEqual(self.state["plugin_version"], "0.3.0")
+        self.assertEqual(self.state["plugin_version"], "0.3.2")
         self.assertEqual(self.state["status"], "candidate_not_active")
         self.assertEqual(self.state["schedules"], [])
         self.assertEqual(

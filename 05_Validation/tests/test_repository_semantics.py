@@ -162,6 +162,20 @@ class RepositorySemanticTests(unittest.TestCase):
             }
             self.assertIn("system_review_question_scope_incomplete", kinds)
 
+    def test_missing_instruction_to_offer_review_once_is_reported(self) -> None:
+        source = ROOT / "03_Shared_Workflow_Core/agent-skills/course-redesign-orchestrator/SKILL.md"
+        original = source.read_text(encoding="utf-8")
+        repeated = original.replace("exactly once", "again").replace("ask once", "ask again")
+        self.assertNotEqual(original, repeated)
+        with tempfile.TemporaryDirectory() as raw:
+            candidate = Path(raw) / "SKILL.md"
+            candidate.write_text(repeated, encoding="utf-8")
+            findings = self.validator.validate_orchestration_entry(candidate)
+            self.assertIn(
+                ("system_review_offer_control_missing", "offer once after acceptance"),
+                [(item["kind"], item["detail"]) for item in findings],
+            )
+
     def test_terminal_gate_mutations_fail_closed(self) -> None:
         source = (
             ROOT
@@ -177,9 +191,9 @@ class RepositorySemanticTests(unittest.TestCase):
                 "two completed current-lineage replies",
             ),
             (
-                " as a standalone line",
-                "",
-                "both approval tokens are standalone lines",
+                "exact accepted standalone lines",
+                "suggested decision phrases",
+                "both confirmations require standalone lines",
             ),
             (
                 "second, separate completed current-lineage reply",

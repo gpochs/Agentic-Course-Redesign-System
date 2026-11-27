@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "core_version": "0.3.0",
+  "core_version": "0.3.2",
   "state_schema_version": 8,
   "status": "candidate_not_active",
   "schedules": [],
@@ -25,6 +25,7 @@
     "subject_level_qualification_and_institutional_policy_assumptions_forbidden": true
   },
   "pre_source_processing_eligibility": {
+    "teacher_source_selection": "any_combination_of_lms_local_or_cloud_files_learning_apps_other_sources_and_description_or_skip_for_now",
     "optional_onboarding_choice": "use_existing_materials_or_skip_for_now",
     "skip_for_now": "continue_from_general_description_or_fictional_example_with_no_existing_source_access",
     "source_free_durable_run": "explicit_source_free_record_header_only_manifest_zero_per_source_entries_ordinary_gates",

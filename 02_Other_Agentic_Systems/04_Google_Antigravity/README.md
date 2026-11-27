@@ -1,4 +1,4 @@
-# Google Antigravity adapter for Agentic Course Redesign
+# Agentic Course Redesign for Google Antigravity
 
 ## Install the native plugin
 
@@ -9,31 +9,33 @@ python 02_Other_Agentic_Systems/build_host_package.py antigravity <new-plugin-di
 agy plugin validate --strict <new-plugin-directory>
 ```
 
-Open Customizations in Antigravity and confirm the six skills and ten specialists. Use the orchestrator with the highest reasoning setting your existing subscription offers for Gemini 4 Carbon. Specialists inherit the selected model. Try “Redesign my course from a description and skip the material check for now.” The lecturer still approves the design and each working draft. If the user chooses an LMS, invite them to open the specific course in the host browser before showing a draft. The standalone plugin and the earlier workspace overlay below are alternative installation routes.
+Open **Customizations** and check that the six skills and ten specialists are available. Choose the Gemini model and reasoning setting included in your subscription. For Gemini 4 Carbon, use the highest included setting available. Start a course conversation with the redesign orchestrator.
 
-[Google Antigravity plugin installation](https://antigravity.google/docs/plugins)
+## Start with your course
+
+> My students can read a runoff table but struggle to justify a design choice. Help me revise the next studio exercise.
+
+1. **Start with your course.** Describe what you want learners to do. Choose **Skip for now** to go straight from your description to design, drafting and review. The material check helps keep course and student information in the right place.
+2. **Choose the materials we can use.** You can combine a course site such as Moodle or OLAT, Word or PowerPoint files, cloud slides or spreadsheets, learning apps such as Kahoot! or Mentimeter, and other resources. Select several, name your own, or continue with just your teaching goal. You decide which items may be opened and who can see the drafts.
+3. **Check the course brief.** Correct what the plugin understood. Leave a question open if the answer is unclear. Use your own words when explaining your priorities or giving feedback.
+
+Later you choose the focus, compare suggested changes, approve the plan and files, try each draft, and decide what to use. The plugin briefly introduces optional tools and recommends one when it would help with a particular task. It explains the benefit, access and any cost. You can approve that task or batch, ask for setup help, or use the built-in option. Student materials and teacher-only keys have separate destinations.
+
+[Follow all nine teaching steps](https://github.com/gpochs/Agentic-Course-Redesign-System/blob/main/03_Shared_Workflow_Core/PARTICIPANT_QUICK_START.md).
+
+If you want to try an online activity, tell Antigravity which private course draft to open. Sign in yourself when requested. Browser preview depends on your installed app and account. You can also request an editable local copy or work from your description. [Antigravity browser capabilities](https://antigravity.google/docs/browser) · [Plugin installation](https://antigravity.google/docs/plugins)
+
+<details>
+<summary>For maintainers using the manual project overlay</summary>
 
 ## Manual project overlay
 
 
-Adapter version `0.3.0` is a project-local, course-independent inactive
-candidate reconciled to shared candidate `ACR-SYS-20261127-001` v0.3.0. It
-adapts to the lecturer-supplied subject, educational level, learners,
-objectives, assessment, language, constraints, and material formats. It makes
-pre-source Gate 0A, the one-decision lecturer interaction contract, verified
-production handoff before HITL 3, durable schema-8 recovery, terminal
-`complete_dormant` closeout, and the proposal-only system-review lifecycle
-explicit. A native card is used only when the live host can show the complete
-option set plus a custom-answer path; otherwise every valid numbered option
-remains visible in ordinary chat. No choice is pruned, hidden or combined to fit a card, including inside
-lecturer-controlled dependency chunks. It does not activate any runtime or schedule. It contains one complete
-one-course workspace overlay with root `AGENTS.md`, native rules, slash
-workflows, six Agent Skills, ten read-only custom subagents, source-integrity
-helpers, and the inactive Gate/state scaffold.
+The workspace overlay includes native rules, slash commands, six skills, ten read-only agents and source-integrity helpers.
 
 Machine-readable release identity is exposed at the top level of
 `adapter-manifest.json` as platform `google-antigravity`, adapter version
-`0.3.0`, and status `candidate_not_active`.
+`0.3.2`, and status `candidate_not_active`.
 
 It does **not** install or access Antigravity, change global configuration or
 IDE permissions, activate a runtime, register a schedule, connect an MCP
@@ -147,7 +149,9 @@ PASS does not prove Antigravity runtime behaviour; see
 
 ## Source and licence
 
-`adapter-manifest.json` records the actual SHA-256 values of the shared v0.3.0
+`adapter-manifest.json` records the actual SHA-256 values of the shared v0.3.2
 canonical files used and every adapter output covered by integrity checks. The
 shared source was read only. Adapted material remains under the included MIT
 licence; third-party and data boundaries are in `THIRD_PARTY_NOTICES.md`.
+
+</details>

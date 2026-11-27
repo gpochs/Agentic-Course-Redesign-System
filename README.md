@@ -1,17 +1,18 @@
 # Agentic Course Redesign System
 
-Agentic Course Redesign System is a course-independent, lecturer-controlled
-workflow for analysing, researching, redesigning, producing and validating
-course materials. It is designed for school, vocational, professional and
-higher-education contexts. The workflow adapts to the supplied course rather
-than assuming a subject, level, grading scale or assessment format.
+Use Agentic Course Redesign to improve a lesson, an assessment or a whole course.
+Tell the assistant what you teach and what you would like learners to do better.
+It can work from a description, a folder of teaching materials, an online course
+or a mix. You choose the focus and review the changes before using them with
+learners. The same workflow serves school, vocational, professional and
+higher-education courses.
 
 This repository contains:
 
 - a skills-only plugin and project template for supported ChatGPT Desktop,
   ChatGPT Work and Codex surfaces;
-- portable, project-local adapters for GitHub Copilot, Claude Code, OpenCode
-  and Google Antigravity;
+- editions for GitHub Copilot, Claude Code, OpenCode and Google Antigravity,
+  with installation instructions for each host;
 - one shared workflow core so the platform adapters do not drift; and
 - validation, privacy, security and release controls.
 
@@ -24,9 +25,11 @@ Open **Agentic Course Redesign** in a fresh task. Try this with any subject or l
 
 > My learners can recall the terms but struggle to apply them. Help me redesign one lesson. I want to start from this description.
 
-The first question explains why the system checks who may process course material. Choose **Skip for now** to work from a general description or a fictional example. You can research a focus, choose a change, approve a blueprint and receive an editable teaching artefact on this route. If you later introduce a file or a private course page, the orchestrator checks that specific source with you when it is needed.
+Step 1 lets you combine a course in a learning platform, local or cloud files, learning apps, websites and a description. The plugin explains why it checks who may use the materials. Choose **Skip for now** to continue from your teaching goal and create new materials. If you add private materials later, it checks those items when needed. [The nine teaching steps](03_Shared_Workflow_Core/PARTICIPANT_QUICK_START.md)
 
 The lecturer chooses the focus, decides which researched changes to adopt and reviews the actual outputs. For example, a suggested change to a lecture might become a prediction prompt in the slide deck, a worked example in the handout and a transfer question in an LMS quiz. Each output has its own audience, approved destination and review.
+
+When you describe the course, start with the change you want learners to make. If you have an approved syllabus, module description or curriculum, the orchestrator uses it to draft a short course brief you can correct. It asks about a missing detail when the answer changes the design. For example, a fixed oral examination changes what students need to practise. An approved adjustment to preparation time changes how that practice is delivered. You can describe the adjustment without identifying a student.
 
 ## Choose an installation
 
@@ -39,7 +42,7 @@ The lecturer chooses the focus, decides which researched changes to adopt and re
 | Google Antigravity | [Antigravity installation](02_Other_Agentic_Systems/04_Google_Antigravity/README.md) |
 | OpenCode | [OpenCode installation](02_Other_Agentic_Systems/03_OpenCode/README.md) |
 
-The 0.3.0 source keeps six skills and ten specialist roles. Reusable skills can serve multiple projects. Each course has its own source permissions, decisions and outputs. For version and availability information, see [publication status](04_Documentation/PUBLICATION_STATUS.md).
+Version 0.3.2 includes six skills and ten specialist roles. Each course has its own source permissions, decisions and outputs. [Publication status](04_Documentation/PUBLICATION_STATUS.md)
 
 ## Repository map
 
@@ -56,6 +59,10 @@ The 0.3.0 source keeps six skills and ten specialist roles. Reusable skills can 
 
 Choose a local working copy, a cloud document or a draft in your LMS. For a browser task, open the exact page and grant the host access to it. The orchestrator can show an editable slide, document, worksheet, website, quiz or LMS activity in the available review surface. If the host cannot open the original format, the lecturer can inspect an export and follow the remaining native checks.
 
+For example, you might teach from slides, collect predictions in Mentimeter or Kahoot!, and give feedback in Moodle, OLAT or another learning platform. Tell the assistant where each part lives and which copies it may change. In Codex, you can open the course page in the in-app browser and review the draft there. A linked quiz or chatbot can belong to a different course, so the assistant checks its destination before editing.
+
+If a particular task would benefit from extra help, the assistant explains what a tool would do, what it would need to access and how to set it up. You can choose to use it or continue with the tools you already have.
+
 Before accepting a change, try the intended student task. For a quiz, check scoring and feedback. For slides, inspect reading order and speaker notes. For a sheet, check an input, a formula and the displayed result. The handoff records the exact copy or draft that was inspected. [Lecturer guide](04_Documentation/LECTURER_GETTING_STARTED.md)
 
 ## Safety by default
@@ -67,10 +74,10 @@ Before accepting a change, try the intended student task. For a quiz, check scor
 - Student personal data, submissions, grades and credentials are excluded by
   default.
 - Answer keys and unreleased assessments remain lecturer-only.
-- External research or connectors require source-class and egress approval.
-- Course production begins only after an approved blueprint and exact targets.
-- A completed course run cannot be resumed; a new trigger creates fresh lineage.
-- System changes, activation and an expiring schedule are separate later gates.
+- You decide which information may be shared with an external research service.
+- Before making materials, the assistant shows you the teaching plan and the copies it would edit.
+- Each completed redesign keeps its own decisions. Starting another course or redesign opens a fresh record.
+- At the end you can ask for a review of the workflow. Changing it or setting a schedule takes a separate decision.
 
 See [Lecturer getting started](04_Documentation/LECTURER_GETTING_STARTED.md),
 [workflow overview](04_Documentation/WORKFLOW_OVERVIEW.md), and

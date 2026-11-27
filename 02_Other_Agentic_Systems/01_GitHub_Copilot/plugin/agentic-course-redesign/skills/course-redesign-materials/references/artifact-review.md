@@ -2,6 +2,18 @@
 
 Use this guide when the redesign calls for an editable file, cloud document, LMS activity, website or other digital tool. The lecturer can begin from a description and choose a format later. Ask what learners need to **do** with the result. A worksheet that needs handwriting space, a spreadsheet that needs to recalculate, and a quiz that needs to withhold feedback require different review methods.
 
+## When the lecturer authorises copies only
+
+Before each write, verify the object in the editor against the approved copy's stable ID, course or folder, and visibility. A duplicate title, the owning course's new ID or the tab opened previously cannot establish the identity of a linked item. Use the lecturer's naming convention if they supplied one.
+
+Check the editable dependencies separately. A copied LMS page might still point to the original quiz bank. A copied chatbot might still use the original knowledge base. Confirm each resource to be modified is a separately approved copy, then verify the link resolves to that copy. A read-only reference can stay in place only within approved access. If the editor opens an original or the link target cannot be verified, hold that write, continue unrelated work and offer to author a local draft or request approval for the specific copy and relink. After saving, reopen the parent and repeat the learner route to verify the intended copy and audience.
+
+## Work from the teacher's design reference
+
+When the teacher supplies a template, example deck, brand guide, worksheet or screenshot as a design reference, ask which features they want carried into the approved batch. Within that scope it is authoritative for layout, hierarchy, type, colours, spacing and recurring components. Distinguish the design model from its subject content. Preserve editable structure, pedagogical meaning, rights and access requirements. If, for example, reference colours have unreadable contrast, show the closest legible alternative and let the teacher decide how to adapt the design. Ask for the smallest missing reference only if it changes the work.
+
+Build one representative item first when reproducing a style is consequential. Reopen it and compare with the reference in the same delivery view where possible. Explain exactly what was compared and what could not be reproduced or checked, such as a missing font, animation, embedded app or an unavailable student preview. Do not claim pixel accuracy, successful import, accessibility compliance or native editing on the basis of a screenshot. Apply the agreed treatment only to the named task or batch.
+
 ## Choose the review surface
 
 Use the orchestrator as the lecturer's single point of contact. A specialist can identify a source, build an approved working copy or test a draft. Send its preview and observations through the orchestrator. Give only one agent control of the same tab, document or application at a time.

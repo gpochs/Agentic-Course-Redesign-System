@@ -14,6 +14,32 @@ from urllib.parse import urlsplit
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 
+# Each receipt stores the submitted line verbatim. The enclosing gate identifies its action.
+APPROVAL_WORDING = {
+    "DECLARE PRODUCTION COMPLETE": (
+        "DECLARE PRODUCTION COMPLETE",
+        "The drafts are ready for handover.",
+        "Die Entwürfe sind bereit zur Übergabe.",
+    ),
+    "APPROVE PRODUCTION HANDOFF": (
+        "APPROVE PRODUCTION HANDOFF",
+        "Save the handover document at the location below.",
+        "Speichern Sie die Übergabe am unten angegebenen Ort.",
+    ),
+    "APPROVE SYSTEM FILES": (
+        "APPROVE SYSTEM FILES",
+        "Prepare the proposed changes to the files listed below.",
+        "Bereiten Sie die vorgeschlagenen Änderungen an den unten aufgeführten Dateien vor.",
+    ),
+}
+
+SCHEDULE_LABELS = {
+    "APPROVE SCHEDULES": ("Schedule contract:", "Expires:"),
+    "Set up this schedule.": ("Schedule:", "Expires:"),
+    "Richten Sie diesen Zeitplan ein.": ("Zeitplan:", "Gültig bis:"),
+}
+
+
 REQUIRED_TOP_LEVEL = {
     "schema_version",
     "status",
@@ -1481,7 +1507,11 @@ def _validate_gate_progression_and_source_binding(
             for item in gates["gate_3"].get("approved_material_targets", [])
             if isinstance(item, dict) and isinstance(item.get("relative_path"), str)
         }
-        pending_external = {path for path, target in approved_targets.items() if "external_draft" in target}
+        required_drafts = {
+            path for path, target in approved_targets.items()
+            if target.get("target_type") == "working_copy"
+        }
+        reviewed_paths = set()
         if not isinstance(artefacts, list) or not artefacts:
             errors.append(f"{label} completed artefact gate must record accepted artefacts")
         else:
@@ -1493,8 +1523,11 @@ def _validate_gate_progression_and_source_binding(
                 target = approved_targets.get(path) if isinstance(path, str) else None
                 if target is None:
                     errors.append(f"{label} artefact receipt {index} is not a Gate-3 target")
-                elif isinstance(target.get("external_draft"), dict):
-                    pending_external.discard(path)
+                elif path in reviewed_paths:
+                    errors.append(f"{label} completed artefact gate repeats a target review")
+                else:
+                    reviewed_paths.add(path)
+                if target is not None and isinstance(target.get("external_draft"), dict):
                     object_id = artefact.get("external_object_id")
                     expected = target["external_draft"].get("object_id")
                     if not isinstance(object_id, str) or not object_id.strip() or (
@@ -1508,8 +1541,9 @@ def _validate_gate_progression_and_source_binding(
                 for field in ("artefact_id", "acceptance_reference", "qa_reference", "recorded_at"):
                     if not artefact.get(field):
                         errors.append(f"{label} artefact receipt {index} is missing {field}")
-            if pending_external:
-                errors.append(f"{label} completed artefact gate is missing a private draft review")
+            for path in sorted(required_drafts - reviewed_paths):
+                kind = "private draft" if "external_draft" in approved_targets[path] else "working-copy"
+                errors.append(f"{label} completed artefact gate is missing a {kind} review for {path}")
 
 
 def _validate_production_hitl3_offer(
@@ -1588,7 +1622,7 @@ def _validate_production_hitl3_offer(
         if template_only:
             errors.append(f"{label} template cannot be advanced past production declaration")
         _validate_lineage_record(declaration_reply, expected, f"{label} production declaration", errors)
-        if declaration_reply.get("standalone_line") != "DECLARE PRODUCTION COMPLETE":
+        if declaration_reply.get("standalone_line") not in APPROVAL_WORDING["DECLARE PRODUCTION COMPLETE"]:
             errors.append(f"{label} production declaration must contain the standalone line")
         if declaration_reply.get("validation_status") != "passed":
             errors.append(f"{label} production declaration must be validated before handoff")
@@ -1614,7 +1648,7 @@ def _validate_production_hitl3_offer(
         ):
             errors.append(f"{label} Production Handoff target must be the exact approved working-copy path")
         _validate_lineage_record(handoff_reply, expected, f"{label} handoff approval", errors)
-        if handoff_reply.get("standalone_line") != "APPROVE PRODUCTION HANDOFF":
+        if handoff_reply.get("standalone_line") not in APPROVAL_WORDING["APPROVE PRODUCTION HANDOFF"]:
             errors.append(f"{label} handoff approval must contain the standalone line")
         if handoff_reply.get("repeated_exact_handoff_target") != handoff_target:
             errors.append(f"{label} handoff approval must repeat the exact handoff target")
@@ -2106,7 +2140,7 @@ def _validate_system_update_progression(
             errors.append("System Gate validation receipt cannot precede candidate_change_approved")
 
     if status_index >= expected_statuses.index("candidate_change_approved"):
-        if approval.get("standalone_line") != "APPROVE SYSTEM FILES":
+        if approval.get("standalone_line") not in APPROVAL_WORDING["APPROVE SYSTEM FILES"]:
             errors.append("system update approval must contain standalone APPROVE SYSTEM FILES")
         if approval.get("proposal_id") != system_update.get("proposal_id"):
             errors.append("system update approval proposal_id must match the visible proposal")
@@ -2349,12 +2383,16 @@ def _validate_three_line_schedule_approval(
     if not isinstance(approval, dict):
         errors.append(f"{label} must be an object")
         return
-    if approval.get("line_1") != "APPROVE SCHEDULES":
-        errors.append(f"{label} line_1 must be exactly APPROVE SCHEDULES")
+    line = approval.get("line_1")
+    labels = SCHEDULE_LABELS.get(line) if isinstance(line, str) else None
+    if labels is None:
+        errors.append(f"{label} line_1 must use an exact schedule registration confirmation")
+        return
+    contract_label, expiry_label = labels
     line_2 = approval.get("line_2")
     match = re.fullmatch(
-        r"Schedule contract: ([A-Za-z0-9._-]+) ([A-Za-z0-9._-]+)",
-        line_2 or "",
+        re.escape(contract_label) + r" ([A-Za-z0-9._-]+) ([A-Za-z0-9._-]+)",
+        line_2 if isinstance(line_2, str) else "",
     )
     if not match:
         errors.append(f"{label} line_2 must contain only the exact contract ID and version")
@@ -2364,7 +2402,7 @@ def _validate_three_line_schedule_approval(
         if match.group(2) != str(contract.get("contract_version")):
             errors.append(f"{label} line_2 contract version does not match")
     expiry = contract.get("expires_at")
-    if approval.get("line_3") != (f"Expires: {expiry}" if expiry else None):
+    if approval.get("line_3") != (f"{expiry_label} {expiry}" if expiry else None):
         errors.append(f"{label} line_3 must repeat the exact contract expiry")
     if approval.get("parsed_contract_id") != contract.get("contract_id"):
         errors.append(f"{label} parsed contract ID does not match")

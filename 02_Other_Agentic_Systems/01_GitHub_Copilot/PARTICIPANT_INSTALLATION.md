@@ -1,26 +1,8 @@
 # Install Agentic Course Redesign in the GitHub Copilot app
 
-## Use in one project
+Sign in to the GitHub Copilot app with your existing plan. Choose a model included in your plan. For files and saved projects, the packaged helpers use Python 3.11 or later. The marketplace route uses Git. Check with your administrator if your organisation restricts third-party plugins.
 
-For project-scoped use, run `python 02_Other_Agentic_Systems/build_host_package.py copilot-project <new-package-directory>` from the release repository. Copy its `skills/course-redesign` directory under your project's `.github/skills/` and its ten agent files under `.github/agents/` after checking for existing names. For a user-wide install use the marketplace steps below. Select Opus or another included model in the Copilot app. No model API key is required.
-
-
-This guide is for course participants using the standalone GitHub Copilot app.
-The plugin is a static skills-and-agents package; it does not run a publisher
-server or create a support subscription.
-
-## Requirements
-
-- A GitHub account with GitHub Copilot access.
-- The GitHub Copilot app installed and signed in.
-- Git installed.
-- Python 3 available as `python` (used by the packaged deterministic helpers).
-- Organization permission for third-party plugins, when the account is
-  organization-managed.
-
-No separate API key or model provider is required.
-
-## Recommended installation
+## Install for your account
 
 1. [Add the Agentic Course Redesign marketplace](https://github.com/copilot/app/launch?open=ghapp%3A%2F%2Fplugins%2Fmarketplace%2Fadd%3Fsource%3Dgpochs%252FAgentic-Course-Redesign-System).
 2. Confirm that its source is
@@ -44,30 +26,55 @@ copilot plugin install agentic-course-redesign@agentic-course-redesign-system
 copilot plugin list
 ```
 
-## Begin in the project chat
+## Install for one project
 
-Work in a project **Session**, not the general **Chats** area:
-
-1. Add one isolated course folder or repository as a project.
-2. Start a new session inside that project.
-3. Select **Interactive** mode.
-4. Paste:
+To use the workflow only in one project, build the project edition from the repository root.
 
 ```text
-/agentic-course-redesign/course-redesign-orchestrator
-
-Set up an agentic redesign project for this one course. Offer the short onboarding or Skip for now. Do not list, open, copy, hash, upload, or change course files yet. If I skip, continue from my description through every design and production decision.
+python 02_Other_Agentic_Systems/build_host_package.py copilot-project <new-package-directory>
 ```
 
-If the app does not autocomplete that qualified slash name, select the
-`course-redesign-orchestrator` skill from the installed
-`agentic-course-redesign` plugin and paste the remaining text.
+Copy its `skills/course-redesign/` into that project’s `.github/skills/` directory, and the ten agent files into `.github/agents/`. Check existing files before copying. In this installation, ask Copilot to use the project skill named `course-redesign`.
 
-Gate 0A deliberately comes before source paths or filenames. Do not initially
-provide student personal data, submissions, grades, credentials, secrets, or
-protected source details.
+## Open a course project
 
+1. Open one course folder in a new project **Session**.
+2. Choose **Interactive** mode.
+3. With the account plugin, select the installed course-redesign orchestrator skill or type `/agentic-course-redesign/course-redesign-orchestrator` if Copilot offers it. For a project-only installation, ask for the `course-redesign` skill.
+4. Start with an example of your own, like the one below. Share the kind of material first. Keep individual learner records and teacher-only answers private.
 
+## Start with your course
+
+> My students tend to choose the right answer but cannot explain it. Help me revise one quiz question and its feedback. I may choose Skip for now and begin with this teaching goal alone.
+
+1. **Start with your course.** Describe what you want learners to do. Choose **Skip for now** to go straight from your description to design, drafting and review. The material check helps keep course and student information in the right place.
+2. **Choose the materials we can use.** You can combine a course site such as Moodle or OLAT, Word or PowerPoint files, cloud slides or spreadsheets, learning apps such as Kahoot! or Mentimeter, and other resources. Select several, name your own, or continue with just your teaching goal. You decide which items may be opened and who can see the drafts.
+3. **Check the course brief.** Correct what the plugin understood. Leave a question open if the answer is unclear. Use your own words when explaining your priorities or giving feedback.
+
+Later you choose the focus, compare suggested changes, approve the plan and files, try each draft, and decide what to use. The plugin briefly introduces optional tools and recommends one when it would help with a particular task. It explains the benefit, access and any cost. You can approve that task or batch, ask for setup help, or use the built-in option. Student materials and teacher-only keys have separate destinations.
+
+[Follow all nine teaching steps](https://github.com/gpochs/Agentic-Course-Redesign-System/blob/main/03_Shared_Workflow_Core/PARTICIPANT_QUICK_START.md).
+
+## Remove
+
+```powershell
+copilot plugin uninstall agentic-course-redesign
+copilot plugin marketplace remove agentic-course-redesign-system
+```
+
+The plugin is free and provided as-is, without a support SLA or guaranteed
+maintenance. Participants use their own GitHub Copilot plan and remain subject
+to its plan limits and organization policies.
+
+Official GitHub references:
+
+- [GitHub Copilot app quickstart](https://docs.github.com/en/copilot/how-tos/github-copilot-app/getting-started)
+- [Opening the app with links](https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/github-copilot-app/open-with-deep-links)
+- [Finding and installing plugins](https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/plugins-finding-installing)
+- [Creating a plugin marketplace](https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/plugins-marketplace)
+
+<details>
+<summary>For maintainers troubleshooting an older Copilot installation</summary>
 
 ## Copilot dialogue behavior
 
@@ -83,7 +90,7 @@ long sets, it may use dependency chunks only where choices share evidence or
 constrain one another. Keep every valid option visible across chunks; you may
 split, merge, reorder or rename their grouping. Recommendations are
 evidence-aligned, reversible, and never preselected; factual declarations must
-be true, uncertainty fails closed, custom answers are preserved and confirmed,
+be true, uncertainty fails closed, custom answers are preserved and confirmed.
 An unanswered approval cannot advance. Choosing “Skip for now” at onboarding starts a source-free redesign, and exact authority approvals remain separate.
 
 ## Copilot 1.0.80 BYOK compatibility
@@ -123,22 +130,6 @@ server or plugin does not repair poisoned task history; no MCP, hook,
 authentication, or additional permission is required or added.
 
 Rollback, if deliberately chosen by the operator, is
-`0.2.4-copilot.2`; rollback does not install or activate itself.
+`0.3.0`; rollback does not install or activate itself.
 
-## Remove
-
-```powershell
-copilot plugin uninstall agentic-course-redesign
-copilot plugin marketplace remove agentic-course-redesign-system
-```
-
-The plugin is free and provided as-is, without a support SLA or guaranteed
-maintenance. Participants use their own GitHub Copilot plan and remain subject
-to its plan limits and organization policies.
-
-Official GitHub references:
-
-- [GitHub Copilot app quickstart](https://docs.github.com/en/copilot/how-tos/github-copilot-app/getting-started)
-- [Opening the app with links](https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/github-copilot-app/open-with-deep-links)
-- [Finding and installing plugins](https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/plugins-finding-installing)
-- [Creating a plugin marketplace](https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/plugins-marketplace)
+</details>

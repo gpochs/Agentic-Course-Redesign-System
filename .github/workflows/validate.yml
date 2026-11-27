@@ -24,7 +24,10 @@ jobs:
           python-version: "3.12"
 
       - name: Install validation-only YAML parser
-        run: python -m pip install --disable-pip-version-check PyYAML==6.0.3
+        run: |
+          python -m pip install --disable-pip-version-check --only-binary=:all: --require-hashes -r /dev/stdin <<'REQUIREMENTS'
+          PyYAML==6.0.3 --hash=sha256:ba1cc08a7ccde2d2ec775841541641e4548226580ab850948cbfda66a1befcdc
+          REQUIREMENTS
 
       - name: Validate source tree
         env:

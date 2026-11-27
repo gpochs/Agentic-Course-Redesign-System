@@ -29,6 +29,20 @@ class HostPackageTests(unittest.TestCase):
                     self.assertIn("--source-free", (stages / "course-redesign-setup" / name).read_text(encoding="utf-8"))
                     for guide in builder.NEW_GUIDES:
                         self.assertTrue((stages / guide).is_file())
+                    native = builder.ADAPTERS / builder.HOSTS[host] / "native-intake.md"
+                    self.assertEqual(native.read_bytes(), (stages / builder.NATIVE_GUIDE).read_bytes())
+                    self.assertIn("](native-intake.md)", (stages / builder.ROLE_GUIDE).read_text(encoding="utf-8"))
+                    conversation = (stages / "course-redesign-orchestrator" / name).read_text(encoding="utf-8")
+                    for phrase in ("1. Start with your course", "Kahoot!", "Mentimeter", "Skip for now",
+                                   "multi-select", "The drafts are ready for handover."):
+                        self.assertIn(phrase, conversation)
+                    if host == "antigravity":
+                        self.assertLessEqual(len(conversation.encode("utf-8")), 24000)
+                        self.assertIn("](STAGES.md)", conversation)
+                        rest = (stages / "course-redesign-orchestrator/STAGES.md").read_text(encoding="utf-8")
+                        canonical = (builder.CORE / "agent-skills/course-redesign-orchestrator/SKILL.md").read_text(encoding="utf-8")
+                        self.assertTrue(canonical.rstrip().endswith(rest.rstrip()))
+                        self.assertIn("### Production declaration and handoff", rest)
                     self.assertTrue((base / "scripts/setup_course_project.py").is_file())
                     state = json.loads((base / "assets/project-template/01_Control/state.json").read_text(encoding="utf-8"))
                     self.assertEqual(8, state["schema_version"])

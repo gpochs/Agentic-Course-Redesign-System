@@ -1,11 +1,12 @@
 # Workflow overview
 
-## Decision flow
+Teachers can start with a mix of learning platforms, apps and files, or just a teaching goal. They choose the focus, see examples of the proposed changes, approve the plan, try drafts and decide what to use. The participant guide describes all nine steps. [Start a course redesign](../03_Shared_Workflow_Core/PARTICIPANT_QUICK_START.md)
+
+## Technical decision flow for maintainers
 
 Every human-in-the-loop phase uses one shared dialogue contract. The
 orchestrator is the sole lecturer-facing interface and asks one unresolved
-consequential question at a time. It uses a native card only when the live host
-can show the complete mutually exclusive option set plus a custom-answer path.
+consequential question at a time. It uses a native single-choice card for a complete mutually exclusive option set plus a custom-answer path. Independent choices use a genuine multi-select control or one numbered chat question accepting combinations.
 If that control is unavailable or unsupported, its capacity is unknown, or the
 complete set exceeds its capacity, the orchestrator shows every valid numbered
 option plus Other in one ordinary-chat question. It never prunes, hides or
@@ -84,9 +85,7 @@ decision process.
   under `04_Working_Copies/` and `05_Approved/`.
 - Named artefact gates and independent QA govern production.
 - Production cannot enter HITL 3 until a completed current-lineage reply
-  contains standalone `DECLARE PRODUCTION COMPLETE`, a second completed reply
-  repeats the exact handoff target with standalone
-  `APPROVE PRODUCTION HANDOFF`, and the handoff is independently verified.
+  confirms the drafts are ready, a second completed reply explicitly approves saving the handover document at its exact destination, and the handover is independently verified. The accepted phrases have English and German forms. The original technical confirmations remain valid.
 - **HITL 3** is the lecturer's decision on the produced files.
 - Only unconditional current-lineage HITL 3 acceptance causes the orchestrator
   to ask whether the lecturer wants a separate read-only system-improvement

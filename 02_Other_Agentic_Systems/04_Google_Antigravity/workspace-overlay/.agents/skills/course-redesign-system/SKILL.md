@@ -1,9 +1,11 @@
 ---
 name: course-redesign-system
-description: Review or validate a versioned improvement proposal for the inactive project-local course-redesign adapter only after a closed terminal course run and a recorded separate lecturer request.
+description: After the teacher accepts the course materials, review the redesign process if requested. Prepare a written suggestion for improving future redesigns. Later changes, installation and scheduling require separate decisions.
 ---
 
 # Course Redesign System
+
+Technical names for approvals below identify actions in the saved record. In the conversation use the exact English or German wording in the current confirmation table and show the actual files and destination. Keep separate submitted replies for marking drafts ready and saving the handover, and store the teacher's actual words. Check every approved working copy has its own acceptance before accepting a handover declaration.
 
 Course-material acceptance and system activation are separate decisions. Never update the live system merely because a course run succeeded.
 

@@ -8,14 +8,13 @@ assessment material belongs there only when the lecturer's institutional,
 privacy, rights and security rules authorise it. Exclude student personal data,
 submissions, grades, credentials and secrets by default.
 
-## First actions
+## Start with one teaching task
 
-Choose **Skip for now** to start immediately from a general description or a
-fictional example. Leave existing course inputs untouched. Use the source-free
-Gate 0A option in the setup skill when preparing this project. Review the
-zero-source manifest and permitted tools at Gate 0, then follow each ordinary
-design and production decision. Only use the steps below if you want to bring
-existing course materials into the project.
+Tell the plugin about one lesson, assessment or activity you would like to improve. Choose any mix of learning-platform pages, local or cloud files, learning apps and other materials. You can also use a description or **Skip for now** and continue through the same design and review steps. When the plugin needs a private source, it asks which material it may use, where it can be processed and who may see the result. Choose a dedicated folder when you want files.
+
+## Technical setup for existing materials
+
+On a description-only run, the setup skill records its source-free Gate 0A outcome and empty manifest, then asks for the permitted tools and audience at Gate 0. For authorised course sources, the plugin follows the checks below.
 
 1. Before disclosing any course source path, filename or list, declare only the material category, exact processing environment, internal/restricted and student-data flags, sensitivity class, assessment-security class and handling authority for Gate 0A.
 2. Review and fingerprint Gate 0A. Personal/unmanaged processing is permitted only for privately owned/rightsholder-authorised or appropriately licensed/public material with explicit AI-processing authority; public availability alone is insufficient. It excludes student personal data. Institution-internal/restricted material is route-only there, and mixed/uncertain or incomplete declarations fail closed until segregated or clarified. A record requiring reconfirmation does not permit intake.

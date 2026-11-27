@@ -1,6 +1,6 @@
 # Directory update details
 
-Package `agentic-course-redesign` version `0.3.0` contains six skills and ten specialist definitions. Its category is Education & Research. Verify the existing listing and organisation when creating the update. The manifest links to the maintained privacy notice and version-pinned support and terms pages. The reviewed starter prompts and behavioural cases are in this directory.
+Package `agentic-course-redesign` version `0.3.2` contains six skills and ten specialist definitions. Its category is Education & Research. Verify the existing listing and organisation when creating the update. The manifest links to the maintained privacy notice and version-pinned support and terms pages. The reviewed starter prompts and behavioural cases are in this directory.
 
 | Portal field | Record to check |
 | --- | --- |

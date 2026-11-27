@@ -12,8 +12,8 @@ from pathlib import Path, PurePosixPath
 
 SCRIPT = Path(__file__).resolve()
 DEFAULT_ROOT = SCRIPT.parents[3]
-PACKAGE_VERSION = "0.3.0"
-PACKAGE_PROPOSAL = "ACR-SYS-20261127-001"
+PACKAGE_VERSION = "0.3.2"
+PACKAGE_PROPOSAL = "ACR-SYS-20261127-003"
 PLUGIN_RELATIVE = PurePosixPath(
     "02_Other_Agentic_Systems/01_GitHub_Copilot/plugin/"
     "agentic-course-redesign"
@@ -90,7 +90,7 @@ fails closed. An unanswered approval cannot advance. Choosing “Skip for now”
 separate from design preferences."""
 COPILOT_CHOICE_CAPACITY_OVERRIDE = """## GitHub Copilot native `ask_user` capacity override
 
-This Copilot-only host rule applies the shared core's host-capacity contract to the demonstrated GitHub Copilot host; it changes no option, gate, evidence requirement, or workflow meaning. Keep one unresolved consequential question at a time. Use the native `ask_user` card for the complete valid option set whenever the live GitHub Copilot host accepts it. A live Copilot host has demonstrated at least five explicit choices plus a custom-answer field; this is an observed capability, not a maximum. Do not state or assume an unsupported maximum. Never prune, hide or combine valid choices merely to fit a card. If the host rejects or cannot present the complete valid set, ask one ordinary chat question listing every valid numbered option plus `Other`, then wait. For very long sets, dependency chunks are allowed only when choices share evidence or constrain one another; keep every valid option visible across chunks, explain the grouping, and let the lecturer split, merge, reorder or rename it."""
+This Copilot-only host rule applies the shared core's host-capacity contract to the demonstrated GitHub Copilot host; it changes no option, gate, evidence requirement, or workflow meaning. Keep one unresolved consequential question at a time. Use the native `ask_user` card for the complete valid option set whenever the live GitHub Copilot host accepts it. A live Copilot host has demonstrated at least five explicit choices plus a custom-answer field; this is an observed capability, not a maximum. Do not state or assume an unsupported maximum. Never prune, hide or combine valid choices merely to fit a card. If the host rejects or cannot present the complete valid set, ask one ordinary chat question listing every valid numbered option plus `Other`, then wait. For very long sets, dependency chunks are allowed only when choices share evidence or constrain one another; keep every valid option visible across chunks, explain the grouping, and let the lecturer split, merge, reorder or rename it. A card that returns one choice cannot record a mix of tools or materials. For course sources use a verified multi-select only if it accepts all six options, combinations and a custom answer. Otherwise offer the full numbered set in one chat question. Ask about teaching priorities and feedback in the person's own words. Confirm access to a named task or batch when needed."""
 COPILOT_RUNTIME_COMPATIBILITY_OVERRIDE = """## GitHub Copilot 1.0.80 BYOK file-mutation override
 
 This Copilot-only transport rule changes no workflow option, gate, approval,
@@ -232,13 +232,13 @@ def validate(root: Path = DEFAULT_ROOT) -> list[dict[str, str]]:
     if adapter_manifest is not None:
         native = adapter_manifest.get("native_plugin")
         if (
-            adapter_manifest.get("adapter_version") != "0.3.0"
+            adapter_manifest.get("adapter_version") != "0.3.2"
             or adapter_manifest.get("status") != "candidate_not_active"
             or not isinstance(native, dict)
             or native.get("proposal_id") != PACKAGE_PROPOSAL
             or native.get("package_version") != PACKAGE_VERSION
-            or native.get("base_semantic_version") != "0.3.0"
-            or native.get("rollback_package_version") != "0.2.4-copilot.2"
+            or native.get("base_semantic_version") != "0.3.2"
+            or native.get("rollback_package_version") != "0.3.0"
             or native.get("status") != "candidate_not_active"
             or native.get("install_specification")
             != "agentic-course-redesign@agentic-course-redesign-system"
@@ -485,8 +485,9 @@ def validate(root: Path = DEFAULT_ROOT) -> list[dict[str, str]]:
         "Ask one unresolved",
         "Before using a native choice card",
         "live host tool contract",
-        "complete, mutually exclusive option set",
-        "custom-answer path without omission",
+        "a complete set of mutually exclusive options and a custom-answer path",
+        "multi-select card for independent options",
+        "complete set, combinations and a custom answer",
         "If a native card is unavailable or unsupported",
         "capacity is unknown",
         "every valid numbered option",
@@ -655,7 +656,7 @@ def validate(root: Path = DEFAULT_ROOT) -> list[dict[str, str]]:
         required_phrases = (
             "agentic-course-redesign@agentic-course-redesign-system",
             "copilot plugin marketplace add gpochs/Agentic-Course-Redesign-System",
-            "Offer the short onboarding or Skip for now",
+            "Skip for now",
             "copilot plugin uninstall agentic-course-redesign",
             "without a support SLA",
             "Copilot 1.0.80 BYOK",
@@ -663,7 +664,7 @@ def validate(root: Path = DEFAULT_ROOT) -> list[dict[str, str]]:
             'expected "function"',
             "type=custom",
             "fresh task",
-            "0.2.4-copilot.2",
+            "0.3.0",
             "native `ask_user` card",
             "complete valid option set",
             "at least five explicit choices plus a custom-answer field",

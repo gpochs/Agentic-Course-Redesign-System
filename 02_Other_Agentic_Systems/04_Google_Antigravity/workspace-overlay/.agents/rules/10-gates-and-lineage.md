@@ -1,5 +1,7 @@
 # Gates, lineage, and write authority
 
+Technical names for approvals below identify actions in the saved record. In the conversation use the exact English or German wording in the current confirmation table and show the actual files and destination. Keep separate submitted replies for marking drafts ready and saving the handover, and store the teacher's actual words. Check every approved working copy has its own acceptance before accepting a handover declaration.
+
 Use @../../01_Control/GATES.md together with @../../AGENTS.md.
 
 - Read `01_Control/state.json` first and perform only the recorded next permitted

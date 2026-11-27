@@ -1,4 +1,4 @@
-# Claude Code adapter
+# Agentic Course Redesign for Claude Code
 
 ## Install for an account or a project
 
@@ -9,34 +9,37 @@ python 02_Other_Agentic_Systems/build_host_package.py claude <new-plugin-directo
 claude plugin validate <new-plugin-directory>
 ```
 
-Open a trusted local Claude Code project and reload plugins. Invoke `/gpochs-course-redesign` or the namespaced `course-redesign-orchestrator` skill. Select an included Fable or Opus model in Claude. Agents inherit the session model. Start with a course description, choose **Skip for now**, and review an editable example after the usual human decisions. If native delegation or a choice card is unavailable, the orchestrator can run the perspectives sequentially and ask the same question in chat. The older overlay below remains available for existing project layouts.
+Open your course project, reload plugins and choose a Fable or Opus model included with your Claude subscription. Start with `/gpochs-course-redesign` or select the installed course-redesign orchestrator skill. Each specialist inherits the conversation model.
 
-[Claude skill discovery](https://code.claude.com/docs/en/skills) · [Skill-directory plugins](https://code.claude.com/docs/en/plugins/create)
+## Start with your course
+
+> My class can recall the key terms but struggles to use them in a case. Help me revise one seminar and its handout.
+
+1. **Start with your course.** Describe what you want learners to do. Choose **Skip for now** to go straight from your description to design, drafting and review. The material check helps keep course and student information in the right place.
+2. **Choose the materials we can use.** You can combine a course site such as Moodle or OLAT, Word or PowerPoint files, cloud slides or spreadsheets, learning apps such as Kahoot! or Mentimeter, and other resources. Select several, name your own, or continue with just your teaching goal. You decide which items may be opened and who can see the drafts.
+3. **Check the course brief.** Correct what the plugin understood. Leave a question open if the answer is unclear. Use your own words when explaining your priorities or giving feedback.
+
+Later you choose the focus, compare suggested changes, approve the plan and files, try each draft, and decide what to use. The plugin briefly introduces optional tools and recommends one when it would help with a particular task. It explains the benefit, access and any cost. You can approve that task or batch, ask for setup help, or use the built-in option. Student materials and teacher-only keys have separate destinations.
+
+[Follow all nine teaching steps](https://github.com/gpochs/Agentic-Course-Redesign-System/blob/main/03_Shared_Workflow_Core/PARTICIPANT_QUICK_START.md).
+
+Claude shows the next question as a choice card when it fits, or in chat when you need to explain. For a document or presentation, ask for the editable draft and open it in its usual application. Ask Claude what it actually checked. [Claude skills](https://code.claude.com/docs/en/skills) · [Installing skill-directory plugins](https://code.claude.com/docs/en/plugins/create)
+
+<details>
+<summary>For maintainers using the manual project overlay</summary>
 
 ## Manual project overlay
 
 
-Adapter release: `0.3.0`. Shared semantic base: inactive candidate
-`ACR-SYS-20261127-001` version `0.3.0`.
+Adapter release: `0.3.2`. Shared semantic base: inactive candidate
+`ACR-SYS-20261127-003` version `0.3.2`.
 
 This overlay adds a project `CLAUDE.md`, one path-scoped rule, and ten
 project-local Claude Code subagents to the portable core. It does not open or
 configure Claude Code, install a plugin, add hooks, define MCP servers, or alter
 user/managed settings.
 
-Release `0.3.0` inherits the portable core's pre-source Gate 0A, unchanged
-schema-8 lineage vocabulary, one-decision interaction contract, verified
-production handoff before HITL 3, terminal `complete_dormant` lifecycle, and
-one-time informational trigger guidance. Claude Code's documented
-`AskUserQuestion` contract accepts two to four explicit options; this adapter
-requires the documented additional `Other` free-text path. Use that card only
-when it contains the complete mutually
-exclusive option set. If the control is unavailable or unsupported, or the
-complete set has more than four options, use the portable ordinary-chat
-fallback with every valid numbered option plus `Other - type your answer`.
-Never prune, hide or combine choices to fit a card. Long dependency
-chunks also keep every valid option visible. The Claude wrappers add no
-independent gate, state, automation, permission, or schedule behavior.
+Use the choice tool available in the live host only when it can show all valid answers and a custom reply. When several answers can apply, preserve their combinations or use chat.
 
 Compose `../00_Portable_Core_Adapter/overlay/` first, then this `overlay/`,
 relative to the same reviewed project root:
@@ -67,3 +70,5 @@ Official references:
 - [Claude Code custom subagents](https://code.claude.com/docs/en/sub-agents)
 - [Claude Code skills](https://code.claude.com/docs/en/skills)
 - [Claude Code plugins reference](https://code.claude.com/docs/en/plugins-reference)
+
+</details>

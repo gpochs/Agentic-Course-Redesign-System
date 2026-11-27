@@ -1,8 +1,8 @@
 # Publication and version history
 
-The 0.3.0 source adds a complete start-from-description route, role-specific evidence guidance and scoped review of local, cloud and LMS drafts. Each course starts inactive. A user chooses when to start it.
+Version 0.3.2 introduces nine teacher-facing steps, mixed sources, task-specific optional tools and separate English or German confirmations for finishing and handing over drafts. The final checks account for each approved item. The independently built OpenAI submission ZIP contains 57 files. [Codex package checks](../01_ChatGPT_Desktop_App/VALIDATION_REPORT.md)
 
-The OpenAI publisher dashboard showed 0.2.5 published and publicly listed when the 0.3.0 draft was prepared on 27 November 2026. The same six skills ship in the 0.3.0 Codex repository and directory packages. Check the public detail page for the currently listed version. [Agentic Course Redesign in the directory](https://chatgpt.com/plugins/plugins_6a88cdd968088191b7a22c9e92cbb5ba)
+On 27 November 2026, while the 0.3.2 package was being prepared, the OpenAI publisher dashboard showed **0.3.1 in review** and **0.2.5 publicly listed**. All six checks for the 0.3.1 skills had passed. The live directory identifies the version currently available from OpenAI. [Agentic Course Redesign in the directory](https://chatgpt.com/plugins/plugins_6a88cdd968088191b7a22c9e92cbb5ba)
 
 The repository's v0.2.5 tag preserves the preceding OpenAI package and policy documents. Historical validation reports describe their own versions. The GitHub release list records which source bundles have been distributed. [GitHub releases](https://github.com/gpochs/Agentic-Course-Redesign-System/releases)
 

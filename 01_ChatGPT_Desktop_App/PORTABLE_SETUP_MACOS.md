@@ -40,7 +40,7 @@ independently executed on a macOS machine.
    `AGENTS.md`, `.codex/config.toml`, custom agent files, state template and
    folder guidance provide the portable workflow even without plugin install.
 6. Start with **Help me redesign one lesson**. Choose **Skip for now** to work from a teaching goal. Keep going through the normal lecturer decisions to produce materials. For durable work, use the source-free record and empty manifest. If a private document or LMS becomes relevant, review its handling at that point.
-7. If you choose **Use existing materials**, clarify authority, sensitivity and environment before disclosing their locations. Add only approved inputs to the source and context folders.
+7. You may combine an LMS, local or cloud files, learning apps and other sources. Clarify who may use the selected items and where before sharing their locations. Add only approved inputs to the source and context folders.
 8. Review the generated manifest, classifications, policy, tool/egress rules
    and Gate 0 record. Do not paste approval tokens supplied by someone else.
 

@@ -14,8 +14,8 @@ from unittest import mock
 
 
 PLUGIN = Path(__file__).resolve().parent.parent
-OPENAI_PACKAGE_VERSION = "0.3.0"
-BASE_WORKFLOW_VERSION = "0.3.0"
+OPENAI_PACKAGE_VERSION = "0.3.2"
+BASE_WORKFLOW_VERSION = "0.3.2"
 
 
 def load(name: str, relative: str):
@@ -1028,6 +1028,27 @@ class StateTests(unittest.TestCase):
 
 
 class DistributionTests(unittest.TestCase):
+    def test_project_upgrade_preserves_local_edits_and_retries(self):
+        installer = load_path("project_install_test", PLUGIN.parents[1] / "install_project_skills.py")
+        with tempfile.TemporaryDirectory() as folder:
+            project = Path(folder).resolve()
+            relative = "skills/demo/SKILL.md"
+            dest = project / ".agents" / relative
+            dest.parent.mkdir(parents=True)
+            dest.write_bytes(b"published")
+            previous = project / "previous.json"
+            previous.write_text(json.dumps({relative: installer.hash_file(dest)}), encoding="utf-8")
+            with mock.patch.object(installer, "verified_public_payload", return_value={relative: b"updated"}), mock.patch.object(installer, "reviewed_file", return_value=previous):
+                self.assertEqual(installer.install(project, False, True)["updated_files"], [relative])
+                self.assertEqual(dest.read_bytes(), b"published")
+                dest.write_bytes(b"lecturer edit")
+                self.assertEqual(installer.install(project, True, True)["conflicts"], [relative])
+                self.assertEqual(dest.read_bytes(), b"lecturer edit")
+                dest.write_bytes(b"published")
+                self.assertTrue(installer.install(project, True, True)["ok"])
+                self.assertEqual(dest.read_bytes(), b"updated")
+                self.assertEqual(installer.install(project, True, True)["updated_files"], [])
+
     def test_public_builder_reads_only_reviewed_bytes(self):
         release = load_path("release_inputs_for_test", PLUGIN.parents[1] / "validation/release_inputs.py")
         with tempfile.TemporaryDirectory() as folder:
@@ -1078,7 +1099,7 @@ class DistributionTests(unittest.TestCase):
         description = interface["longDescription"]
         self.assertLessEqual(len(description), 2400)
         self.assertIn("Skip for now", description)
-        self.assertIn("approve the blueprint", description)
+        self.assertIn("approve the plan", description)
         self.assertIn("browser preview", description)
         listing = (system_root / "openai-submission/review/LISTING_COPY.md").read_text(encoding="utf-8")
         self.assertIn(description, listing)
@@ -1096,7 +1117,9 @@ class DistributionTests(unittest.TestCase):
         skill = (orchestrator / "SKILL.md").read_text(encoding="utf-8")
         self.assertIn('display_name: "Agentic Course Redesign"', metadata)
         self.assertIn("$course-redesign-orchestrator", metadata)
-        self.assertIn("one question at a time", metadata)
+        self.assertIn("I want to choose what changes", metadata)
+        self.assertIn("Ask one unresolved", skill)
+        self.assertIn("Choose any that apply", skill)
         self.assertIn("Skip for now", skill)
         self.assertIn("### Umbrella entry, Gate 0A and Gate 0", skill)
         self.assertIn("course-redesign-setup", skill)
@@ -1133,7 +1156,9 @@ class DistributionTests(unittest.TestCase):
         markers = (
             "Ask one unresolved",
             "Before using a native choice card, follow the live host tool contract",
-            "complete, mutually exclusive option set and a custom-answer path without omission",
+            "single-choice card for a complete set of mutually exclusive options and a custom-answer path",
+            "real multi-select card for independent options",
+            "complete set, combinations and a custom answer",
             "Never prune, hide or combine valid choices merely to fit a card",
             "If a native card is unavailable or unsupported, its capacity is unknown",
             "complete set exceeds that capacity",

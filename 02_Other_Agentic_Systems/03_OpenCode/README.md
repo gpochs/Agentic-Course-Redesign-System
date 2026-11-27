@@ -1,4 +1,4 @@
-# OpenCode V2 adapter
+# Agentic Course Redesign for OpenCode
 
 ## Install the native skills and agents
 
@@ -8,31 +8,39 @@ OpenCode discovers Markdown skills and subagents at project or account scope. Fr
 python 02_Other_Agentic_Systems/build_host_package.py opencode <new-package-directory>
 ```
 
-For global use, copy the generated `skills/course-redesign/` into `~/.config/opencode/skills/` and the ten `agents/*.md` into `~/.config/opencode/agents/`. For one project, use `<project>/.opencode/skills/` and `<project>/.opencode/agents/` instead. Review filename collisions before copying. The skill contains the six stage guides, reference material, setup scripts and course template. OpenCode uses its existing provider connection. Select an included model in the desktop app and start a fresh local session, then ask it to use the course-redesign skill. Try “Skip the material check and design from my goal.” The lecturer still approves the plan and each output. The project overlay below is also available for existing layouts.
+For global use, copy the generated `skills/course-redesign/` into `~/.config/opencode/skills/` and the ten `agents/*.md` into `~/.config/opencode/agents/`. For one project, use `<project>/.opencode/skills/` and `<project>/.opencode/agents/` instead. Review filename collisions before copying.
 
-[OpenCode skills](https://opencode.ai/docs/skills/) · [OpenCode subagents](https://opencode.ai/docs/agents/)
+Open the course project in OpenCode, select a model covered by your subscription, start a new conversation and ask it to use the course-redesign skill. To use an OpenAI subscription, choose the ChatGPT sign-in option for the provider.
+
+## Start with your course
+
+> My trainees can read a payslip but struggle to explain a deduction. Help me build one practice exercise with feedback.
+
+1. **Start with your course.** Describe what you want learners to do. Choose **Skip for now** to go straight from your description to design, drafting and review. The material check helps keep course and student information in the right place.
+2. **Choose the materials we can use.** You can combine a course site such as Moodle or OLAT, Word or PowerPoint files, cloud slides or spreadsheets, learning apps such as Kahoot! or Mentimeter, and other resources. Select several, name your own, or continue with just your teaching goal. You decide which items may be opened and who can see the drafts.
+3. **Check the course brief.** Correct what the plugin understood. Leave a question open if the answer is unclear. Use your own words when explaining your priorities or giving feedback.
+
+Later you choose the focus, compare suggested changes, approve the plan and files, try each draft, and decide what to use. The plugin briefly introduces optional tools and recommends one when it would help with a particular task. It explains the benefit, access and any cost. You can approve that task or batch, ask for setup help, or use the built-in option. Student materials and teacher-only keys have separate destinations.
+
+[Follow all nine teaching steps](https://github.com/gpochs/Agentic-Course-Redesign-System/blob/main/03_Shared_Workflow_Core/PARTICIPANT_QUICK_START.md).
+
+For an online activity, you can lend its tab with the optional Browse extension when it is available. Open the intended course yourself, sign in and identify the private draft you want to use. Ask the plugin to verify the destination before editing, reopen that draft afterwards and show you the result. You can also use an authorised export or a description. [OpenCode Browse](https://opencode.ai/product/browse) · [OpenCode skills](https://opencode.ai/docs/skills/) · [OpenCode agents](https://opencode.ai/docs/agents/)
+
+<details>
+<summary>For maintainers using the manual project overlay</summary>
 
 ## Manual project overlay
 
 
-Adapter release: `0.3.0`. Shared semantic base: inactive candidate
-`ACR-SYS-20261127-001` version `0.3.0`.
+Adapter release: `0.3.2`. Shared semantic base: inactive candidate
+`ACR-SYS-20261127-003` version `0.3.2`.
 
 This overlay adds ten project-local OpenCode V2 subagent profiles to the
 portable core. OpenCode V2 natively discovers the core's root `AGENTS.md` and
 the compatibility skill at `.claude/skills/course-redesign/`, so no duplicate
 instruction file or `opencode.jsonc` is needed.
 
-Release `0.3.0` inherits the portable core's pre-source Gate 0A, unchanged
-schema-8 lineage vocabulary, one-decision interaction contract, verified
-production handoff before HITL 3, terminal `complete_dormant` lifecycle, and
-one-time informational trigger guidance. OpenCode documents a native question
-tool with options and a custom answer but no maximum. The adapter may use it
-only when the live host accepts the complete option set plus that custom-answer
-path; otherwise it uses the portable ordinary-chat fallback with every valid
-numbered option plus `Other`. It never prunes, hides or combines choices to
-simulate a card. The wrappers add no independent gate, state, automation,
-permission, or schedule behavior.
+Use the choice tool available in the live host only when it can show all valid answers and a custom reply. When several answers can apply, preserve their combinations or use chat.
 
 Compose `../00_Portable_Core_Adapter/overlay/` first, then this `overlay/`,
 relative to the same reviewed project root:
@@ -67,3 +75,5 @@ Official references:
 - [OpenCode V2 skills](https://opencode.ai/v2/docs/skills)
 - [OpenCode V2 permissions](https://opencode.ai/v2/docs/permissions)
 - [OpenCode V2 plugins](https://opencode.ai/v2/docs/build/plugins)
+
+</details>

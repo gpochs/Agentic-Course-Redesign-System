@@ -1,5 +1,9 @@
 # Provenance
 
+Version 0.3.2 (proposal ACR-SYS-20261127-003) uses numbered teaching decisions, mixed-source intake, scoped optional tools and approved design references. The consent and state records retain schema 8.
+
+Version 0.3.1 makes course context progressive. The lecturer can confirm what authorised sources establish, leave details open and shape the next consequential design decision. Copy-only production checks cover linked resources as well as their parent course. The update preserves schema 8, existing approval stages and previous run records.
+
 Version 0.3.0 adds a source-free Gate 0A option, specialist evidence guidance, review procedures for digital course materials, and explicit remote draft destinations. Its optional fields extend schema 8. Existing local-only schema-8 projects can continue without migration. Each lecturer still decides at every ordinary approval stage. Earlier version entries below describe their own releases.
 
 Version 0.2.4 is an inactive candidate created under approved proposal
