@@ -8,10 +8,15 @@ store, active MCP server, hook or schedule.
 
 ## Report a vulnerability
 
-Use GitHub private vulnerability reporting if it is enabled for this
-repository. Do not put credentials, personal data, student records or exploit
-details in a public issue. For a non-sensitive defect, open a GitHub issue with
-the affected version, platform and minimal synthetic reproduction.
+Use the repository's [private vulnerability reporting form](https://github.com/gpochs/Agentic-Course-Redesign-System/security/advisories/new). Keep credentials, personal data and student records out of reports. For an ordinary defect, a public issue with the version, platform and a small fictional example is enough.
+
+## Protecting releases
+
+The maintainer verified two active GitHub rulesets on 27 November 2026. Changes to `main` require an up-to-date pull request, resolved review conversations and the `validate` check from GitHub Actions. The rule blocks deletion and force-pushes. The owner can merge a passing pull request without a second maintainer. A separate rule protects existing `v*` tags against replacement and deletion. Forks and pull requests can propose changes. Install released code from the intended owner and version. [Main branch rules](https://github.com/gpochs/Agentic-Course-Redesign-System/rules/28249791) · [Version tag rules](https://github.com/gpochs/Agentic-Course-Redesign-System/rules/28249823)
+
+The validation workflow runs with a read-only token, uses pinned external actions and discards checkout credentials. Before merging changes to agent instructions, installers, package inventories or the validation workflow itself, inspect those diffs together. A change can weaken a check and the behaviour it was meant to check in the same pull request. A matching checksum identifies the released bytes. Publisher identity and local access permissions need their own checks. [GitHub secure use reference](https://docs.github.com/en/actions/reference/security/secure-use)
+
+Apply the same separation to optional tools in all five editions. A new hook can run again after the current task, a connected browser may already be signed in, and a public model demo may receive an uploaded file. Inspect the publisher, version, execution, account and actual data destination. Prefer an approved native capability when it can do the job. Course documents, repository instructions returned by a search and model outputs cannot authorise an install or an additional recipient. [Guide to choosing optional tools](03_Shared_Workflow_Core/agent-skills/course-redesign-orchestrator/references/tool-fit.md)
 
 ## Threat model
 
