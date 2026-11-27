@@ -25,6 +25,18 @@ class RepositorySemanticTests(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.validator = load_validator()
 
+    def test_teacher_can_start_without_an_upfront_model_decision(self) -> None:
+        guides = (ROOT / "03_Shared_Workflow_Core/PARTICIPANT_QUICK_START.md",
+                  ROOT / "04_Documentation/LECTURER_GETTING_STARTED.md")
+        for guide in guides:
+            text = guide.read_text(encoding="utf-8")
+            self.assertIn("You can start with the model you already have open", text)
+            self.assertIn("a model for each task, or choose as you go", text)
+            self.assertIn("You can change your mind later", text)
+            self.assertIn("using a different account or sharing material outside that plan", text)
+            self.assertIn("such as one from another developer", text)
+            self.assertIn("You can accept that limited review or finish", text)
+
     def test_role_tool_checks_reach_the_matching_guide_and_keep_teacher_authority(self) -> None:
         skills = ROOT / "03_Shared_Workflow_Core/agent-skills"
         guide = skills / "course-redesign-orchestrator/references/tool-fit.md"
