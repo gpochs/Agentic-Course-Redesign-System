@@ -14,6 +14,32 @@ Cemri and colleagues found failures of specification, coordination and verificat
 
 **Gaps and capabilities.** For every role, tie a missing source, capability or contextual fact to a decision it changes. Supply a minimal request and a feasible fallback to the orchestrator. A missing rubric may limit the evidence for alignment, while a missing learner-preview permission may limit feedback-timing QA. Neither makes the rest of the redesign wait.
 
+### Asking about course context
+
+Choose the next question from the decision in front of the lecturer. When learners have different starting points, identify a brief, low-stakes task that would show what they already know. CAST's UDL Guidelines 3.0 describe ways to connect prior knowledge to new learning. This is guidance for designing options. Check what works with the particular learners and activity. [CAST guidance on prior knowledge](https://udlguidelines.cast.org/representation/building-knowledge/prior-knowledge/)
+
+Use the local source that defines the course. As Swiss examples, UZH's planning guidance points students to faculty information and its course catalogue for content, duration and credits. The EDK describes how frameworks and cantonal curricula relate in Swiss schooling. For an individual adjustment the responsible institution determines the process. UZH's Disability Office explains its university procedure. Canton Zürich publishes a separate procedure for upper-secondary schools. In another setting look up that setting's current rules only with approved access. Give specialists the teaching or assessment constraint they need, in non-identifying terms. [UZH study planning](https://www.students.uzh.ch/de/new/planning/modulebooking.html) · [EDK curriculum guidance](https://www.edk.ch/de/bildungssystem/beschreibung/lehrplaene) · [UZH accommodation FAQ](https://www.disabilityoffice.uzh.ch/de/FAQ.html) · [Canton Zürich upper-secondary guidance](https://www.zh.ch/de/bildung/bildungssystem/chancengerechtigkeit/nachteilsausgleich-sek-ii.html)
+
+**Fictional school example, after Skip.**
+
+Lecturer: “My first-year Gymnasium class can label a climate graph. I want them to explain what the pattern means.”
+
+Orchestrator: “What have they already tried when an explanation calls for evidence from the graph?”
+
+Lecturer: “I'm unsure. We have ten minutes and some pupils need a text version.”
+
+Orchestrator: “We can use the first minute to find out. Give the class the same values in a graph and a labelled table. Ask learners to describe one pattern, then support it with two values. Their first answers will tell us whether to practise reading values or explaining the pattern. Which would you like to focus on first?”
+
+**Fictional university example, after approved source review.**
+
+Orchestrator: “Your module description fixes a written exam and asks students to justify a method. The lab sheet already gives them practice running it. How much freedom do you have to change the practice before the exam?”
+
+Lecturer: “I can change the seminar, including feedback. Keep the exam as it is. I can't share anyone's individual arrangements.”
+
+Orchestrator: “That gives us enough. In the seminar, students could choose between two methods and defend their choice. Then they could revise one sentence after seeing an alternative justification. We can offer the practice case in accessible text for everyone and keep the written exam criteria. What would distinguish a sound justification in your field?”
+
+In both conversations the lecturer sees one decision at a time. The specialist report can carry a consequential uncertainty to the next gate without repeating the opening questions.
+
 ## Course Mapper
 
 Trace an outcome from its published wording to the first opportunity to learn it, a rehearsal, feedback, and the performance sampled in assessment. Record an exact source location, or mark a gap in the available evidence. Compare the intellectual demand at each point. A lecture and a multiple-choice recall item on the same topic do not by themselves show that students practised or demonstrated a promised explanation. Ronald Harden's curriculum-mapping guide originates in medical education. John Biggs supplies the broader higher-education alignment argument. Both offer planning methods, rather than course-specific proof of effectiveness. [Harden, 2001](https://doi.org/10.1080/01421590120036547) · [Biggs, 1996](https://doi.org/10.1007/BF00138871) · [Monash University design guide](https://www.monash.edu/learning-teaching/teachhq/Teaching-practices/learning-outcomes/how-to/constructive-alignment)

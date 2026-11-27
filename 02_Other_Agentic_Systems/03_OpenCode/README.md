@@ -15,15 +15,15 @@ For global use, copy the generated `skills/course-redesign/` into `~/.config/ope
 ## Manual project overlay
 
 
-Adapter release: `0.3.0`. Shared semantic base: inactive candidate
-`ACR-SYS-20261127-001` version `0.3.0`.
+Adapter release: `0.3.1`. Shared semantic base: inactive candidate
+`ACR-SYS-20261127-002` version `0.3.1`.
 
 This overlay adds ten project-local OpenCode V2 subagent profiles to the
 portable core. OpenCode V2 natively discovers the core's root `AGENTS.md` and
 the compatibility skill at `.claude/skills/course-redesign/`, so no duplicate
 instruction file or `opencode.jsonc` is needed.
 
-Release `0.3.0` inherits the portable core's pre-source Gate 0A, unchanged
+Release `0.3.1` inherits the portable core's pre-source Gate 0A, unchanged
 schema-8 lineage vocabulary, one-decision interaction contract, verified
 production handoff before HITL 3, terminal `complete_dormant` lifecycle, and
 one-time informational trigger guidance. OpenCode documents a native question

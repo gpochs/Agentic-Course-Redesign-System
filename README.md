@@ -28,6 +28,8 @@ The first question explains why the system checks who may process course materia
 
 The lecturer chooses the focus, decides which researched changes to adopt and reviews the actual outputs. For example, a suggested change to a lecture might become a prediction prompt in the slide deck, a worked example in the handout and a transfer question in an LMS quiz. Each output has its own audience, approved destination and review.
 
+When you describe the course, start with the change you want learners to make. If you have an approved syllabus, module description or curriculum, the orchestrator uses it to draft a short course brief you can correct. It asks about a missing detail when the answer changes the design. For example, a fixed oral examination changes what students need to practise. An approved adjustment to preparation time changes how that practice is delivered. You can describe the adjustment without identifying a student.
+
 ## Choose an installation
 
 | Platform | How to start |
@@ -39,7 +41,7 @@ The lecturer chooses the focus, decides which researched changes to adopt and re
 | Google Antigravity | [Antigravity installation](02_Other_Agentic_Systems/04_Google_Antigravity/README.md) |
 | OpenCode | [OpenCode installation](02_Other_Agentic_Systems/03_OpenCode/README.md) |
 
-The 0.3.0 source keeps six skills and ten specialist roles. Reusable skills can serve multiple projects. Each course has its own source permissions, decisions and outputs. For version and availability information, see [publication status](04_Documentation/PUBLICATION_STATUS.md).
+Version 0.3.1 includes six skills and ten specialist roles. Each course has its own source permissions, decisions and outputs. [Publication status](04_Documentation/PUBLICATION_STATUS.md)
 
 ## Repository map
 

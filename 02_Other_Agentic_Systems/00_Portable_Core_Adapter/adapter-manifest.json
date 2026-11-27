@@ -1,29 +1,29 @@
 {
   "schema_version": "1.0",
   "adapter_id": "portable-core",
-  "adapter_version": "0.3.0",
+  "adapter_version": "0.3.1",
   "platform": "portable",
   "status": "candidate_not_active",
   "overlay_root": "overlay",
   "compose_after": [],
   "source_provenance": {
-    "system_id": "ACR-SYS-20261127-001",
-    "version": "0.3.0",
+    "system_id": "ACR-SYS-20261127-002",
+    "version": "0.3.1",
     "source_status": "approved inactive candidate; not activated",
     "origin_label": "03_Shared_Workflow_Core",
     "hash_algorithm": "sha256",
     "hashes": {
-      "VERSION": "d915cc95d6ca8f47ae297713ed46d4e5c5d99ddd29fc3c61e263bdf305f2b5b0",
-      "adapter-contract.json": "767ac02a4d5a4609e1b39680a37865b145679455923f50305b038c46fb09c2d5",
-      "course-project-template/AGENTS.md": "e50bfc9027fd0b849a3e47c37c848686d747828a01b1bb2504fe0c74323d224e",
-      "course-project-template/01_Control/GATES.md": "0b7f286327f8aba3445695cdef91ff89fe4320e90bbbe868643f7b82b22ce5f8",
+      "VERSION": "79e3f22ca37c7fdf4c29ae3648d6b008c3cb6547260a453409275470919dc674",
+      "adapter-contract.json": "2b181a3477742fab0dfda9326cac4c54c0430b863d33c3fd80b8912d8c4f6405",
+      "course-project-template/AGENTS.md": "13797acf9702861b7a62be4dfb2d3dba113e257abf01cebdc487e86471a29f83",
+      "course-project-template/01_Control/GATES.md": "587134444063e5d6b24fa19cd85627f4cd266edf284526f04a3b2defd0b39ac8",
       "course-project-template/01_Control/material-processing-eligibility.template.json": "efe8b8d8d6e7ba3cd9b0dc21e1f014ad65206aaa609468555974949e4496fbed",
-      "course-project-template/01_Control/state.json": "372816ec22b325717bc2feadcd80b736c21bbfc8fd99f57b6bc98f6dc2dba901",
-      "agent-skills/course-redesign-assessment/SKILL.md": "9b25cb6d8b1df29aaf73aaed2b06500aa0b7e026cf0b5609d49c26136cda5a0e",
-      "agent-skills/course-redesign-materials/SKILL.md": "d8da6390e077e63a367273af71d5303c8b45823ba800cd7f04e8a53aa24e3e16",
-      "agent-skills/course-redesign-orchestrator/SKILL.md": "f6f5ccf3d9bc32ae2f016d85ed25d50c970108cd2d1fe1d04a290b5d1869c980",
+      "course-project-template/01_Control/state.json": "cbfad8315e48e8079f05d1ecc0741cc9f09d8ebb410ec85943ecb326a26b5fb3",
+      "agent-skills/course-redesign-assessment/SKILL.md": "64189abd92bcd1c0dffedfa57a81bdca791b146f9016af17c398c0563ca8b9dc",
+      "agent-skills/course-redesign-materials/SKILL.md": "499d3e23df81636a2b0f8232363eaf90535e00eccc081f8ccfb5a3b64d8ad3d6",
+      "agent-skills/course-redesign-orchestrator/SKILL.md": "c65d718194fe91455557ff3e1070d5b4556fe1c5b8d6f9e174aee07f59ab4e98",
       "agent-skills/course-redesign-research/SKILL.md": "fe341cb3f97c6da4cff2dfed348f2fa7416a1b0aad56dee65e15ddfb2f7ed106",
-      "agent-skills/course-redesign-setup/SKILL.md": "50fab84981a86046ba7515a0b4d74a634b358ee5cb60c9126b37b15ef7a7c0e2",
+      "agent-skills/course-redesign-setup/SKILL.md": "9c5ce507a6a675b8d896551e7fdd8ca41f94d5350ca96297c6fbac8558c27b37",
       "agent-skills/course-redesign-system/SKILL.md": "f83ab4d273256d439b23d55c879e32cf3cd70e94e402475a010aa376877c1537",
       "scripts/create_material_processing_eligibility.py": "cb27aa8d29daf4d9097a575cdf7308af31b1b797c89de0bbe669a7337764a7c5"
     }
@@ -59,8 +59,8 @@
     },
     {
       "path": "overlay/.claude/skills/course-redesign/references/workflow.md",
-      "bytes": 15656,
-      "sha256": "081fccdf7fad1b3f582970d196a49e4b1f2d55bc2673901627906536078c0da4"
+      "bytes": 17938,
+      "sha256": "2a794a0b8957263eaa162946e9b6480b3382a0a0b22c9f02ebc516b1bab91885"
     },
     {
       "path": "overlay/.claude/skills/course-redesign/SKILL.md",
@@ -75,17 +75,17 @@
     {
       "path": "README.md",
       "bytes": 5243,
-      "sha256": "37f02d2e76b0d3f359b3f3b0f1842b46d73b765d47b56be2af658905be6d6179"
+      "sha256": "44a1e374737302381decfcc7173928a8b41854ece865090ee11169aa22c0e259"
     },
     {
       "path": "validation/reconcile_adapters.py",
-      "bytes": 14507,
-      "sha256": "35e2d5f51d0e5561c3a20677f44768514f61eae17bda1562926d9bf7b614daef"
+      "bytes": 15500,
+      "sha256": "2639100366aefc24da9d18140182ab31117f8d6ffb37181d18b5ce9f9635f7ff"
     },
     {
       "path": "validation/validate_adapters.py",
       "bytes": 22601,
-      "sha256": "88ac84f745266f932ef1960f05af6312a2742c003dfc7b1b449e546b4ba44625"
+      "sha256": "490969a01392fa848fd9bffcbc89200b9a74255f40d66874ea4e76a8d1b87342"
     }
   ],
   "overlay_files": [

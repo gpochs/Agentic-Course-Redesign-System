@@ -1,7 +1,7 @@
 # GitHub Copilot adapter
 
-Adapter semantic release: `0.3.0`. Native Copilot package:
-`0.3.0`. Candidate proposal: `ACR-SYS-20261127-001`.
+Adapter semantic release: `0.3.1`. Native Copilot package:
+`0.3.1`. Candidate proposal: `ACR-SYS-20261127-002`.
 
 This adapter now provides two ways to use Agentic Course Redesign with GitHub
 Copilot:
@@ -13,7 +13,7 @@ Copilot:
    core overlay and this adapter's `overlay/` into one reviewed course
    project.
 
-Both routes preserve the v0.3.0 Copilot workflow semantics: pre-source Gate 0A,
+Both routes preserve the v0.3.1 Copilot workflow semantics: pre-source Gate 0A,
 schema-8 lineage, lecturer-controlled gates, verified production handoff before
 HITL 3, terminal `complete_dormant` lifecycle, and a separate system-review
 decision. Neither route starts a course run merely because files are installed.
@@ -39,7 +39,7 @@ The repository marketplace manifest is
 links, command-line alternatives, verification, the first project-session
 prompt, and removal instructions.
 
-The native package preserves the complete six-skill v0.3.0 workflow text and
+The native package preserves the complete six-skill v0.3.1 workflow text and
 adds one exact Copilot-only card-capacity override to each skill; helpers remain
 byte-identical to the canonical core. Its ten Copilot agents preserve the full
 specialist role contracts and add the host dialogue boundary while retaining
@@ -82,7 +82,7 @@ project task, recover durable state read-only, and confirm whether the preceding
 edit already succeeded before continuing. Installing another plugin or MCP
 server does not repair poisoned history.
 
-Rollback remains the prior package `0.2.4-copilot.2`; rollback is a separate
+Rollback remains the prior package `0.3.0`; rollback is a separate
 operator decision and does not activate or install either version.
 
 ## Project-local overlay

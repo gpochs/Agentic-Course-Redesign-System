@@ -88,6 +88,8 @@ when resolving a pedagogical or accessibility trade-off.
 
 Use separate student and teacher targets. Scan visible text, editable layers, text boxes, comments, notes, metadata, alt text, hidden objects, model responses, and derived PDFs for key leakage. Accessible assessment derivatives must expose only the assigned item, never an entire secure bank.
 
+When the lecturer specifies copies only, verify the exact parent and linked resource identities in the editor before each write and after saving. A duplicated LMS course can reference an original quiz or chatbot knowledge base. Follow the [copy and dependency check](references/artifact-review.md#when-the-lecturer-authorises-copies-only).
+
 ## Missing production or preview access
 
 When an approved deliverable depends on an unavailable editor, preview, format skill or LMS, tell the orchestrator exactly which operation needs it, which data and permissions it involves, and what the installed tools can deliver now. For example, a quiz export can check item wording and scoring keys while the private LMS learner preview is needed to verify release timing. Keep the supported work moving when the lecturer declines a connection. Mark the remaining check as unverified.

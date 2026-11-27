@@ -53,6 +53,10 @@ when weighing a validity or alignment claim. For a digital quiz or performance
 task, use [artifact review](../course-redesign-materials/references/artifact-review.md)
 to verify the learner attempt, feedback timing and teacher-only content.
 
+Start with the evidence the lecturer has authorised. From the current syllabus, module or examination regulations, identify what learners must demonstrate, the assessment format and criteria, what is at stake, and which conditions are fixed or open to change. Give the source and version where available. A rubric from a previous course can inform a proposal but cannot establish the present rule. If the rule is unknown, propose practice or feedback that works under the current assumption and ask one focused question before changing the affected graded condition.
+
+Distinguish accessible design for the whole group from an individual's formally authorised accommodation (*Nachteilsausgleich*). Use only the functional constraint needed for design or QA, in authorised, non-identifying terms. For example, test whether a keyboard user can enter the same reasoning and obtain the same feedback. Preserve the assessed competence and criteria. Timing, permitted tools or an equivalent response mode may be fixed locally. Leave eligibility and individual decisions with the responsible office. Never request a diagnosis, a named student, an entitlement letter or the lecturer's student records.
+
 ## Live alignment ledger
 
 From the first specialist scan, map every stated or inferred outcome to:

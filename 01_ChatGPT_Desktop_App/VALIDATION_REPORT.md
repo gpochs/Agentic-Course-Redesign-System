@@ -1,15 +1,15 @@
-# Codex 0.3.0 release checks
+# Codex 0.3.1 release checks
 
-The 0.3.0 directory ZIP and repo marketplace carry identical runtime files. The ZIP contains 57 files under one plugin root, including six skills and ten project-scoped agent definitions. The revised support link points to the published support page. The privacy link is pinned to the updated notice. The initial portal scan requested a support URL. The release ZIP was rebuilt after that finding.
+The 0.3.1 directory ZIP and repo marketplace carry identical runtime files. The ZIP contains 57 files under one plugin root, including six skills and ten project-scoped agent definitions. Course context is collected in stages. The reviewer cases check that previously supplied assessment conditions are reused, meaningful unknowns are raised individually, and requests for personal accommodation records are redirected to a course-level requirement.
 
 | Check | Observed result |
 | --- | --- |
-| Public metadata, runtime parity and review cases | 51 package checks passed, including matching reviewed skill hashes, 16 positive scenarios and 13 negative scenarios. These are reviewer cases. |
+| Public metadata, runtime parity and review cases | 51 package checks passed, including matching reviewed skill hashes, 17 positive scenarios and 14 negative scenarios. These are reviewer cases. |
 | Forward checks | All 46 passed, covering the ten native agent definitions, six skills, lecturer decisions, production handoff, final review and source boundaries. |
-| Bundled helper tests | 29 passed. One symbolic-link test was skipped because this Windows environment could not create the test link. |
-| Installed OpenAI validators | The six installed skill checks passed in both package trees. The optional local plugin-validator script was unavailable on this installation. |
-| Release build | Two fresh public-package builds produced SHA-256 `A784591809BD191E689B5979C6286961A2DAE7A3830BA77F5DD66F563D9744D2`. All files matched the submission source. |
-| Project-scoped skill discovery | On Windows with Codex CLI 0.172.0, a fresh native skill scan recognised all six enabled repo-scoped skills. A repeat installer preview found zero changes. |
+| Bundled helper tests | 30 passed. One symbolic-link test was skipped because this Windows environment could not create the test link. |
+| OpenAI skill validation | All six skills in both package trees passed OpenAI’s published quick validator at commit 49f948f. This host lacked a locally installed standalone plugin validator. [Official validator](https://github.com/openai/skills/blob/49f948faa9258a0c61caceaf225e179651397431/skills/.system/skill-creator/scripts/quick_validate.py) |
+| Release build | Two fresh public-package builds produced SHA-256 `8BD8FAC5B777856116F1D2A699A939F4204D99FD14DCAB6DC66A14D6CC157C75`. All files matched the submission source. |
+| Project-scoped skill discovery | On Windows with Codex CLI 0.172.0, a fresh native skill scan recognised all six enabled repo-scoped skills. A local 0.3.0 project upgraded 14 unchanged release-owned files, verified all 54 installed files and reported zero changes on retry. The regression test verifies that a lecturer-edited file remains untouched. |
 
 ## Reproduce
 

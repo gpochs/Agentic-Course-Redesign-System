@@ -1,4 +1,4 @@
 interface:
   display_name: "Agentic Course Redesign"
   short_description: "Guide a course redesign from goal to finished materials."
-  default_prompt: "Use $course-redesign-orchestrator to guide my course redesign. Ask me one question at a time, beginning with my goal or materials."
+  default_prompt: "Use $course-redesign-orchestrator to guide my course redesign. Build a short course brief with me, one question at a time."

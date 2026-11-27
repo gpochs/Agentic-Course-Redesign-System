@@ -1,6 +1,6 @@
 # Portable core adapter
 
-Version 0.3.0 carries the shared workflow into a local course project. The
+Version 0.3.1 carries the shared workflow into a local course project. The
 lecturer can check source handling or choose **Skip for now** to begin with a
 description. The native package builder includes the six stage guides, shared
 helpers and editable project scaffold.
@@ -27,7 +27,7 @@ GitHub Copilot, and OpenCode documentation all describe project skill discovery
 there. Platform folders beside this adapter add only native instruction and
 agent wrappers.
 
-Release `0.3.0` retains the pre-source Gate 0A processing-eligibility hard stop,
+Release `0.3.1` retains the pre-source Gate 0A processing-eligibility hard stop,
 course-independent ownership and institutional-routing semantics, and schema-8
 lineage vocabulary. It adds the host-neutral one-decision interaction contract,
 adaptive dependency clusters with every valid option visible, a four-or-more

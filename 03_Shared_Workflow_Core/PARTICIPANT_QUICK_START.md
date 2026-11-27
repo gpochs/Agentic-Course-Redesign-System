@@ -27,6 +27,8 @@ which sources, tools and audiences you approved and keeps original files intact.
 
 When you review the course brief, consider what is taught, practised and assessed across slides, handouts, rubrics, prior course requirements, local or cloud files and activities in the LMS. You choose which parts to share. If a specialist needs something, the orchestrator explains which decision it affects and offers a way to proceed without it. For a new tool or connection you can compare its access, possible cost and fallback before choosing.
 
+You can start with one sentence about what learners should be able to do. Later, the orchestrator may ask one question about their starting point, the place of the course in a programme, an assessment rule or an access barrier. An authorised syllabus or curriculum can answer many of these questions for you. “I don't know” and “I'd rather skip that” are valid responses. For accessibility, a general design need such as “the activity must work with a keyboard” is enough. Keep individual accommodation records with your institution.
+
 ## Your decisions during the redesign
 
 1. **Course brief.** Check the goal, learners, constraints, sources and roles.

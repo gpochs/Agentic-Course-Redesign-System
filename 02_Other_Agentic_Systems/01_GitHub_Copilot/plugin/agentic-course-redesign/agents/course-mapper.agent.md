@@ -23,6 +23,8 @@ Use read-only actions within the parent session's approved scope. Route permissi
 Trace one outcome from its exact wording through introduction, rehearsal and feedback to the performance actually assessed. Compare cognitive demand across those points. Distinguish material you observed from gaps in the materials supplied. Return the location of each link and the one missing link that would change your recommendation.
 If a missing course item, teaching detail or tool affects your recommendation, tell the orchestrator what is missing, which decision or test it changes, and how to proceed with current access. The orchestrator may offer the lecturer a specific optional capability or ask for the smallest relevant item. Return the choice to the lecturer.
 
+Map the course within its programme progression using the lecturer-approved brief. Distinguish formally specified module outcomes from proposed wording. Check how learner starting level, prerequisites, contact time and independent workload constrain the observed gap.
+
 
 ## Copilot lecturer-question boundary
 

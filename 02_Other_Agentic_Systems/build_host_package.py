@@ -30,6 +30,16 @@ def write(path, value):
 # builder before staging this release. All other copied paths must be recorded.
 NEW_GUIDES = ("course-redesign-materials/references/artifact-review.md",
               "course-redesign-orchestrator/references/role-evidence.md")
+ROLE_GUIDE = Path(NEW_GUIDES[1])
+NATIVE_GUIDE = ROLE_GUIDE.with_name("native-intake.md")
+
+
+def link_native_intake(content):
+    section = b"### Asking about course context"
+    if content.count(section) != 1:
+        raise ValueError("Expected one course-context section in the role guide")
+    link = b"\n\nWhen preparing the next context question or preview in this host, use its [native intake guidance](native-intake.md)."
+    return content.replace(section, section + link, 1)
 
 
 @cache
@@ -43,6 +53,13 @@ def reviewed_files():
                 names[(base / guide).relative_to(ROOT).as_posix()] = None
         quick_start = ADAPTERS / HOSTS["copilot"] / "plugin" / NAME / "assets/PARTICIPANT_QUICK_START.md"
         names[quick_start.relative_to(ROOT).as_posix()] = None
+        for folder in set(HOSTS.values()):
+            guide = ADAPTERS / folder / "native-intake.md"
+            if guide.is_file():
+                names[guide.relative_to(ROOT).as_posix()] = None
+        copilot_guide = ADAPTERS / HOSTS["copilot"] / "plugin" / NAME / "skills" / NATIVE_GUIDE
+        if copilot_guide.is_file():
+            names[copilot_guide.relative_to(ROOT).as_posix()] = None
     else:
         snapshot = json.loads((ROOT / "package-inventory.json").read_text(encoding="utf-8"))
         names = {entry["relative_path"]: entry["sha256"] for entry in snapshot["files"]}
@@ -117,6 +134,10 @@ def render(host, output):
         manifest_dir = ".claude-plugin" if host == "claude" else ".antigravity-plugin"
         write(output / manifest_dir / "plugin.json", json.dumps(metadata, indent=2))
     copy_tree(CORE / "agent-skills", stage_root)
+    intake = edition / "native-intake.md"
+    if intake.is_file():
+        copy_file(intake, stage_root / NATIVE_GUIDE)
+        (stage_root / ROLE_GUIDE).write_bytes(link_native_intake(read_reviewed(CORE / "agent-skills" / ROLE_GUIDE)))
     if host in {"opencode", "copilot-project"}:
         for guide in stage_root.glob("*/SKILL.md"):
             guide.rename(guide.with_name("GUIDE.md"))

@@ -16,8 +16,8 @@ Open Customizations in Antigravity and confirm the six skills and ten specialist
 ## Manual project overlay
 
 
-Adapter version `0.3.0` is a project-local, course-independent inactive
-candidate reconciled to shared candidate `ACR-SYS-20261127-001` v0.3.0. It
+Adapter version `0.3.1` is a project-local, course-independent inactive
+candidate reconciled to shared candidate `ACR-SYS-20261127-002` v0.3.1. It
 adapts to the lecturer-supplied subject, educational level, learners,
 objectives, assessment, language, constraints, and material formats. It makes
 pre-source Gate 0A, the one-decision lecturer interaction contract, verified
@@ -33,7 +33,7 @@ helpers, and the inactive Gate/state scaffold.
 
 Machine-readable release identity is exposed at the top level of
 `adapter-manifest.json` as platform `google-antigravity`, adapter version
-`0.3.0`, and status `candidate_not_active`.
+`0.3.1`, and status `candidate_not_active`.
 
 It does **not** install or access Antigravity, change global configuration or
 IDE permissions, activate a runtime, register a schedule, connect an MCP
@@ -147,7 +147,7 @@ PASS does not prove Antigravity runtime behaviour; see
 
 ## Source and licence
 
-`adapter-manifest.json` records the actual SHA-256 values of the shared v0.3.0
+`adapter-manifest.json` records the actual SHA-256 values of the shared v0.3.1
 canonical files used and every adapter output covered by integrity checks. The
 shared source was read only. Adapted material remains under the included MIT
 licence; third-party and data boundaries are in `THIRD_PARTY_NOTICES.md`.

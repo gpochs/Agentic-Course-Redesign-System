@@ -51,6 +51,8 @@ relevant. `PARTICIPANT_QUICK_START.md` is at the shared-core root or under
 `assets/` in the Codex plugin. Local and cloud-synced output folders have
 different audiences; use the lecturer's chosen authorised location.
 
+Before source access, one optional teaching question is enough: “What would you like learners to do better?” Use a goal the lecturer already gave. Someone who is unsure can start with a fictional example. Keep cohort, programme, assessment and accessibility questions for the point where their answers affect a real choice. An optional context question never requires a file or a personal disclosure.
+
 ### Continue after Skip for now
 
 Start designing from a general goal or an invented example in the conversation.

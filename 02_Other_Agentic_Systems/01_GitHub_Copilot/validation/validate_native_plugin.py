@@ -12,8 +12,8 @@ from pathlib import Path, PurePosixPath
 
 SCRIPT = Path(__file__).resolve()
 DEFAULT_ROOT = SCRIPT.parents[3]
-PACKAGE_VERSION = "0.3.0"
-PACKAGE_PROPOSAL = "ACR-SYS-20261127-001"
+PACKAGE_VERSION = "0.3.1"
+PACKAGE_PROPOSAL = "ACR-SYS-20261127-002"
 PLUGIN_RELATIVE = PurePosixPath(
     "02_Other_Agentic_Systems/01_GitHub_Copilot/plugin/"
     "agentic-course-redesign"
@@ -232,13 +232,13 @@ def validate(root: Path = DEFAULT_ROOT) -> list[dict[str, str]]:
     if adapter_manifest is not None:
         native = adapter_manifest.get("native_plugin")
         if (
-            adapter_manifest.get("adapter_version") != "0.3.0"
+            adapter_manifest.get("adapter_version") != "0.3.1"
             or adapter_manifest.get("status") != "candidate_not_active"
             or not isinstance(native, dict)
             or native.get("proposal_id") != PACKAGE_PROPOSAL
             or native.get("package_version") != PACKAGE_VERSION
-            or native.get("base_semantic_version") != "0.3.0"
-            or native.get("rollback_package_version") != "0.2.4-copilot.2"
+            or native.get("base_semantic_version") != "0.3.1"
+            or native.get("rollback_package_version") != "0.3.0"
             or native.get("status") != "candidate_not_active"
             or native.get("install_specification")
             != "agentic-course-redesign@agentic-course-redesign-system"
@@ -663,7 +663,7 @@ def validate(root: Path = DEFAULT_ROOT) -> list[dict[str, str]]:
             'expected "function"',
             "type=custom",
             "fresh task",
-            "0.2.4-copilot.2",
+            "0.3.0",
             "native `ask_user` card",
             "complete valid option set",
             "at least five explicit choices plus a custom-answer field",

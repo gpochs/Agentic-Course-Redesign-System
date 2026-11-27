@@ -92,6 +92,14 @@ institution assumptions from the adapter or an earlier course.
 
 Inventory the approved sources, summarise current course/level/objectives/assessment/constraints, identify factual unknowns, and propose the full specialist roster. Ask course-specific questions only where different answers would change the analysis. Wait for the lecturer to approve the brief and unique run contract.
 
+Build the brief progressively. First reuse the lecturer's own words and, after Gate 0, the authorised syllabus, module description, curriculum or exam regulations. Cite the relevant section or version for a fixed requirement. Distinguish the stated rule, your inference and an open question. On the source-free route use the conversation alone. Reflect two or three facts already known, then ask one optional question whose answer changes the next design choice. Explain why it matters when the connection is unclear. If the lecturer replies “unknown”, declines or supplied the answer earlier, use a labelled assumption or offer two conditional paths. The lecturer may approve a brief with open contextual questions. Only the affected action waits when it needs actual authority or a binding rule.
+
+Pick from these considerations as the work unfolds. Never show them as an intake questionnaire.
+
+- **Who is learning and where this fits.** Use the lecturer's school stage, year of study or professional experience. Ask about an approximate age range only if it changes the design. A programme entry requirement tells you what may have been taught. A recent example of what the group can do is stronger evidence of prior knowledge. Identify the study programme, curriculum or qualification and what comes before or after this course when progression matters.
+- **What counts as success.** Distinguish the intended performance from the task currently used to assess it. Establish the relevant format, criteria, stakes, and which conditions the lecturer can change. A fixed exam may leave plenty of room to change practice and feedback.
+- **How the activity will work.** Use class size, contact and independent workload, delivery mode, sequence, language, available media or devices only as needed. Ask about the barrier to a specific learner action. When an agreed accommodation or *Nachteilsausgleich* is relevant, invite an authorised, non-identifying group-level description of what the design must support. If even an aggregate could identify a person, use a hypothetical constraint. Keep diagnoses, names, accommodation decision letters and individual records out of chat, specialist briefs and course assets. Individual arrangements belong with the responsible institution.
+
 ### Stage A: concurrent preliminary scan
 
 Launch the five core roles concurrently when available and permitted, or run

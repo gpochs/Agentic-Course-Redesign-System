@@ -15,8 +15,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 PLUGIN = ROOT / "plugins" / "agentic-course-redesign"
-OPENAI_PACKAGE_VERSION = "0.3.0"
-BASE_WORKFLOW_VERSION = "0.3.0"
+OPENAI_PACKAGE_VERSION = "0.3.1"
+BASE_WORKFLOW_VERSION = "0.3.1"
 
 
 def load(name: str, relative: str):
@@ -238,7 +238,7 @@ def main() -> int:
     checks.append(
         check(
             state.get("plugin_version") == BASE_WORKFLOW_VERSION,
-            "template preserves v0.3.0 workflow base",
+            "template preserves v0.3.1 workflow base",
         )
     )
     checks.append(check(state.get("status") == "candidate_not_active", "template runtime inactive"))

@@ -16,15 +16,15 @@ Open a trusted local Claude Code project and reload plugins. Invoke `/gpochs-cou
 ## Manual project overlay
 
 
-Adapter release: `0.3.0`. Shared semantic base: inactive candidate
-`ACR-SYS-20261127-001` version `0.3.0`.
+Adapter release: `0.3.1`. Shared semantic base: inactive candidate
+`ACR-SYS-20261127-002` version `0.3.1`.
 
 This overlay adds a project `CLAUDE.md`, one path-scoped rule, and ten
 project-local Claude Code subagents to the portable core. It does not open or
 configure Claude Code, install a plugin, add hooks, define MCP servers, or alter
 user/managed settings.
 
-Release `0.3.0` inherits the portable core's pre-source Gate 0A, unchanged
+Release `0.3.1` inherits the portable core's pre-source Gate 0A, unchanged
 schema-8 lineage vocabulary, one-decision interaction contract, verified
 production handoff before HITL 3, terminal `complete_dormant` lifecycle, and
 one-time informational trigger guidance. Claude Code's documented

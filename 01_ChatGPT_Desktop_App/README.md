@@ -1,8 +1,14 @@
 # Agentic Course Redesign for ChatGPT and Codex
 
-Start a conversation with **Agentic Course Redesign** and describe one thing you want learners to do better. You can redesign one quiz, a course module or an entire course. This folder contains version **0.3.0**.
+Start a conversation with **Agentic Course Redesign** and describe one thing you want learners to do better. You can redesign one quiz, a course module or an entire course. This folder contains version **0.3.1**.
 
 **Use existing materials** starts a short check before the agent opens your files. **Skip for now** takes you straight to your teaching goal. You can finish the redesign from that goal alone. If you later want to use a private file or LMS, the orchestrator asks about that item when you need it.
+
+## What to share first
+
+Tell the orchestrator what you want learners to do and what you already know about the course. A syllabus or module description may already answer questions about the study programme, prerequisites, outcomes, workload and assessment. A short summary works too. The orchestrator uses the details you supplied and asks for the next one that would change a decision.
+
+For a timed exam, it may ask which rules or approved adjustments the design needs to support. Describe the requirement, such as extra time or an equivalent response format, at course level. Keep names, diagnoses and individual accommodation decisions private. You can continue with independent design work while a local rule is being checked.
 
 ## Working with the specialists
 

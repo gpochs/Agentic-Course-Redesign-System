@@ -1,7 +1,7 @@
 # Shared workflow core
 
 This directory is the course-independent semantic source for all platform
-adapters. Version 0.3.0 adds optional, source-free onboarding, evidence guidance for all ten specialists and destination-bound draft reviews. Installation leaves each course inactive until its lecturer starts a run.
+adapters. Version 0.3.1 starts with the lecturer's goal and develops the course brief as each design decision arises. It retains source-free onboarding, all ten specialist roles and destination-bound draft reviews. Installation leaves each course inactive until its lecturer starts a run.
 The same workflow adapts to lecturer-supplied school, vocational, professional,
 higher-education or other explicitly described course contexts. It must not
 infer a subject, learner level, qualification framework, assessment form or

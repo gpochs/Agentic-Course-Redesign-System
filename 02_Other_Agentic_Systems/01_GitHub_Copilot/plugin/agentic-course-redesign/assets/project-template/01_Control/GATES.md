@@ -68,6 +68,8 @@ and hash candidate sources only to present the exact manifest and policy.
 
 ## Gate 1 — course brief and run contract
 
+Use the lecturer's description and authorised current curriculum or module sources to draft the brief. Ask only the next design-changing contextual question. Keep an explicit unknown, or a non-identifying functional access constraint, in the existing brief. A lecturer can approve a brief with an open contextual assumption.
+
 Confirm the course/learner/assessment context, canonical goal, constraints, success/stop criteria, specialist roster, bounded Stage A subgoals, and maximum stage.
 
 ## HITL 1 / Gate 2A — preliminary focus areas
