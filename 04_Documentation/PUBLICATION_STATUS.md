@@ -2,7 +2,9 @@
 
 ## Version 0.3.5
 
-Version 0.3.5 corrects the final message after a teacher chooses to finish. On 27 November 2026, the publisher withdrew the pending 0.3.4 submission and uploaded the 0.3.5 draft for OpenAI’s checks. The published directory version was still 0.2.5 at that check. The versioned report records the package checks and the observation that led to the change. [0.3.5 validation](../05_Validation/VALIDATION_REPORT_v0.3.5.md)
+Version 0.3.5 was released on GitHub on 27 November 2026. It corrects the final message after the teacher chooses to finish. All eight public downloads matched the release checksums. [GitHub release 0.3.5](https://github.com/gpochs/Agentic-Course-Redesign-System/releases/tag/v0.3.5)
+
+On 27 November 2026, the publisher withdrew the pending 0.3.4 review and submitted 0.3.5. All six automated checks passed. The publisher dashboard showed **0.3.5 in review** and estimated completion on **29 November 2026**. The directory still showed **0.2.5** as published when the publisher checked. [Publisher dashboard (sign-in required)](https://platform.openai.com/plugins/manage/plugins_6a88cdd968088191b7a22c9e92cbb5ba?version=pluginrel_49163ae5636481919a7a113beb5eca80) · [Public directory listing](https://chatgpt.com/plugins/plugins_6a88cdd968088191b7a22c9e92cbb5ba) · [0.3.5 validation](../05_Validation/VALIDATION_REPORT_v0.3.5.md)
 
 ## Version 0.3.4
 

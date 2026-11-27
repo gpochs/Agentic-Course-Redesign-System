@@ -23,3 +23,5 @@ The existing Windows Codex course project upgraded ten unmodified files from 0.3
 In fresh desktop conversations, Claude Fable 5.2 Medium, Antigravity Gemini 4 Carbon High and OpenCode with GPT-6.2 Astra Fast at Max effort each confirmed the accepted worksheet and exit question in the chat, then stopped.
 
 In a fresh GitHub Copilot desktop session, Gemini 3.8 Flash High loaded the 0.3.5 orchestrator. The teacher accepted the fictional poetry sheet and left the quiz out. The complete reply was “You accepted ‘Poem comparison sheet v2’ here in the chat.”
+
+The published GitHub tag points to commit `34162db`. All eight files downloaded from the public release matched the SHA-256 digests of the files built from that commit. After the repository marketplace refresh, a fresh Codex process found six enabled user skills and all 59 managed files matched. [GitHub release and validation receipt](https://github.com/gpochs/Agentic-Course-Redesign-System/releases/tag/v0.3.5)
