@@ -120,7 +120,7 @@ def inventory(root: Path, manifest_path: Path) -> list[dict[str, object]]:
             "bytes": path.stat().st_size,
             "sha256": sha256(path),
         }
-        for path in sorted(root.rglob("*"))
+        for path in sorted(root.rglob("*"), key=lambda item: (item.as_posix().casefold(), item.as_posix()))
         if path.is_file()
         and path != manifest_path
         and "__pycache__" not in path.parts

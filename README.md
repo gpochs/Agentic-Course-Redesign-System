@@ -33,6 +33,8 @@ When you describe the course, start with the change you want learners to make. I
 
 ## Choose an installation
 
+Each app has its own installer, so choose the edition for your app to use the shared teaching workflow.
+
 | Platform | How to start |
 | --- | --- |
 | ChatGPT web or desktop, including Codex | Open **Plugins**, search for **Agentic Course Redesign**, install it in your account or workspace and start a fresh chat. The public listing shows the version currently available. [OpenAI installation guide](https://help.openai.com/en/articles/20001256-plugins-in-chatgpt) |

@@ -181,8 +181,8 @@
     },
     {
       "path": "plugin/agentic-course-redesign/assets/PARTICIPANT_QUICK_START.md",
-      "bytes": 4461,
-      "sha256": "740a97ac54ff2985e6e75d8229103fb9add05670decdcb77a22503008a401174"
+      "bytes": 4528,
+      "sha256": "ca1b82266685e3efffc8f22393d86891997f8a2724e77d53f3b68506b3c5dc66"
     },
     {
       "path": "plugin/agentic-course-redesign/assets/project-template/.github/copilot-instructions.md",

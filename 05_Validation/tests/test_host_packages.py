@@ -2,6 +2,8 @@
 
 import importlib.util
 import json
+import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -14,6 +16,12 @@ spec.loader.exec_module(builder)
 
 
 class HostPackageTests(unittest.TestCase):
+    def test_generated_adapter_files_and_manifests_match_their_sources(self):
+        script = builder.ADAPTERS / "00_Portable_Core_Adapter/validation/reconcile_adapters.py"
+        preview = json.loads(subprocess.check_output([sys.executable, "-B", script], cwd=ROOT))
+        self.assertEqual([], preview["mirror_changes"])
+        self.assertEqual([], [name for name, changed in preview["manifest_changes"].items() if changed])
+
     def test_every_native_host_has_roles_guides_helpers_and_template(self):
         with tempfile.TemporaryDirectory() as temporary:
             for host in builder.HOSTS:
