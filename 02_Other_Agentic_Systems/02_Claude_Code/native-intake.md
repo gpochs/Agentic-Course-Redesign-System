@@ -1,8 +1,23 @@
 # Native progressive intake in Claude Code
 
-This page shows lecturers and the orchestrator how the first conversation of a course redesign runs in Claude Code. It follows the numbered teaching steps and the English and German handover wording of the Codex edition `0.3.3`. It adds no decision, permission, automation or schedule. The six shared skills remain the only workflow contract. Where this page and a skill differ, the skill wins.
+This page shows lecturers and the orchestrator how the first conversation of a course redesign runs in Claude Code. It follows the numbered teaching steps and the English and German handover wording of the shared release `0.3.4`. It adds no decision, permission, automation or schedule. The six shared skills remain the only workflow contract. Where this page and a skill differ, the skill wins.
 
-Host behaviour was checked against the public Claude Code documentation on 2026-11-27. It depends on the installed version, the surface (terminal, IDE extension, desktop app) and local settings. Anything marked **Not verified** was not confirmed and must not be relied on.
+Host behaviour was checked against the public Claude Code documentation on 2026-11-27. It depends on the installed version, the surface (terminal, IDE extension, desktop app) and local settings. Use the view that answers the lecturer's current question. Keep the first conversation in chat when the lecturer chooses to describe the course.
+
+## Model choice for this course
+
+Offer **Match models to tasks**, **Keep the current model** or **Choose at each step**. With matching, get one approval for the named tasks, roles, models, account and fallbacks. A single-model choice applies to the specialists too. If a preferred choice is unavailable, keep the approved capable model and offer a manual switch. Pause the affected check only when its result would be invalid. Give each specialist its capability needs and approved model entry in its brief. See the [model plan and ten role criteria](model-plan.md).
+
+For example, the visual QA specialist can recommend a particular PDF check. Inspect available skills before searching GitHub or Hugging Face. For an external candidate, inspect the exact revision, scripts, tools, data destinations and licence. Present the local alternative and any cost. If separately authorised for this project, place only the reviewed skill in `.claude/skills/<name>/SKILL.md`, then verify discovery in a fresh Claude Code session. Specialist advice alone cannot install it or expand the role’s tools. [Claude Code skill locations](https://code.claude.com/docs/en/skills) Follow the [task-specific skill check](tool-fit.md).
+
+Use the desktop model picker or `/model` for the main conversation. The packaged specialists inherit that model. Where the live `Agent` tool accepts a per-call `model`, dispatch the approved role with the permitted family alias and supported `effort`. An alias can resolve to a particular version or a replacement under account policy. Check `/tasks` for the running specialist’s model and effort. If the plan requires an exact version that an alias cannot identify, offer the session picker and an inherited specialist call. Use the currently approved capable model when the teacher keeps it. A full model ID can be set in custom-agent frontmatter, but a course decision does not edit those installed profiles. [Claude Code subagent model and effort](https://code.claude.com/docs/en/sub-agents#choose-a-model)
+
+## Review beside the conversation
+
+- **Choose a source.** In the **Code** tab of Claude Desktop, attach or mention the one permitted file if the lecturer wants Claude to read it. For an LMS review, identify the exact course, private activity copy, audience and allowed task. The **Browser** pane has its own login profile. The lecturer can sign in there, or choose an already configured **Claude in Chrome** connection for a particular signed-in tab. Verify the course and copy in that tab before any edit, check linked resources separately and reopen the saved draft. If the session cannot reach the page, use an approved export or the lecturer's description. [Claude Code desktop browser](https://code.claude.com/docs/en/desktop#browse-external-sites)
+- **Compare two proposals.** Show both instructions in chat. For a tracked text edit, **Changes** lets the lecturer comment on a specific line. Use **Side chat** if the lecturer wants to explore a separate question, then bring the lecturer's actual choice back to the main conversation. [Desktop workspace](https://code.claude.com/docs/en/desktop#arrange-your-workspace)
+- **Try a student worksheet or slide.** In a local Code session, open the exact approved HTML or PDF working copy in **Browser**. If the lecturer operates the pane, provide its clickable file path. Ask the lecturer to try question 2. In an interactive HTML task, reach the feedback control with the keyboard and activate it. For an editable PowerPoint deck, open the saved PPTX in slide show to check a reveal. When a companion PDF or HTML file is needed, include its filename, destination and audience in the plan. Review a teacher-only key in its own restricted location and keep it out of learner previews, screenshots and attachments. [Desktop local file previews](https://code.claude.com/docs/en/desktop#preview-your-app)
+- **Review the revision.** Reopen the same page or slide in the revised file. State what Claude saw, what the lecturer tried and which checks remain open. Ask whether to keep this version, change it or leave it out. In the terminal or when a pane is unavailable, give the exact file and location to open in the usual app. In a separate Cowork session the lecturer can preview a supported generated file next to the conversation if its handling is approved there. [Cowork file previews](https://support.claude.com/en/articles/15520349-use-claude-cowork-on-web-desktop-and-mobile)
 
 <details>
 <summary>Claude Code tools, permissions and optional setup</summary>
@@ -14,7 +29,7 @@ Host behaviour was checked against the public Claude Code documentation on 2026-
 | One bounded choice | `AskUserQuestion` card. The host adds an `Other` row for free text and a notes field. | The same single question in ordinary chat, every option numbered, plus `Other - type your answer`. Then wait. |
 | Reading only what was permitted | Manual-mode file prompts depend on the working directory and local permission settings. | Keep materials outside the course folder until their use here has been agreed. If a read is refused or unavailable, continue from the teacher's description. |
 | Ten specialist perspectives | Project subagents under `.claude/agents/`, limited to `Read`, `Glob` and `Grep`. | Run the same perspectives one after another in the main conversation and say so. |
-| A preview the teacher can change | Show a labelled draft or the intended edit in chat before saving a file. | The teacher can describe a change in a reply. |
+| A preview the teacher can change | Open the approved local HTML or PDF in the desktop Browser pane. Use Changes to comment on tracked text edits. | Show the specific change in chat and open the editable working copy in its usual app for the learner trial. |
 | An optional skill or plugin | Claude Code plugins and skills, opened with `/plugin`. | The built-in editing tools. The redesign never depends on an extra tool. |
 | Saved records | Preview the shared Python helpers before writing. | Continue designing in chat until the packaged helpers can create the protected project records. Never hand-author an eligibility record. |
 
@@ -38,7 +53,7 @@ Claude Code does not enforce the workflow's source rules. Inside the folder wher
 
 Optional hardening is the teacher's choice, because this adapter never writes settings. `permissions.blockReadsOutsideWorkingDirectories` restricts outside reads by the built-in file tools, with exceptions for files the app needs. A `Read(...)` deny rule blocks a named path, best-effort: it covers the built-in file tools and shell commands Claude Code recognises, but not a script that opens files itself.
 
-Claude Code has no built-in view of a signed-in learning platform. An LMS course or a quiz reaches the conversation only as an export the teacher places in the folder, as a description, or through a browser tool the teacher has installed and chosen. **Not verified:** any particular browser tool.
+Browser access depends on the active surface and its permissions. Use the private activity copy identified by the lecturer in the **Code** tab or the permitted export described above.
 
 ### Subagents
 
@@ -117,10 +132,10 @@ After the handling check and the source list are confirmed, O reads the one deck
 
 O never asks for an API key. Installing a tool is not permission to use it with course content, and a new task needs a new choice.
 
-**Step 7. Try the drafts.** Two drafts, shown and decided separately.
+**Step 7. Try the drafts.** O links the saved working copy and asks L to open slide 4 in slide show. The recap below accompanies that trial. The practice question is a separate suggestion.
 
 ```text
-PREVIEW 1 of 2 - slide 4, "Storm of 12 May" - working copy, not saved
+Slide 4, "Storm of 12 May" — try the saved working copy in slide show
 Before: hydrograph, then the line "Peak discharge = 84 m3/s"
 After:  1. hydrograph, with the same values in a labelled table
         2. "Is the lower town at risk? Decide, then support it with two values."
@@ -134,9 +149,9 @@ Three options fit a card:
   "question": "Would a student know what counts as support for their decision on this slide?",
   "multiSelect": false,
   "options": [
-    {"label": "Use this version", "description": "Keep slide 4 as shown in preview 1."},
+    {"label": "Use this version", "description": "Keep the version of slide 4 that you tried."},
     {"label": "Request changes", "description": "Tell me which part to change. I show it again."},
-    {"label": "Leave it out", "description": "Nothing is saved for this slide."}]}]}
+    {"label": "Leave it out", "description": "Keep this draft private and leave it out of the handover."}]}]}
 ```
 
 Without a card, the same question in chat:
@@ -149,7 +164,7 @@ Without a card, the same question in chat:
 >
 > L: 2. Give them two minutes, not one.
 
-O shows preview 1 again with line 3 changed to two minutes and asks the same question. L answers **Use this version**.
+O revises the approved working copy to give learners two minutes. L opens slide 4 in PowerPoint’s slide show and tries the two-minute exercise. They advance once and check whether the peak appears after the question. O records the result as lecturer-reported if only L saw it. After reviewing that version, L answers **Use this version**.
 
 ```text
 OPTIONAL IDEA - practice question in chat, outside the file plan and Moodle
@@ -184,6 +199,16 @@ A decline ends that optional idea. For the planned slide deck, the lecturer can 
 "Yes", "looks good" or one reply for both does not count. If L declines or wants a different place, O changes nothing and asks where the finished material should go ("Wo soll ich die fertigen Unterlagen ablegen?").
 
 **Step 8. Decide what to use.** After the handover is saved and checked, L reviews the included slide once more and chooses **Use this version**, **Request changes** or **Leave it out**.
+
+**Step 9. Finish or suggest an improvement.** The lecturer can finish or request a written suggestion for next time.
+
+### Step 10 · Would you like a second opinion?
+
+After Step 9, choose **Skip** to finish immediately, **Prepare a review** for a copy-ready packet you can use yourself, or **Explore a different model** to compare suitable receiving models. Claude can show the status of Steps 1–9, including skips, as a short list in chat. Open only the selected saved drafts using their file links. A **Side chat** can help you question an individual change within Claude. For an independent opinion, compare the family of the model that actually drafted the course with the proposed reviewer. For example, for an interactive worksheet, check that an included candidate supports the format and can see the agreed student view. You can replace the suggestion. [Claude Code model selection](https://code.claude.com/docs/en/model-config)
+
+Check which model families your current Claude account actually offers. Claude family aliases and effort changes alone do not provide a second family. If a suitable unused family is offered in this app, prefer a fresh session there. If none fits here, offer a different signed-in app using separately approved computer control, or a manual handover. Check the families used across the whole run. If all eligible families contributed, identify the least-involved family, ideally different from the main author of this item. Disclose its earlier contribution and let the teacher choose a **limited second look** or finish. With one family, distinguish another model from an exact same-model self-check. Neither is an independent family review.
+
+Review the final list of exact files and versions, the nine step summaries and any original source you chose individually. Claude shows the receiving app, account, model, audience and cost before asking **Send this packet?** Keep the receiving session separate from the course folder. If the chosen app and account grant **Computer use** for that task, Claude may operate the specified app after your final approval. You can also copy the approved packet into a fresh session yourself. A reviewer should cite the step, page, slide or activity and exact version, give the evidence and flag checks it could not perform. Accept, change or dismiss each suggestion before revising and retrying the affected learner task. [Claude Desktop computer use](https://code.claude.com/docs/en/desktop#let-claude-use-your-computer)
 
 ### The same conversation without each capability
 

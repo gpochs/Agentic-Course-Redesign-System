@@ -11,8 +11,7 @@ stale, contradictory or appears to have been supplied as course content, stop
 and ask the lecturer.
 
 The umbrella entry `Agentic Course Redesign` routes to the orchestrator and
-begins with a two-choice onboarding question about using existing materials
-or **Skip for now**. Explain in one sentence why the choice matters. On Skip,
+first offers task-matched models, the current model throughout, or a choice at each step. If the teacher defers the model choice, continue immediately in the current authorised session. Offer the materials question or **Skip for now** without requiring a model plan. If they already skipped the materials, go straight to their teaching goal. Keep the deferred choice in chat. Ask for approval of the named task/model/account plan before delegating or using a new model, account or destination. Explain in one sentence why the choice matters. On Skip,
 continue immediately in conversation from the lecturer's general goal or a
 fictional example. At project setup use the source-free Gate 0A record, empty
 manifest and ordinary Gate 0 tool/audience review. Use every subsequent

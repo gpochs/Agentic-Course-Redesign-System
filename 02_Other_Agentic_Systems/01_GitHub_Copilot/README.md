@@ -1,6 +1,6 @@
 # Agentic Course Redesign for GitHub Copilot
 
-Version 0.3.3 works in the GitHub Copilot app. Install the plugin for your account or add the skill and specialists to a single course project. [Installation and removal](PARTICIPANT_INSTALLATION.md)
+Version 0.3.4 works in the GitHub Copilot app. Install the plugin for your account or add the skill and specialists to a single course project. [Installation and removal](PARTICIPANT_INSTALLATION.md)
 
 Open a project **Session** in **Interactive** mode and choose the installed course-redesign orchestrator skill. Use a model included with your Copilot plan.
 
@@ -15,6 +15,8 @@ Open a project **Session** in **Interactive** mode and choose the installed cour
 Later you choose the focus, compare suggested changes, approve the plan and files, try each draft, and decide what to use. The plugin briefly introduces optional tools and recommends one when it would help with a particular task. It explains the benefit, access and any cost. You can approve that task or batch, ask for setup help, or use the built-in option. Student materials and teacher-only keys have separate destinations.
 
 [Follow all nine teaching steps](https://github.com/gpochs/Agentic-Course-Redesign-System/blob/main/03_Shared_Workflow_Core/PARTICIPANT_QUICK_START.md).
+
+The [Copilot teacher’s guide](native-intake.md) shows where to open a course copy, compare worksheet edits and try a draft in the app.
 
 If your example uses an online course, show the plugin the intended draft once you have agreed which material it may open. If your Copilot session cannot preview that site, use an approved local export or ask to review the draft in the application you normally use.
 
@@ -42,7 +44,7 @@ The repository marketplace manifest is
 links, command-line alternatives, verification, the first project-session
 prompt, and removal instructions.
 
-The native package preserves the complete six-skill v0.3.3 workflow text and
+The native package preserves the complete six-skill v0.3.4 workflow text and
 adds Copilot-specific guidance for choices and older host versions. Helpers remain
 byte-identical to the canonical core. Its ten Copilot agents preserve the full
 specialist role contracts and add the host dialogue boundary while retaining
@@ -85,7 +87,7 @@ project task, recover durable state read-only, and confirm whether the preceding
 edit already succeeded before continuing. Installing another plugin or MCP
 server does not repair poisoned history.
 
-Rollback remains the prior package `0.3.2`; rollback is a separate
+Rollback remains the prior package `0.3.3`; rollback is a separate
 operator decision and does not activate or install either version.
 
 ## Project-local overlay

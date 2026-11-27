@@ -9,7 +9,7 @@ python 02_Other_Agentic_Systems/build_host_package.py claude <new-plugin-directo
 claude plugin validate <new-plugin-directory>
 ```
 
-Open your course project, reload plugins and choose a Fable or Opus model included with your Claude subscription. Start with `/gpochs-course-redesign` or select the installed course-redesign orchestrator skill. Each specialist inherits the conversation model.
+Open your course project, reload plugins and choose a Fable or Opus model included with your Claude subscription. Start with `/gpochs-course-redesign` or select the installed course-redesign orchestrator skill. Specialists inherit the conversation model by default. When you approve task-specific assignments, a supported Agent call can select another permitted Claude model and effort for that task.
 
 ## Start with your course
 
@@ -23,7 +23,7 @@ Later you choose the focus, compare suggested changes, approve the plan and file
 
 [Follow all nine teaching steps](https://github.com/gpochs/Agentic-Course-Redesign-System/blob/main/03_Shared_Workflow_Core/PARTICIPANT_QUICK_START.md).
 
-Claude shows the next question as a choice card when it fits, or in chat when you need to explain. For a document or presentation, ask for the editable draft and open it in its usual application. Ask Claude what it actually checked. [Claude skills](https://code.claude.com/docs/en/skills) · [Installing skill-directory plugins](https://code.claude.com/docs/en/plugins/create)
+In a local **Code** session in Claude Desktop, click the approved worksheet’s HTML or PDF path to open it in **Browser**. Try the learner task beside the conversation, then tell Claude which prompt to revise. Use slide show for a PowerPoint reveal. The Browser pane uses its own sign-in profile. For an approved LMS check, point Claude to the exact private course copy and handle sign-in yourself. In a terminal session, use the editable file link and tell Claude what you saw. [Claude Code desktop previews](https://code.claude.com/docs/en/desktop#preview-your-app) · [Browser sign-in](https://code.claude.com/docs/en/desktop#browse-external-sites)
 
 <details>
 <summary>For maintainers using the manual project overlay</summary>
@@ -31,8 +31,8 @@ Claude shows the next question as a choice card when it fits, or in chat when yo
 ## Manual project overlay
 
 
-Adapter release: `0.3.3`. Shared semantic base: inactive candidate
-`ACR-SYS-20261127-004` version `0.3.3`.
+Adapter release: `0.3.4`. Shared semantic base: inactive candidate
+`ACR-SYS-20261127-005` version `0.3.4`.
 
 This overlay adds a project `CLAUDE.md`, one path-scoped rule, and ten
 project-local Claude Code subagents to the portable core. It does not open or

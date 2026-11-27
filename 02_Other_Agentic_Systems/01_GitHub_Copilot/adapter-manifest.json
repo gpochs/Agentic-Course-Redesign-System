@@ -1,14 +1,14 @@
 {
   "schema_version": "1.0",
   "adapter_id": "github-copilot",
-  "adapter_version": "0.3.3",
+  "adapter_version": "0.3.4",
   "platform": "github-copilot",
   "status": "candidate_not_active",
   "native_plugin": {
-    "proposal_id": "ACR-SYS-20261127-004",
-    "package_version": "0.3.3",
-    "base_semantic_version": "0.3.3",
-    "rollback_package_version": "0.3.2",
+    "proposal_id": "ACR-COPILOT-20261127-001",
+    "package_version": "0.3.4",
+    "base_semantic_version": "0.3.4",
+    "rollback_package_version": "0.3.3",
     "status": "candidate_not_active",
     "plugin_name": "agentic-course-redesign",
     "marketplace_name": "agentic-course-redesign-system",
@@ -21,27 +21,31 @@
   },
   "overlay_root": "overlay",
   "compose_after": [
-    "portable-core@0.3.3"
+    "portable-core@0.3.4"
   ],
   "source_provenance": {
-    "system_id": "ACR-SYS-20261127-004",
-    "version": "0.3.3",
+    "system_id": "ACR-SYS-20261127-005",
+    "version": "0.3.4",
     "source_status": "approved inactive candidate; not activated",
     "origin_label": "03_Shared_Workflow_Core",
     "hash_algorithm": "sha256",
     "hashes": {
-      "VERSION": "a0dc8325e2fbe558e09bf7d61260ca378151b0a3f875dd8b46ecd3693e34c10b",
-      "adapter-contract.json": "d202402559e4b8c99c44ff756985791cdbf6896e09ff75016fdb307822d796cd",
-      "course-project-template/AGENTS.md": "396ddd11d9dbeca31dfbb3c8af254468a364dbcd219663455ce2eae7374e5731",
-      "course-project-template/01_Control/GATES.md": "d2d81682f2f794ee610bf31e88819c16815fd31fefe6cf95eef520cacd9d2a7e",
+      "VERSION": "027a61167f091a427fa7844dcac0c5141bafbcbdcadc7e04a93578147ab956f2",
+      "adapter-contract.json": "89f0eba6cbf3df5afee8f33d84f6f83b73f3c3a691231e8fde3d6e91e1a71591",
+      "course-project-template/AGENTS.md": "dfa8e19a9a811feb7688b08c895a76ce8bd2aa2ccbca49226065beb14e05bcbc",
+      "course-project-template/01_Control/GATES.md": "4ac8af12921e6729f41a071134091e73e4a1a255a73439f01ba0c1e392ceab19",
       "course-project-template/01_Control/material-processing-eligibility.template.json": "efe8b8d8d6e7ba3cd9b0dc21e1f014ad65206aaa609468555974949e4496fbed",
-      "course-project-template/01_Control/state.json": "f429749a6247b4eb8cd185909c94e8ded058a90d1ce2d242fadd946b1b230e44",
-      "agent-skills/course-redesign-assessment/SKILL.md": "07d16eee5e097c97470bcf8a62a4a1d0b3367526dfe645511fb364b70c29e30a",
-      "agent-skills/course-redesign-materials/SKILL.md": "b337400db3bf9f949ddc5d1e8141271576268ff3c9a334ed266abea8fa874c5e",
-      "agent-skills/course-redesign-orchestrator/SKILL.md": "480e96270789ecbed69fc107e1853a5a82a723d4589c523972654a77718e7431",
-      "agent-skills/course-redesign-research/SKILL.md": "60045e2c3850159c106f0ac703f5c8de295f30892369f85fb01dd080fdc4b823",
-      "agent-skills/course-redesign-setup/SKILL.md": "8aba1420b213645768f9c3f439b91231575e4081762f590d590134a611388b7c",
-      "agent-skills/course-redesign-system/SKILL.md": "520447d93740cd480bcc817dbaa018e6313ee241dce6a08e860f6a637e984b24",
+      "course-project-template/01_Control/state.json": "47c02a33109b55dc5e3153f9ab993c6635687d409a717bbeda7cc13d13477902",
+      "agent-skills/course-redesign-assessment/SKILL.md": "7e94a01c0a856651f550496c482bb626e2995c1708350551aec73db7d4de2626",
+      "agent-skills/course-redesign-materials/SKILL.md": "90d047a9b4c49e458e8eba62dcec1ca6ad841f6f58397ec3d0c1166a757d2b8a",
+      "agent-skills/course-redesign-materials/references/artifact-review.md": "728a718bed7190660c77954b0eac28277cdbc9d906c9c519ab0b9e35bf54abc5",
+      "agent-skills/course-redesign-orchestrator/references/second-opinion.md": "3ab337e206d0fb72749501792bd5b256480d6beb4e8d57dc02b2f8ac19b2293c",
+      "agent-skills/course-redesign-orchestrator/references/model-plan.md": "04670c023c59ca56dcb1f8d8980a50e04ebaaf534b0913eed5ae58e45d177aae",
+      "agent-skills/course-redesign-orchestrator/references/tool-fit.md": "fe71a33ef340511de6fc628b60b5467478e71554ef603edb5c85ada33b2a9860",
+      "agent-skills/course-redesign-orchestrator/SKILL.md": "7b0469580edb285d43f583a01c9d5144b3a22325444924bcb17f060bb853962d",
+      "agent-skills/course-redesign-research/SKILL.md": "6c11366d2f21112a61ace747723da9dd57eb86ca180d46eb523a004045cde3ea",
+      "agent-skills/course-redesign-setup/SKILL.md": "36ee6dec3f1729952da3c322793466ff9c530bf9a981558fb71db1cd537f5d80",
+      "agent-skills/course-redesign-system/SKILL.md": "cf4ca06381df35d5f5ffdf1f0fe33212f68433e23b1436fc5b848abe65fdc039",
       "scripts/create_material_processing_eligibility.py": "cb27aa8d29daf4d9097a575cdf7308af31b1b797c89de0bbe669a7337764a7c5"
     }
   },
@@ -56,63 +60,63 @@
   "files": [
     {
       "path": "CAPABILITIES.md",
-      "bytes": 4519,
-      "sha256": "d1eade364ed22aa6e4915ff9b32488eb538cee371f8f2bab6ea294f5263fd396"
+      "bytes": 5274,
+      "sha256": "0b3d4daa22e07074fca22d49bbe8829668a24e997233951ee792dc562c91765b"
     },
     {
       "path": "native-intake.md",
-      "bytes": 12139,
-      "sha256": "6f8ec873b93f94ea62eb00f15fc0c8cac3b866abb28e8a821be3a97059a2667c"
+      "bytes": 20222,
+      "sha256": "cb3a34b7a1172e446bddb74f74765b61fa377d5e9617196f338584aaa8670244"
     },
     {
       "path": "overlay/.github/agents/active-learning-researcher.agent.md",
-      "bytes": 1984,
-      "sha256": "b2fb7b36ec45ae48b6e13d572ded239f41b4ac910e4b91be48ca1b426cfe855e"
+      "bytes": 2663,
+      "sha256": "7609ba3c9dfa25fb38178d6bc35264124d3adcffc144afb8b370f544da6ed2ba"
     },
     {
       "path": "overlay/.github/agents/ai-integration-researcher.agent.md",
-      "bytes": 1991,
-      "sha256": "3f58de7f9f5fc01c8d06c9e863ea072c66cd6ace9e714a6a3663182e13c2b5e1"
+      "bytes": 2670,
+      "sha256": "e9b62d1e623181ba8b49a13db67bd41a0f3db24412f054325ce3da3b4a8f14ae"
     },
     {
       "path": "overlay/.github/agents/artefact-accessibility-visual-qa.agent.md",
-      "bytes": 2070,
-      "sha256": "c4b0a0730bc5524d9283aec96da46f4d777d56cbddc4f5c123ab96c4e8584ef0"
+      "bytes": 2749,
+      "sha256": "9859609da992c5a539db64c49b31083016b53c7ca4df4428b05cc238d6614560"
     },
     {
       "path": "overlay/.github/agents/assessment-alignment-designer.agent.md",
-      "bytes": 2355,
-      "sha256": "d99af7bac16125c9db53527fb4d80863f0c97389bc2caac2f40beecabc952ddd"
+      "bytes": 3034,
+      "sha256": "53d23eb2a5678784e675b48731e4471270f474e41037ed51a9650aec40145dea"
     },
     {
       "path": "overlay/.github/agents/course-mapper.agent.md",
-      "bytes": 2169,
-      "sha256": "2f22df60fc052a9c6618954b1b9d55b1fb4783f14efb994ad13a4afd79e3247e"
+      "bytes": 2848,
+      "sha256": "f072e7ba3989c7df7aaab36e4cdb7ef0acc48f3be21ed59bde66a28946446d29"
     },
     {
       "path": "overlay/.github/agents/evidence-feasibility-red-team.agent.md",
-      "bytes": 1997,
-      "sha256": "b0b4e4e9756b9393bb2904f71efffdef967fcb692af0493fd0c402fde6a15fe8"
+      "bytes": 2676,
+      "sha256": "b63d440793b4bac31702ef042d6a911da2594e24bcdf824a59fdd464e5f475b9"
     },
     {
       "path": "overlay/.github/agents/learning-designer.agent.md",
-      "bytes": 1897,
-      "sha256": "3cd611bb9fc5083937b629b395b0c701df8753a383520df36cc8ead6da9d0ab5"
+      "bytes": 2576,
+      "sha256": "7d519889f25a628ee21bf80d77750aa988fb24f8cd7b6604d55b26ff99ab4c48"
     },
     {
       "path": "overlay/.github/agents/learning-material-designer.agent.md",
-      "bytes": 2038,
-      "sha256": "4587d988270eb162873eaef873e0fd730abd73f1cfc92f0fa186091014bee5a4"
+      "bytes": 2717,
+      "sha256": "6bda87c79afe3182eef6be0d364d7835ea42d4f517375447df2bfd502969531a"
     },
     {
       "path": "overlay/.github/agents/source-verification-citation-auditor.agent.md",
-      "bytes": 2031,
-      "sha256": "b397c3180145b74ef628a4c54a8e801089952479f64a5ef28ca1c87c8f6d448b"
+      "bytes": 2710,
+      "sha256": "b9e022481c5c6244c0c8d27dcbcf6295b8cfbeb2ba3ff3d463eeb35db79047ca"
     },
     {
       "path": "overlay/.github/agents/student-experience-critic.agent.md",
-      "bytes": 2290,
-      "sha256": "fd0e014ae8b1b48af24304edc2338ece7a0b4843757720ea06513ac716b8709d"
+      "bytes": 2969,
+      "sha256": "b31b09a8db4aba6e0572de5c032f2131ed9c39b2dfc0adb1889252a0191ee54b"
     },
     {
       "path": "overlay/.github/copilot-instructions.md",
@@ -127,62 +131,62 @@
     {
       "path": "PARTICIPANT_INSTALLATION.md",
       "bytes": 8251,
-      "sha256": "5b31e25e57e2dec6c8609e9ce1e5f1b57d3678b22c24a5b15f5290615ea9e8c8"
+      "sha256": "7bbb67f50a42bfea68ab889117b243f3ff4ceddc719844db43de9fceddf0859f"
     },
     {
       "path": "plugin/agentic-course-redesign/agents/active-learning-researcher.agent.md",
-      "bytes": 7253,
-      "sha256": "5285b26b6e317f6d64826a05d02149999928fa55b4f566c5eab12c628a3da59f"
+      "bytes": 7932,
+      "sha256": "3433ba94b74319e25bf4db3fb9b2027e9da6d091da6f07acc52449da9d7fc042"
     },
     {
       "path": "plugin/agentic-course-redesign/agents/ai-integration-researcher.agent.md",
-      "bytes": 7421,
-      "sha256": "62b28ccd7f3caaf87017168467eaf96e836eaea671aa26ee96dc9089e5a6888d"
+      "bytes": 8100,
+      "sha256": "7afbe56974012b3c7e2d38f6b311d2f959e163a3feb3e8cf36c7e1a1c9471138"
     },
     {
       "path": "plugin/agentic-course-redesign/agents/artefact-accessibility-visual-qa.agent.md",
-      "bytes": 6568,
-      "sha256": "8d909eccc284a8497f1f2ed3f0ce4b2ac1a41ed7550bfbd1e18cbb158fde9d92"
+      "bytes": 7247,
+      "sha256": "0db6aa59064711eba7f6f2236464098cef7b362cbe053948337b1bd77da3cbaa"
     },
     {
       "path": "plugin/agentic-course-redesign/agents/assessment-alignment-designer.agent.md",
-      "bytes": 8552,
-      "sha256": "6d5d430717d27a77f1b3482502bd9411d80eecac00c05e7ee178dcf4a85626df"
+      "bytes": 9231,
+      "sha256": "a5c55dd15baa62e5666d4ca9b9fedc870b46e24c0ef8a139ee18b84902a93ed0"
     },
     {
       "path": "plugin/agentic-course-redesign/agents/course-mapper.agent.md",
-      "bytes": 7656,
-      "sha256": "695c5fdf20c76abad0235b356a2816cbebcce74b51e4c7dd94811161d76f92da"
+      "bytes": 8335,
+      "sha256": "1b238d83ab505988dda6cecb8a4350a080d869585957e0f406631b63b0eea880"
     },
     {
       "path": "plugin/agentic-course-redesign/agents/evidence-feasibility-red-team.agent.md",
-      "bytes": 7210,
-      "sha256": "31a36c419d2fcc171470a967b6d33212a64b078fdb87033fe49d4528b1d08dfa"
+      "bytes": 7889,
+      "sha256": "b14e955d75fab48f4a7926f27ec817f27a994272ae16726d528b83edbc9c8bb5"
     },
     {
       "path": "plugin/agentic-course-redesign/agents/learning-designer.agent.md",
-      "bytes": 7414,
-      "sha256": "5939f060e8fc44bf3483e60907ab6b0b8b6163c21c8c6195eecfaa1a21037cfa"
+      "bytes": 8093,
+      "sha256": "18d54ed9c1c97992650bc902a05f05dc0fc2d26b18cc4ccb109d2b08642c9825"
     },
     {
       "path": "plugin/agentic-course-redesign/agents/learning-material-designer.agent.md",
-      "bytes": 8153,
-      "sha256": "6afaaa93c403a336b2cf8fb3c3d074922be592916716b7a96a7ca4de9e8ccf61"
+      "bytes": 8832,
+      "sha256": "96e7b2818ad7d9d0a0df990498074a8f3cb6cd35ca87d3d021a920b6587c958b"
     },
     {
       "path": "plugin/agentic-course-redesign/agents/source-verification-citation-auditor.agent.md",
-      "bytes": 6272,
-      "sha256": "629cf7bab017af539e6b1ac33192b3955ce9d002ab8ee89c7676abfe326a8126"
+      "bytes": 6951,
+      "sha256": "a9af45fc5b9775d5a189cfbcf7c35066f73bee341e4ef64be39aab4d1649edda"
     },
     {
       "path": "plugin/agentic-course-redesign/agents/student-experience-critic.agent.md",
-      "bytes": 8240,
-      "sha256": "3aa8e120eca1c6974fed358a971a0dc7bc1118a7e0434047789a1a8889e9da57"
+      "bytes": 9140,
+      "sha256": "5d73f012fa145a0eb616f55facbf16ea097adc761181d903bf7fba4cbd391ea8"
     },
     {
       "path": "plugin/agentic-course-redesign/assets/PARTICIPANT_QUICK_START.md",
-      "bytes": 4528,
-      "sha256": "ca1b82266685e3efffc8f22393d86891997f8a2724e77d53f3b68506b3c5dc66"
+      "bytes": 6265,
+      "sha256": "c0e2d4b308f44dfdc4cbc66fe72d10e12c8ba1179c406b50c002fac14b57564a"
     },
     {
       "path": "plugin/agentic-course-redesign/assets/project-template/.github/copilot-instructions.md",
@@ -211,8 +215,8 @@
     },
     {
       "path": "plugin/agentic-course-redesign/assets/project-template/01_Control/GATES.md",
-      "bytes": 13847,
-      "sha256": "5e0621264543f5a77cc19c7f08fd619503fd5b17471a789378cd2dde00688156"
+      "bytes": 14323,
+      "sha256": "77084027cb1e9d8f30e32dd92995118ce0ca18028475d4a49d0d96ea59ba5445"
     },
     {
       "path": "plugin/agentic-course-redesign/assets/project-template/01_Control/material-processing-eligibility.template.json",
@@ -237,7 +241,7 @@
     {
       "path": "plugin/agentic-course-redesign/assets/project-template/01_Control/state.json",
       "bytes": 61136,
-      "sha256": "f429749a6247b4eb8cd185909c94e8ded058a90d1ce2d242fadd946b1b230e44"
+      "sha256": "47c02a33109b55dc5e3153f9ab993c6635687d409a717bbeda7cc13d13477902"
     },
     {
       "path": "plugin/agentic-course-redesign/assets/project-template/02_Working_Notes/README.txt",
@@ -271,8 +275,8 @@
     },
     {
       "path": "plugin/agentic-course-redesign/assets/project-template/AGENTS.md",
-      "bytes": 47389,
-      "sha256": "452b2b98b64e754824bb7fe05ffb17e7428fab017e778e2948bef8f392b5b334"
+      "bytes": 47786,
+      "sha256": "6d3578f558bf99b166f726f7258ef9f99da3bcafc98da339bac9adbbb750f005"
     },
     {
       "path": "plugin/agentic-course-redesign/assets/project-template/PROJECT_SETUP.md",
@@ -287,17 +291,17 @@
     {
       "path": "plugin/agentic-course-redesign/PARTICIPANT_QUICK_START.md",
       "bytes": 7859,
-      "sha256": "e83e0f99175f6d466bb4edf3f666176a12a2ab8cf57bc3069ceff39c26f4a78a"
+      "sha256": "1a4d9a03542855a3c5639dc2d046da519e6dac4a390469552d860650f7a71c77"
     },
     {
       "path": "plugin/agentic-course-redesign/plugin.json",
       "bytes": 733,
-      "sha256": "b3196ccf8238181cf6bf18d9214caef0194fa83dd0955f5951801093be903818"
+      "sha256": "bb19f62b2bb7d19f6494be8f10e542114a97bc0c612fa8e2868a05053fa0c903"
     },
     {
       "path": "plugin/agentic-course-redesign/README.md",
-      "bytes": 4845,
-      "sha256": "53bd9ba11c2db073ee21d4e96d052906b0cb758aba0d0647310e7eb3dcfe627e"
+      "bytes": 4941,
+      "sha256": "4ab41eb86c3ad682b25a8c3d6242fe91cc60aeb28564b78eef3e4271fc958e5a"
     },
     {
       "path": "plugin/agentic-course-redesign/scripts/create_material_processing_eligibility.py",
@@ -331,63 +335,78 @@
     },
     {
       "path": "plugin/agentic-course-redesign/scripts/validate_state.py",
-      "bytes": 169042,
-      "sha256": "69bfb523d4f16804584c96d0d3832167cbd45c3c3f7c1faec0859314cdd446fe"
+      "bytes": 182055,
+      "sha256": "bd58850f70386a82fcac555042b750970d92883de6bb4d9039576047ec600243"
     },
     {
       "path": "plugin/agentic-course-redesign/skills/course-redesign-assessment/SKILL.md",
-      "bytes": 10038,
-      "sha256": "5164f0a3bb809a9f023e4e970b589bc0eda537c0678883a83d9e8690518fc810"
+      "bytes": 11542,
+      "sha256": "4af94a9c07bc79c08c03755c25388e192e9b0d6b9d745d19a379a434e03d6378"
     },
     {
       "path": "plugin/agentic-course-redesign/skills/course-redesign-materials/references/artifact-review.md",
-      "bytes": 11843,
-      "sha256": "a1b1e252c61dad60b5604c29e4f7f7dfe01e4b2848444c9ae2031638fd0e8094"
+      "bytes": 14532,
+      "sha256": "728a718bed7190660c77954b0eac28277cdbc9d906c9c519ab0b9e35bf54abc5"
     },
     {
       "path": "plugin/agentic-course-redesign/skills/course-redesign-materials/SKILL.md",
-      "bytes": 11887,
-      "sha256": "6b1c11d1cf2183ab55b976e4019680288312221d1426e5fe6597d31ffd6701ab"
+      "bytes": 13260,
+      "sha256": "aa75d780d0ee1ba563d6e69c996fb552aa90f5e1318eeec2230969eb8cbb0519"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/skills/course-redesign-orchestrator/references/model-plan.md",
+      "bytes": 10394,
+      "sha256": "04670c023c59ca56dcb1f8d8980a50e04ebaaf534b0913eed5ae58e45d177aae"
     },
     {
       "path": "plugin/agentic-course-redesign/skills/course-redesign-orchestrator/references/native-intake.md",
-      "bytes": 12139,
-      "sha256": "6f8ec873b93f94ea62eb00f15fc0c8cac3b866abb28e8a821be3a97059a2667c"
+      "bytes": 20222,
+      "sha256": "cb3a34b7a1172e446bddb74f74765b61fa377d5e9617196f338584aaa8670244"
     },
     {
       "path": "plugin/agentic-course-redesign/skills/course-redesign-orchestrator/references/role-evidence.md",
-      "bytes": 22108,
-      "sha256": "764c1741a57ac996efbf2e3843dc86814e04559034a44f3a4849bd050bd17038"
+      "bytes": 22617,
+      "sha256": "fbf3c39365b9f60c76e10e668a80724d94310d2b4ec9fe85cd6b7035032fd811"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/skills/course-redesign-orchestrator/references/second-opinion.md",
+      "bytes": 10813,
+      "sha256": "3ab337e206d0fb72749501792bd5b256480d6beb4e8d57dc02b2f8ac19b2293c"
+    },
+    {
+      "path": "plugin/agentic-course-redesign/skills/course-redesign-orchestrator/references/tool-fit.md",
+      "bytes": 10186,
+      "sha256": "fe71a33ef340511de6fc628b60b5467478e71554ef603edb5c85ada33b2a9860"
     },
     {
       "path": "plugin/agentic-course-redesign/skills/course-redesign-orchestrator/SKILL.md",
-      "bytes": 36444,
-      "sha256": "64a88265ddc4b201a4cac93905a2b087d65ce711db492af20ac5543cf19d2db3"
+      "bytes": 39189,
+      "sha256": "ad249a6115d70882b1392a543220092a8e3ff17b5678c2735463b22249740d00"
     },
     {
       "path": "plugin/agentic-course-redesign/skills/course-redesign-research/SKILL.md",
-      "bytes": 9935,
-      "sha256": "890fbb6d3fcfe3348a8bf7d8d50a34bae99e25384a227b6a48df2eca5d8f722e"
+      "bytes": 10822,
+      "sha256": "5b2507a5f31611b8533f523bd1f0e4e6d9ef30783cddc460e29f346e76e53a6c"
     },
     {
       "path": "plugin/agentic-course-redesign/skills/course-redesign-setup/SKILL.md",
-      "bytes": 18707,
-      "sha256": "1fda3de1813e4157c1106e3d1bd3c6496225ea88d2b1c271aad5b70ba963fc00"
+      "bytes": 20523,
+      "sha256": "bd69cf778fd32c34c968890ab8e382f0f6befe068a64e1096bfc18058c2fb911"
     },
     {
       "path": "plugin/agentic-course-redesign/skills/course-redesign-system/SKILL.md",
-      "bytes": 15927,
-      "sha256": "34090d9acb62204582210fc855a552f4b769c6fe3b188c5763415ffa41366d56"
+      "bytes": 16814,
+      "sha256": "7e51b2ee246edacbec9f5dcb1f64e6aea588dac9ba3aa62236992fbf65f8eec7"
     },
     {
       "path": "plugin/agentic-course-redesign/VERSION",
       "bytes": 6,
-      "sha256": "a0dc8325e2fbe558e09bf7d61260ca378151b0a3f875dd8b46ecd3693e34c10b"
+      "sha256": "027a61167f091a427fa7844dcac0c5141bafbcbdcadc7e04a93578147ab956f2"
     },
     {
       "path": "README.md",
-      "bytes": 8392,
-      "sha256": "b10645ae2d6ff61fa825b797d7087e00dbe619b94b64aeed80b8b7cd0e8f677e"
+      "bytes": 8530,
+      "sha256": "364cdc64a638bef995e078f9e807f7224bb1932f3c22d10a4e5c25a1480842d4"
     },
     {
       "path": "validation/test_native_plugin.py",
@@ -396,8 +415,8 @@
     },
     {
       "path": "validation/validate_native_plugin.py",
-      "bytes": 30031,
-      "sha256": "7ba189507fad8d75b9b1d20a26a1e5cda0a45849b5b5504bac3f710f7c1020b5"
+      "bytes": 31049,
+      "sha256": "b1218a5fefbe138e9451fe827ed8ab30ee96dee93d4c89f8f746e75a1d565bd7"
     }
   ],
   "overlay_files": [

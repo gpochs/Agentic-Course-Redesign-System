@@ -7,6 +7,10 @@ description: Check what an assessment asks learners to do, where they practise i
 
 ## In conversation
 
+When this stage or a specialist identifies a missing capability, apply the [role-specific evidence and tool checks](../course-redesign-orchestrator/references/tool-fit.md). Start with the actual task and the existing tools. Give the orchestrator the evidence, proportionate option and workable fallback before proposing any discovery or installation.
+
+Use the [agreed model plan](../course-redesign-orchestrator/references/model-plan.md) for this stage and its specialists. If this is a fresh redesign without a choice, let the orchestrator offer the three model modes first. Report the actual model or mark its execution unverified.
+
 Use the teacher’s terms for the task and criteria. Try “Students have to compare two explanations in the exam. Where do they practise that before it counts?” Show one candidate question, an expected learner response and what evidence the teacher would look for. Ask before changing a fixed assessment. Use a numbered step when it changes. Speak to the teacher in the language they use. Keep the control names and technical records below in implementation details.
 
 ## Lecturer Decision Dialogue Contract
@@ -76,6 +80,8 @@ From the first specialist scan, map every stated or inferred outcome to:
 
 Separate current, proposed, superseded, incomplete, teacher-only, and student-facing evidence. A dated test or key is not automatically current or complete.
 
+For a learner-facing task or quiz, use the [draft review sequence](../course-redesign-materials/references/artifact-review.md#review-a-saved-revision-with-the-teacher). Compare one changed prompt, try a fictional response in the approved practice view and read back exactly when feedback appears.
+
 ## Assessment design
 
 For each component define purpose, stakes, construct, task, conditions, duration, permitted resources, AI boundary, evidence of individual learning, authentication, submission, criteria, raw marks or competency evidence, partial credit where applicable, weighting, grade/competency/completion conversion, moderation or verification, and fallback/accommodation route.
@@ -105,3 +111,5 @@ Do not treat AI output as evidence of student competence. Where AI is permitted,
 - Audit reliability, fairness, language demand, accessibility, time pressure, security, and marking workload.
 
 Return the updated ledger, learner-facing assessment overview, detailed rubrics or competency criteria, assessor/facilitator guidance, conversion evidence where applicable, validity risks, and decisions requiring lecturer approval.
+
+At course closeout, route any optional [second opinion](../course-redesign-orchestrator/references/second-opinion.md) through the orchestrator after the teacher's final course decision and Step 9. A request to finish ends the interaction immediately.

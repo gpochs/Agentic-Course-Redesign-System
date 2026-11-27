@@ -1,6 +1,6 @@
 # Agentic Course Redesign for a local course project
 
-Version 0.3.3. Choose the instructions for your app. [GitHub Copilot](../01_GitHub_Copilot/README.md) · [Claude Code](../02_Claude_Code/README.md) · [OpenCode](../03_OpenCode/README.md) · [Antigravity](../04_Google_Antigravity/README.md)
+Version 0.3.4. Choose the instructions for your app. [GitHub Copilot](../01_GitHub_Copilot/README.md) · [Claude Code](../02_Claude_Code/README.md) · [OpenCode](../03_OpenCode/README.md) · [Antigravity](../04_Google_Antigravity/README.md)
 
 ## Start with your course
 

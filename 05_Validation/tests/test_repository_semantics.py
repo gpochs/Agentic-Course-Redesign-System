@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import re
 import tempfile
 import unittest
 from pathlib import Path
@@ -23,6 +24,57 @@ class RepositorySemanticTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.validator = load_validator()
+
+    def test_teacher_can_start_without_an_upfront_model_decision(self) -> None:
+        guides = (ROOT / "03_Shared_Workflow_Core/PARTICIPANT_QUICK_START.md",
+                  ROOT / "04_Documentation/LECTURER_GETTING_STARTED.md")
+        for guide in guides:
+            text = guide.read_text(encoding="utf-8")
+            self.assertIn("You can start with the model you already have open", text)
+            self.assertIn("a model for each task, or choose as you go", text)
+            self.assertIn("You can change your mind later", text)
+            self.assertIn("using a different account or sharing material outside that plan", text)
+            self.assertIn("such as one from another developer", text)
+            self.assertIn("You can accept that limited review or finish", text)
+
+    def test_deferred_models_allow_materials_or_teaching_goal_from_installed_templates(self) -> None:
+        templates = (ROOT / "03_Shared_Workflow_Core/course-project-template/AGENTS.md",
+                     ROOT / "01_ChatGPT_Desktop_App/openai-submission/source/agentic-course-redesign/assets/project-template/AGENTS.md",
+                     ROOT / "01_ChatGPT_Desktop_App/plugins/agentic-course-redesign/assets/project-template/AGENTS.md",
+                     ROOT / "02_Other_Agentic_Systems/01_GitHub_Copilot/plugin/agentic-course-redesign/assets/project-template/AGENTS.md",
+                     ROOT / "02_Other_Agentic_Systems/04_Google_Antigravity/workspace-overlay/AGENTS.md")
+        for template in templates:
+            with self.subTest(template=template):
+                wording = template.read_text(encoding="utf-8")
+                self.assertIn("current authorised session", wording)
+                self.assertIn("materials question or **Skip for now** without requiring a model plan", wording)
+                self.assertIn("go straight to their teaching goal", wording)
+                self.assertIn("before delegating or using a new model, account or destination", wording)
+                self.assertNotIn("After the teacher approves the named task/model/account plan, offer the materials question", wording)
+
+    def test_role_tool_checks_reach_the_matching_guide_and_keep_teacher_authority(self) -> None:
+        skills = ROOT / "03_Shared_Workflow_Core/agent-skills"
+        guide = skills / "course-redesign-orchestrator/references/tool-fit.md"
+        entries = sorted(skills.glob("*/SKILL.md"))
+        self.assertEqual(len(entries), 6)
+        for entry in entries:
+            with self.subTest(entry=entry.parent.name):
+                link = re.search(r"\[role-specific evidence and tool checks\]\(([^)]+)\)", entry.read_text(encoding="utf-8"))
+                self.assertIsNotNone(link)
+                self.assertEqual((entry.parent / link.group(1)).resolve(), guide.resolve())
+        content = guide.read_text(encoding="utf-8")
+        rows = [line.split("|")[1].strip() for line in content.splitlines() if line.startswith("| ")]
+        roles = ("Orchestrator", "Course Mapper", "Active-Learning Researcher", "AI Integration",
+                 "Student Experience", "Assessment and Constructive-Alignment", "Source Verification",
+                 "Evidence and Feasibility", "Learning Designer", "Learning Material Designer",
+                 "Artefact Accessibility")
+        for role in roles:
+            self.assertEqual(sum(row.startswith(role) for row in rows), 1, role)
+        for required in ("public description of the task", "untrusted evidence", "pinned revision",
+                         "Installation, use with a particular item, and publication are distinct decisions",
+                         "voluntary learner tryout", "Never recruit or contact learners",
+                         "github.com/openai/skills", "github.com/huggingface/skills"):
+            self.assertIn(required, content)
 
     def test_codex_card_capacity_records_plan_mode_availability(self) -> None:
         compatibility = (

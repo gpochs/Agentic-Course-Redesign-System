@@ -1,6 +1,6 @@
 # Redesign a course with GitHub Copilot: a teacher's guide
 
-Release `0.3.3` of the native `agentic-course-redesign` plugin.
+Release `0.3.4` of the native `agentic-course-redesign` plugin.
 
 This guide follows the nine steps you see in the conversation. At every
 decision Copilot waits for your reply. Nothing here skips or replaces one of
@@ -20,6 +20,14 @@ those decisions.
 
 > **Optional help prompt.** Paste this at any point:
 > `Which step are we on, what do you need from me now, and what can I leave open?`
+
+## Model choice for this course
+
+Offer **Match models to tasks**, **Keep the current model** or **Choose at each step**. With matching, get one approval for the named tasks, roles, models, account and fallbacks. A single-model choice applies to the specialists too. If a preferred choice is unavailable, keep the approved capable model and offer a manual switch. Pause the affected check only when its result would be invalid. Give each specialist its capability needs and approved model entry in its brief. See the [model plan and ten role criteria](model-plan.md).
+
+For example, a materials specialist may suggest a document skill for one worksheet. Check installed project skills first. For a proposed GitHub or Hugging Face skill, inspect the exact revision, files, scripts, data destinations, licence and access. If the teacher separately requests installation for this project, use the reviewed Copilot project skill location, such as `.github/skills/<name>/SKILL.md`, and check discovery in a new Session. A plugin or an executable hook can require additional access. [Copilot agent skills](https://docs.github.com/en/copilot/concepts/customizations/agent-skills) Follow the [task-specific skill check](tool-fit.md).
+
+In a Copilot app Session, the model and effort dropdowns below the prompt control the main conversation. For a named-model plan, use a specific included model. **Auto** and **Fusion** may resolve models themselves. The response's model display can describe only the main agent. Where the session exposes the CLI `task` dispatch fields, send the approved specialist model and supported reasoning effort on that call. Check the returned evidence of the model actually used. CLI custom-agent profiles can declare preferred or required models. A preferred model can fall back, and a required policy can refuse dispatch. A fixed parent model plus inheritance is the portable single-model route. When only the session picker is available, offer that manual switch at a task boundary. [Copilot app sessions](https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions) · [CLI agent model precedence](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference)
 
 ## The nine steps
 
@@ -58,7 +66,9 @@ allowed to read a public course page but not the linked quiz bank. If an item
 is unclear or unavailable, Copilot works with the rest. A mixed or uncertain
 item stays closed until it is separated or clarified.
 
-For an online course, open the exact authorised draft in the Browser panel if available and handle sign-in yourself. Verify its course, object and visibility before editing and reopen it to confirm what learners see. Copilot does not look at your other tabs or files.
+**If the course is online**, name the page, quiz or learning app and what you'd like checked. Open the agreed copy in **Browser** if the site works there. Handle sign-in yourself. If the copy, its audience or Copilot's access is unclear, continue with a permitted export, a screenshot you can share, or your description. When **Share browser tab with agent** is available, turn it on only for the agreed tab and task. If the activity opens another object, check that object's status before sharing it. A link to a quiz bank, chatbot or another course opens a separate scope decision. Before editing, check the actual course and item. Reopen the saved copy to verify it.
+
+**If you're working from files**, point to the agreed item in **Files**. Use **Library** when you want to add a resource to the project or find an artifact it already contains. Check who can access the project before adding anything. Choosing a handout covers that handout, even if its folder also contains marked assignments. You can combine files, course pages and learning apps, or stay with a description throughout.
 
 For editable files, Copilot proposes a **new** folder inside your project and
 lists the planned files before creating anything. It will not add files to an
@@ -102,6 +112,8 @@ the time it takes. Keep it, change it or leave it out. "Sounds good" is not a
 decision, so say which. Saving the research notes to the named research folder
 does not permit any course file.
 
+If a proposal needs more discussion, **Side chat** lets you explore a question such as “Would this still work in a 45-minute lesson?” Bring your choice back to the main conversation so it is recorded with the proposal. For a simple choice, use the card or reply in chat.
+
 If a writing tool could shorten the instructions for three agreed slides, Copilot explains the benefit, what the tool would see and any cost. You can choose it for that edit, request setup help, or have Copilot edit in the current session. Your choice covers only that task or batch.
 
 ### Step 6 · Review the plan and files
@@ -114,14 +126,18 @@ for it to be added to the list now.
 
 ### Step 7 · Try the drafts
 
-When the needed view is available, Copilot opens each agreed draft, records what it tried and shows you what remains to check. Otherwise you can open the exact working copy in its usual app.
+Choose a view that lets you try what a learner will actually do. In the desktop app, the **+** on the right shows the panels available in your session. Copilot suggests the one that fits the task. A visible panel may let you inspect something yourself even when Copilot cannot read or control it.
 
-| Draft | Where to look in Copilot | Fallback |
-| --- | --- | --- |
-| Text or Markdown worksheet | **Editor** panel: read the preview and edit directly. | Open the file in your own editor, or ask Copilot to show it with line numbers. |
-| Web page or HTML preview | **Browser** panel. Copilot can open local `file://` pages and read their headings and labels. Try the page yourself with the keyboard. | Open the file in your own browser. |
-| Word, PowerPoint or Excel | The native app on your computer. | A PDF or HTML preview listed in Step 6. |
-| Private LMS draft | You open the draft in the **Browser** panel and sign in. | An authorised export or a description. |
+| What you want to check | Try this |
+| --- | --- |
+| Did the worksheet instructions change as agreed? | Open the working copy in **Files**. For a tracked text file, **Changes** shows the edit line by line. Read the revised instruction in context. For a Word or slide file, open the rendered copy too. |
+| Can a learner finish the activity on the web page? | Use **Browser** to try the exact preview with the keyboard. If the preview is running at a local development URL, **Pick & Polish** can point out the particular heading, button or question to change. Record the requested edit before revising the approved copy. |
+| Can we review this document, slide deck or plan together? | If **Canvas** offers a compatible view, open the agreed draft there. Edits may persist. Creating or saving a new canvas belongs in the agreed file plan. You can also open the working copy in Word or PowerPoint. |
+| Does a private online activity show the right feedback? | Use the exact course copy you identified in Step 2. If Copilot cannot access it through the in-app preview, you can show it yourself. An optional browser connection in Chrome or Edge can be considered for the named site. |
+
+**When a check needs another tool.** If a worksheet needs a check in a desktop app, Copilot can suggest **Computer Use** for the named app, working copy and action in a supported local session. For a signed-in website, GitHub also offers a separate **Browser Use** extension. Before setup, Copilot explains the access needed and offers to help or to use your own preview. Opening the Browser panel alone does not connect a signed-in browser. Keep credentials with the person signing in and use the narrowest available approval.
+
+If a packaged check would help, Copilot can run it through the session's **Terminal** on the approved copy and explain the result in teaching terms. A passing link check, for instance, still leaves the question of whether learners understand where the link takes them. **Insights** can show which tools or specialists ran if you want to trace a result. Use the actual draft and the recorded check to decide whether it works for learners.
 
 For each planned draft, tell Copilot to keep this version, revise it, or leave it out. If you leave out the quiz, it stays private. The plan retains its original filename and your decision. If you ask for a change to the worksheet, try the revised copy before deciding again. If you leave everything out, you can stop or revise a draft. There is nothing to hand over.
 
@@ -147,9 +163,18 @@ Copilot changes only that file, reopens it and shows you the same spot.
 ### Step 9 · Finish or suggest an improvement
 
 Copilot asks once whether you would like a written suggestion about how the
-redesign process worked. If you do not reply, it waits. A yes or a no closes
-this course's work. Installing, activating or scheduling any change would be a
+redesign process worked. If you do not reply, it waits. Your answer completes Step 9. Installing, activating or scheduling any change would be a
 separate later decision.
+
+### Step 10 · Would you like a second opinion?
+
+After your final choices and Step 9, choose **Skip** to finish immediately, **Prepare a review** for a copy-ready packet you can use yourself, or **Explore a different model** to compare suitable receiving models. Ask Copilot to show a short progress list in the conversation, covering Steps 1–9, their decisions and any skipped work.
+
+Use **Files** to check the exact selected drafts and revisions. An existing **Canvas** can help you compare a proposed change with the approved draft. **Library** resources and the rest of the project can stay outside the review. Compare the actual model used for the redesign with candidates for this task. For example, if Claude drafted the activity, an included GPT model that accepts the worksheet format may suit a fresh review. Check the current model picker, plan and capability evidence. You can choose a different eligible model or skip. [Copilot models and availability](https://docs.github.com/en/copilot/reference/ai-models/supported-models)
+
+Look in the current Copilot account’s model picker first. If it offers a suitable unused family, open a fresh Copilot session on that model with only the approved packet. If none fits here, offer a different signed-in app using separately approved computer control, or a manual handover. Check the families used across the whole run. If all eligible families contributed, identify the least-involved family, ideally different from the main author of this item. Disclose its earlier contribution and let the teacher choose a **limited second look** or finish. With one family, distinguish another model from an exact same-model self-check. Neither is an independent family review.
+
+At the end, inspect the exact packet: nine step summaries, selected filenames and versions, any originals you individually chose, recipient app, account, model, audience and included cost. Remove or replace anything before authorising **Send this packet**. Use a fresh session with only the approved context. If project access cannot be narrowed, use a separate approved destination. **Computer Use**, where available and permitted for that app, can hand over the packet after your approval. You can also copy it yourself. The reviewer identifies each finding by step and page, slide or item, shows its evidence and names what it could not check. Choose each change yourself, then reopen the revised working copy for a learner trial. [Copilot Computer Use](https://docs.github.com/en/copilot/how-tos/github-copilot-app/computer-use)
 
 ## Fictional example
 
@@ -178,7 +203,7 @@ separate later decision.
    Copilot should decline and keep only the functional need.
 6. Later, Step 6 should list separate student and teacher files, such as
    `Seminar_Week5_Practice.md` and `Facilitator_Notes_Week5.md`, in a new run
-   folder. In Step 7, use the Editor panel if available or inspect the saved worksheet in its actual app. In Step 8 you
+   folder. In Step 7, use Files to open the working copy if available or inspect the saved worksheet in its actual app. In Step 8 you
    decide on each file.
 
 **If something is missing:**
@@ -186,7 +211,7 @@ separate later decision.
 - The slash name does not autocomplete: select `course-redesign-orchestrator`
   from the installed plugin and paste the rest.
 - No card appears: answer the numbered question with a number or in words.
-- No Editor or Browser panel (for example, in the CLI or an IDE): open the file
+- No Files or Browser panel (for example, in the CLI or an IDE): open the file
   yourself and refer to line numbers. Copilot should note that it did not check
   the layout.
 - If your organisation blocks plugins: use a project installation only if its policy permits that route. See
@@ -207,6 +232,8 @@ separate later decision.
 - Step 7: "drafts ready", then the handover location in a separate reply.
 - Step 8: each file.
 - Step 9: the improvement offer.
+
+GitHub documents the desktop [preview and Changes panels](https://github.blog/ai-and-ml/github-copilot/github-copilot-app-for-beginners-using-the-diff-terminal-and-browser/), [project Library](https://docs.github.com/en/copilot/how-tos/github-copilot-app/working-with-projects#sharing-context-and-reviewing-artifacts), [Canvas](https://docs.github.com/en/copilot/how-tos/github-copilot-app/working-with-canvas-extensions), [Browser Use](https://docs.github.com/en/copilot/how-tos/github-copilot-app/browser-use) and [Computer Use](https://docs.github.com/en/copilot/how-tos/github-copilot-app/computer-use).
 
 Copilot keeps gate names, run IDs and fingerprints in its technical records.
 You never need to supply them.

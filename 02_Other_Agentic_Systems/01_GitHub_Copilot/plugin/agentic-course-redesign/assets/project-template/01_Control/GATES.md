@@ -190,6 +190,10 @@ activation and before expiry. Pausing, expiry or cancellation disables future
 triggers but preserves contract and run history; an on/after-expiry trigger
 records an expired no-course-action receipt rather than analysing the course.
 
+## Optional second opinion after the teacher's final decision
+
+Keep Step 9 and the course termination receipt intact. The optional Step 10 is a separate, read-only review. On Skip, finish immediately without preparing a packet or using files, accounts or model tools. The orchestrator follows its second-opinion reference. Selection, original-file authority and final approval of the exact transfer are distinct. Applying a finding needs new approval and a checked revision.
+
 ## GitHub Copilot native `ask_user` capacity override
 
 This Copilot-only host rule applies the shared core's host-capacity contract to the demonstrated GitHub Copilot host; it changes no option, gate, evidence requirement, or workflow meaning. Keep one unresolved consequential question at a time. Use the native `ask_user` card for the complete valid option set whenever the live GitHub Copilot host accepts it. A live Copilot host has demonstrated at least five explicit choices plus a custom-answer field; this is an observed capability, not a maximum. Do not state or assume an unsupported maximum. Never prune, hide or combine valid choices merely to fit a card. If the host rejects or cannot present the complete valid set, ask one ordinary chat question listing every valid numbered option plus `Other`, then wait. For very long sets, dependency chunks are allowed only when choices share evidence or constrain one another; keep every valid option visible across chunks, explain the grouping, and let the lecturer split, merge, reorder or rename it. A card that returns one choice cannot record a mix of tools or materials. For course sources use a verified multi-select only if it accepts all six options, combinations and a custom answer. Otherwise offer the full numbered set in one chat question. Ask about teaching priorities and feedback in the person's own words. Confirm access to a named task or batch when needed.

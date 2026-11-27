@@ -5,7 +5,13 @@ description: Plan a course or revise one activity, compare teaching options, and
 
 # Course Redesign Orchestrator
 
+At the start of a new redesign, offer **Match models by task**, **Keep the current model throughout**, or **Choose at each step**. On deferral, continue in the current authorised session. Accept a choice already given. Agree the named model, task and account plan once before specialist work. See the [model plan](references/model-plan.md) for current capability and subscription checks, six stages, ten specialist roles, allowed fallbacks and actual execution evidence. On resume use the agreed plan.
+
+For an actual capability gap use the [role-specific evidence and tool checks](references/tool-fit.md).
+
 <!-- teaching conversation -->
+
+When selecting course tabs or files and trying a saved draft, use the [Antigravity review guide](references/native-intake.md).
 
 ## How to talk with the teacher
 
@@ -19,7 +25,7 @@ Give the current numbered step and a short phrase in the teacher's language when
 | 4. Choose what to focus on | After the five initial perspectives, show the specific observations that matter. Ask “Where would a change make the biggest difference for your learners?” Wait before investigating the agreed focus. |
 | 5. Choose which changes to make | Show a small before-and-after example, its evidence, time and trade-off. For each independent proposal, let the teacher keep it, change it or leave it out. Ask “What would you change?” when an explanation matters. |
 | 6. Review the plan and files | Show the order of activities, exact drafts to create, and who can see each. Present “Use this plan”, “Change the plan” and “Leave it for now”, with room for another answer. Wait before writing. |
-| 7. Try the drafts | Open the working copies or learner previews. Ask which drafts to keep, change or leave out. Show any revisions. If the teacher keeps a draft, confirm whether the selected drafts are ready. In a **separate reply**, show the exact handover document and confirm whether to save it there. |
+| 7. Try the drafts | Open each saved working copy at the changed page, slide or question. Show the previous and revised versions, then try one learner action in the intended view. If learner experience is uncertain, offer a voluntary learner tryout. The teacher may skip it and finish, or return a short anonymous observation. Keep real learner feedback distinct from the proxy review. Ask which drafts to keep, change or leave out. Show any revisions. If the teacher keeps a draft, confirm whether the selected drafts are ready. In a **separate reply**, show the exact handover document and confirm whether to save it there. |
 | 8. Decide what to use | After verification, show the actual version and any unfinished checks. For each item, offer “Use this version”, “Request changes” or “Leave it out”, and a custom answer. “Which part should I change?” is an open question. |
 | 9. Finish or suggest an improvement | After acceptance, offer once to review how the redesign worked and write a suggestion. Explain the scope and wait for a request or a decline. A later installation, activation or schedule is a separate decision. |
 
@@ -27,7 +33,7 @@ Do not show this table at every turn. Show a short overview if requested. Do not
 
 ### Step 1 · Start with your course
 
-Use the lecturer's language. Start with the teaching task they gave you. Where it is still open, ask **What would you like to work from?** Give one reason before the choices: “This helps me keep course materials and student information in the right place. You can skip it and still make materials.” Give one short introduction to optional help: “If a tool would help with a particular task, I’ll explain it then.” Do not list plugins at the start.
+Use the lecturer's language. After their model choice, start with the teaching task they gave you. Where it is still open, ask **What would you like to work from?** Give one reason before the choices: “This helps me keep course materials and student information in the right place. You can skip it and still make materials.” Give one short introduction to optional help: “If a tool would help with a particular task, I’ll explain it then.” Do not list plugins at the start.
 
 Let the lecturer choose **any combination** of these sources by type, in their own words or by number. An example first screen:
 
@@ -229,3 +235,7 @@ timezone, recurrence, non-null expiry, no-write simulation, and separate
 approval, and never triggers an immediate run. The guidance creates or
 registers no task, schedule, hook, connector, permission, or automation. Use
 `course-redesign-system` only after its prerequisites pass.
+
+## Step 10 · Would you like a second opinion?
+
+After the teacher’s final course decision and Step 9 where applicable, offer an optional independent review in their language. Skip or an explicit request to finish ends here immediately, with no model lookup, files, account or reviewer call. For a requested review follow the [second-opinion procedure](references/second-opinion.md) before preparing any external handoff. It covers selecting a different model family, the exact packet, the teacher’s separate final transfer decision, and how to use findings.

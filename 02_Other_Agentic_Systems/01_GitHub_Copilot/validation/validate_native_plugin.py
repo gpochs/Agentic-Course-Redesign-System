@@ -12,8 +12,8 @@ from pathlib import Path, PurePosixPath
 
 SCRIPT = Path(__file__).resolve()
 DEFAULT_ROOT = SCRIPT.parents[3]
-PACKAGE_VERSION = "0.3.3"
-PACKAGE_PROPOSAL = "ACR-SYS-20261127-004"
+PACKAGE_VERSION = "0.3.4"
+PACKAGE_PROPOSAL = "ACR-COPILOT-20261127-001"
 PLUGIN_RELATIVE = PurePosixPath(
     "02_Other_Agentic_Systems/01_GitHub_Copilot/plugin/"
     "agentic-course-redesign"
@@ -68,6 +68,19 @@ FORBIDDEN_FILES = {
     "openai.yaml",
     "config.toml",
 }
+COPILOT_DESKTOP_GUIDE = "When the teacher needs to share a resource, compare proposals or try a draft, consult [the Copilot desktop guide](references/native-intake.md). Suggest the single view that helps with that task. Confirm the named item, audience and permitted action before sharing or changing anything."
+
+
+def link_desktop_guide(content: str, skill: str) -> str:
+    heading = "## In conversation\n"
+    if content.count(heading) != 1:
+        raise ValueError("Expected a single conversation section in the orchestrator")
+    link = COPILOT_DESKTOP_GUIDE
+    if skill != "course-redesign-orchestrator":
+        link = link.replace("(references/native-intake.md)", "(../course-redesign-orchestrator/references/native-intake.md)")
+    return content.replace(heading, heading + "\n" + link + "\n")
+
+
 COPILOT_AGENT_DIALOGUE_SUFFIX = """## Copilot lecturer-question boundary
 
 When this assigned read-only profile must surface a lecturer-only question, it
@@ -232,13 +245,13 @@ def validate(root: Path = DEFAULT_ROOT) -> list[dict[str, str]]:
     if adapter_manifest is not None:
         native = adapter_manifest.get("native_plugin")
         if (
-            adapter_manifest.get("adapter_version") != "0.3.3"
+            adapter_manifest.get("adapter_version") != "0.3.4"
             or adapter_manifest.get("status") != "candidate_not_active"
             or not isinstance(native, dict)
             or native.get("proposal_id") != PACKAGE_PROPOSAL
             or native.get("package_version") != PACKAGE_VERSION
-            or native.get("base_semantic_version") != "0.3.3"
-            or native.get("rollback_package_version") != "0.3.2"
+            or native.get("base_semantic_version") != "0.3.4"
+            or native.get("rollback_package_version") != "0.3.3"
             or native.get("status") != "candidate_not_active"
             or native.get("install_specification")
             != "agentic-course-redesign@agentic-course-redesign-system"
@@ -360,6 +373,8 @@ def validate(root: Path = DEFAULT_ROOT) -> list[dict[str, str]]:
             + "\n\n"
             + COPILOT_RUNTIME_COMPATIBILITY_OVERRIDE
         ) if source.is_file() else ""
+        if expected and name in {"course-redesign-orchestrator", "course-redesign-setup", "course-redesign-materials", "course-redesign-assessment"}:
+            expected = link_desktop_guide(expected, name)
         installed = skill_map[name].read_text(encoding="utf-8").rstrip()
         if not source.is_file() or installed != expected:
             add(findings, root, skill_map[name], "canonical_skill_drift", name)
@@ -664,7 +679,7 @@ def validate(root: Path = DEFAULT_ROOT) -> list[dict[str, str]]:
             'expected "function"',
             "type=custom",
             "fresh task",
-            "0.3.2",
+            "0.3.3",
             "native `ask_user` card",
             "complete valid option set",
             "at least five explicit choices plus a custom-answer field",

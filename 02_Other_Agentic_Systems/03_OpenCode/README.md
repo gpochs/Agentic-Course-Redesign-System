@@ -24,7 +24,7 @@ Later you choose the focus, compare suggested changes, approve the plan and file
 
 [Follow all nine teaching steps](https://github.com/gpochs/Agentic-Course-Redesign-System/blob/main/03_Shared_Workflow_Core/PARTICIPANT_QUICK_START.md).
 
-For an online activity, you can lend its tab with the optional Browse extension when it is available. Open the intended course yourself, sign in and identify the private draft you want to use. Ask the plugin to verify the destination before editing, reopen that draft afterwards and show you the result. You can also use an authorised export or a description. [OpenCode Browse](https://opencode.ai/product/browse) · [OpenCode skills](https://opencode.ai/docs/skills/) · [OpenCode agents](https://opencode.ai/docs/agents/)
+In OpenCode Desktop, open a learner-facing web worksheet in the **built-in browser** and try the question beside the conversation. Use **Review** to comment on a tracked wording change. For a course already open in your own Chrome or Edge, the optional **Browse** extension can lend the exact signed-in private draft tab for the agreed task. Reopen that draft after editing. If you use the CLI or the preview is unavailable, open the saved copy yourself and tell OpenCode what happened. [OpenCode Desktop](https://opencode.ai/desktop) · [OpenCode Browse](https://opencode.ai/product/browse)
 
 <details>
 <summary>For maintainers using the manual project overlay</summary>
@@ -32,8 +32,8 @@ For an online activity, you can lend its tab with the optional Browse extension 
 ## Manual project overlay
 
 
-Adapter release: `0.3.3`. Shared semantic base: inactive candidate
-`ACR-SYS-20261127-004` version `0.3.3`.
+Adapter release: `0.3.4`. Shared semantic base: inactive candidate
+`ACR-SYS-20261127-005` version `0.3.4`.
 
 This overlay adds ten project-local OpenCode V2 subagent profiles to the
 portable core. OpenCode V2 natively discovers the core's root `AGENTS.md` and

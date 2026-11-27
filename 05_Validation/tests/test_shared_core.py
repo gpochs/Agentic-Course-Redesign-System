@@ -894,6 +894,116 @@ class SharedCoreTests(unittest.TestCase):
         state["plugin_version"] = "0.2.4"
         self.assertEqual(self.validator.validate(state), [])
 
+    def test_approved_model_modes_apply_only_to_named_tasks_and_accounts(self):
+        state, run = self.completed_run_state()
+        tasks = sorted(self.validator.MODEL_TASKS)
+        role_files = {p.stem for p in (ROOT / "01_ChatGPT_Desktop_App/plugins/agentic-course-redesign/assets/project-template/.codex/agents").glob("*.toml")}
+        self.assertEqual(set(tasks), role_files | {p.name for p in (CORE / "agent-skills").iterdir() if p.is_dir()})
+        current = {"id": "current", "tasks": tasks, "model": "Example writer", "account": "School",
+                   "app": "Approved app", "family": "gpt", "effort": "default", "scope": "Fictional course",
+                   "usage": "Existing subscription", "checked_on": "2026-11-27", "evidence": "Session picker and published limits"}
+        visual = {**current, "id": "visual", "model": "Example visual", "tasks": ["artefact-accessibility-visual-qa"]}
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            state_path, plan_path = root / "state.json", root / "plan.json"
+            state_path.write_text(json.dumps(state), encoding="utf-8")
+            for mode in ("keep_current", "match_tasks", "choose_each_step"):
+                plan = {"mode": mode, "routes": [current] if mode == "keep_current" else [current, visual]}
+                plan_path.write_text(json.dumps(plan), encoding="utf-8")
+                result = subprocess.run([sys.executable, str(VALIDATOR_PATH), str(state_path), "--model-plan-preview",
+                                         str(plan_path), "--run-id", run["run_id"]], capture_output=True, text=True)
+                self.assertEqual(result.returncode, 0, result.stdout)
+                run["model_routing"] = {**copy.deepcopy(plan), "approval_reference": "Teacher approved these routes",
+                                        "approval_digest": json.loads(result.stdout)["plan_sha256"]}
+                event = {"task": "artefact-accessibility-visual-qa", "route": "current", "status": "unverified",
+                         "observed_model": None, "evidence": "Visual alternative unavailable. Actual child model not exposed."}
+                run["model_routing"]["executions"] = [event]
+                self.assertEqual([], self.validator.validate(state))
+                event.update(status="verified", observed_model="Example writer", evidence="Synthetic host receipt")
+                self.assertEqual([], self.validator.validate(state))
+                event["observed_model"] = "Different model"
+                self.assertTrue(self.validator.validate(state))
+                event["observed_model"] = "Example writer"
+                event["route"] = "unapproved"
+                self.assertTrue(self.validator.validate(state))
+                event["route"] = "current"
+                run["model_routing"]["routes"][0]["account"] = "Different account"
+                self.assertTrue(self.validator.validate(state))
+            with self.assertRaises(ValueError):
+                self.validator._model_plan_digest(run["run_id"], {"mode": "keep_current", "routes": [current, visual]})
+            with self.assertRaises(ValueError):
+                self.validator._model_plan_digest(run["run_id"], {"mode": "match_tasks", "routes": [visual]})
+
+    def test_second_opinion_binds_the_last_decision_to_the_complete_packet(self):
+        state, run = self.completed_run_state()
+        packet = {
+            "author_families": ["gpt"], "prompt": "Assess the alignment and cite each finding.",
+            "destination": {"app": "Private review app", "account": "School workspace", "audience": "Teacher",
+                            "model": "Named reviewer", "family": "claude", "billing_basis": "existing_subscription",
+                            "cost": "Uses the existing allowance", "access_evidence": "Teacher confirmed the named picker entry"},
+            "steps": [{"step": n, "status": "skipped" if n == 4 else "completed", "summary": f"Step {n} in the fictional run."} for n in range(1, 10)],
+            "items": [{"kind": "original", "name": "Synthetic public rubric", "revision": "1",
+                       "sha256": "A"*64, "disclosure_reference": "POLICY-1", "original_selection_reference": "REPLY-1"}],
+        }
+        review = {"run_id": run["run_id"], "packet": packet}
+        before = copy.deepcopy(state)
+        with tempfile.TemporaryDirectory() as folder:
+            state_path = Path(folder) / "state.json"
+            record_path = Path(folder) / "review.json"
+            state_path.write_text(json.dumps(state), encoding="utf-8")
+            def check(record, *flags):
+                record_path.write_text(json.dumps(record), encoding="utf-8")
+                result = subprocess.run([sys.executable, str(VALIDATOR_PATH), str(state_path), "--second-opinion",
+                                         str(record_path), *flags], capture_output=True, text=True)
+                return json.loads(result.stdout)
+            draft = check(review)
+            self.assertTrue(draft["ok"], draft)
+            self.assertFalse(check(review, "--require-transfer-approval")["ok"])
+            review["approval"] = {"packet_sha256": draft["packet_sha256"], "reply_reference": "FINAL-TRANSFER"}
+            self.assertTrue(check(review, "--require-transfer-approval")["ok"])
+            for path, replacement in [
+                (("destination", "account"), "Other account"), (("destination", "model"), "Other model"),
+                (("destination", "family"), "gpt"), (("destination", "cost"), "Extra fee"),
+                (("items", 0, "sha256"), "B"*64), (("steps", 6, "summary"), "Different message"),
+            ]:
+                altered = copy.deepcopy(review)
+                target = altered["packet"]
+                for key in path[:-1]:
+                    target = target[key]
+                target[path[-1]] = replacement
+                self.assertFalse(check(altered, "--require-transfer-approval")["ok"], path)
+            del review["approval"]
+            missing = copy.deepcopy(review)
+            del missing["packet"]["items"][0]["original_selection_reference"]
+            self.assertFalse(check(missing)["ok"])
+            missing = copy.deepcopy(review)
+            missing["packet"]["steps"].pop()
+            self.assertFalse(check(missing)["ok"])
+            review["packet"]["items"] = []
+            self.assertTrue(check(review)["ok"])
+            packet["author_families"] = ["gpt", "claude"]
+            self.assertFalse(check(review)["ok"])
+            limited = {"kind": "limited_second_look", "primary_family": "gpt", "primary_model": "Example writer",
+                       "eligible_families": ["gpt", "claude"], "contributions": {"gpt": "Authored handout", "claude": "Checked one citation"},
+                       "reason": "Claude contributed the least to this handout.", "reply_reference": "Teacher chose the limited check"}
+            packet["limited_review"] = limited
+            self.assertTrue(check(review)["ok"])
+            limited["eligible_families"].append("gemini")
+            self.assertFalse(check(review)["ok"])
+            limited["eligible_families"] = ["claude"]
+            limited["primary_family"] = "claude"
+            limited["kind"] = "same_family"
+            self.assertTrue(check(review)["ok"])
+            limited["primary_model"] = packet["destination"]["model"]
+            self.assertFalse(check(review)["ok"])
+            limited["kind"] = "same_model"
+            digest = check(review)["packet_sha256"]
+            review["approval"] = {"packet_sha256": digest, "reply_reference": limited["reply_reference"]}
+            self.assertFalse(check(review, "--require-transfer-approval")["ok"])
+            review["approval"]["reply_reference"] = "Fresh send decision"
+            self.assertTrue(check(review, "--require-transfer-approval")["ok"])
+            self.assertEqual(before, json.loads(state_path.read_bytes()))
+
     def test_completed_material_review_covers_each_working_copy_once(self) -> None:
         state, run = self.completed_run_state()
         targets = run["approvals"]["gate_3"]["approved_material_targets"]
@@ -1192,7 +1302,7 @@ class SharedCoreTests(unittest.TestCase):
 
     def test_shared_state_is_schema_8_inactive_unscheduled_and_pre_source(self) -> None:
         self.assertEqual(self.state["schema_version"], 8)
-        self.assertEqual(self.state["plugin_version"], "0.3.3")
+        self.assertEqual(self.state["plugin_version"], "0.3.4")
         self.assertEqual(self.state["status"], "candidate_not_active")
         self.assertEqual(self.state["schedules"], [])
         self.assertEqual(

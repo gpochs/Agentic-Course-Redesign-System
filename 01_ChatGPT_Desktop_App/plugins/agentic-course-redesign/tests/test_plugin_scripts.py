@@ -14,8 +14,8 @@ from unittest import mock
 
 
 PLUGIN = Path(__file__).resolve().parent.parent
-OPENAI_PACKAGE_VERSION = "0.3.3"
-BASE_WORKFLOW_VERSION = "0.3.3"
+OPENAI_PACKAGE_VERSION = "0.3.4"
+BASE_WORKFLOW_VERSION = "0.3.4"
 
 
 def load(name: str, relative: str):
@@ -1089,6 +1089,24 @@ class DistributionTests(unittest.TestCase):
                 self.assertTrue(installer.install(project, True, True)["ok"])
                 self.assertEqual(dest.read_bytes(), b"updated")
                 self.assertEqual(installer.install(project, True, True)["updated_files"], [])
+
+    def test_project_upgrade_from_033_reads_the_frozen_state_and_retries_cleanly(self):
+        installer = load_path("project_install_033", PLUGIN.parents[1] / "install_project_skills.py")
+        name = "assets/project-template/01_Control/state.json"
+        released_state = (installer.PACKAGE / name).read_bytes().replace(b'"plugin_version": "0.3.4"', b'"plugin_version": "0.3.3"')
+        with tempfile.TemporaryDirectory() as folder:
+            project = Path(folder).resolve()
+            old = project / ".agents" / name
+            old.parent.mkdir(parents=True)
+            old.write_bytes(released_state)
+            preview = installer.install(project, False, True)
+            self.assertEqual([name], preview["updated_files"])
+            self.assertEqual(released_state, old.read_bytes())
+            self.assertTrue(installer.install(project, True, True)["ok"])
+            self.assertEqual(old.read_bytes(), (installer.PACKAGE / name).read_bytes())
+            again = installer.install(project, False, True)
+            self.assertEqual([], again["updated_files"])
+            self.assertEqual([], again["new_files"])
 
     def test_public_builder_reads_only_reviewed_bytes(self):
         release = load_path("release_inputs_for_test", PLUGIN.parents[1] / "validation/release_inputs.py")

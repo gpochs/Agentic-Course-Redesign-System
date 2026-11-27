@@ -7,6 +7,12 @@ description: Start a course redesign with a description or a mix of learning pla
 
 ## In conversation
 
+When the teacher needs to share a resource, compare proposals or try a draft, consult [the Copilot desktop guide](../course-redesign-orchestrator/references/native-intake.md). Suggest the single view that helps with that task. Confirm the named item, audience and permitted action before sharing or changing anything.
+
+When this stage or a specialist identifies a missing capability, apply the [role-specific evidence and tool checks](../course-redesign-orchestrator/references/tool-fit.md). Start with the actual task and the existing tools. Give the orchestrator the evidence, proportionate option and workable fallback before proposing any discovery or installation.
+
+At the start of a new redesign, offer **Match models by task**, **Keep the current model throughout**, or **Choose at each step**. The teacher can defer or change this later. On deferral, continue in the current authorised session. Accept a choice already given. Agree the named model, task and account plan once before specialist work. See the [model plan](../course-redesign-orchestrator/references/model-plan.md) for current capability and subscription checks, six stages, ten specialist roles, allowed fallbacks and actual execution evidence. On resume use the agreed plan.
+
 Ask what the teacher wants to work from. Accept multiple sources in one answer. In German, for example: **Schritt 1 · Womit möchten Sie beginnen?** “Sie können mehrere Quellen nennen, den Kurs kurz beschreiben oder diesen Schritt überspringen.” Discuss access only for the selected material. Continue immediately when they skip. Use a numbered step when it changes. Speak to the teacher in the language they use. Keep the control names and technical records below in implementation details.
 
 ## Lecturer Decision Dialogue Contract
@@ -51,7 +57,7 @@ Set up one course only. Do not combine unrelated courses in one project or sourc
 
 ### Step 1 · Start with your course
 
-Use the lecturer's language. Start with the teaching task they gave you. Where it is still open, ask **What would you like to work from?** Give one reason before the choices: “This helps me keep course materials and student information in the right place. You can skip it and still make materials.” Give one short introduction to optional help: “If a tool would help with a particular task, I’ll explain it then.” Do not list plugins at the start.
+Use the lecturer's language. After their model choice, start with the teaching task they gave you. Where it is still open, ask **What would you like to work from?** Give one reason before the choices: “This helps me keep course materials and student information in the right place. You can skip it and still make materials.” Give one short introduction to optional help: “If a tool would help with a particular task, I’ll explain it then.” Do not list plugins at the start.
 
 Let the lecturer choose **any combination** of these sources by type, in their own words or by number. An example first screen:
 
@@ -66,7 +72,7 @@ These are source types, not separate paths the lecturer must choose between. A d
 
 The latest stated way of working takes precedence over an earlier source choice. If a teacher names real files, a quiz and an LMS but then says “I can describe them for now” or “Ich kann das zuerst nur beschreiben”, treat that as the description-only choice. Continue directly with the teaching goal or an example and skip every file-classification or access question until the teacher actually asks to open a particular item. Never treat naming materials or a service as a request to open them.
 
-A source type alone does not grant access. Confirm what may be read in which environment, and distinguish permission to view from permission to edit a named draft or share it. Group items under the same permission only when the lecturer's scope actually covers the group. Check exceptions separately, for example an institution's quiz bank linked from an otherwise public course. Continue with the permitted subset if another item is unavailable. When appropriate, invite the lecturer to select an authorised tab in the in-app browser or open a native editor for computer use. No discovery of other tabs or files. Ask for sign-in in the app itself. If no browser or native control is available, offer an export, a description or an editable local draft.
+A source type alone does not grant access. Confirm what may be read in which environment, and distinguish permission to view from permission to edit a named draft or share it. Group items under the same permission only when the lecturer's scope actually covers the group. Check exceptions separately, for example an institution's quiz bank linked from an otherwise public course. Continue with the permitted subset if another item is unavailable. After source eligibility and access approval, act on the combination chosen. Use the exact LMS tab the lecturer selects and the individual files they select. For a mixed choice, show how one item informs the other, such as the course outcome and its practice slide. Identify the course, item and role from the selected view. Keep sign-in with the lecturer. Stop at a different origin, embedded learning app or linked quiz bank until that destination and audience are in scope. Continue with the available files, an authorised export or the lecturer’s description if tab access is unavailable.
 
 Introduce the actual source-handling check only for selected existing materials. Introduce controls as they become
 relevant. `PARTICIPANT_QUICK_START.md` is at the shared-core root or under
@@ -214,6 +220,8 @@ Gate 0 permits only the bounded inventory and Gate 1 course brief. It does not a
 ## Finish
 
 Return the exact created paths, manifest/policy fingerprints, unresolved intake questions, and next permitted action. If setup is complete, offer to continue the same task as the educational-consultant orchestrator.
+
+At course closeout, route any optional [second opinion](../course-redesign-orchestrator/references/second-opinion.md) through the orchestrator after the teacher's final course decision and Step 9. A request to finish ends the interaction immediately.
 
 ## GitHub Copilot native `ask_user` capacity override
 

@@ -20,8 +20,8 @@ REVIEW = ROOT / "openai-submission" / "review"
 EXPECTED_REPOSITORY = "https://github.com/gpochs/Agentic-Course-Redesign-System"
 EXPECTED_PUBLISHER = "GIAN PETER OCHSNER"
 EXPECTED_WEBSITE = EXPECTED_REPOSITORY
-OPENAI_PACKAGE_VERSION = "0.3.3"
-BASE_WORKFLOW_VERSION = "0.3.3"
+OPENAI_PACKAGE_VERSION = "0.3.4"
+BASE_WORKFLOW_VERSION = "0.3.4"
 EXPECTED_PRIVACY = f"{EXPECTED_REPOSITORY}/blob/63d7464dc3c75634e08c04fca78e2e50bf250ed1/docs/PRIVACY.md"
 EXPECTED_SUPPORT = f"{EXPECTED_REPOSITORY}/blob/v0.2.5/docs/SUPPORT.md"
 EXPECTED_TERMS = f"{EXPECTED_REPOSITORY}/blob/v0.2.5/docs/TERMS.md"
@@ -157,7 +157,7 @@ def main() -> int:
     interface = manifest.get("interface", {})
 
     check("stable package name", manifest.get("name") == "agentic-course-redesign")
-    check("v0.3.3 OpenAI package version", manifest.get("version") == OPENAI_PACKAGE_VERSION)
+    check("v0.3.4 OpenAI package version", manifest.get("version") == OPENAI_PACKAGE_VERSION)
     check(
         "valid package name syntax",
         bool(re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,63}", str(manifest.get("name", "")))),
@@ -249,6 +249,31 @@ def main() -> int:
         "custom and public runtime trees are byte-identical",
         runtime_records(CUSTOM_PLUGIN) == runtime_records(PUBLIC_PLUGIN),
     )
+    native_guide = PUBLIC_PLUGIN / "skills/course-redesign-orchestrator/references/desktop-review.md"
+    desktop_entries = ["course-redesign-orchestrator", "course-redesign-setup", "course-redesign-materials", "course-redesign-assessment"]
+    for skill in desktop_entries:
+        entry = PUBLIC_PLUGIN / "skills" / skill / "SKILL.md"
+        match = re.search(r"\[Codex desktop review guide\]\(([^)]+)\)", entry.read_text(encoding="utf-8"))
+        check(f"{skill} resolves its desktop review guide", bool(match and native_guide.is_file()
+              and (entry.parent / match.group(1)).resolve() == native_guide.resolve()))
+    model_guide = PUBLIC_PLUGIN / "skills/course-redesign-orchestrator/references/model-plan.md"
+    check("all six stage entries resolve a distributed model plan", model_guide.is_file() and all(
+        "model-plan.md)" in path.read_text(encoding="utf-8") for path in (PUBLIC_PLUGIN / "skills").glob("*/SKILL.md")
+    ))
+    role_files = list((PUBLIC_PLUGIN / "assets/project-template/.codex/agents").glob("*.toml"))
+    check("all ten specialist roles require host execution evidence", len(role_files) == 10 and all(
+        "host execution evidence" in path.read_text(encoding="utf-8") for path in role_files
+    ))
+    tool_fit = PUBLIC_PLUGIN / "skills/course-redesign-orchestrator/references/tool-fit.md"
+    check("all six stage entries and ten roles reference task-specific tool checks", tool_fit.is_file() and all(
+        "tool-fit.md)" in entry.read_text(encoding="utf-8") for entry in (PUBLIC_PLUGIN / "skills").glob("*/SKILL.md")
+    ) and all("orchestrator’s tool-fit reference" in path.read_text(encoding="utf-8") for path in role_files))
+    desktop_help = native_guide.read_text(encoding="utf-8")
+    check("queued Codex previews require rendered readback", all(term in desktop_help for term in ("open_in_codex", "queued", "Verify that the viewer rendered")))
+    second = PUBLIC_PLUGIN / "skills/course-redesign-orchestrator/references/second-opinion.md"
+    check("second-opinion reference is packaged for every skill entry", second.is_file() and all(
+        "second-opinion.md)" in entry.read_text(encoding="utf-8") for entry in (PUBLIC_PLUGIN / "skills").glob("*/SKILL.md")
+    ))
     umbrella_metadata = (
         PUBLIC_PLUGIN
         / "skills"
@@ -341,7 +366,7 @@ def main() -> int:
     )
     check("public template uses state schema 8", public_state.get("schema_version") == 8)
     check(
-        "public template preserves v0.3.3 workflow base",
+        "public template preserves v0.3.4 workflow base",
         public_state.get("plugin_version") == BASE_WORKFLOW_VERSION,
     )
     check("public template remains inactive", public_state.get("status") == "candidate_not_active")
@@ -454,6 +479,17 @@ def main() -> int:
         "reviewer cases cover final sequence and authority",
         {
             "P20_LEAVE_DRAFT_OUT",
+            "P21_REOPEN_DESKTOP_DRAFT",
+            "P22_SECOND_OPINION",
+            "P23_MATCH_ROLES",
+            "P24_SINGLE_MODEL",
+            "P25_CHOOSE_AT_STEPS",
+            "P26_REVIEWER_ALREADY_CONTRIBUTED",
+            "P27_ROLE_TOOL_GAP",
+            "N20_CATALOGUE_IS_NOT_AUTHORITY",
+            "N19_UNAPPROVED_MODEL_FALLBACK",
+            "N18_SKIP_SECOND_OPINION",
+            "N17_UNAVAILABLE_LEARNER_VIEW",
             "N16_OMISSION_IS_NOT_APPROVAL",
             "P16_PROGRESSIVE_MODULE_BRIEF",
             "N14_PERSONAL_ACCOMMODATION_RECORD",
