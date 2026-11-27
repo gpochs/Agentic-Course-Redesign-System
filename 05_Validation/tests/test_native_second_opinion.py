@@ -57,7 +57,7 @@ class NativeSecondOpinionTests(unittest.TestCase):
                     heading = "Step 10 · Would you like a second opinion?"
                     self.assertEqual(guide.count(heading), 1)
                     section = guide.partition(heading)[2].split("\n##", 1)[0]
-                    for term in (*expected, "Skip", "Prepare a review", "Send this packet",
+                    for term in (*expected, "Skip", "Prepare a review", "Explore a different model", "Send this packet",
                                  "original", "account", "model", "audience", "cost", "slide",
                                  "unused family", "least-involved family", "limited second look",
                                  "same-model self-check"):

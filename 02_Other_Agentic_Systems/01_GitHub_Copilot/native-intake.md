@@ -168,7 +168,7 @@ separate later decision.
 
 ### Step 10 · Would you like a second opinion?
 
-After your final choices and Step 9, choose **Skip** to finish immediately, or **Prepare a review** to see what a second model would receive. Ask Copilot to show a short progress list in the conversation, covering Steps 1–9, their decisions and any skipped work.
+After your final choices and Step 9, choose **Skip** to finish immediately, **Prepare a review** for a copy-ready packet you can use yourself, or **Explore a different model** to compare suitable receiving models. Ask Copilot to show a short progress list in the conversation, covering Steps 1–9, their decisions and any skipped work.
 
 Use **Files** to check the exact selected drafts and revisions. An existing **Canvas** can help you compare a proposed change with the approved draft. **Library** resources and the rest of the project can stay outside the review. Compare the actual model used for the redesign with candidates for this task. For example, if Claude drafted the activity, an included GPT model that accepts the worksheet format may suit a fresh review. Check the current model picker, plan and capability evidence. You can choose a different eligible model or skip. [Copilot models and availability](https://docs.github.com/en/copilot/reference/ai-models/supported-models)
 

@@ -55,7 +55,7 @@ For each planned file, choose the version, ask for a change or leave it out. For
 
 **9. Finish here?** Stop or ask for a written suggestion for next time. Publishing is a separate decision.
 
-**Step 10 · Would you like a second opinion?** After Step 9, **Skip** ends the review immediately. Choose **Prepare a review** to see a progress list covering all nine teaching steps and the ones skipped. Select the saved versions you want reviewed in **Files**. A **Review** diff can help check a changed instruction. For a question about feedback timing, include only an approved learner draft the reviewer can actually try.
+**Step 10 · Would you like a second opinion?** After Step 9, **Skip** ends the review immediately. Choose **Prepare a review** for a copy-ready packet you can use yourself, or **Explore a different model** to compare suitable receiving models. The packet includes a progress list covering all nine teaching steps and the ones skipped. Select the saved versions you want reviewed in **Files**. A **Review** diff can help check a changed instruction. For a question about feedback timing, include only an approved learner draft the reviewer can actually try.
 
 Ask which different model family fits this review. For example, if an OpenAI model created the worksheet, switching to the same model in another app would provide the same family. Check candidates against current format support and the account's model picker. OpenCode distinguishes a ChatGPT subscription from a provider API key. Use an already included account route and let the teacher choose or replace the model. [OpenCode providers](https://opencode.ai/docs/providers)
 
