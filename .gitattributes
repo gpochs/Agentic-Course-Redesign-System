@@ -12,6 +12,7 @@
 *.txt text eol=lf
 *.json.example text eol=lf
 03_Shared_Workflow_Core/VERSION text eol=lf
+02_Other_Agentic_Systems/01_GitHub_Copilot/plugin/agentic-course-redesign/VERSION text eol=lf
 LICENSE text eol=lf
 *.ps1 text eol=crlf
 *.png binary

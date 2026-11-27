@@ -1,156 +1,21 @@
-# Install and start one course
+# Install and start a course
 
-## Status first
+## Use the plugin across courses
 
-Version `0.2.4` is the current published GitHub release and published OpenAI
-Plugins Directory version. OpenAI/Codex package `0.2.5` is only an inactive
-description-only source
-candidate: it is not yet uploaded, published, installed, enabled or live in a
-picker. Keep using v0.2.4 until the later v0.2.5 publication and exact-version
-smoke test finish. Host evidence never generalises to other users, devices,
-accounts or workspaces.
-Publishing any release does not
-install or enable the plugin, activate a reusable runtime, register a schedule,
-or begin a course run. Report an installation only after the supported plugin
-manager and a fresh-task picker check confirm that exact version.
+On the ChatGPT desktop app, open **Plugins**, search for **Agentic Course Redesign**, inspect the publisher and displayed version, and choose **Install** or **Update**. Start a fresh Chat, Work or Codex conversation, type `@` and select the plugin. Choose the **Agentic Course Redesign** entry if the picker lists the six skills. Keep each course's teaching materials and decisions in its own project.
 
-## Public Plugins Directory route
+On ChatGPT web, open **Plugins** and check the same listing. When it offers installation, select it and start a fresh Chat or Work conversation. A listing marked **Desktop only** directs you to the desktop app. Browser control, local editors, rendering and hosted agents vary by surface and workspace. The orchestrator can still work from a teaching brief and show an inline draft when the required surface is unavailable. [OpenAI plugin support](https://learn.chatgpt.com/docs/plugins)
 
-On a supported ChatGPT desktop surface, open **Plugins**, search for **Agentic
-Course Redesign**, open the public result, and choose **Install**. Start a new
-Work or Codex task, type `@`, and choose **Agentic Course Redesign**. A usable
-installation should expose the umbrella entry and all six bundled skills.
-Workspace policy, app version and account entitlements may still hide or block
-the listing.
+In Codex CLI, open `/plugins` to install or enable the entry, then start a new session. For local development, if `codex plugin marketplace add --help` lists support for local directories, add your checkout as a marketplace using `codex plugin marketplace add "<absolute path to the repository>"`. Select the repository marketplace and install the plugin from that source. Inspect the version and source when curated and local listings share a display name. [OpenAI installation guide](https://learn.chatgpt.com/docs/plugins)
 
-When v0.2.5 is ready, the publisher should update the existing OpenAI plugin:
+## Work locally in one course
 
-1. keep published v0.2.4 available;
-2. open the existing plugin page and choose its plugin-level **Upload** action;
-3. upload the exact validated v0.2.5 skills-only ZIP as a new draft;
-4. recheck publisher metadata, prompts, tests, regions and attestations;
-5. pass the platform scan/review flow and explicitly publish v0.2.5; and
-6. verify the live directory version before updating availability claims.
+To make the six skills available only inside an existing Codex project, run `python install_project_skills.py --project "<project folder>"` from this directory. Review the file list, then repeat with `--apply`. This creates project-local skills under `.agents/skills` and keeps their scripts and assets beside them. The installer reports conflicting files before writing. Start a new Codex session in that project and select `$course-redesign-orchestrator`. [OpenAI project skill discovery](https://learn.chatgpt.com/docs/build-skills)
 
-Do not unpublish or delete v0.2.4 first. Use **Unpublish** only when the owner
-deliberately wants to delist the current public version or an emergency rollback
-requires it.
+For a project-scoped Codex workflow, use the scaffold bundled with this adapter. From this directory, preview a new course with `python plugins/agentic-course-redesign/scripts/setup_course_project.py --target "<new course directory>"`. Inspect the preview and append `--apply` to create the project in the agreed location. Open the new project in Codex. Its instruction file and ten role definitions live in that project. The full six skills are available through the installed plugin. The platform guides describe existing folders and eligibility records. [Windows](PORTABLE_SETUP_WINDOWS.md) · [macOS](PORTABLE_SETUP_MACOS.md)
 
-## Supported custom-marketplace route
+## Try the first interaction
 
-OpenAI documents repo marketplaces for Work mode and Codex in the ChatGPT
-desktop app. Some Codex CLI releases expose local or Git-backed marketplace
-commands. The release-validation host's Codex CLI `0.118.0` did not expose that
-command, so no CLI installation is claimed for that build. The Codex IDE
-extension does not support plugins.
+Ask “Help me redesign a lesson on interpreting graphs.” Choose **Skip for now**. The next question should concern the learners or your goal. Approve a project target when you want durable files. You still review the brief, focus, recommendations, file plan and finished materials.
 
-For this extracted or checked-out repository:
-
-1. Keep the complete repository together at a short, writable path.
-2. If the installed CLI exposes `codex plugin marketplace`, add the repository
-   root as the local marketplace source:
-
-   ```text
-   codex plugin marketplace add "C:\path\to\Agentic-Course-Redesign-System"
-   ```
-
-3. Restart the ChatGPT desktop app.
-4. Open the Plugins Directory in Work mode or Codex, choose **Agentic Course
-   Redesign System**, open **Agentic Course Redesign**, and install it.
-5. Start a new Work or Codex chat before invoking a bundled skill.
-6. Type `@` and choose **Agentic Course Redesign** for the complete workflow.
-   If the app lists bundled skills instead of the parent plugin row, choose the
-   entry with that exact name; it is the umbrella orchestrator and routes the
-   remaining skills internally.
-
-On CLI builds that provide marketplace commands, start `codex`, enter
-`/plugins`, choose the configured marketplace, install or enable the plugin,
-and start a new session.
-
-If the CLI command is absent or the custom source does not appear, verify the
-installed app/CLI version and workspace policy. Use the portable project-template
-route rather than claiming installation succeeded.
-
-## Public GitHub route
-
-An installed app or CLI build that exposes repository marketplaces may use
-this pinned public source:
-
-```text
-codex plugin marketplace add gpochs/Agentic-Course-Redesign-System --ref v0.2.4
-```
-
-Then restart the ChatGPT desktop app, select the new marketplace source, install
-the plugin, and start a new chat. Use this pinned v0.2.4 command until a later
-GitHub release is separately published. Use the command only when the installed CLI
-actually exposes `codex plugin marketplace`. Otherwise use the supported
-ChatGPT Desktop marketplace UI or the portable project-template fallback; an
-absent command is not evidence of successful installation.
-
-Confirm the exact installed version after a restart and fresh-task
-picker/umbrella check; do not use a result from this development host as
-evidence for another participant.
-
-## Workspace sharing boundary
-
-A workspace admin may publish an installed local plugin to selected workspace
-roles if workspace policy permits. That makes it a workspace plugin only. It
-does not publish the plugin to OpenAI's universal public directory.
-
-The public v0.2.4 listing was created through the separate OpenAI Platform flow.
-Every later public version still requires a new plugin-level upload draft,
-automated checks and the applicable publisher review/publish flow. See
-`openai-submission/review/LISTING_METADATA_CHECKLIST.md` for the v0.2.5 update
-checks.
-
-## Start one isolated course
-
-Before source intake:
-
-- create one project and one short folder for one course only;
-- complete Gate 0A using material category and exact processing environment
-  plus sensitivity and assessment-security classifications/authority only,
-  without disclosing paths, filenames, source lists, content or hashes;
-- confirm explicit AI-processing authority; public accessibility alone is not
-  enough;
-- route institution-internal/restricted material to an approved institutional
-  environment; separately classify student personal data and protected
-  assessment/answer-key handling; and segregate or clarify mixed/uncertain
-  material or security classifications;
-- confirm that local or OneDrive storage is permitted for every eligible source class;
-- exclude student personal data, submissions, grades, credentials, and secrets;
-- decide which approved source classes may leave the device, if any; and
-- have Python 3 available for scaffold and validation helpers.
-
-Then:
-
-1. Start a new Work or Codex chat with the plugin enabled.
-2. Ask: **Set up a protected redesign project for one course.**
-3. Answer Gate 0A one consequential question at a time. Use a native choice
-   card only when the live host tool contract can present the complete option
-   set plus a custom answer. In the current verified Codex contract, that means
-   exactly two or three explicit choices plus client-added free-form `Other`.
-   Work's exact maximum is not independently documented or exposed here. If
-   capacity is unknown, unavailable or exceeded, ask the same single question
-   in ordinary chat with every valid numbered option plus `Other`, followed by
-   a wait. Valid choices are never pruned, hidden or combined merely to fit a
-   card. Long dependency-based chunks keep every valid option visible, and the
-   lecturer may split, merge, reorder or rename the grouping. A blank or Skip
-   never counts as approval.
-4. Review the exact target and no-overwrite preview.
-5. Approve scaffold creation only for that target.
-6. Only after Gate 0A permits processing, add current course files under `00_Source_Materials/` and contextual evidence
-   under `00_Context/`.
-7. Review and approve the source manifest and versioned source-access policy
-   before specialist analysis.
-
-The standard project also contains `01_Control/`, `02_Working_Notes/`,
-`03_Research/`, `04_Working_Copies/`, `05_Approved/`, `06_QA_and_Review/`, and
-`07_System_Improvement/`. The lecturer remains the decision-maker at every gate.
-
-## Portable fallback
-
-If custom marketplace support is unavailable, follow
-`PORTABLE_SETUP_WINDOWS.md` or `PORTABLE_SETUP_MACOS.md`. That route copies the
-same project `AGENTS.md`, control schemas, and ten custom-agent definitions into
-one approved course folder, but it does not install the six skills as a plugin.
+For existing material, describe its category first. Once handling is clear, select the exact document, link or course. For Moodle, OLAT or another LMS, open the intended course in the in-app browser and grant access to that tab if you choose. Review a draft and its learner view before publishing anything. Installation requires no API key.

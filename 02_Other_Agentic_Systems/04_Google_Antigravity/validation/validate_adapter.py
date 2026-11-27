@@ -900,26 +900,26 @@ def validate(
     if manifest:
         if manifest.get("platform") != "google-antigravity":
             errors.append("adapter manifest platform must be google-antigravity")
-        if manifest.get("adapter_version") != "0.2.4":
-            errors.append("adapter manifest top-level adapter_version must be 0.2.4")
+        if manifest.get("adapter_version") != "0.3.0":
+            errors.append("adapter manifest top-level adapter_version must be 0.3.0")
         if manifest.get("status") != "candidate_not_active":
             errors.append("adapter manifest top-level status must remain candidate_not_active")
         adapter = manifest.get("adapter", {})
         if adapter.get("platform") != "google-antigravity":
             errors.append("nested adapter platform must be google-antigravity")
-        if adapter.get("version") != "0.2.4":
-            errors.append("nested adapter version must be 0.2.4")
+        if adapter.get("version") != "0.3.0":
+            errors.append("nested adapter version must be 0.3.0")
         if adapter.get("status") != "candidate_not_active":
             errors.append("nested adapter status must remain candidate_not_active")
         provenance = manifest.get("provenance", {})
-        if provenance.get("workflow_proposal_id") != "ACR-SYS-20260822-007":
-            errors.append("workflow provenance must identify ACR-SYS-20260822-007")
-        if provenance.get("validated_base_version") != "0.2.4":
-            errors.append("workflow provenance must identify shared base version 0.2.4")
-        if provenance.get("adapter_release_version") != "0.2.4":
-            errors.append("workflow provenance must identify adapter release version 0.2.4")
-        if manifest.get("source", {}).get("version") != "0.2.4":
-            errors.append("source version must identify shared candidate 0.2.4")
+        if provenance.get("workflow_proposal_id") != "ACR-SYS-20261127-001":
+            errors.append("workflow provenance must identify ACR-SYS-20261127-001")
+        if provenance.get("validated_base_version") != "0.3.0":
+            errors.append("workflow provenance must identify shared base version 0.3.0")
+        if provenance.get("adapter_release_version") != "0.3.0":
+            errors.append("workflow provenance must identify adapter release version 0.3.0")
+        if manifest.get("source", {}).get("version") != "0.3.0":
+            errors.append("source version must identify shared candidate 0.3.0")
         source_files = manifest.get("source_files", [])
         if not source_files:
             errors.append("adapter manifest has no source-file hashes")

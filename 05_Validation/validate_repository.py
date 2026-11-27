@@ -6,6 +6,8 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
+import stat
 import re
 import sys
 import tomllib
@@ -13,11 +15,9 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent.parent
-CURRENT_VERSION = "0.2.4"
-CURRENT_OPENAI_PACKAGE_VERSION = "0.2.5"
+CURRENT_VERSION = "0.3.0"
+CURRENT_OPENAI_PACKAGE_VERSION = CURRENT_VERSION
 CURRENT_STATE_SCHEMA = 8
-CURRENT_PROPOSAL = "ACR-SYS-20260822-007"
-CURRENT_COPILOT_PACKAGE_VERSION = "0.2.4-copilot.1"
 EXPECTED_TOP_LEVEL = {
     "01_ChatGPT_Desktop_App",
     "02_Other_Agentic_Systems",
@@ -206,16 +206,21 @@ def display_path(path: Path) -> str:
         return path.as_posix()
 
 
-def source_files() -> list[Path]:
+def source_files() -> tuple[list[Path], list[dict[str, str]]]:
     files: list[Path] = []
-    for path in ROOT.rglob("*"):
-        if not path.is_file():
-            continue
-        rel = path.relative_to(ROOT)
-        if any(part in EXCLUDED_PARTS for part in rel.parts):
-            continue
-        files.append(path)
-    return sorted(files, key=lambda item: relative(item).casefold())
+    findings: list[dict[str, str]] = []
+    for parent, directories, filenames in os.walk(ROOT):
+        directories[:] = [name for name in directories if name not in EXCLUDED_PARTS]
+        for name in directories.copy() + filenames:
+            path = Path(parent) / name
+            info = path.lstat()
+            if stat.S_ISLNK(info.st_mode) or getattr(info, "st_file_attributes", 0) & stat.FILE_ATTRIBUTE_REPARSE_POINT:
+                findings.append({"path": relative(path), "kind": "symlink_not_portable"})
+                if name in directories:
+                    directories.remove(name)
+            elif name in filenames:
+                files.append(path)
+    return sorted(files, key=lambda item: relative(item).casefold()), findings
 
 
 def parse_skill_frontmatter(path: Path) -> dict[str, str]:
@@ -590,8 +595,9 @@ def load_private_denylist(path: Path | None) -> list[str]:
 
 
 def scan(private_denylist: list[str] | None = None) -> dict[str, object]:
-    findings: list[dict[str, str]] = []
-    files = source_files()
+    files, findings = source_files()
+    if findings:
+        return {"schema_version": 1, "pass": False, "findings": findings}
     denylist = private_denylist or []
 
     for name in sorted(EXPECTED_TOP_LEVEL):
@@ -604,8 +610,6 @@ def scan(private_denylist: list[str] | None = None) -> dict[str, object]:
     for path in files:
         rel = relative(path)
         parts = set(path.relative_to(ROOT).parts)
-        if path.is_symlink():
-            findings.append({"path": rel, "kind": "symlink_not_portable"})
         if parts & DISALLOWED_PARTS:
             findings.append({"path": rel, "kind": "cache_or_environment_artifact"})
         if path.name.startswith("~$"):
@@ -1100,14 +1104,15 @@ def scan(private_denylist: list[str] | None = None) -> dict[str, object]:
     proposal_path = ROOT / "01_ChatGPT_Desktop_App" / "SYSTEM_PROPOSAL_v0.2.4.md"
     rollback_path = ROOT / "01_ChatGPT_Desktop_App" / "ROLLBACK_v0.2.4.md"
     validation_report_path = ROOT / "05_Validation" / "VALIDATION_REPORT_v0.2.4.md"
+    # Historical approval receipts retain their original versions.
     control_expectations = {
         proposal_path: (
-            f"proposal id: `{CURRENT_PROPOSAL.casefold()}`",
-            f"proposal version: `{CURRENT_VERSION}`",
+            "proposal id: `acr-sys-20260822-007`",
+            "proposal version: `0.2.4`",
             "system-file candidate approved",
             "base: published `v0.2.3`",
             "maintenance evidence: `acr-maint-20260822-001`",
-            f"github copilot package: `{CURRENT_COPILOT_PACKAGE_VERSION}`",
+            "github copilot package: `0.2.4-copilot.1`",
             "`03_shared_workflow_core/**`",
             "`01_chatgpt_desktop_app/**`",
             "`02_other_agentic_systems/**`",
@@ -1130,7 +1135,7 @@ def scan(private_denylist: list[str] | None = None) -> dict[str, object]:
             "`schedules=[]`",
         ),
         rollback_path: (
-            f"release: `{CURRENT_PROPOSAL.casefold()}` version `{CURRENT_VERSION}`",
+            "release: `acr-sys-20260822-007` version `0.2.4`",
             "rollback source: published openai/codex `v0.2.3`",
             "github copilot `0.2.3-copilot.1`",
             "`03_shared_workflow_core/**`",
@@ -1145,9 +1150,9 @@ def scan(private_denylist: list[str] | None = None) -> dict[str, object]:
             "rollback never authorises migration application or a course-material run",
         ),
         validation_report_path: (
-            f"proposal: `{CURRENT_PROPOSAL.casefold()}`",
-            f"release version: `{CURRENT_VERSION}`",
-            f"copilot package: `{CURRENT_COPILOT_PACKAGE_VERSION}`",
+            "proposal: `acr-sys-20260822-007`",
+            "release version: `0.2.4`",
+            "copilot package: `0.2.4-copilot.1`",
             "pass — validated inactive candidate source",
             "no course-material path was changed",
             "repository unit suite | pass:",

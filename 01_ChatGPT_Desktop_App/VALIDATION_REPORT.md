@@ -1,108 +1,30 @@
-# Validation report — inactive OpenAI/Codex v0.2.5 candidate
+# Codex 0.3.0 release checks
 
-- Proposal: `ACR-SYS-20260825-009`
-- OpenAI/Codex package: `0.2.5`
-- Base workflow: Agentic Course Redesign System `0.2.4`
-- Validation date: 2026-08-25
-- Scope: description-only cross-renderer compatibility maintenance
-- Rollback source: published and installed OpenAI/Codex `0.2.4`
-- Candidate state: validated, inactive, `submission_ready=false`
+The 0.3.0 directory ZIP and repo marketplace carry identical runtime files. The ZIP contains 57 files under one plugin root, including six skills and ten project-scoped agent definitions. The revised support link points to the published support page. The privacy link is pinned to the updated notice. The initial portal scan requested a support URL. The release ZIP was rebuilt after that finding.
 
-This report does not claim that v0.2.5 has been committed, pushed, tagged,
-released, uploaded, published, installed, enabled or activated. OpenAI/Codex
-v0.2.4 remains the live rollback source. A later authorised update should use
-the existing plugin page's **Upload** route to create a v0.2.5 draft while
-v0.2.4 remains published; unpublishing v0.2.4 first is neither required nor
-recommended.
+| Check | Observed result |
+| --- | --- |
+| Public metadata, runtime parity and review cases | 51 package checks passed, including matching reviewed skill hashes, 16 positive scenarios and 13 negative scenarios. These are reviewer cases. |
+| Forward checks | All 46 passed, covering the ten native agent definitions, six skills, lecturer decisions, production handoff, final review and source boundaries. |
+| Bundled helper tests | 29 passed. One symbolic-link test was skipped because this Windows environment could not create the test link. |
+| Installed OpenAI validators | The six installed skill checks passed in both package trees. The optional local plugin-validator script was unavailable on this installation. |
+| Release build | Two fresh public-package builds produced SHA-256 `A784591809BD191E689B5979C6286961A2DAE7A3830BA77F5DD66F563D9744D2`. All files matched the submission source. |
+| Project-scoped skill discovery | On Windows with Codex CLI 0.172.0, a fresh native skill scan recognised all six enabled repo-scoped skills. A repeat installer preview found zero changes. |
 
-## Change and preservation result
+## Reproduce
 
-The candidate replaces Markdown-dependent list markers in the public long
-description with five visible `◆` section separators and fifteen `•` item
-separators. The structure therefore remains visible in both clients that
-preserve line breaks and clients that collapse whitespace. The wording and
-claims remain unchanged: lecturer control, all ten specialist roles, every
-listed gate and HITL stage, decision-dialogue rules and the no-automation and
-no-permission boundary are all present in the whitespace-collapsed form.
+In the tested Codex Plan mode, `request_user_input` accepts two or three explicit options and supplies a free-text Other answer. Ask open-ended teaching questions directly. On a host with a different card contract, use its documented options. Use the ordinary-chat fallback whenever a card cannot show the full choice set and allow a custom answer.
 
-The package version and version-mirrored OpenAI review records are `0.2.5`.
-The embedded project template and shared workflow remain `0.2.4`; no schema or
-runtime migration was introduced. The custom-runtime and public-submission
-manifests are byte-identical.
-
-All twelve files across the six skill trees (each tree's `SKILL.md` and
-`agents/openai.yaml`) match their fixed v0.2.4 SHA-256 baselines in both the
-custom-runtime and public-submission trees. No file under the shared core,
-GitHub Copilot package or marketplace, Claude Code, OpenCode, Antigravity,
-course-project templates, or course materials was changed.
-
-## Interaction contract preserved
-
-- One unresolved consequential question is presented at a time.
-- A card is used only if the live host can display every valid choice plus a
-  custom answer. The current verified Codex `request_user_input` contract is
-  available only in Plan mode, permits exactly two or three explicit choices,
-  and the client adds free-form `Other`. Outside
-  Plan mode the card is unavailable and the complete ordinary-chat fallback
-  applies. Work's exact maximum is not independently documented.
-- If card capacity is unknown, unavailable or exceeded, the complete
-  ordinary-chat fallback presents every valid numbered option plus
-  `Other - type your answer`, then waits. Choices are never pruned, hidden or
-  combined merely to fit a card.
-- Longer decisions may use dependency-based clusters with every option
-  visible. Custom answers remain verbatim and recaps remain editable.
-- Gate meanings, approval tokens, specialist authority, substantive choices,
-  schema 8 and lifecycle transitions are unchanged.
-
-## Validation evidence
-
-| Check | Result |
-|---|---|
-| Public source scrub | PASS: 161 scoped files, six plus six skills, ten plus ten agents, zero findings |
-| Static format parsing | PASS: 14 JSON, 22 TOML, 12 YAML, 26 Python and 4 SVG files |
-| Public submission validation | PASS: 55 source files, exactly six skills, 15 positive and 12 negative reviewer cases, fixed v0.2.4 skill-tree hash locks |
-| Official local plugin validator | PASS for both the custom-runtime and public-submission plugin roots |
-| Plugin unit suite | PASS: 29 tests; one expected Windows symlink-privilege skip |
-| Template state validation | PASS: schema 8, workflow/plugin base `0.2.4`, inactive defaults and no schedule |
-| Disposable forward test | PASS with package `0.2.5` and base workflow `0.2.4` separated correctly |
-| Repository validator | PASS: 392 source files, six shared skills, five adapter manifests, zero findings |
-| Full repository unit suite | PASS: 97 tests |
-| Deterministic OpenAI skills-only build | PASS: two independent 55-file archives are byte-identical |
-| Whitespace validation | PASS: no `git diff --check` findings |
-
-The two ignored local candidate archives have the same SHA-256:
-
-`F10F789C5F7EA9E176C24D1D8ADF46A1AD753FFA9BA3BF86664BAD0CC151E749`
-
-Validated archive filename:
-`agentic-course-redesign-openai-skills-only-v0.2.5.zip`.
-
-An existing ignored local PyYAML dependency was supplied through
-`PYTHONPATH`; no dependency was installed. Python bytecode generation was
-disabled. The candidate contains no generated cache files.
-
-## Privilege and lifecycle boundary
-
-The candidate adds no MCP server, app, connector, hook, provider
-authentication, permission, telemetry, external egress, schedule, automation
-or paid resource. It does not start a course run or alter any course material.
-Publication, installation, activation, publisher attestations, portal review
-and a fresh-task live picker smoke test remain separate later decisions.
-
-## Reproduction commands
-
-Run from the repository root with Python 3 and bytecode disabled. The
-YAML-dependent validators require PyYAML on `PYTHONPATH`.
+Run these commands from the Codex adapter. Install PyYAML for the static YAML check and the optional installed OpenAI validators when available.
 
 ```text
-python -B 01_ChatGPT_Desktop_App/validation/public_scrub.py
-python -B 01_ChatGPT_Desktop_App/validation/validate_static_formats.py
-python -B 01_ChatGPT_Desktop_App/validation/validate_public_submission.py --archive <candidate-zip>
-python -B -m unittest discover -s 01_ChatGPT_Desktop_App/plugins/agentic-course-redesign/tests -p "test_*.py" -v
-python -B 01_ChatGPT_Desktop_App/plugins/agentic-course-redesign/scripts/validate_state.py 01_ChatGPT_Desktop_App/plugins/agentic-course-redesign/assets/project-template/01_Control/state.json
-python -B 01_ChatGPT_Desktop_App/validation/forward_test.py
-python -B 05_Validation/validate_repository.py
-python -B -m unittest discover -s 05_Validation/tests -p "test_*.py" -v
-python -B <plugin-creator>/scripts/validate_plugin.py 01_ChatGPT_Desktop_App/plugins/agentic-course-redesign
-python -B <plugin-creator>/scripts/validate_plugin.py 01_ChatGPT_Desktop_App/openai-submission/source/agentic-course-redesign
+python -m unittest discover -s plugins/agentic-course-redesign/tests -v
+python validation/forward_test.py
+python validation/validate_static_formats.py
+python validation/public_scrub.py
+python validation/run_official_validators.py --allow-missing
+python validation/check_public_submission_build.py
+python validation/check_release_build.py
 ```
+
+Read the actual per-validator statuses when using the optional discovery flag. Directory publication, host model behaviour, correct rendering of a particular document and successful submission of a real LMS activity require their own checks. Before accepting a course deliverable, reopen it in its intended application and test the learner task. [Reviewer cases](openai-submission/review/test-cases.json)

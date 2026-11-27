@@ -1,7 +1,7 @@
 {
   "name": "agentic-course-redesign",
-  "version": "0.2.5",
-  "description": "A gated, lecturer-in-the-loop workflow with guided, course-adaptive evidence-grounded redesign.",
+  "version": "0.3.0",
+  "description": "Redesign a course from a teaching goal or approved materials, with ten specialists and lecturer decisions from research through final review.",
   "author": {
     "name": "GIAN PETER OCHSNER"
   },
@@ -17,11 +17,11 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Agentic Course Redesign",
-    "shortDescription": "Gated evidence-led redesign",
-    "longDescription": "◆ LECTURER / TEACHER CONTROL • You retain every consequential decision. The Course Redesign Orchestrator is the sole lecturer-facing interface.\n◆ SPECIALIST TEAM (10) • Course Mapper and Learning-Outcomes Auditor; Active-Learning Researcher; AI Integration and AI-Competence Researcher; Student Experience, Accessibility and Workload Proxy Critic; Assessment and Constructive-Alignment Designer. • Source Verification and Citation Auditor; Evidence and Feasibility Red Team; Learning Designer; Learning Material Designer; Artefact Accessibility and Visual QA Auditor. The student-experience role is a design-review proxy and never authorises identifiable student data.\n◆ GATED WORKFLOW • Gate 0A: verify ownership/processing authority, sensitivity, student data, protected assessment and environment before any source path or content. • Gate 0: confirm sources, rights, tools and egress. Gate 1: confirm the course brief and a fresh run. • HITL 1: approve focus after preliminary mapping. Research, source verification, cross-specialist synthesis, assessment integration and red-team review lead to HITL 2. • Gate 3: approve the integrated blueprint and file plan. Material production creates only approved working copies, followed by evidence, accessibility, visual, alignment and assessment-security QA. • Verify production handoff before HITL 3; accept, revise or reject each artefact. • Request or decline final system review; the accepted run becomes complete and dormant until a later manual or separately approved scheduled trigger creates a fresh run.\n◆ DECISION DIALOGUE • One unresolved question at a time. • Use a card only if the live host can show the complete option set plus custom answer. Verified current Codex in Plan mode: 2–3 explicit choices plus automatic Other. • If capacity is unknown, unavailable or exceeded, use ordinary chat with every valid numbered option plus Other, then wait. Never prune, hide or combine valid options to fit a card. • Long sets may use dependency-based chunks with every option visible; the lecturer may split, merge, reorder or rename them. • Preserve custom answers verbatim, show editable recaps, never preselect recommendations and fail closed on uncertainty.\n◆ BOUNDARY • The plugin does not register schedules, start runs, publish content, add connectors or change permissions.",
+    "shortDescription": "Redesign a course together",
+    "longDescription": "Start with one teaching goal, a single lesson or a whole course. Choose “Skip for now” to start without opening course files. You can work all the way to finished materials this way. When an existing document or private LMS becomes relevant, the orchestrator asks about that material at the point of use.\n\nTen specialists map outcomes, check research, design activities and assessments, and review workload, accessibility and feasibility. You choose the focus, compare recommendations, approve the blueprint and file plan, and accept or revise each finished item. The orchestrator asks one question at a time and leaves room for your own answer.\n\nCreate editable slides, handouts, spreadsheets, quizzes, web pages or draft LMS activities using the tools and access available in your session. Review a working copy, browser preview or student view before deciding what to keep. You control the sources, tools and destinations.",
     "developerName": "GIAN PETER OCHSNER",
     "websiteURL": "https://github.com/gpochs/Agentic-Course-Redesign-System",
-    "privacyPolicyURL": "https://github.com/gpochs/Agentic-Course-Redesign-System/blob/v0.2.5/docs/PRIVACY.md",
+    "privacyPolicyURL": "https://github.com/gpochs/Agentic-Course-Redesign-System/blob/63d7464dc3c75634e08c04fca78e2e50bf250ed1/docs/PRIVACY.md",
     "termsOfServiceURL": "https://github.com/gpochs/Agentic-Course-Redesign-System/blob/v0.2.5/docs/TERMS.md",
     "category": "Education & Research",
     "capabilities": [
@@ -34,11 +34,12 @@
       "Gated material production"
     ],
     "defaultPrompt": [
-      "Guide me through processing eligibility one question at a time, then set up one protected course.",
-      "Audit an eligible, approved course for evidence-based redesign priorities.",
-      "Continue the active course-redesign run at its next approved gate."
+      "Start from a teaching goal. I want to redesign a lesson without opening my course files.",
+      "Help me improve an activity, an assessment and the materials my students will use.",
+      "Resume my course redesign and show me the next decision I need to make."
     ],
     "composerIcon": "./assets/composer-icon.svg",
-    "logo": "./assets/logo.svg"
+    "logo": "./assets/logo.svg",
+    "supportURL": "https://github.com/gpochs/Agentic-Course-Redesign-System/blob/v0.2.5/docs/SUPPORT.md"
   }
 }

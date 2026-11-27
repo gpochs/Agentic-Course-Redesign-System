@@ -6,6 +6,9 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
+import stat
+import subprocess
 import re
 import zipfile
 from pathlib import Path
@@ -46,17 +49,36 @@ def current_version() -> str:
 
 
 def source_files() -> list[Path]:
+    # Package only reviewed paths. A course file beside the checkout is never a release input.
+    if (ROOT / ".git").exists():
+        records = subprocess.run(
+            ["git", "ls-files", "--cached", "-z"], cwd=ROOT, check=True, capture_output=True
+        ).stdout.split(b"\0")
+        names = [os.fsdecode(record) for record in records if record]
+    else:
+        inventory = json.loads((ROOT / "package-inventory.json").read_text(encoding="utf-8"))
+        names = [record["relative_path"] for record in inventory["files"]]
+
     paths: list[Path] = []
-    for path in ROOT.rglob("*"):
-        if not path.is_file():
+    for name in names:
+        relative = Path(name)
+        if relative.is_absolute() or relative.drive or ".." in relative.parts or "\\" in name:
+            raise ValueError(f"unsafe source path: {name!r}")
+        if any(part in EXCLUDED_PARTS for part in relative.parts):
             continue
-        rel = path.relative_to(ROOT)
-        if any(part in EXCLUDED_PARTS for part in rel.parts):
-            continue
+        path = ROOT / relative
         if path.name in EXCLUDED_NAMES or path.name.startswith("~$"):
             continue
         if path.name.casefold().startswith(".env") or path.suffix.casefold() in EXCLUDED_SUFFIXES:
             continue
+        current = ROOT
+        for part in relative.parts:
+            current = current / part
+            info = current.lstat()
+            if stat.S_ISLNK(info.st_mode) or getattr(info, "st_file_attributes", 0) & stat.FILE_ATTRIBUTE_REPARSE_POINT:
+                raise ValueError(f"linked source path: {name!r}")
+        if not stat.S_ISREG(info.st_mode):
+            raise ValueError(f"expected a regular source file: {name!r}")
         paths.append(path)
     return sorted(paths, key=lambda item: item.relative_to(ROOT).as_posix().casefold())
 

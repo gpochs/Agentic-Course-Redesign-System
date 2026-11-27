@@ -7,6 +7,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 import zipfile
 from pathlib import Path
 
@@ -104,6 +105,17 @@ class ReleaseValidationTests(unittest.TestCase):
             self.assertTrue(result["pass"], result["findings"])
             self.assertEqual(result["release_version"], "0.2.2")
             self.assertEqual(result["inventory_version"], "0.2.2")
+
+    def test_release_inputs_exclude_untracked_files(self):
+        with tempfile.TemporaryDirectory() as raw:
+            checkout = Path(raw)
+            subprocess.run(["git", "init", "--quiet"], cwd=checkout, check=True)
+            tracked = checkout / "README.md"
+            tracked.write_text("release notes", encoding="utf-8")
+            (checkout / "personal-notes.txt").write_text("local notes", encoding="utf-8")
+            subprocess.run(["git", "add", "--", "README.md"], cwd=checkout, check=True)
+            with patch.object(BUILD_RELEASE, "ROOT", checkout):
+                self.assertEqual(BUILD_RELEASE.source_files(), [tracked])
 
     def test_stale_inventory_version_fails(self):
         with tempfile.TemporaryDirectory() as raw:

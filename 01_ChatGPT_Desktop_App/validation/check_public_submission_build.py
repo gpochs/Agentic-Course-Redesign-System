@@ -54,9 +54,9 @@ def main() -> int:
             "pass": bool(validation["pass"]),
         },
         {
-            "check": "owner blockers remain explicit",
-            "pass": validation["submission_ready"] is False
-            and bool(validation["owner_submission_blockers"]),
+            "check": "offline validation reports its own scope",
+            "pass": validation["package_ready_for_upload"] is True
+            and validation["portal_status"] == "not_observed_by_offline_validator",
         },
     ]
     result = {
@@ -66,8 +66,8 @@ def main() -> int:
         "archive_sha256": second["archive_sha256"],
         "archive_file_count": second["archive_file_count"],
         "hash_file": f"dist/{hash_file.name}",
-        "submission_ready": validation["submission_ready"],
-        "owner_submission_blockers": validation["owner_submission_blockers"],
+        "package_ready_for_upload": validation["package_ready_for_upload"],
+        "portal_checks": validation["portal_checks"],
         "checks": checks,
     }
     print(json.dumps(result, ensure_ascii=False, indent=2))

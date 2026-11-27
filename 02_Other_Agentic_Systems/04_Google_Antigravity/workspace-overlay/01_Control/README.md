@@ -47,6 +47,11 @@ the exact preview is approved. It creates only
 `01_Control/material-processing-eligibility.json`, atomically refuses
 overwrite, and needs no MCP server. A route-only or failed-closed record is a
 durable decision, not source-intake authority.
+For a lecturer who selects **Skip for now**, use the helper's `--source-free`
+mode. Its fingerprint binds the absence of course inputs. Create and verify
+the zero-row manifest without enumeration, approve an empty source list in the
+policy, and continue through the ordinary gates. Original file and LMS access
+requires a separate, current material-specific decision.
 There is no ungated raw-file mode. Hashing a course source uses `--mode
 course-source --eligibility-record
 01_Control/material-processing-eligibility.json`; the eligibility control is

@@ -7,6 +7,13 @@ description: Produce and independently validate approved editable course materia
 
 ## Lecturer Decision Dialogue Contract
 
+Use an open-ended question for the lecturer's priorities, reasoning or feedback.
+Use a native choice card for a finite decision when the host supports it. A
+prehighlighted suggestion earns no consent. Only a submitted answer counts.
+"Skip for now" in onboarding is a valid route choice. Continue from a general
+description or fictional example with no existing course-source access. At an
+approval gate, wait for a decision before advancing.
+
 The orchestrator is the sole lecturer-facing interface; specialist roles are
 evidence lenses and return questions through it. Ask one unresolved
 consequential question at a time. Before using a native choice card, follow the
@@ -28,7 +35,7 @@ jointly affects usability, inclusion, workload and engagement.
 Preserve a custom answer exactly, confirm its canonical interpretation, reflect
 the consequence, and maintain a decision ledger in the chat and current state.
 Show an editable recap at each cluster or gate end. A skipped or blank response
-leaves a required question unresolved. The safest truthful, evidence-aligned,
+leaves a required question unresolved. Choosing the offered onboarding route “Skip for now” answers that question and advances to the teaching goal. The safest truthful, evidence-aligned,
 reversible option may be marked `Recommended`, but never preselected; factual
 declarations must say "select only if true," and uncertainty fails closed. At
 major pedagogical gates, ask for the lecturer's criteria and preliminary view
@@ -45,6 +52,12 @@ Use the terminology, format, accessibility standard, device/print conditions
 and facilitator role supplied by the current school, vocational, professional,
 higher-education or other course. Do not assume a literary subject, academic
 semester, university classroom or teacher/student naming convention.
+
+Choose the output format that fits the approved learner task, access and review
+environment. Use [artifact review](references/artifact-review.md) for editable
+documents, slides, sheets, cloud work, websites, apps, quizzes, LMS drafts and
+browser previews. Use [role evidence](../course-redesign-orchestrator/references/role-evidence.md)
+when resolving a pedagogical or accessibility trade-off.
 
 ## Preserve and improve
 
@@ -75,14 +88,18 @@ semester, university classroom or teacher/student naming convention.
 
 Use separate student and teacher targets. Scan visible text, editable layers, text boxes, comments, notes, metadata, alt text, hidden objects, model responses, and derived PDFs for key leakage. Accessible assessment derivatives must expose only the assigned item, never an entire secure bank.
 
+## Missing production or preview access
+
+When an approved deliverable depends on an unavailable editor, preview, format skill or LMS, tell the orchestrator exactly which operation needs it, which data and permissions it involves, and what the installed tools can deliver now. For example, a quiz export can check item wording and scoring keys while the private LMS learner preview is needed to verify release timing. Keep the supported work moving when the lecturer declines a connection. Mark the remaining check as unverified.
+
 ## QA gate
 
 For every deliverable:
 
-1. reopen it in the intended application;
-2. verify it is editable;
-3. export the intended PDF/derivative;
-4. render and inspect every page or slide;
+1. reopen it in the available authoring or delivery application and verify the expected edits;
+2. exercise the learner's task and review teacher-only views separately;
+3. for paginated documents and slide decks, inspect every rendered page or slide and any requested derivative;
+4. for other formats, use the format-specific functional and accessibility checks in the artifact review guide;
 5. test links, notes/footnotes, headings, language, contrast, alt text, reading order, response space, tables, media, citations, and metadata;
 6. compare points/criteria/weights/timings/AI states across all files;
 7. verify source hashes unchanged and no unapproved extras/caches in release folders; and

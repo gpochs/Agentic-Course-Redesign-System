@@ -96,7 +96,7 @@ def fingerprint(
             raise PermissionError(
                 "approved Gate-0A eligibility record is required before target inspection"
             )
-        eligibility = validate_eligibility(eligibility_record)
+        eligibility = validate_eligibility(eligibility_record, allow_source_free=mode == "policy")
         if not eligibility["ok"]:
             raise PermissionError(
                 "Gate-0A does not permit target inspection: "
@@ -104,7 +104,16 @@ def fingerprint(
             )
         if mode == "policy":
             _assert_control_target(path, mode)
+            if eligibility.get("source_free"):
+                if (path.absolute() != eligibility_record.absolute().with_name("source-access-policy.json")
+                    or path.resolve(strict=True) != path.absolute()):
+                    raise ValueError("source-free mode requires the literal policy in the same control folder")
             payload = _canonical_json_payload(path, POLICY_EXCLUDED_FIELDS, mode)
+            if eligibility.get("source_free"):
+                policy = json.loads(payload)
+                if (policy.get("per_source_entries") != []
+                    or policy.get("material_processing_eligibility_fingerprint") != eligibility["fingerprint"]):
+                    raise ValueError("source-free policy must bind the no-source scope and contain no course entries")
         else:
             payload = path.read_bytes()
     return hashlib.sha256(payload).hexdigest().upper(), payload

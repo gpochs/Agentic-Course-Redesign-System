@@ -1,11 +1,18 @@
 ---
 name: course-redesign-setup
-description: Set up one protected project for a course-independent agentic redesign workflow, beginning with pre-source material and processing-environment eligibility. Use when a lecturer wants to create, initialise, install, or organise a course-redesign project, source manifest, access policy, agents, or folder structure.
+description: Set up one protected project for a course-independent agentic redesign workflow, from a general teaching goal or from materials the lecturer chooses to open. Use when a lecturer wants to create, initialise, install, or organise a course-redesign project, source manifest, access policy, agents, or folder structure.
 ---
 
 # Course Redesign Setup
 
 ## Lecturer Decision Dialogue Contract
+
+Use an open-ended question for the lecturer's priorities, reasoning or feedback.
+Use a native choice card for a finite decision when the host supports it. A
+prehighlighted suggestion earns no consent. Only a submitted answer counts.
+"Skip for now" in onboarding is a valid route choice. Continue from a general
+description or fictional example with no existing course-source access. At an
+approval gate, wait for a decision before advancing.
 
 The orchestrator is the sole lecturer-facing interface; specialist roles are
 evidence lenses and return questions through it. Ask one unresolved
@@ -28,7 +35,7 @@ jointly affects usability, inclusion, workload and engagement.
 Preserve a custom answer exactly, confirm its canonical interpretation, reflect
 the consequence, and maintain a decision ledger in the chat and current state.
 Show an editable recap at each cluster or gate end. A skipped or blank response
-leaves a required question unresolved. The safest truthful, evidence-aligned,
+leaves a required question unresolved. Choosing the offered onboarding route “Skip for now” answers that question and advances to the teaching goal. The safest truthful, evidence-aligned,
 reversible option may be marked `Recommended`, but never preselected; factual
 declarations must say "select only if true," and uncertainty fails closed. At
 major pedagogical gates, ask for the lecturer's criteria and preliminary view
@@ -39,17 +46,37 @@ Set up one course only. Do not combine unrelated courses in one project or sourc
 
 ## Participant onboarding
 
-When a lecturer asks how to begin, use
-`../../PARTICIPANT_QUICK_START.md` as the concise walkthrough. Explain how to
-create one project in the selected supported agentic workspace, select one
-short isolated course folder on the lecturer's personal computer, gather
-current materials and context, start the first task, and proceed through the
-gates. Follow the current platform adapter's installation or overlay guide;
-never pretend that installation succeeded.
-The folder may use local storage or a lecturer-controlled personal OneDrive;
-state explicitly that OneDrive is cloud-synchronised rather than strictly local
-and may hold protected/assessment data only when authorised. Tool availability,
-plugin installation or adapter discovery never grants source access or egress.
+Start with the orchestrator's two-way choice. Introduce controls as they become
+relevant. `PARTICIPANT_QUICK_START.md` is at the shared-core root or under
+`assets/` in the Codex plugin. Local and cloud-synced output folders have
+different audiences; use the lecturer's chosen authorised location.
+
+### Continue after Skip for now
+
+Start designing from a general goal or an invented example in the conversation.
+At the point a durable run or editable artifact is wanted, offer an isolated new
+output folder and show what will go there. Create the scaffold via the usual
+preview and exact-target approval. For Gate 0A, preview
+`scripts/create_material_processing_eligibility.py --source-free` with only
+`--project`, `--eligibility-id`, `--lecturer-declaration-reference` and an
+offset-bearing `--recorded-at`. Reuse the lecturer's explicit route decision;
+show the no-source scope in plain language. Apply the identical preview after
+exact-target approval. On this route the helper keeps material and environment
+declarations empty. It grants no access to existing sources.
+
+`source_manifest.py create` and `verify` bind a header-only manifest to that
+record without inspecting existing files or either source folder. Prepare the
+versioned source-access policy with zero per-source entries. Ask at Gate 0 for
+the audience and genuinely needed tool permissions, including optional public
+research about a generic teaching question. Apply all subsequent contract,
+research, target, production, handoff and lecturer gates as usual. Use the
+newly produced artifacts for QA. Label findings based on the lecturer's general
+description as such. If they later request a real file or private LMS course,
+ask the one unresolved handling question about that item; keep working on the
+rest. Establish fresh source-enabled lineage in an isolated project before
+inspection. Reuse accepted pedagogical choices after checking their scope with
+the lecturer. Do not overwrite a source-free record or carry its permissions
+into the new run.
 
 ## Safety boundary
 
@@ -61,6 +88,16 @@ plugin installation or adapter discovery never grants source access or egress.
 - Stop if the target is ambiguous, contains an existing configured system, or would mix courses.
 
 ## Gate 0A before source disclosure
+
+Use this branch only for existing course materials. First ask what kind of
+material the lecturer wants to use. Public means others can see it; private
+means the lecturer owns or controls it; internal means an institution limits
+access; confidential suggests extra restrictions such as protected assessments
+or student information. These are examples. A file may fit several categories.
+For mixed or uncertain items, help select a simpler subset or keep working from
+the general brief. Reuse facts already given and confirm a one-line summary.
+Ask only the missing question that changes the decision, in ordinary language.
+Keep fingerprints, flags and helper arguments in an expandable technical record.
 
 Before asking for, listing or inspecting any course source path, filename or
 content, ask only for the declared material category, exact processing-
@@ -79,7 +116,7 @@ the eligibility decision. Null, inconsistent or stale declarations fail closed.
 - An approved institutional exact environment requires a policy reference,
   approved scope and non-expired expiry.
 
-Do not begin course/context intake, copying, inventory or hashing before the
+Do not begin existing-material intake, copying, inventory or hashing before the
 approved Gate-0A fingerprint exists and `reconfirmation_required` is false.
 
 After the lecturer has answered every required category-level question, create
@@ -101,7 +138,7 @@ durable decisions but never source-intake authority.
 
 Ask only questions that materially affect setup or the first analysis. Adapt the language to the lecturer; do not present a prompt pack.
 
-Only after Gate 0A permits processing, establish:
+Build the brief progressively from what the lecturer has already shared. For an existing-material run, wait for source eligibility before intake. Gather these only when they affect the next decision:
 
 1. course title, discipline, level, programme, language, learner profile, and group size;
 2. taught time, independent work, delivery format, timetable, and material platforms;

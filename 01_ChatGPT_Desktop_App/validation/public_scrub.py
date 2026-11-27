@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+from release_inputs import portable_sources
 from pathlib import Path
 
 
@@ -82,7 +83,7 @@ def inspect_text(relative_path: str, text: str) -> list[dict[str, str]]:
 def scan(root: Path = ROOT) -> dict[str, object]:
     findings: list[dict[str, str]] = []
     inspected_file_count = 0
-    files = sorted(path for path in root.rglob("*") if path.is_file())
+    files = portable_sources()
     for path in files:
         relative = path.relative_to(root).as_posix()
         parts = set(path.relative_to(root).parts)

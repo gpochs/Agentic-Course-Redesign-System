@@ -7,6 +7,13 @@ description: Design and audit constructively aligned, valid, fair, feasible, tra
 
 ## Lecturer Decision Dialogue Contract
 
+Use an open-ended question for the lecturer's priorities, reasoning or feedback.
+Use a native choice card for a finite decision when the host supports it. A
+prehighlighted suggestion earns no consent. Only a submitted answer counts.
+"Skip for now" in onboarding is a valid route choice. Continue from a general
+description or fictional example with no existing course-source access. At an
+approval gate, wait for a decision before advancing.
+
 The orchestrator is the sole lecturer-facing interface; specialist roles are
 evidence lenses and return questions through it. Ask one unresolved
 consequential question at a time. Before using a native choice card, follow the
@@ -28,7 +35,7 @@ jointly affects usability, inclusion, workload and engagement.
 Preserve a custom answer exactly, confirm its canonical interpretation, reflect
 the consequence, and maintain a decision ledger in the chat and current state.
 Show an editable recap at each cluster or gate end. A skipped or blank response
-leaves a required question unresolved. The safest truthful, evidence-aligned,
+leaves a required question unresolved. Choosing the offered onboarding route “Skip for now” answers that question and advances to the teaching goal. The safest truthful, evidence-aligned,
 reversible option may be marked `Recommended`, but never preselected; factual
 declarations must say "select only if true," and uncertainty fails closed. At
 major pedagogical gates, ask for the lecturer's criteria and preliminary view
@@ -40,6 +47,11 @@ grade-based model or assessment format. Adapt to school, vocational,
 professional, higher-education or other supplied contexts and capture the
 current course's approved rules, including competency/pass/fail systems where
 applicable.
+
+Use the [role evidence guide](../course-redesign-orchestrator/references/role-evidence.md)
+when weighing a validity or alignment claim. For a digital quiz or performance
+task, use [artifact review](../course-redesign-materials/references/artifact-review.md)
+to verify the learner attempt, feedback timing and teacher-only content.
 
 ## Live alignment ledger
 

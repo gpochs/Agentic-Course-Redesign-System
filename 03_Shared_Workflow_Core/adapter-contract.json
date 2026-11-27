@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "core_version": "0.2.4",
+  "core_version": "0.3.0",
   "state_schema_version": 8,
   "status": "candidate_not_active",
   "schedules": [],
@@ -25,6 +25,9 @@
     "subject_level_qualification_and_institutional_policy_assumptions_forbidden": true
   },
   "pre_source_processing_eligibility": {
+    "optional_onboarding_choice": "use_existing_materials_or_skip_for_now",
+    "skip_for_now": "continue_from_general_description_or_fictional_example_with_no_existing_source_access",
+    "source_free_durable_run": "explicit_source_free_record_header_only_manifest_zero_per_source_entries_ordinary_gates",
     "fingerprinted": true,
     "record_generator": "scripts/create_material_processing_eligibility.py",
     "record_generator_mode": "preview_by_default_apply_explicit_atomic_create_no_overwrite",
@@ -47,6 +50,7 @@
     "sole_user_interface": "course-redesign-orchestrator",
     "specialist_roles_are_evidence_lenses": true,
     "unresolved_consequential_questions_at_a_time": 1,
+    "lecturer_priorities_reasoning_feedback": "open_ended_question",
     "native_card_capacity": "live_host_tool_contract",
     "native_card_requires_complete_option_set_and_custom_answer_path": true,
     "native_card_unavailable_unsupported_unknown_or_exceeded_fallback": "same_single_ordinary_chat_question_listing_every_valid_numbered_option_plus_other_then_wait",

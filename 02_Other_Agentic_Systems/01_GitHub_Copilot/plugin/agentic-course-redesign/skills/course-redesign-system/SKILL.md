@@ -7,6 +7,13 @@ description: Review, validate, activate, schedule, pause, renew, or roll back th
 
 ## Lecturer Decision Dialogue Contract
 
+Use an open-ended question for the lecturer's priorities, reasoning or feedback.
+Use a native choice card for a finite decision when the host supports it. A
+prehighlighted suggestion earns no consent. Only a submitted answer counts.
+"Skip for now" in onboarding is a valid route choice. Continue from a general
+description or fictional example with no existing course-source access. At an
+approval gate, wait for a decision before advancing.
+
 The orchestrator is the sole lecturer-facing interface; specialist roles are
 evidence lenses and return questions through it. Ask one unresolved
 consequential question at a time. Before using a native choice card, follow the
@@ -28,7 +35,7 @@ jointly affects usability, inclusion, workload and engagement.
 Preserve a custom answer exactly, confirm its canonical interpretation, reflect
 the consequence, and maintain a decision ledger in the chat and current state.
 Show an editable recap at each cluster or gate end. A skipped or blank response
-leaves a required question unresolved. The safest truthful, evidence-aligned,
+leaves a required question unresolved. Choosing the offered onboarding route “Skip for now” answers that question and advances to the teaching goal. The safest truthful, evidence-aligned,
 reversible option may be marked `Recommended`, but never preselected; factual
 declarations must say "select only if true," and uncertainty fails closed. At
 major pedagogical gates, ask for the lecturer's criteria and preliminary view
@@ -66,6 +73,11 @@ work.
 The recorded question must be exactly:
 
 > Would you like a separate, read-only system-improvement review covering the workflow skills and umbrella entry routing; plugin or platform adapter; AGENTS.md and agent configurations; project template, state schema and migration; validators, tests and QA; documentation; memory or other workflow-owned durable instruction stores; schedule contracts; permissions, tools, external egress and automatic behaviour; and compatibility, benefits, regressions, risks, residual risks and rollback, followed only by a versioned proposal? A yes authorises only that review and proposal; it does not authorise system-file changes, installation, publication or release, runtime activation, schedule registration or modification, an immediate run, or any added MCP server, connector, authentication, permission or external egress.
+
+Include interaction failures observed during the run, such as a lecturer
+choosing Skip but still seeing classification questions, a requested free-text
+judgement forced into a card, or a preview the lecturer could not open. Record
+the host capability and the affected decision so a fix can be forward-tested.
 
 ## Improvement proposal
 

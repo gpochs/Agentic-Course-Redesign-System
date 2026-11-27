@@ -1,9 +1,7 @@
 # Shared workflow core
 
 This directory is the course-independent semantic source for all platform
-adapters. Version 0.2.4 is an inactive candidate under approved proposal
-`ACR-SYS-20260822-007`; its reusable template remains inactive by default and
-does not modify a course or register a schedule merely by being installed.
+adapters. Version 0.3.0 adds optional, source-free onboarding, evidence guidance for all ten specialists and destination-bound draft reviews. Installation leaves each course inactive until its lecturer starts a run.
 The same workflow adapts to lecturer-supplied school, vocational, professional,
 higher-education or other explicitly described course contexts. It must not
 infer a subject, learner level, qualification framework, assessment form or
@@ -24,6 +22,15 @@ institutional policy from the plugin or from an earlier course.
   active or still-registered schedules fail before candidate emission. The
   older v6-to-v7 helper remains available for staged compatibility.
 - `PARTICIPANT_QUICK_START.md` is the platform-neutral onboarding reference.
+
+The initial choice lets lecturers use existing materials or **Skip for now**.
+A general teaching goal or fictional example allows immediate course design.
+For a durable source-free run, `--source-free` records the explicit choice
+without making declarations about any material or environment. Manifest
+creation and verification bind an empty authorised input set without enumerating
+any source. Source hashing and existing-folder intake reject this record. Gate 0,
+all five specialist perspectives, HITL 1–3 and the production/handoff decisions
+remain in force. On later source access, review the new scope at the point of use.
 
 Schema 8 routes the umbrella entry first through Gate 0A, before any course
 source path, filename, list, read, copy, hash or other source intake is exposed.

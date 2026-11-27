@@ -15,6 +15,9 @@ The plugin uses your existing Copilot access. It does not require an external
 model provider, API key, MCP server, publisher account, or publisher-operated
 service.
 
+Read the [lecturer’s walkthrough](assets/PARTICIPANT_QUICK_START.md) for
+the skip route, tool choices, and an example of the first decision.
+
 ## Install
 
 1. Open the
@@ -60,7 +63,7 @@ Use a project **Session**, not the app's general **Chats** area.
    ```text
    /agentic-course-redesign/course-redesign-orchestrator
 
-   Set up an agentic redesign project for this one course. Begin with Gate 0A only. Do not list, open, copy, hash, upload, or change course files yet. Ask me only for the minimum processing-eligibility information, present the proposed setup, and then stop for my approval.
+   Set up an agentic redesign project for this one course. Offer the short onboarding or Skip for now. Do not list, open, copy, hash, upload, or change course files yet. If I skip, continue from my description through every design and production decision.
    ```
 
    If the app does not autocomplete the qualified slash name, select the
@@ -91,7 +94,7 @@ constrain one another. Keep every valid option visible across chunks; you may
 split, merge, reorder or rename their grouping. Recommendations are
 evidence-aligned, reversible, and never preselected; factual declarations must
 be true, uncertainty fails closed, custom answers are preserved and confirmed,
-blank or `Skip` cannot advance, and exact authority approvals remain separate.
+An unanswered approval cannot advance. Choosing “Skip for now” at onboarding starts a source-free redesign, and exact authority approvals remain separate.
 
 ## Copilot 1.0.80 BYOK compatibility
 
@@ -130,7 +133,7 @@ server or plugin does not repair poisoned task history; no MCP, hook,
 authentication, or additional permission is required or added.
 
 Rollback, if deliberately chosen by the operator, is
-`0.2.4-copilot.1`; rollback does not install or activate itself.
+`0.2.4-copilot.2`; rollback does not install or activate itself.
 
 ## Remove
 

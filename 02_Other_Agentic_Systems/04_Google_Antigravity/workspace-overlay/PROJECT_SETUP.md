@@ -1,5 +1,7 @@
 # Course redesign project
 
+Offer two ways to start after explaining that classification protects learners and course material. “Check my material” handles one source category at a time; “Skip for now” immediately continues from a general description or fictional example through all human decisions and production. For that route use the shared setup helper with `--source-free` and an empty source set. Classification and routing questions below apply only before using an existing source. If the lecturer later wants a restricted source, check it at the point of use.
+
 This folder is for one course only. It was created from the project-local
 Google Antigravity adapter without activating a runtime. The workflow adapts
 to the supplied school, vocational, professional, higher-education, or other

@@ -8,20 +8,18 @@ Each run adapts to the lecturer-supplied course while preserving the same
 eligibility, lineage, lecturer-gate, and course-isolation controls. Each host
 discovers instructions, skills, and specialist profiles from different paths.
 
-## Choose exactly one platform route
+## Choose a platform
 
-1. For the GitHub Copilot app or CLI, use the native plugin route in
-   `01_GitHub_Copilot/PARTICIPANT_INSTALLATION.md`. The project-local overlay
-   remains an advanced/manual alternative.
-2. For Claude Code, OpenCode, Antigravity, or the manual Copilot route, start
-   with `00_Portable_Core_Adapter/overlay/`, then add exactly one matching
-   platform overlay.
-3. Copy into one isolated course workspace only after reviewing every target.
-4. Treat every collision as a manual decision; never overwrite an existing
-   instruction or configuration automatically.
-5. Open the resulting course folder in the selected host and verify discovery,
-   permissions and read-only behavior before Gate 0A. Do not enumerate or read
-   course sources until the pre-source processing-eligibility record passes.
+The native editions support the same course-independent human decisions. Choose **Skip for now** to begin a full redesign from a description, with no existing course materials. New editable drafts can be produced and reviewed through the existing approval stages. Open a live LMS, document, spreadsheet, presentation, quiz, or web app only when the lecturer chooses it and the host provides access.
+
+| Host | Install and start |
+| --- | --- |
+| GitHub Copilot | [Native marketplace package or per-project installation](01_GitHub_Copilot/PARTICIPANT_INSTALLATION.md) |
+| Claude Code | [Global and project plugins](02_Claude_Code/README.md) |
+| OpenCode | [Global and project skills and agents](03_OpenCode/README.md) |
+| Google Antigravity | [Global and project plugins](04_Google_Antigravity/README.md) |
+
+Each package uses the model and reasoning level selected in the existing account. No model API key is required. Local permissions, tool availability and subscriptions determine whether an artifact can be edited live. For a host without native browsing, use approved local materials or an export.
 
 The adapters do not install applications, choose paid models, sign in, enable
 MCP servers or hooks, grant shell access, register schedules or expose course

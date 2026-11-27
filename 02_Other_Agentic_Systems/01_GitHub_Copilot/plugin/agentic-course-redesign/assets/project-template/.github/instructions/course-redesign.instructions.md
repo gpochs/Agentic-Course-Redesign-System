@@ -24,8 +24,7 @@ choices merely to fit a card. If the host rejects or cannot present the complete
 valid set, ask one ordinary chat question listing every valid numbered option
 plus `Other`, then wait. Preserve valid and custom answers, confirm
 interpretation, never preselect a
-recommendation, ensure uncertainty fails closed, and reject blank or `Skip` as gate
-advancement. Recap each dependency cluster and gate. Exact target, write,
+recommendation, ensure uncertainty fails closed, and await a submitted decision at each approval. “Skip for now” starts the source-free onboarding route. Recap each dependency cluster and gate. Exact target, write,
 publication, activation, scheduling, and other authority gates stay separate.
 For very long sets, use dependency chunks only when choices share evidence or
 constrain one another; keep every valid option visible across chunks and let the

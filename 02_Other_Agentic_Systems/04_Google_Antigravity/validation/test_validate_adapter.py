@@ -200,10 +200,10 @@ class AdapterValidationTests(unittest.TestCase):
             control.mkdir(parents=True)
             output = eligibility_generator._resolve_output(project.resolve())
             payload = (json.dumps(first, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
-            eligibility_generator.atomic_create(output, payload)
+            eligibility_generator.SOURCE_MANIFEST.atomic_create(output, payload)
             self.assertEqual(output.read_bytes(), payload)
             with self.assertRaises(FileExistsError):
-                eligibility_generator.atomic_create(output, payload)
+                eligibility_generator.SOURCE_MANIFEST.atomic_create(output, payload)
 
     def test_eligibility_generator_cli_is_preview_first_and_no_overwrite(self) -> None:
         script = SETUP_SCRIPTS / "create_material_processing_eligibility.py"

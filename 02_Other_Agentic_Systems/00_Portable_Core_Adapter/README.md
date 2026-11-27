@@ -1,12 +1,9 @@
 # Portable core adapter
 
-Adapter release: `0.2.4`. Shared semantic base: inactive candidate
-`ACR-SYS-20260822-007` version `0.2.4`.
-
-This adapter is the platform-neutral safety and workflow layer for a local,
-lecturer-guided course-redesign project. It is a semantic adaptation of the
-approved inactive candidate `ACR-SYS-20260822-007` version `0.2.4`; it is not that
-candidate's runtime, installer, or activation mechanism.
+Version 0.3.0 carries the shared workflow into a local course project. The
+lecturer can check source handling or choose **Skip for now** to begin with a
+description. The native package builder includes the six stage guides, shared
+helpers and editable project scaffold.
 
 The `overlay/` directory is laid out relative to a future project root:
 
@@ -30,7 +27,7 @@ GitHub Copilot, and OpenCode documentation all describe project skill discovery
 there. Platform folders beside this adapter add only native instruction and
 agent wrappers.
 
-Release `0.2.4` retains the pre-source Gate 0A processing-eligibility hard stop,
+Release `0.3.0` retains the pre-source Gate 0A processing-eligibility hard stop,
 course-independent ownership and institutional-routing semantics, and schema-8
 lineage vocabulary. It adds the host-neutral one-decision interaction contract,
 adaptive dependency clusters with every valid option visible, a four-or-more

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Preview or apply deterministic v0.2.4 non-Copilot adapter reconciliation."""
+"""Preview or apply deterministic v0.3.0 non-Copilot adapter reconciliation."""
 
 from __future__ import annotations
 
@@ -7,6 +7,8 @@ import argparse
 import hashlib
 import json
 import shutil
+import tomllib
+import importlib.util
 from pathlib import Path
 
 
@@ -14,8 +16,8 @@ SCRIPT_PATH = Path(__file__).resolve()
 REPOSITORY_ROOT = SCRIPT_PATH.parents[3]
 ADAPTERS_ROOT = REPOSITORY_ROOT / "02_Other_Agentic_Systems"
 CORE_ROOT = REPOSITORY_ROOT / "03_Shared_Workflow_Core"
-VERSION = "0.2.4"
-PROPOSAL_ID = "ACR-SYS-20260822-007"
+VERSION = "0.3.0"
+PROPOSAL_ID = "ACR-SYS-20261127-001"
 
 SOURCE_RELATIVES = (
     "VERSION",
@@ -159,6 +161,61 @@ def reconcile_mirrors(apply: bool) -> list[str]:
     return changed
 
 
+def reconcile_roles_and_copilot(apply: bool) -> list[str]:
+    copilot = ADAPTERS_ROOT / "01_GitHub_Copilot"
+    plugin = copilot / "plugin/agentic-course-redesign"
+    spec = importlib.util.spec_from_file_location("copilot_contract", copilot / "validation/validate_native_plugin.py")
+    contract = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(contract)
+    changed = []
+    def emit(path, data):
+        if isinstance(data, str):
+            data = (data.rstrip() + "\n").encode()
+        if not path.is_file() or path.read_bytes() != data:
+            changed.append(path.relative_to(ADAPTERS_ROOT).as_posix())
+            if apply:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(data)
+    overrides = "\n\n".join((contract.COPILOT_CHOICE_CAPACITY_OVERRIDE, contract.COPILOT_RUNTIME_COMPATIBILITY_OVERRIDE))
+    emit(plugin / "assets/PARTICIPANT_QUICK_START.md", (CORE_ROOT / "PARTICIPANT_QUICK_START.md").read_bytes())
+    for folder, dest in (("agent-skills", "skills"), ("scripts", "scripts"), ("course-project-template", "assets/project-template")):
+        for source in (CORE_ROOT / folder).rglob("*"):
+            if not source.is_file() or "__pycache__" in source.parts:
+                continue
+            rel = source.relative_to(CORE_ROOT / folder)
+            target = plugin / dest / rel
+            extra = None
+            if source.name == "SKILL.md" or rel.as_posix() == "AGENTS.md":
+                extra = overrides
+            elif rel.as_posix() == "01_Control/GATES.md":
+                extra = contract.COPILOT_CHOICE_CAPACITY_OVERRIDE
+            data = source.read_bytes() if extra is None else source.read_text(encoding="utf-8").rstrip() + "\n\n" + extra
+            emit(target, data)
+            if folder == "agent-skills" and source.name != "SKILL.md":
+                emit(ADAPTERS_ROOT / "04_Google_Antigravity/workspace-overlay/.agents/skills" / rel, source.read_bytes())
+    roles = REPOSITORY_ROOT / "01_ChatGPT_Desktop_App/plugins/agentic-course-redesign/assets/project-template/.codex/agents"
+    for source in roles.glob("*.toml"):
+        role = tomllib.loads(source.read_text(encoding="utf-8"))
+        body = role["developer_instructions"].strip()
+        for path in (ADAPTERS_ROOT / "02_Claude_Code/overlay/.claude/agents" / (source.stem + ".md"),
+                     ADAPTERS_ROOT / "03_OpenCode/overlay/.opencode/agents" / (source.stem + ".md"),
+                     ADAPTERS_ROOT / "04_Google_Antigravity/workspace-overlay/.agents/agents" / (source.stem + ".md"),
+                     copilot / "overlay/.github/agents" / (source.stem + ".agent.md")):
+            prefix = path.read_text(encoding="utf-8").split("\n## Specialist method\n")[0].rstrip()
+            marker = "A role instruction does not provide an isolated sandbox."
+            method = body.partition(marker)[2].strip()
+            if not method:
+                raise ValueError(f"Missing specialist method for {source.name}")
+            emit(path, prefix + "\n\n## Specialist method\n\n" + method)
+        target = plugin / "agents" / (source.stem + ".agent.md")
+        header = target.read_text(encoding="utf-8").split("\n---\n", 1)[0]
+        if source.stem in contract.COPILOT_AGENT_BODY_REPLACEMENTS:
+            old, new = contract.COPILOT_AGENT_BODY_REPLACEMENTS[source.stem]
+            body = body.replace(old, new)
+        emit(target, header + "\n---\n\n" + body + "\n\n\n" + contract.COPILOT_AGENT_DIALOGUE_SUFFIX)
+    return changed
+
+
 def refresh_thin_manifest(folder: str, hashes: dict[str, str], apply: bool) -> bool:
     root = ADAPTERS_ROOT / folder
     manifest_path = root / "adapter-manifest.json"
@@ -176,6 +233,9 @@ def refresh_thin_manifest(folder: str, hashes: dict[str, str], apply: bool) -> b
         "hash_algorithm": "sha256",
         "hashes": hashes,
     }
+    if folder == "01_GitHub_Copilot":
+        manifest["native_plugin"].update(proposal_id=PROPOSAL_ID, package_version=VERSION,
+            base_semantic_version=VERSION, rollback_package_version="0.2.4-copilot.2")
     manifest["files"] = inventory(root, manifest_path)
     overlay = root / "overlay"
     manifest["overlay_files"] = sorted(
@@ -199,7 +259,7 @@ def refresh_antigravity_manifest(
     manifest["adapter_version"] = VERSION
     manifest["status"] = "candidate_not_active"
     manifest["adapter"].update(
-        {"version": VERSION, "status": "candidate_not_active", "generated_on": "2026-08-22"}
+        {"version": VERSION, "status": "candidate_not_active", "generated_on": "2026-11-27"}
     )
     manifest["provenance"] = {
         "workflow_package_id": "agentic-course-redesign",
@@ -207,7 +267,7 @@ def refresh_antigravity_manifest(
         "validated_base_version": VERSION,
         "adapter_release_version": VERSION,
         "workflow_semantics": (
-            "reconciled to shared course-independent schema-8 candidate v0.2.4; "
+            "reconciled to shared course-independent schema-8 candidate v0.3.0; "
             "adds adaptive one-decision lecturer interaction and deterministic "
             "preview-first Gate-0A eligibility generation; "
             "candidate remains inactive and adds no permission, external egress, "
@@ -218,7 +278,7 @@ def refresh_antigravity_manifest(
         "package_id": "agentic-course-redesign",
         "proposal_id": PROPOSAL_ID,
         "version": VERSION,
-        "validation_date": "2026-08-22",
+        "validation_date": "2026-11-27",
         "status": "approved inactive candidate; not activated",
         "source_root_recorded": False,
         "source_root_note": (
@@ -252,13 +312,14 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    mirror_changes = reconcile_mirrors(args.apply)
+    mirror_changes = reconcile_mirrors(args.apply) + reconcile_roles_and_copilot(args.apply)
     sources = source_entries()
     hashes = {entry["path"]: entry["sha256"] for entry in sources}
     manifest_changes = {
         folder: refresh_thin_manifest(folder, hashes, args.apply)
         for folder in THIN_ADAPTERS
     }
+    manifest_changes["01_GitHub_Copilot"] = refresh_thin_manifest("01_GitHub_Copilot", hashes, args.apply)
     manifest_changes["04_Google_Antigravity"] = refresh_antigravity_manifest(
         sources, args.apply
     )

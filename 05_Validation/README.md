@@ -1,8 +1,6 @@
 # Validation
 
-The current inactive candidate report is `VALIDATION_REPORT_v0.2.4.md`.
-Published v0.2.3 and historical v0.2.2 evidence remain preserved for rollback
-and comparison.
+The versioned reports for 0.2.x record historical results. Run these checks on the checkout and archive you intend to distribute.
 
 These checks treat the repository and generated archive as a public software
 release, not as a private course workspace.
@@ -13,9 +11,9 @@ Run from the repository root with Python 3.11 or newer:
 python 05_Validation/validate_repository.py
 python -m unittest discover -s 05_Validation/tests -v
 python 03_Shared_Workflow_Core/scripts/validate_state.py 03_Shared_Workflow_Core/course-project-template/01_Control/state.json
-python 05_Validation/build_release.py --version 0.2.4
-python 05_Validation/validate_release.py --expected-version 0.2.4 --report dist/system-release-validation-v0.2.4.json dist/Agentic-Course-Redesign-System_v0.2.4.zip
-python 01_ChatGPT_Desktop_App/validation/validate_release_evidence.py --report dist/system-release-validation-v0.2.4.json --archive dist/Agentic-Course-Redesign-System_v0.2.4.zip --expected-version 0.2.4
+python 05_Validation/build_release.py --version 0.3.0
+python 05_Validation/validate_release.py --expected-version 0.3.0 --report dist/system-release-validation-v0.3.0.json dist/Agentic-Course-Redesign-System_v0.3.0.zip
+python 01_ChatGPT_Desktop_App/validation/validate_release_evidence.py --report dist/system-release-validation-v0.3.0.json --archive dist/Agentic-Course-Redesign-System_v0.3.0.zip --expected-version 0.3.0
 ```
 
 The final release gate also runs platform-specific validators documented in
@@ -27,7 +25,7 @@ course names, project paths and unique content markers with
 `--private-denylist <outside-repository-path>`. Never commit that denylist.
 
 `build_release.py` creates a deterministic source ZIP, SHA-256 sidecar and
-machine-readable inventory under ignored `dist/`. It never installs an adapter,
+machine-readable inventory. In a Git checkout it includes only tracked paths, so stage new release files before building. An extracted distribution uses its file inventory. Linked paths are rejected. Outputs go under ignored `dist/`. It never installs an adapter,
 publishes a repository, submits a plugin or activates a runtime.
 
 `validate_release.py` binds the archive filename, requested release version,

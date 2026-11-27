@@ -1,5 +1,7 @@
 # Provenance
 
+Version 0.3.0 adds a source-free Gate 0A option, specialist evidence guidance, review procedures for digital course materials, and explicit remote draft destinations. Its optional fields extend schema 8. Existing local-only schema-8 projects can continue without migration. Each lecturer still decides at every ordinary approval stage. Earlier version entries below describe their own releases.
+
 Version 0.2.4 is an inactive candidate created under approved proposal
 `ACR-SYS-20260822-007`. It adds the shared Lecturer Decision Dialogue Contract
 and a deterministic preview-first Gate-0A eligibility-record generator with

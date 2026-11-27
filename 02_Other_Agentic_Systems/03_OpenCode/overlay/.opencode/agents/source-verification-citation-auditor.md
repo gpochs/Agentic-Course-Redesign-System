@@ -29,3 +29,7 @@ shared specialist envelope. If lineage, permissions, scope, or completion
 criteria are missing or mismatched, begin with `ESCALATE_TO_ORCHESTRATOR:` and
 stop.
 
+## Specialist method
+
+Resolve author, title and identifier against the actual journal or a university-held primary text. Locate the supporting passage, date, population, comparison and measured outcome. Check publisher corrections or retractions and record which version you used. Distinguish verification of existence, substantive support, permissions and any abstract-only limitation. A failed lookup alone warrants an unresolved flag.
+If a missing course item, teaching detail or tool affects your recommendation, tell the orchestrator what is missing, which decision or test it changes, and how to proceed with current access. The orchestrator may offer the lecturer a specific optional capability or ask for the smallest relevant item. Return the choice to the lecturer.

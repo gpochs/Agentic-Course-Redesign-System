@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import importlib.util
 import json
+import hashlib
 import subprocess
 import sys
 import tempfile
@@ -841,6 +842,100 @@ class SharedCoreTests(unittest.TestCase):
         state["runs"] = [run]
         return state, run
 
+    def test_source_free_run_reaches_closeout_with_all_ordinary_gate_receipts(self) -> None:
+        state, run = self.completed_run_state()
+        record = copy.deepcopy(self.state["material_processing_eligibility"])
+        record.update(
+            input_mode="source_free", status="approved", eligibility_id="NO-COURSE-INPUTS",
+            lecturer_declaration_reference="REPLY-SKIP", recorded_at="2026-11-27T10:00:00Z",
+            reconfirmation_required=False,
+        )
+        record["decision"].update(outcome="proceed", approved_processing_scope="no_existing_course_sources")
+        record["fingerprint"] = self.source_manifest.canonical_eligibility_fingerprint(record)
+        old_scope = state["material_processing_eligibility"]["fingerprint"]
+        old_manifest = run["source_manifest_verification"]["source_manifest_fingerprint"]
+        empty_manifest = hashlib.sha256(self.source_manifest.EMPTY_MANIFEST).hexdigest().upper()
+        state = json.loads(json.dumps(state).replace(old_scope, record["fingerprint"]).replace(old_manifest, empty_manifest))
+        state["material_processing_eligibility"] = record
+        self.assertEqual(self.validator.validate(state), [])
+        state["runs"][0]["approvals"]["gate_2a"]["status"] = "not_started"
+        self.assertTrue(self.validator.validate(state))
+        state["runs"][0]["approvals"]["gate_2a"]["status"] = "approved"
+        state = json.loads(json.dumps(state).replace(empty_manifest, old_manifest))
+        self.assertTrue(any("zero-input manifest" in err for err in self.validator.validate(state)))
+
+    def test_previous_schema_8_state_needs_no_migration(self) -> None:
+        state, _ = self.completed_run_state()
+        state["plugin_version"] = "0.2.4"
+        self.assertEqual(self.validator.validate(state), [])
+
+    def test_external_draft_receipt_binds_destination_and_saved_identity(self) -> None:
+        state, run = self.completed_run_state()
+        gate = run["approvals"]["gate_3"]
+        target = gate["approved_material_targets"][0]
+        artefact = run["approvals"]["artefact_gate"]["artefacts"][0]
+        draft = dict(origin="https://lms.example.edu", container_id="course-11", draft_name="Peer review",
+                     action="edit_draft", object_id="page-37", visibility="restricted_draft")
+        target["external_draft"] = draft
+        gate["approval_receipt"]["external_draft_targets"] = {target["relative_path"]: draft.copy()}
+        artefact["external_object_id"] = "page-37"
+        self.assertEqual(self.validator.validate(state), [])
+        draft["container_id"] = "course-12"
+        self.assertTrue(any("destination snapshot" in e for e in self.validator.validate(state)))
+        draft["container_id"] = "course-11"
+        draft["visibility"] = "public"
+        self.assertTrue(any("restricted draft visibility" in e for e in self.validator.validate(state)))
+        draft["visibility"] = "restricted_draft"
+        artefact["external_object_id"] = "page-38"
+        self.assertTrue(any("verified external object ID" in e for e in self.validator.validate(state)))
+        draft["action"] = "create_draft"
+        del draft["object_id"]
+        gate["approval_receipt"]["external_draft_targets"][target["relative_path"]] = draft.copy()
+        self.assertEqual(self.validator.validate(state), [])
+        del artefact["external_object_id"]
+        self.assertTrue(any("verified external object ID" in e for e in self.validator.validate(state)))
+        del target["external_draft"]
+        self.assertTrue(any("destination snapshot" in e for e in self.validator.validate(state)))
+
+    def test_busy_manifest_keeps_the_original_control_file(self) -> None:
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory() as temp:
+            target = Path(temp) / "manifest.csv"
+            self.source_manifest.atomic_create(target, b"first")
+            with self.assertRaises(FileExistsError):
+                self.source_manifest.atomic_create(target, b"second")
+            with patch.object(self.source_manifest.os, "replace", side_effect=PermissionError("busy")):
+                with self.assertRaises(PermissionError):
+                    self.source_manifest.atomic_create(target, b"second", replace=True)
+            self.assertEqual(target.read_bytes(), b"first")
+            self.assertEqual(list(target.parent.iterdir()), [target])
+            self.source_manifest.atomic_create(target, b"second", replace=True)
+            self.assertEqual(target.read_bytes(), b"second")
+
+    def test_manifest_target_must_belong_to_course_control(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            project = Path(temp)
+            record = project / "01_Control/material-processing-eligibility.json"
+            self.assertIsNone(self.source_manifest.control_paths_error(
+                project, Path("01_Control/approved.csv"), record))
+            self.assertIsNotNone(self.source_manifest.control_paths_error(
+                project, Path("04_Working_Copies/handout.csv"), record))
+            self.assertIsNotNone(self.source_manifest.control_paths_error(
+                project, Path("01_Control/approved.csv"), project / "demo.json"))
+
+    def test_skill_invites_course_context_without_turning_it_into_an_onboarding_gate(self) -> None:
+        skill = (CORE / "agent-skills/course-redesign-orchestrator/SKILL.md").read_text(encoding="utf8")
+        section = skill.split("### Ask for what would change the redesign", 1)[1].split("### ", 1)[0]
+        for expected in ("syllabus and prior requirements", "slides and handouts", "assignments and rubrics",
+                         "local or cloud files", "in the LMS", "continue from the brief", "asks one question",
+                         "declined or unavailable input", "minimum access", "subscription", "cost is unknown",
+                         "a workable fallback", "before installing, connecting or sending"):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, section)
+        evidence = (CORE / "agent-skills/course-redesign-orchestrator/references/role-evidence.md").read_text(encoding="utf8")
+        self.assertIn("For every role, tie a missing source, capability or contextual fact to a decision it changes", evidence)
+
+
     def test_documented_windows_target_is_not_dangerously_broad(self) -> None:
         target = Path(r"C:\CourseProjects\Biology\Year2")
         self.assertFalse(self.setup.target_is_dangerously_broad(target))
@@ -859,7 +954,7 @@ class SharedCoreTests(unittest.TestCase):
 
     def test_shared_state_is_schema_8_inactive_unscheduled_and_pre_source(self) -> None:
         self.assertEqual(self.state["schema_version"], 8)
-        self.assertEqual(self.state["plugin_version"], "0.2.4")
+        self.assertEqual(self.state["plugin_version"], "0.3.0")
         self.assertEqual(self.state["status"], "candidate_not_active")
         self.assertEqual(self.state["schedules"], [])
         self.assertEqual(

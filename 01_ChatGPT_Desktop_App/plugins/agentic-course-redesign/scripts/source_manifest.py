@@ -6,10 +6,12 @@ from __future__ import annotations
 import argparse
 import csv
 import hashlib
+import io
 import json
 import os
 import re
 import stat
+import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -22,6 +24,7 @@ HEADERS = [
     "size_bytes",
     "sha256",
 ]
+EMPTY_MANIFEST = (",".join(HEADERS) + "\n").encode("utf-8")
 DEFAULT_ROOTS = ("00_Source_Materials", "00_Context")
 ALLOWED_MATERIAL_CATEGORIES = {
     "privately_owned_or_rightsholder_authorised",
@@ -69,7 +72,38 @@ def _nonexpired(value: object) -> bool:
     )
 
 
-def validate_eligibility(record_path: Path) -> dict[str, object]:
+def source_free_errors(value: dict) -> list[str]:
+    """Validate the recorded decision to grant no access to existing course sources."""
+    material = value.get("material_scope", {})
+    environment = value.get("environment", {})
+    decision = value.get("decision", {})
+    if not all(isinstance(item, dict) for item in (material, environment, decision)):
+        return ["invalid source-free eligibility structure"]
+    unclassified = (
+        "declared_category", "assessment_security_handling_authorised",
+        "contains_institution_internal_or_restricted_material", "contains_student_personal_data",
+        "sensitivity_classification", "assessment_security_classification",
+    )
+    if (value.get("input_mode") != "source_free"
+        or value.get("schema_version") != 1
+        or value.get("gate") != "GATE_0A_MATERIAL_ENVIRONMENT_ELIGIBILITY"
+        or value.get("status") != "approved"
+        or value.get("reconfirmation_required") is not False
+        or decision.get("outcome") != "proceed"
+        or decision.get("approved_processing_scope") != "no_existing_course_sources"
+        or material.get("ai_processing_authority_confirmed") is not False
+        or any(material.get(key) is not None for key in unclassified)
+        or any(environment.get(key) is not None for key in (
+            "category", "exact_environment_reference", "approved_scope",
+            "institutional_policy_reference", "policy_expires_at"))
+        or not all(value.get(key) for key in (
+            "eligibility_id", "lecturer_declaration_reference", "recorded_at"))
+        or value.get("fingerprint") != canonical_eligibility_fingerprint(value)):
+        return ["source-free scope or receipt is invalid"]
+    return []
+
+
+def validate_eligibility(record_path: Path, *, allow_source_free: bool = False) -> dict[str, object]:
     """Validate trusted Gate-0A control before enumerating any course source."""
 
     if not record_path.is_file():
@@ -80,6 +114,12 @@ def validate_eligibility(record_path: Path) -> dict[str, object]:
         return {"ok": False, "errors": [f"invalid Gate-0A eligibility record: {exc}"]}
     if not isinstance(value, dict):
         return {"ok": False, "errors": ["Gate-0A eligibility record must be an object"]}
+    if "input_mode" in value:
+        errors = source_free_errors(value)
+        if not allow_source_free:
+            errors.append("source-free scope grants no existing course-source access")
+        return {"ok": not errors, "errors": errors, "source_free": True,
+                "fingerprint": value.get("fingerprint") if not errors else None}
     errors: list[str] = []
     environment = value.get("environment", {})
     material = value.get("material_scope", {})
@@ -256,13 +296,73 @@ def enumerate_files(project: Path, roots: tuple[str, ...]) -> tuple[list[Path], 
     return sorted(files, key=lambda p: p.relative_to(project).as_posix().casefold()), errors
 
 
+def atomic_create(path: Path, payload: bytes, *, replace: bool = False) -> None:
+    resolved_parent = path.parent.resolve(strict=True)
+    if resolved_parent != path.parent:
+        raise ValueError(
+            "refusing redirected output parent before create: " + str(path.parent)
+        )
+    if path.is_symlink() or (path.exists() and (not replace or is_redirecting_link(path))):
+        raise FileExistsError(f"refusing to overwrite existing control record: {path}")
+    descriptor, temporary_name = tempfile.mkstemp(
+        prefix=f".{path.name}.", suffix=".tmp", dir=path.parent
+    )
+    temporary = Path(temporary_name)
+    try:
+        with os.fdopen(descriptor, "wb") as handle:
+            handle.write(payload)
+            handle.flush()
+            os.fsync(handle.fileno())
+        if replace:
+            os.replace(temporary, path)
+        else:
+            os.link(temporary, path)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
+def source_free_manifest(project: Path, manifest: Path, record: Path, eligibility: dict, mode: str) -> dict:
+    """Describe the authorised input set without inspecting either source directory."""
+    control = project / "01_Control"
+    target = control / "source-hashes.csv"
+    result = {"ok": False, "mode": mode, "source_enumeration_started": False}
+    if (manifest != target or record != control / "material-processing-eligibility.json"
+        or control.resolve(strict=True) != control or target.is_symlink()):
+        return {**result, "errors": ["source-free mode requires the project's literal control targets"]}
+    try:
+        if mode == "create":
+            atomic_create(target, EMPTY_MANIFEST)
+        elif target.read_bytes() != EMPTY_MANIFEST:
+            return {**result, "errors": ["source-free manifest must contain exactly the header"]}
+    except OSError as exc:
+        return {**result, "errors": [str(exc)]}
+    return {**result, "ok": True, "errors": [], "results": [], "row_count": 0,
+            "manifest": str(target), "manifest_fingerprint": hashlib.sha256(EMPTY_MANIFEST).hexdigest().upper(),
+            "material_processing_eligibility_fingerprint": eligibility["fingerprint"]}
+
+
+def control_paths_error(project: Path, manifest: Path, eligibility_record: Path) -> str | None:
+    control = project.absolute() / "01_Control"
+    if (eligibility_record.absolute() != control / "material-processing-eligibility.json"
+            or eligibility_record.is_symlink() or control.resolve(strict=False) != control):
+        return "Gate-0A eligibility must come from the project's literal control record"
+    destination = manifest if manifest.is_absolute() else project / manifest
+    if (destination.absolute().parent != control or destination.suffix.lower() != ".csv"
+            or destination.is_symlink()):
+        return "manifest must be a CSV directly inside this project's 01_Control directory"
+    return None
+
+
 def create(project: Path, output: Path, replace: bool, eligibility_record: Path) -> dict:
     eligibility_record = (
         eligibility_record
         if eligibility_record.is_absolute()
         else project / eligibility_record
     )
-    eligibility = validate_eligibility(eligibility_record)
+    path_error = control_paths_error(project, output, eligibility_record)
+    if path_error:
+        return {"ok": False, "mode": "create", "source_enumeration_started": False, "errors": [path_error]}
+    eligibility = validate_eligibility(eligibility_record, allow_source_free=True)
     if not eligibility["ok"]:
         return {
             "ok": False,
@@ -272,6 +372,8 @@ def create(project: Path, output: Path, replace: bool, eligibility_record: Path)
         }
     project = project.resolve(strict=True)
     output = output if output.is_absolute() else project / output
+    if eligibility.get("source_free"):
+        return source_free_manifest(project, output, eligibility_record.absolute(), eligibility, "create")
     files, errors = enumerate_files(project, DEFAULT_ROOTS)
     if errors:
         return {"ok": False, "errors": errors}
@@ -294,14 +396,14 @@ def create(project: Path, output: Path, replace: bool, eligibility_record: Path)
     if not rows:
         return {"ok": False, "errors": ["no source files found"]}
     output.parent.mkdir(parents=True, exist_ok=True)
-    temporary = output.with_suffix(output.suffix + ".tmp")
-    with temporary.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=HEADERS, lineterminator="\n")
-        writer.writeheader()
-        writer.writerows(rows)
-    if output.exists():
-        output.unlink()
-    temporary.replace(output)
+    handle = io.StringIO(newline="")
+    writer = csv.DictWriter(handle, fieldnames=HEADERS, lineterminator="\n")
+    writer.writeheader()
+    writer.writerows(rows)
+    try:
+        atomic_create(output, handle.getvalue().encode("utf-8"), replace=replace)
+    except (OSError, ValueError) as exc:
+        return {"ok": False, "errors": [str(exc)]}
     return {
         "ok": True,
         "mode": "create",
@@ -320,7 +422,10 @@ def verify(project: Path, manifest: Path, eligibility_record: Path) -> dict:
         if eligibility_record.is_absolute()
         else project / eligibility_record
     )
-    eligibility = validate_eligibility(eligibility_record)
+    path_error = control_paths_error(project, manifest, eligibility_record)
+    if path_error:
+        return {"ok": False, "mode": "verify", "source_enumeration_started": False, "errors": [path_error]}
+    eligibility = validate_eligibility(eligibility_record, allow_source_free=True)
     if not eligibility["ok"]:
         return {
             "ok": False,
@@ -332,6 +437,8 @@ def verify(project: Path, manifest: Path, eligibility_record: Path) -> dict:
     manifest = manifest if manifest.is_absolute() else project / manifest
     errors: list[str] = []
     results = []
+    if eligibility.get("source_free"):
+        return source_free_manifest(project, manifest, eligibility_record.absolute(), eligibility, "verify")
     if not manifest.is_file():
         return {"ok": False, "errors": ["manifest missing"]}
     with manifest.open("r", encoding="utf-8-sig", newline="") as handle:

@@ -6,8 +6,6 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import json
-import os
-import tempfile
 from datetime import datetime
 from pathlib import Path
 
@@ -147,6 +145,21 @@ def build_record(args: argparse.Namespace) -> tuple[dict[str, object], dict[str,
     template = json.loads(TEMPLATE_PATH.read_text(encoding="utf-8"))
     if not isinstance(template, dict):
         raise ValueError("eligibility template must be a JSON object")
+    if getattr(args, "source_free", False):
+        _require_text(args.eligibility_id, "eligibility-id")
+        _require_text(args.lecturer_declaration_reference, "lecturer-declaration-reference")
+        _offset_datetime(args.recorded_at, "recorded-at")
+        template.update(input_mode="source_free", status="approved",
+                        eligibility_id=args.eligibility_id, recorded_at=args.recorded_at,
+                        lecturer_declaration_reference=args.lecturer_declaration_reference,
+                        reconfirmation_required=False)
+        template["decision"].update(outcome="proceed", approved_processing_scope="no_existing_course_sources",
+                                    reason="Lecturer chose to continue without existing course sources.")
+        template["fingerprint"] = SOURCE_MANIFEST.canonical_eligibility_fingerprint(template)
+        errors = SOURCE_MANIFEST.source_free_errors(template)
+        if errors:
+            raise ValueError("; ".join(errors))
+        return template, SOURCE_MANIFEST.validate_eligibility(_MemoryRecord(template))
     for value, label in (
         (args.eligibility_id, "eligibility-id"),
         (args.decision_reason, "decision-reason"),
@@ -238,32 +251,19 @@ def _resolve_output(project: Path) -> Path:
     return resolved_control / OUTPUT_RELATIVE_PATH.name
 
 
-def atomic_create(path: Path, payload: bytes) -> None:
-    resolved_parent = path.parent.resolve(strict=True)
-    if resolved_parent != path.parent:
-        raise ValueError(
-            "refusing redirected output parent before create: " + str(path.parent)
-        )
-    if path.exists() or path.is_symlink():
-        raise FileExistsError(f"refusing to overwrite existing eligibility record: {path}")
-    descriptor, temporary_name = tempfile.mkstemp(
-        prefix=".material-processing-eligibility.", suffix=".tmp", dir=path.parent
-    )
-    temporary = Path(temporary_name)
-    try:
-        with os.fdopen(descriptor, "wb") as handle:
-            handle.write(payload)
-            handle.flush()
-            os.fsync(handle.fileno())
-        os.link(temporary, path)
-    finally:
-        temporary.unlink(missing_ok=True)
-
-
 def parser() -> argparse.ArgumentParser:
-    result = argparse.ArgumentParser(description=__doc__)
+    mode = argparse.ArgumentParser(add_help=False)
+    mode.add_argument("--source-free", action="store_true",
+                      help="record no existing source access; no classification answers required")
+    selected, _ = mode.parse_known_args()
+    result = argparse.ArgumentParser(description=__doc__, parents=[mode])
     result.add_argument("--project", required=True, type=Path)
     result.add_argument("--eligibility-id", required=True)
+    result.add_argument("--lecturer-declaration-reference", required=True)
+    result.add_argument("--recorded-at", required=True)
+    result.add_argument("--apply", action="store_true")
+    if selected.source_free:
+        return result
     result.add_argument(
         "--environment-category",
         required=True,
@@ -300,9 +300,6 @@ def parser() -> argparse.ArgumentParser:
     result.add_argument("--policy-expires-at")
     result.add_argument("--decision-reason", required=True)
     result.add_argument("--approved-processing-scope", required=True)
-    result.add_argument("--lecturer-declaration-reference", required=True)
-    result.add_argument("--recorded-at", required=True)
-    result.add_argument("--apply", action="store_true")
     return result
 
 
@@ -325,7 +322,7 @@ def main() -> int:
         if report["would_overwrite"]:
             raise FileExistsError(f"refusing to overwrite existing eligibility record: {output}")
         if args.apply:
-            atomic_create(output, payload)
+            SOURCE_MANIFEST.atomic_create(output, payload)
             report["created"] = True
         else:
             report["created"] = False

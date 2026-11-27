@@ -1,41 +1,5 @@
-# Rollback and recovery
+# Roll back the Codex plugin
 
-Current candidate: `ACR-SYS-20260825-009` OpenAI/Codex package version `0.2.5`
-over workflow base `0.2.4`.
+Identify the version and source shown in the plugin manager. Stop opening new runs and keep existing course folders, approvals, source records and completed materials. Disable the affected package in the same manager or select the previous reviewed release from a pinned repository checkout. Start a fresh conversation and verify which version the host exposes.
 
-The exact current rollback procedure is in `ROLLBACK_v0.2.5.md`. Preserve the
-published and installed OpenAI/Codex v0.2.4 package and GitHub Copilot
-`0.2.4-copilot.2`; do not unpublish the current OpenAI version merely to prepare
-the description-only candidate.
-
-## Before activation
-
-No rollback action is needed: leave the candidate inactive and do not install
-or distribute it. It has not changed global skills, personal memory, protected
-course sources, an active runtime or a schedule.
-
-## After local installation
-
-1. Stop starting new redesign runs.
-2. Preserve every course project's source manifest, approvals, produced files,
-   QA evidence and run history.
-3. Disable or uninstall the exact plugin version through the app surface that
-   installed it, or remove only its repository-marketplace registration.
-4. Do not delete course folders or lecturer files as part of plugin rollback.
-5. If a portable scaffold was copied into an unused empty test project, the
-   lecturer may archive that whole test project. For a real or non-empty course
-   project, remove nothing automatically; restore the last approved project
-   configuration from its recorded snapshot or obtain an exact-target plan.
-
-## After runtime activation
-
-Set the runtime to suspended, reject new triggers, preserve the activation and
-validation records, and restore the last validated system snapshot. Any future
-activation requires a new proposal version, validation and lecturer decision.
-
-## If a schedule was separately registered
-
-Pause/disable that exact schedule first, preserve its contract and run history,
-and verify that no trigger is pending. Schedule rollback does not delete course
-outputs. Renewal or re-registration requires a new expiring contract, no-write
-simulation and exact three-line approval.
+For a wizard or rendering regression, reproduce it using a new empty test project. A saved course keeps its own approvals, role configuration and run state. Preserve a copy before any project migration. Review old state and permissions separately before resuming existing work. [Version 0.2.5 rollback history](ROLLBACK_v0.2.5.md)

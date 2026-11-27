@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.0 — 2026-11-27
+
+- Lecturers can skip material classification and complete a redesign from a course description. A specific protected source can be cleared later when it becomes relevant.
+- All ten specialists connect their recommendations to course evidence, practical constraints and a change the lecturer can inspect. The orchestrator asks about missing materials and offers optional tools when they would improve the work.
+- Local files, cloud documents and draft LMS activities can be reviewed through the available editor or browser. Each artefact returns to the lecturer for acceptance, revision or rejection.
+- The five host editions share six skills and retain the existing Research, Plan and Implementation sequence and human decisions. Release checks cover scope boundaries, untrusted source instructions and the contents of distributable archives.
+
 ## 0.2.5 (inactive OpenAI/Codex candidate) - 2026-08-25
 
 - Replaces Markdown-dependent public-description bullets with `◆` section and
