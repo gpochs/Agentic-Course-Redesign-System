@@ -33,6 +33,25 @@ class NativeSecondOpinionTests(unittest.TestCase):
                     source = builder.ADAPTERS / builder.HOSTS[host] / "native-intake.md"
                     self.assertEqual(source.read_bytes(), guides[0].read_bytes())
                     guide = guides[0].read_text(encoding="utf-8")
+                    selection = guide.partition("Model choice for this course")[2].split("\n##", 1)[0]
+                    for mode in ("Match models to tasks", "Keep the current model", "Choose at each step"):
+                        self.assertIn(mode, selection)
+                    self.assertIn("](model-plan.md)", selection)
+                    self.assertTrue(guides[0].with_name("model-plan.md").is_file())
+                    host_controls = {
+                        "claude": ("Agent", "/tasks"),
+                        "opencode": ("provider/model#variant", "subagent"),
+                        "antigravity": ("inherit", "flash", "pro"),
+                        "copilot": ("task", "Auto", "Fusion"),
+                        "copilot-project": ("task", "Auto", "Fusion"),
+                    }
+                    for control in host_controls[host]:
+                        self.assertIn(control, selection)
+                    for agent in (target / "agents").glob("*.md"):
+                        frontmatter = agent.read_text(encoding="utf-8").split("---", 2)[1]
+                        for line in frontmatter.splitlines():
+                            if line.startswith("model:"):
+                                self.assertEqual(line, "model: inherit")
                     heading = "Step 10 · Would you like a second opinion?"
                     self.assertEqual(guide.count(heading), 1)
                     section = guide.partition(heading)[2].split("\n##", 1)[0]

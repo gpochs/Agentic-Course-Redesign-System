@@ -4,6 +4,12 @@ This page shows lecturers and the orchestrator how the first conversation of a c
 
 Host behaviour was checked against the public Claude Code documentation on 2026-11-27. It depends on the installed version, the surface (terminal, IDE extension, desktop app) and local settings. Use the view that answers the lecturer's current question. Keep the first conversation in chat when the lecturer chooses to describe the course.
 
+## Model choice for this course
+
+Offer **Match models to tasks**, **Keep the current model** or **Choose at each step**. With matching, get one approval for the named tasks, roles, models, account and fallbacks. A single-model choice applies to the specialists too. If a preferred choice is unavailable, keep the approved capable model and offer a manual switch. Pause the affected check only when its result would be invalid. Give each specialist its capability needs and approved model entry in its brief. See the [model plan and ten role criteria](model-plan.md).
+
+Use the desktop model picker or `/model` for the main conversation. The packaged specialists inherit that model. Where the live `Agent` tool accepts a per-call `model`, dispatch the approved role with the permitted family alias and supported `effort`. An alias can resolve to a particular version or a replacement under account policy. Check `/tasks` for the running specialist’s model and effort. If the plan requires an exact version that an alias cannot identify, offer the session picker and an inherited specialist call. Use the currently approved capable model when the teacher keeps it. A full model ID can be set in custom-agent frontmatter, but a course decision does not edit those installed profiles. [Claude Code subagent model and effort](https://code.claude.com/docs/en/sub-agents#choose-a-model)
+
 ## Review beside the conversation
 
 - **Choose a source.** In the **Code** tab of Claude Desktop, attach or mention the one permitted file if the lecturer wants Claude to read it. For an LMS review, identify the exact course, private activity copy, audience and allowed task. The **Browser** pane has its own login profile. The lecturer can sign in there, or choose an already configured **Claude in Chrome** connection for a particular signed-in tab. Verify the course and copy in that tab before any edit, check linked resources separately and reopen the saved draft. If the session cannot reach the page, use an approved export or the lecturer's description. [Claude Code desktop browser](https://code.claude.com/docs/en/desktop#browse-external-sites)

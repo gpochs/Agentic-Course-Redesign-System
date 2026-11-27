@@ -21,6 +21,12 @@ those decisions.
 > **Optional help prompt.** Paste this at any point:
 > `Which step are we on, what do you need from me now, and what can I leave open?`
 
+## Model choice for this course
+
+Offer **Match models to tasks**, **Keep the current model** or **Choose at each step**. With matching, get one approval for the named tasks, roles, models, account and fallbacks. A single-model choice applies to the specialists too. If a preferred choice is unavailable, keep the approved capable model and offer a manual switch. Pause the affected check only when its result would be invalid. Give each specialist its capability needs and approved model entry in its brief. See the [model plan and ten role criteria](model-plan.md).
+
+In a Copilot app Session, the model and effort dropdowns below the prompt control the main conversation. For a named-model plan, use a specific included model. **Auto** and **Fusion** may resolve models themselves. The response's model display can describe only the main agent. Where the session exposes the CLI `task` dispatch fields, send the approved specialist model and supported reasoning effort on that call. Check the returned evidence of the model actually used. CLI custom-agent profiles can declare preferred or required models. A preferred model can fall back, and a required policy can refuse dispatch. A fixed parent model plus inheritance is the portable single-model route. When only the session picker is available, offer that manual switch at a task boundary. [Copilot app sessions](https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions) · [CLI agent model precedence](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference)
+
 ## The nine steps
 
 ### Step 1 · Start with your course

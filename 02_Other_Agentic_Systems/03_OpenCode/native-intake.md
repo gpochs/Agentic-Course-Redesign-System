@@ -2,6 +2,12 @@
 
 Try this fictional lesson in a fresh OpenCode chat: “Use the course-redesign skill. We meet in class and practise in Moodle. I want students to judge which bus route is more reliable.” Expect one question at a time.
 
+### Model choice for this course
+
+Offer **Match models to tasks**, **Keep the current model** or **Choose at each step**. With matching, get one approval for the named tasks, roles, models, account and fallbacks. A single-model choice applies to the specialists too. If a preferred choice is unavailable, keep the approved capable model and offer a manual switch. Pause the affected check only when its result would be invalid. Give each specialist its capability needs and approved model entry in its brief. See the [model plan and ten role criteria](model-plan.md).
+
+Select the parent conversation model with `/models` or, for an authorised CLI session, `--model provider/model#variant`. Selecting a primary agent by ID leaves the session model as selected. Native custom-agent profiles accept `provider/model#variant`. The ten supplied profiles omit that field and inherit the parent. The documented `subagent` call takes the agent ID, description and prompt. Use an existing appropriately configured, approved specialist only if its permissions and role match. Otherwise, offer to switch the parent at a stage boundary and invoke the normal read-only specialist there. If the host cannot report the effective model or variant, label it unverified. Check the included sign-in route for the chosen provider. [OpenCode agents](https://opencode.ai/docs/agents#model) · [Subagent tool](https://opencode.ai/docs/tools/#subagent) · [Providers](https://opencode.ai/docs/providers)
+
 **1. What would you like to work from?** Choose any that apply:
 
 1. A learning platform (LMS), such as Moodle or OLAT

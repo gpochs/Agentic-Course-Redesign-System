@@ -2,6 +2,12 @@
 
 Use this guide with Agentic Course Redesign 0.3.4. Start with the teaching problem you want to solve. For example, “My learners read the chart correctly, but they jump from a difference to a claim about its cause.” The worked example below follows that problem through a revised activity.
 
+## Model choice for this course
+
+Offer **Match models to tasks**, **Keep the current model** or **Choose at each step**. With matching, get one approval for the named tasks, roles, models, account and fallbacks. A single-model choice applies to the specialists too. If a preferred choice is unavailable, keep the approved capable model and offer a manual switch. Pause the affected check only when its result would be invalid. Give each specialist its capability needs and approved model entry in its brief. See the [model plan and ten role criteria](model-plan.md).
+
+Use the model picker below the conversation or `/model` in the CLI for the main agent. A model change during an active turn applies after that turn finishes. In print mode, `--model` selects a named supported model and thinking level. Antigravity custom specialists declare a tier (`inherit`, `flash` or `pro`). All ten supplied profiles use `inherit`. For an exact approved model, first select it for the parent turn, then delegate the bounded role. Use a supported tier only when the plan permits that tier and the effective model can be identified as required. Offer a manual picker switch if a named per-role dispatch is unavailable. The separate Orchestrator planner/executor feature has its own account and model limits. [Antigravity model selection](https://antigravity.google/docs/models) · [Custom subagents](https://antigravity.google/docs/subagents)
+
 ## Your nine teaching steps
 
 1. **Start with your course.** Antigravity can ask, “What would you like to work from?” or “Womit möchten Sie beginnen?” Choose any mix of a learning platform such as Moodle or OLAT, files on your computer or in the cloud, a learning app such as Kahoot!, Mentimeter, Klicker or H5P, and other sources. You can type your own combination, choose **Start with my description**, or **Skip for now**. The check helps keep course and student information in the right place. Skipping still lets you make and review new materials.
