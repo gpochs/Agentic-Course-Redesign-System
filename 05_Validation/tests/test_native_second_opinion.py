@@ -38,6 +38,8 @@ class NativeSecondOpinionTests(unittest.TestCase):
                         self.assertIn(mode, selection)
                     self.assertIn("](model-plan.md)", selection)
                     self.assertTrue(guides[0].with_name("model-plan.md").is_file())
+                    self.assertIn("](tool-fit.md)", selection)
+                    self.assertTrue(guides[0].with_name("tool-fit.md").is_file())
                     host_controls = {
                         "claude": ("Agent", "/tasks"),
                         "opencode": ("provider/model#variant", "subagent"),
