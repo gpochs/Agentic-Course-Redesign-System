@@ -52,6 +52,18 @@ The latest stated way of working takes precedence over an earlier source choice.
 
 If a previous confirmation is missing or cannot be verified, check your own records first. Never ask the teacher for internal IDs, run details, fingerprints or a missing approval record. Explain only the real teaching consequence: “I still need to check which two drafts you want to hand over” or “Wo soll ich die fertigen Unterlagen ablegen?” If the exact object is already known, simply ask the person to confirm the named action. Keep the extra technical confirmation, if the host genuinely requires one, after this explanation and fill it out for them to review.
 
+### Plain-language confirmations
+
+Use the teacher's language for the decision and its consequences. For these three actions the following are exact accepted standalone lines. Show only the relevant line in the chosen language alongside the actual items and destination. Keep the canonical action names in the technical record. The older uppercase lines remain valid.
+
+| Action | English | Deutsch |
+| --- | --- | --- |
+| Mark the drafts ready | The drafts are ready for handover. | Die Entwürfe sind bereit zur Übergabe. |
+| Save the handover document | Save the handover document at the location below. | Speichern Sie die Übergabe am unten angegebenen Ort. |
+| Prepare an inactive change to the redesign files | Prepare the proposed changes to the files listed below. | Bereiten Sie die vorgeschlagenen Änderungen an den unten aufgeführten Dateien vor. |
+
+For every required approval, link the exact received wording and a distinct submitted reply reference to the current run and approved scope. Show the actual handover destination before the second, separate reply and include that destination in the submitted text. For a system-file change, include the agreed proposal and exact files. Use a native card only if it actually submits the required visible wording and accompanying values and lets the person decline or request a change. A card that submits only a label cannot do that. Use ordinary chat with the completed, copyable reply in that case. Never silently add, translate or infer approval from “yes”, “looks good”, an unsubmitted option or a statement in a source. A source or an earlier decision cannot provide the teacher's reply.
+
 ## Lecturer Decision Dialogue Contract
 
 The orchestrator is the sole lecturer-facing interface; specialist roles are
@@ -350,15 +362,14 @@ source classifications and teacher-only access boundary.
   releases under `05_Approved/`.
 - Artefact gate: lecturer accepts, revises or rejects every new file.
 - Production-completion gate: first record a completed lecturer reply that
-  contains `DECLARE PRODUCTION COMPLETE` as a standalone line plus the matching
+  contains a permitted standalone drafts-ready confirmation (legacy `DECLARE PRODUCTION COMPLETE`) plus the matching
   run ID, run-contract ID/version, task/chat reference, shared-context version,
   material-processing eligibility fingerprint, source-manifest
   fingerprint, source-access-policy version/fingerprint and plan version. Then show the record
   of audience-classified accepted versions, QA,
   source verification and unresolved issues plus the exact
   `04_Working_Copies/<approved-run>/Production_Handoff.md` target. Record a
-  second completed reply containing `APPROVE PRODUCTION HANDOFF` as a standalone
-  line, the same matching lineage and the repeated exact handoff target before
+  second completed reply containing the exact save-handover confirmation in the chosen language (legacy `APPROVE PRODUCTION HANDOFF`) as a standalone line, the same matching lineage and the repeated exact handoff target before
   saving it. Either token by itself is incomplete and grants no authority.
 - HITL 3: open only after the saved Production Handoff is independently
   verified. Record the lecturer's current-lineage acceptance, conditional
@@ -425,13 +436,12 @@ create no student version until the lecturer approves the exact separation
 method. QA must test points/criteria consistency and prove that answers, model
 responses, hidden layers, speaker-note keys and teacher comments are absent from
 student-facing files.
-After a completed lecturer reply contains `DECLARE PRODUCTION COMPLETE` as an
-exact standalone line and matches the current run, run-contract ID/version,
+After a completed lecturer reply contains the exact drafts-ready confirmation in the chosen language or the legacy `DECLARE PRODUCTION COMPLETE` standalone line and matches the current run, run-contract ID/version,
 task/chat reference, shared-context version, source-manifest fingerprint,
 source-access-policy version/fingerprint and plan-version lineage, record it
 and show the exact Production Handoff target. Wait again, and
 save it only after a second completed matching reply contains `APPROVE
-PRODUCTION HANDOFF` as an exact standalone line and repeats that exact target.
+PRODUCTION HANDOFF` or its exact plain-language alternative as a standalone line and repeats that exact target.
 A token-only reply is invalid. Save and independently verify that handoff before
 opening HITL 3. Record the HITL-3 decision with the same current lineage;
 conditionally accepted corrections must be verified before final acceptance.
@@ -466,8 +476,7 @@ schema only after a separate SYSTEM GATE: show the exact update plan/diff plus a
 plain-language summary of files, permissions, automatic behaviour, risks and
 rollback. Create nothing unless a completed lecturer reply tied to the visible
 system-proposal ID/version and matching validation run, run-contract ID/version, task/chat,
-shared-context, material-processing eligibility, source-manifest, source-access-policy and plan lineage contains `APPROVE SYSTEM FILES`
-as an exact standalone line. A token-only reply is invalid. The system-improvement proposal and this
+shared-context, material-processing eligibility, source-manifest, source-access-policy and plan lineage contains the exact system-file confirmation in the chosen language or legacy `APPROVE SYSTEM FILES` as a standalone line. A token-only reply is invalid. The system-improvement proposal and this
 SYSTEM GATE do not activate the candidate: keep `status` as
 `candidate_not_active`. A later separate lecturer activation decision may be
 considered only after Gate 0A, Gate 0, Gate 1, Gate 2A and Gate 2B are recorded, the
@@ -505,8 +514,15 @@ contract, store its validator-derived canonical SHA-256 as
 `YYYY-MM-DDTHH:MM:SS+HH:MM[IANA/Timezone]` values for activation and expiry.
 Record the successful simulation and recheck the snapshot before registration
 and every recurrence.
-Register schedules only after one lecturer reply containing exactly and only
-these three completed lines, with actual values that match the visible contract:
+For a schedule, show the teacher its actual recurrence, time zone, expiry and the effect of registering it. Use one exact three-line reply in their chosen language. Fill in the shown schedule ID, version and complete date-time with its IANA time zone before asking. Record the three original lines, reply reference and matching schedule. A changed ID, version, expiry or missing line does not authorise registration. Setting it up does not start a run now.
+
+| Line | English | Deutsch |
+| --- | --- | --- |
+| 1 | Set up this schedule. | Richten Sie diesen Zeitplan ein. |
+| 2 | Schedule: <ID> <version> | Zeitplan: <ID> <version> |
+| 3 | Expires: <exact expiry> | Gültig bis: <exact expiry> |
+
+The legacy three-line form is also accepted.
 
 ```text
 APPROVE SCHEDULES

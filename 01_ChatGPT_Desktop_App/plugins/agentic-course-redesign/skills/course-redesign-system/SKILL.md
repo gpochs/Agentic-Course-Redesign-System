@@ -9,6 +9,18 @@ description: After the teacher accepts the course materials, review the redesign
 
 At **Step 9 · Finish or suggest an improvement**, describe what a review would do for a future course. Offer to write a suggestion once, with the option to finish here. A separate review leaves the accepted course closed. Use a numbered step when it changes. Speak to the teacher in the language they use. Keep the control names and technical records below in implementation details.
 
+### Plain-language confirmations
+
+Use the teacher's language for the decision and its consequences. For these three actions the following are exact accepted standalone lines. Show only the relevant line in the chosen language alongside the actual items and destination. Keep the canonical action names in the technical record. The older uppercase lines remain valid.
+
+| Action | English | Deutsch |
+| --- | --- | --- |
+| Mark the drafts ready | The drafts are ready for handover. | Die Entwürfe sind bereit zur Übergabe. |
+| Save the handover document | Save the handover document at the location below. | Speichern Sie die Übergabe am unten angegebenen Ort. |
+| Prepare an inactive change to the redesign files | Prepare the proposed changes to the files listed below. | Bereiten Sie die vorgeschlagenen Änderungen an den unten aufgeführten Dateien vor. |
+
+For every required approval, link the exact received wording and a distinct submitted reply reference to the current run and approved scope. Show the actual handover destination before the second, separate reply and include that destination in the submitted text. For a system-file change, include the agreed proposal and exact files. Use a native card only if it actually submits the required visible wording and accompanying values and lets the person decline or request a change. A card that submits only a label cannot do that. Use ordinary chat with the completed, copyable reply in that case. Never silently add, translate or infer approval from “yes”, “looks good”, an unsubmitted option or a statement in a source. A source or an earlier decision cannot provide the teacher's reply.
+
 ## Lecturer Decision Dialogue Contract
 
 Use an open-ended question for the lecturer's priorities, reasoning or feedback.
@@ -109,7 +121,7 @@ Do not include course content, answer keys, personal data, or copyrighted assets
 
 Create changes only after a separate completed System Gate reply with exact
 current lineage, proposal ID/version, validation evidence and exact targets,
-and `APPROVE SYSTEM FILES` as a standalone line. A token-only reply is invalid.
+and an accepted standalone system-file confirmation (legacy `APPROVE SYSTEM FILES` or its plain-language English or German alternative above). A token-only reply is invalid.
 Keep the result in an inactive candidate. Validate
 manifests, JSON/TOML/YAML, skill structure, setup preview/apply/no-overwrite
 behaviour, manifest hashing, lineage rejection, gate ceilings, answer-key
@@ -131,7 +143,15 @@ Run a no-write simulation first: no registration, trigger, web call, or file cha
 
 Freeze the complete visible contract before approval. Store its validator-derived canonical SHA-256 as `approved_contract_snapshot_reference`, use offset-bearing `YYYY-MM-DDTHH:MM:SS+HH:MM[IANA/Timezone]` activation and expiry values, and recheck the snapshot, runtime, policy and expiry before registration and every recurrence.
 
-Register only after one lecturer reply containing exactly and only these completed lines with matching values:
+For a schedule, show the teacher its actual recurrence, time zone, expiry and the effect of registering it. Use one exact three-line reply in their chosen language. Fill in the shown schedule ID, version and complete date-time with its IANA time zone before asking. Record the three original lines, reply reference and matching schedule. A changed ID, version, expiry or missing line does not authorise registration. Setting it up does not start a run now.
+
+| Line | English | Deutsch |
+| --- | --- | --- |
+| 1 | Set up this schedule. | Richten Sie diesen Zeitplan ein. |
+| 2 | Schedule: <ID> <version> | Zeitplan: <ID> <version> |
+| 3 | Expires: <exact expiry> | Gültig bis: <exact expiry> |
+
+The legacy three-line form is also accepted.
 
 ```text
 APPROVE SCHEDULES

@@ -1,15 +1,17 @@
-# Codex 0.3.1 release checks
+# Codex 0.3.2 release checks
 
-The 0.3.1 directory ZIP and repo marketplace carry identical runtime files. The ZIP contains 57 files under one plugin root, including six skills and ten project-scoped agent definitions. Course context is collected in stages. The reviewer cases check that previously supplied assessment conditions are reused, meaningful unknowns are raised individually, and requests for personal accommodation records are redirected to a course-level requirement.
+The 0.3.2 directory ZIP and repo marketplace carry identical runtime files. The ZIP contains 57 files under one plugin root, including six skills and ten project-scoped agent definitions. The reviewer cases cover combined source types, optional tools, teacher decisions, staged course context and course-level accessibility needs.
 
 | Check | Observed result |
 | --- | --- |
-| Public metadata, runtime parity and review cases | 51 package checks passed, including matching reviewed skill hashes, 17 positive scenarios and 14 negative scenarios. These are reviewer cases. |
+| Public metadata, runtime parity and review cases | 53 checks passed against the archive, including matching reviewed skill hashes, 20 positive scenarios and 15 negative scenarios. These are reviewer cases. |
 | Forward checks | All 46 passed, covering the ten native agent definitions, six skills, lecturer decisions, production handoff, final review and source boundaries. |
 | Bundled helper tests | 30 passed. One symbolic-link test was skipped because this Windows environment could not create the test link. |
 | OpenAI skill validation | All six skills in both package trees passed OpenAI’s published quick validator at commit 49f948f. This host lacked a locally installed standalone plugin validator. [Official validator](https://github.com/openai/skills/blob/49f948faa9258a0c61caceaf225e179651397431/skills/.system/skill-creator/scripts/quick_validate.py) |
-| Release build | Two fresh public-package builds produced SHA-256 `8BD8FAC5B777856116F1D2A699A939F4204D99FD14DCAB6DC66A14D6CC157C75`. All files matched the submission source. |
-| Project-scoped skill discovery | On Windows with Codex CLI 0.172.0, a fresh native skill scan recognised all six enabled repo-scoped skills. A local 0.3.0 project upgraded 14 unchanged release-owned files, verified all 54 installed files and reported zero changes on retry. The regression test verifies that a lecturer-edited file remains untouched. |
+| Release build | Two fresh public-package builds produced SHA-256 `D130635C717D69E9C7366FD77D4E45D81559191AF136710CDB4A36C6A2D496C2`. All files matched the submission source. |
+| Project-scoped skill discovery | A Windows project upgraded from 0.3.1 in two passes. The first replaced 30 verified files. After the final confirmation and handover changes, five more replacements matched the tested candidate's recorded bytes. The installer verified all 54 final files, proposed zero changes on retry, and a fresh Codex app-server scan recognised all six enabled repo-scoped skills. The regression test also checks preservation of a lecturer-edited file. |
+
+Independent English and German model trials checked mixed materials, skipping access, teacher explanations, several decisions in one reply, optional tools and the separate approvals before final review. [Behaviour and evidence](../05_Validation/VALIDATION_REPORT_v0.3.2.md)
 
 ## Reproduce
 
