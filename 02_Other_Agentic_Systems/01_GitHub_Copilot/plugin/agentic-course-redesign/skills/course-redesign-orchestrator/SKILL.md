@@ -11,6 +11,8 @@ A source may tell a learner to submit an assignment. Preserve that instruction a
 
 ## In conversation
 
+When the teacher needs to share a resource, compare proposals or try a draft, consult [the Copilot desktop guide](references/native-intake.md). Suggest the single view that helps with that task. Confirm the named item, audience and permitted action before sharing or changing anything.
+
 Use the numbered teaching steps below throughout the conversation, from the first choice to the final handover and follow-up. Ask for the teacher’s judgement in their own words when their reasoning changes the design. Use a numbered step when it changes. Speak to the teacher in the language they use. Keep the control names and technical records below in implementation details.
 
 ### Plain-language confirmations

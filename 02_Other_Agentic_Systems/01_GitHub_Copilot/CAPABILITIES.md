@@ -2,7 +2,7 @@
 
 ## Native plugin
 
-The `0.3.3` package supplies:
+The `0.3.4` package supplies:
 
 - Six Agentic Course Redesign workflow skills with the Copilot v0.3.3
   lecturer-dialogue contract.
@@ -52,6 +52,12 @@ fresh project task, recover durable state read-only, and first verify whether
 the prior edit already succeeded. This is a tool-history serialization defect,
 not a missing function. No MCP server, plugin, hook, authentication, or added
 permission fixes it or is required by this package.
+
+## Desktop workspace
+
+Both the account plugin and the one-project skill route a teacher to the view that suits the next decision. Files and Library locate approved resources, Changes compares text, and Browser or Canvas presents an editable or rendered draft. Side chat supports a separate design question. Terminal and Insights can help check what was run. The [teacher’s guide](native-intake.md) gives an example at the appropriate step.
+
+The built-in Browser panel can preview a web activity. External browser control and desktop Computer Use are optional host features with their own settings, access requirements and limits. Panel availability alone grants no ability to inspect an authenticated LMS, edit another app or share a project resource.
 
 ## Project-local overlay
 

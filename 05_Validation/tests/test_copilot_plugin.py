@@ -23,8 +23,8 @@ CODEX_PLUGIN = (
     / "agentic-course-redesign"
 )
 
-PACKAGE_VERSION = "0.3.3"
-PACKAGE_PROPOSAL = "ACR-SYS-20261127-004"
+PACKAGE_VERSION = "0.3.4"
+PACKAGE_PROPOSAL = "ACR-COPILOT-20261127-001"
 BASE_VERSION = "0.3.3"
 OPENAI_PACKAGE_VERSION = "0.3.3"
 EXPECTED_SKILLS = {
@@ -208,7 +208,7 @@ class CopilotPluginTests(unittest.TestCase):
         )
         self.assertEqual(
             adapter_manifest["native_plugin"]["rollback_package_version"],
-            "0.3.2",
+            "0.3.3",
         )
 
     def test_marketplace_points_to_repository_relative_native_plugin(self) -> None:
@@ -255,8 +255,13 @@ class CopilotPluginTests(unittest.TestCase):
                 + "\n\n"
                 + COPILOT_RUNTIME_COMPATIBILITY_OVERRIDE
             )
+            installed = plugin_path.read_text(encoding="utf-8").rstrip()
+            if name == "course-redesign-orchestrator":
+                teaching_link = "When the teacher needs to share a resource, compare proposals or try a draft, consult [the Copilot desktop guide](references/native-intake.md). Suggest the single view that helps with that task. Confirm the named item, audience and permitted action before sharing or changing anything."
+                self.assertIn("## In conversation\n\n" + teaching_link, installed)
+                installed = installed.replace(teaching_link + "\n\n", "", 1)
             self.assertEqual(
-                plugin_path.read_text(encoding="utf-8").rstrip(),
+                installed,
                 expected,
                 f"Copilot skill drift: {name}",
             )
@@ -662,7 +667,7 @@ class CopilotPluginTests(unittest.TestCase):
             'expected "function"',
             "type=custom",
             "fresh task",
-            "0.3.2",
+            "0.3.3",
             "native `ask_user` card",
             "complete valid option set",
             "at least five explicit choices plus a custom-answer field",

@@ -44,6 +44,13 @@ class HostPackageTests(unittest.TestCase):
                     for phrase in ("1. Start with your course", "Kahoot!", "Mentimeter", "Skip for now",
                                    "multi-select", "The drafts are ready for handover."):
                         self.assertIn(phrase, conversation)
+                    if host in {"copilot", "copilot-project"}:
+                        self.assertEqual("0.3.4", (base / "VERSION").read_text().strip())
+                        self.assertIn("](references/native-intake.md)", conversation.split("### Plain-language confirmations")[0])
+                        desktop = (stages / builder.NATIVE_GUIDE).read_text(encoding="utf-8")
+                        for feature in ("Files", "Library", "Changes", "Browser", "Pick & Polish", "Canvas",
+                                        "Side chat", "Terminal", "Insights", "Computer Use", "Share browser tab with agent"):
+                            self.assertIn(feature, desktop)
                     if portable:
                         guide = (base / "SKILL.md").read_text(encoding="utf-8")
                         self.assertIn("OpenCode and the project-only GitHub Copilot installation", guide)

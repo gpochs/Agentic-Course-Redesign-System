@@ -5,10 +5,10 @@
   "platform": "github-copilot",
   "status": "candidate_not_active",
   "native_plugin": {
-    "proposal_id": "ACR-SYS-20261127-004",
-    "package_version": "0.3.3",
+    "proposal_id": "ACR-COPILOT-20261127-001",
+    "package_version": "0.3.4",
     "base_semantic_version": "0.3.3",
-    "rollback_package_version": "0.3.2",
+    "rollback_package_version": "0.3.3",
     "status": "candidate_not_active",
     "plugin_name": "agentic-course-redesign",
     "marketplace_name": "agentic-course-redesign-system",
@@ -56,13 +56,13 @@
   "files": [
     {
       "path": "CAPABILITIES.md",
-      "bytes": 4519,
-      "sha256": "d1eade364ed22aa6e4915ff9b32488eb538cee371f8f2bab6ea294f5263fd396"
+      "bytes": 5274,
+      "sha256": "66ee21de560518bbd253e7b13125eba9960d425226dae836b09dabce2c314ba8"
     },
     {
       "path": "native-intake.md",
-      "bytes": 12139,
-      "sha256": "6f8ec873b93f94ea62eb00f15fc0c8cac3b866abb28e8a821be3a97059a2667c"
+      "bytes": 15447,
+      "sha256": "7564d5ebed7cfc4ee083764bccdc3294182f45c3a6ec4ee7b6daa2a98eeac6d3"
     },
     {
       "path": "overlay/.github/agents/active-learning-researcher.agent.md",
@@ -127,7 +127,7 @@
     {
       "path": "PARTICIPANT_INSTALLATION.md",
       "bytes": 8251,
-      "sha256": "5b31e25e57e2dec6c8609e9ce1e5f1b57d3678b22c24a5b15f5290615ea9e8c8"
+      "sha256": "7bbb67f50a42bfea68ab889117b243f3ff4ceddc719844db43de9fceddf0859f"
     },
     {
       "path": "plugin/agentic-course-redesign/agents/active-learning-researcher.agent.md",
@@ -287,17 +287,17 @@
     {
       "path": "plugin/agentic-course-redesign/PARTICIPANT_QUICK_START.md",
       "bytes": 7859,
-      "sha256": "e83e0f99175f6d466bb4edf3f666176a12a2ab8cf57bc3069ceff39c26f4a78a"
+      "sha256": "1a4d9a03542855a3c5639dc2d046da519e6dac4a390469552d860650f7a71c77"
     },
     {
       "path": "plugin/agentic-course-redesign/plugin.json",
       "bytes": 733,
-      "sha256": "b3196ccf8238181cf6bf18d9214caef0194fa83dd0955f5951801093be903818"
+      "sha256": "bb19f62b2bb7d19f6494be8f10e542114a97bc0c612fa8e2868a05053fa0c903"
     },
     {
       "path": "plugin/agentic-course-redesign/README.md",
-      "bytes": 4845,
-      "sha256": "53bd9ba11c2db073ee21d4e96d052906b0cb758aba0d0647310e7eb3dcfe627e"
+      "bytes": 4941,
+      "sha256": "4ab41eb86c3ad682b25a8c3d6242fe91cc60aeb28564b78eef3e4271fc958e5a"
     },
     {
       "path": "plugin/agentic-course-redesign/scripts/create_material_processing_eligibility.py",
@@ -351,8 +351,8 @@
     },
     {
       "path": "plugin/agentic-course-redesign/skills/course-redesign-orchestrator/references/native-intake.md",
-      "bytes": 12139,
-      "sha256": "6f8ec873b93f94ea62eb00f15fc0c8cac3b866abb28e8a821be3a97059a2667c"
+      "bytes": 15447,
+      "sha256": "7564d5ebed7cfc4ee083764bccdc3294182f45c3a6ec4ee7b6daa2a98eeac6d3"
     },
     {
       "path": "plugin/agentic-course-redesign/skills/course-redesign-orchestrator/references/role-evidence.md",
@@ -361,8 +361,8 @@
     },
     {
       "path": "plugin/agentic-course-redesign/skills/course-redesign-orchestrator/SKILL.md",
-      "bytes": 36444,
-      "sha256": "64a88265ddc4b201a4cac93905a2b087d65ce711db492af20ac5543cf19d2db3"
+      "bytes": 36731,
+      "sha256": "c017719d7ab905310972e482bcdf1b0c0ae662aa84a9f20836e388724b1e5add"
     },
     {
       "path": "plugin/agentic-course-redesign/skills/course-redesign-research/SKILL.md",
@@ -382,12 +382,12 @@
     {
       "path": "plugin/agentic-course-redesign/VERSION",
       "bytes": 6,
-      "sha256": "a0dc8325e2fbe558e09bf7d61260ca378151b0a3f875dd8b46ecd3693e34c10b"
+      "sha256": "027a61167f091a427fa7844dcac0c5141bafbcbdcadc7e04a93578147ab956f2"
     },
     {
       "path": "README.md",
-      "bytes": 8392,
-      "sha256": "b10645ae2d6ff61fa825b797d7087e00dbe619b94b64aeed80b8b7cd0e8f677e"
+      "bytes": 8530,
+      "sha256": "d387ea33b0db30b66d34a96b5fa75299b8de2455e0d8469634b3ecca3abfd71d"
     },
     {
       "path": "validation/test_native_plugin.py",
@@ -396,8 +396,8 @@
     },
     {
       "path": "validation/validate_native_plugin.py",
-      "bytes": 30031,
-      "sha256": "7ba189507fad8d75b9b1d20a26a1e5cda0a45849b5b5504bac3f710f7c1020b5"
+      "bytes": 30755,
+      "sha256": "8697fc889d6a94f7c24775a7872ad73fad397d37568d72d47c0a7b954203754b"
     }
   ],
   "overlay_files": [

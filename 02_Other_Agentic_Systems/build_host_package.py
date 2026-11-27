@@ -134,6 +134,9 @@ def render(host, output):
         manifest_dir = ".claude-plugin" if host == "claude" else ".antigravity-plugin"
         write(output / manifest_dir / "plugin.json", json.dumps(metadata, indent=2))
     copy_tree(CORE / "agent-skills", stage_root)
+    if host == "copilot-project":
+        orchestrator = Path("course-redesign-orchestrator/SKILL.md")
+        copy_file(edition / "plugin" / NAME / "skills" / orchestrator, stage_root / orchestrator)
     if host == "antigravity":
         # Antigravity reads a maximum of 24,000 bytes from a skill body.
         # Keep the opening conversation in the entry point and preserve the
@@ -159,7 +162,8 @@ def render(host, output):
     copy_tree(CORE / "scripts", bundle / "scripts")
     copy_tree(CORE / "course-project-template", bundle / "assets/project-template")
     for target in ("PARTICIPANT_QUICK_START.md", "VERSION"):
-        copy_file(CORE / target, bundle / target)
+        source = edition / "plugin" / NAME if host == "copilot-project" and target == "VERSION" else CORE
+        copy_file(source / target, bundle / target)
         if target.endswith(".md"):
             copy_file(CORE / target, bundle / "assets" / target)
     agents_path = {

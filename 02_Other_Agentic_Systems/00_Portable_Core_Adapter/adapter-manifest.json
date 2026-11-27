@@ -79,8 +79,8 @@
     },
     {
       "path": "validation/reconcile_adapters.py",
-      "bytes": 17916,
-      "sha256": "af413b226cb005e2c1f9d12479a741be49653c3fbc05fa5d255d24352f1b663b"
+      "bytes": 18228,
+      "sha256": "fbd3c16dc888d9c53c698c2b4dcaf8662e0dee209da03af211aaed4c2ccd2de9"
     },
     {
       "path": "validation/validate_adapters.py",

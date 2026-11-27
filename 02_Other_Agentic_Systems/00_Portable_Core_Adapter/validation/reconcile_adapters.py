@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Preview or apply deterministic v0.3.3 non-Copilot adapter reconciliation."""
+"""Preview or apply deterministic adapter reconciliation."""
 
 from __future__ import annotations
 
@@ -225,6 +225,8 @@ def reconcile_roles_and_copilot(apply: bool) -> list[str]:
             data = builder.read_reviewed(source)
             if extra is not None:
                 data = data.decode("utf-8").replace("\r\n", "\n").rstrip() + "\n\n" + extra
+            if folder == "agent-skills" and rel.as_posix() == "course-redesign-orchestrator/SKILL.md":
+                data = contract.link_desktop_guide(data)
             if folder == "agent-skills" and rel == builder.ROLE_GUIDE:
                 data = host_role_guide(copilot, plugin / "skills", data)
             emit(target, data)
@@ -283,8 +285,10 @@ def refresh_thin_manifest(folder: str, hashes: dict[str, str], apply: bool) -> b
         "hashes": hashes,
     }
     if folder == "01_GitHub_Copilot":
-        manifest["native_plugin"].update(proposal_id=PROPOSAL_ID, package_version=VERSION,
-            base_semantic_version=VERSION, rollback_package_version="0.3.2")
+        native_root = root / "plugin/agentic-course-redesign"
+        native_version = (native_root / "VERSION").read_text(encoding="utf-8").strip()
+        manifest["native_plugin"].update(proposal_id="ACR-COPILOT-20261127-001", package_version=native_version,
+            base_semantic_version=VERSION, rollback_package_version="0.3.3")
     manifest["files"] = inventory(root, manifest_path)
     overlay = root / "overlay"
     manifest["overlay_files"] = sorted(
