@@ -1,5 +1,7 @@
 # Provenance
 
+Version 0.3.5 (proposal ACR-SYS-20261127-006) separates the teacher’s farewell from the private closeout record and makes deferring model choice explicit.
+
 Version 0.3.4 (proposal ACR-SYS-20261127-005) adds run-local model choices across the six stages and ten specialists and connects selected files and LMS tabs to the draft review. Each host opens the supported view, identifies the change, tests a learner action and records which results it observed. A separate, optional second-opinion packet can be validated against the final course decision and an exact transfer receipt.
 
 Version 0.3.3 (proposal ACR-SYS-20261127-004) corrects how a teacher’s decisions about individual drafts are recorded during handover and final review. A two-draft example in release validation covers withdrawing a previously planned item.

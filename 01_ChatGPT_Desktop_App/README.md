@@ -1,6 +1,6 @@
 # Agentic Course Redesign for ChatGPT and Codex
 
-Start a conversation with **Agentic Course Redesign** and describe one thing you want learners to do better. You can redesign one quiz, a course module or an entire course. This folder contains version **0.3.4**. Check the listing for the version currently offered by OpenAI. [OpenAI plugin directory](https://chatgpt.com/plugins/plugins_6a88cdd968088191b7a22c9e92cbb5ba)
+Start a conversation with **Agentic Course Redesign** and describe one thing you want learners to do better. You can redesign one quiz, a course module or an entire course. This folder contains version **0.3.5**. Check the listing for the version currently offered by OpenAI. [OpenAI plugin directory](https://chatgpt.com/plugins/plugins_6a88cdd968088191b7a22c9e92cbb5ba)
 
 At the start you can let the plugin match models to tasks, keep your current model throughout, or choose at each step. You can also decide later. The plugin checks which eligible models and tools can do the work in the chosen account before it recommends a switch.
 

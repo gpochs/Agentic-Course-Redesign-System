@@ -1,6 +1,6 @@
 # Native progressive intake in Claude Code
 
-This page shows lecturers and the orchestrator how the first conversation of a course redesign runs in Claude Code. It follows the numbered teaching steps and the English and German handover wording of the shared release `0.3.4`. It adds no decision, permission, automation or schedule. The six shared skills remain the only workflow contract. Where this page and a skill differ, the skill wins.
+This page shows lecturers and the orchestrator how the first conversation of a course redesign runs in Claude Code. It follows the numbered teaching steps and the English and German handover wording of the shared release `0.3.5`. It adds no decision, permission, automation or schedule. The six shared skills remain the only workflow contract. Where this page and a skill differ, the skill wins.
 
 Host behaviour was checked against the public Claude Code documentation on 2026-11-27. It depends on the installed version, the surface (terminal, IDE extension, desktop app) and local settings. Use the view that answers the lecturer's current question. Keep the first conversation in chat when the lecturer chooses to describe the course.
 
@@ -203,6 +203,8 @@ A decline ends that optional idea. For the planned slide deck, the lecturer can 
 **Step 9. Finish or suggest an improvement.** The lecturer can finish or request a written suggestion for next time.
 
 ### Step 10 · Would you like a second opinion?
+
+Treat a decline as applying only to the choice the teacher declined. If they decline a future second opinion while asking to design a lesson, continue the lesson. A Step 9 decline of process improvement alone leaves Step 10 available. When the teacher explicitly ends the interaction, or declines the last optional review after the course is complete, reply with one plain-language sentence naming the accepted items and where they actually received them. For a chat handover, say “You accepted the worksheet and teaching note here in the chat.” If no items were accepted, acknowledge that choice. Mention a saved file only after a verified write at that destination. Keep permissions, internal status, retention, future runs and scheduling out of the farewell. Stop without a question, another offer or a tool call. If the teacher explicitly asks for a second opinion or another action, follow that request and its normal approval steps.
 
 After Step 9, choose **Skip** to finish immediately, **Prepare a review** for a copy-ready packet you can use yourself, or **Explore a different model** to compare suitable receiving models. Claude can show the status of Steps 1–9, including skips, as a short list in chat. Open only the selected saved drafts using their file links. A **Side chat** can help you question an individual change within Claude. For an independent opinion, compare the family of the model that actually drafted the course with the proposed reviewer. For example, for an interactive worksheet, check that an included candidate supports the format and can see the agreed student view. You can replace the suggestion. [Claude Code model selection](https://code.claude.com/docs/en/model-config)
 

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "plugin": "agentic-course-redesign",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "prompts": [
     "Help me improve a lesson. I want to start with my teaching goal and skip sharing files.",
     "I have a syllabus. Help me decide what to keep and what to change.",

@@ -66,8 +66,7 @@ role, egress, or output permission.
   explicitly requests or declines the review, record the response and make the
   course run terminal `complete_dormant`; a requested review continues only as
   the separate reusable-system lifecycle. Clear the active course run and do
-  not resume it. Offer manual/optional-automation trigger guidance once for
-  information only; create no task, schedule, hook, or registration. Only a
+  not resume it. Record future-run guidance once in the private run record; create no task, schedule, hook, or registration. Only a
   fresh manual or separately authorised scheduled trigger creates a new run.
 
 Use the project skill at `.claude/skills/course-redesign/SKILL.md` for the gate

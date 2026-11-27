@@ -20,8 +20,8 @@ REVIEW = ROOT / "openai-submission" / "review"
 EXPECTED_REPOSITORY = "https://github.com/gpochs/Agentic-Course-Redesign-System"
 EXPECTED_PUBLISHER = "GIAN PETER OCHSNER"
 EXPECTED_WEBSITE = EXPECTED_REPOSITORY
-OPENAI_PACKAGE_VERSION = "0.3.4"
-BASE_WORKFLOW_VERSION = "0.3.4"
+OPENAI_PACKAGE_VERSION = "0.3.5"
+BASE_WORKFLOW_VERSION = "0.3.5"
 EXPECTED_PRIVACY = f"{EXPECTED_REPOSITORY}/blob/63d7464dc3c75634e08c04fca78e2e50bf250ed1/docs/PRIVACY.md"
 EXPECTED_SUPPORT = f"{EXPECTED_REPOSITORY}/blob/v0.2.5/docs/SUPPORT.md"
 EXPECTED_TERMS = f"{EXPECTED_REPOSITORY}/blob/v0.2.5/docs/TERMS.md"
@@ -157,7 +157,7 @@ def main() -> int:
     interface = manifest.get("interface", {})
 
     check("stable package name", manifest.get("name") == "agentic-course-redesign")
-    check("v0.3.4 OpenAI package version", manifest.get("version") == OPENAI_PACKAGE_VERSION)
+    check("v0.3.5 OpenAI package version", manifest.get("version") == OPENAI_PACKAGE_VERSION)
     check(
         "valid package name syntax",
         bool(re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,63}", str(manifest.get("name", "")))),
@@ -366,7 +366,7 @@ def main() -> int:
     )
     check("public template uses state schema 8", public_state.get("schema_version") == 8)
     check(
-        "public template preserves v0.3.4 workflow base",
+        "public template preserves v0.3.5 workflow base",
         public_state.get("plugin_version") == BASE_WORKFLOW_VERSION,
     )
     check("public template remains inactive", public_state.get("status") == "candidate_not_active")
@@ -437,6 +437,12 @@ def main() -> int:
         in offer_gate.get("authority_on_request", {}).get("does_not_authorise", []),
     )
     run_template = public_state.get("run_template", {})
+    check("final guidance is a private receipt and an early decline continues the lesson",
+          run_template["approvals"]["trigger_guidance_offer"].get("visibility") == "private_run_record"
+          and all("A Step 9 decline of process improvement alone leaves Step 10 available" in
+                  (PUBLIC_PLUGIN / "skills" / skill / "SKILL.md").read_text(encoding="utf-8")
+                  for skill in ("course-redesign-orchestrator", "course-redesign-materials", "course-redesign-system"))
+          and "Or we can start with your course and decide later." in model_guide.read_text(encoding="utf-8"))
     check("new final review has no preselected draft decisions",
           run_template["approvals"]["hitl_3"]["decision"].get("item_decisions") == {})
     closeout = next(
@@ -486,6 +492,9 @@ def main() -> int:
             "P25_CHOOSE_AT_STEPS",
             "P26_REVIEWER_ALREADY_CONTRIBUTED",
             "P27_ROLE_TOOL_GAP",
+            "P28_FINISH_IN_CHAT",
+            "P29_DECLINE_REVIEW_CONTINUE_LESSON",
+            "N21_FINISH_WITHOUT_FILE_WRITE",
             "N20_CATALOGUE_IS_NOT_AUTHORITY",
             "N19_UNAPPROVED_MODEL_FALLBACK",
             "N18_SKIP_SECOND_OPINION",

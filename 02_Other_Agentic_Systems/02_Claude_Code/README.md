@@ -31,8 +31,8 @@ In a local **Code** session in Claude Desktop, click the approved worksheet’s 
 ## Manual project overlay
 
 
-Adapter release: `0.3.4`. Shared semantic base: inactive candidate
-`ACR-SYS-20261127-005` version `0.3.4`.
+Adapter release: `0.3.5`. Shared semantic base: inactive candidate
+`ACR-SYS-20261127-006` version `0.3.5`.
 
 This overlay adds a project `CLAUDE.md`, one path-scoped rule, and ten
 project-local Claude Code subagents to the portable core. It does not open or

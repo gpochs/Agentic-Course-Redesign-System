@@ -24,7 +24,7 @@ email address or response-time promise.
 
 Accurately cover at least:
 
-- that the 0.3.4 package is skills-only and bundles no publisher-run MCP
+- that the 0.3.5 package is skills-only and bundles no publisher-run MCP
   server, authentication, account, telemetry, or connector;
 - what local or cloud-synchronised course files the host may access when the
   lecturer authorises them;

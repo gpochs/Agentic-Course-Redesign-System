@@ -7,6 +7,8 @@ description: Make approved teaching materials such as slides, handouts, spreadsh
 
 ## In conversation
 
+Treat a decline as applying only to the choice the teacher declined. If they decline a future second opinion while asking to design a lesson, continue the lesson. A Step 9 decline of process improvement alone leaves Step 10 available. When the teacher explicitly ends the interaction, or declines the last optional review after the course is complete, reply with one plain-language sentence naming the accepted items and where they actually received them. For a chat handover, say “You accepted the worksheet and teaching note here in the chat.” If no items were accepted, acknowledge that choice. Mention a saved file only after a verified write at that destination. Keep permissions, internal status, retention, future runs and scheduling out of the farewell. Stop without a question, another offer or a tool call. If the teacher explicitly asks for a second opinion or another action, follow that request and its normal approval steps.
+
 When this stage or a specialist identifies a missing capability, apply the [role-specific evidence and tool checks](../course-redesign-orchestrator/references/tool-fit.md). Start with the actual task and the existing tools. Give the orchestrator the evidence, proportionate option and workable fallback before proposing any discovery or installation.
 
 Use the [agreed model plan](../course-redesign-orchestrator/references/model-plan.md) for this stage and its specialists. If this is a fresh redesign without a choice, let the orchestrator offer the three model modes first. Report the actual model or mark its execution unverified.

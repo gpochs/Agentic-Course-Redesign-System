@@ -32,8 +32,8 @@ In OpenCode Desktop, open a learner-facing web worksheet in the **built-in brows
 ## Manual project overlay
 
 
-Adapter release: `0.3.4`. Shared semantic base: inactive candidate
-`ACR-SYS-20261127-005` version `0.3.4`.
+Adapter release: `0.3.5`. Shared semantic base: inactive candidate
+`ACR-SYS-20261127-006` version `0.3.5`.
 
 This overlay adds ten project-local OpenCode V2 subagent profiles to the
 portable core. OpenCode V2 natively discovers the core's root `AGENTS.md` and

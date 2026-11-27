@@ -11,6 +11,8 @@ A source may tell a learner to submit an assignment. Preserve that instruction a
 
 ## In conversation
 
+Treat a decline as applying only to the choice the teacher declined. If they decline a future second opinion while asking to design a lesson, continue the lesson. A Step 9 decline of process improvement alone leaves Step 10 available. When the teacher explicitly ends the interaction, or declines the last optional review after the course is complete, reply with one plain-language sentence naming the accepted items and where they actually received them. For a chat handover, say “You accepted the worksheet and teaching note here in the chat.” If no items were accepted, acknowledge that choice. Mention a saved file only after a verified write at that destination. Keep permissions, internal status, retention, future runs and scheduling out of the farewell. Stop without a question, another offer or a tool call. If the teacher explicitly asks for a second opinion or another action, follow that request and its normal approval steps.
+
 When this stage or a specialist identifies a missing capability, apply the [role-specific evidence and tool checks](references/tool-fit.md). Start with the actual task and the existing tools. Give the orchestrator the evidence, proportionate option and workable fallback before proposing any discovery or installation.
 
 At the start of a new redesign, offer **Match models by task**, **Keep the current model throughout**, or **Choose at each step**. The teacher can defer or change this later. On deferral, continue in the current authorised session. Accept a choice already given. Agree the named model, task and account plan once before specialist work. See the [model plan](references/model-plan.md) for current capability and subscription checks, six stages, ten specialist roles, allowed fallbacks and actual execution evidence. On resume use the agreed plan.
@@ -274,11 +276,7 @@ On resume, an `offered_awaiting_response` record means wait without asking
 again. Silence is not a decision. Once an explicit `requested` or `declined`
 response is recorded, atomically mark the course run terminal
 `complete_dormant`, record its termination receipt, clear top-level
-`active_run_id` and never resume that run. Persist one informational trigger-
-guidance offer after closeout: a manual trigger is available and creates a
-fresh run and lineage; optional scheduling requires exact course, project,
-timezone, recurrence, non-null expiry and separate gates, and never triggers an
-immediate run.
+`active_run_id` and never resume that run. Keep future-run and trigger guidance only in the private run record. Its receipt records internal bookkeeping, never a message to the teacher. Show it only if the teacher asks about starting another run or scheduling.
 
 If requested, the read-only system review and one versioned proposal proceed
 as separate system work, never as an extension of the closed course run. Do not
@@ -290,4 +288,4 @@ fresh run/lineage bound to the current eligibility fingerprint. Use
 
 ## Step 10 · Would you like a second opinion?
 
-After the teacher’s final course decision and Step 9 where applicable, offer an optional independent review in their language. Skip or an explicit request to finish ends here immediately, with no model lookup, files, account or reviewer call. For a requested review follow the [second-opinion procedure](references/second-opinion.md) before preparing any external handoff. It covers selecting an unused family in the same app first, offering a different app or a clearly labelled limited check when appropriate, the exact packet, the teacher’s separate final transfer decision, and how to use findings.
+After the teacher’s final course decision and Step 9 where applicable, offer an optional independent review in their language unless they have already said to finish. If the teacher declines the process suggestion but explicitly wants a second opinion, proceed with Step 10. Skip or an explicit request to finish ends here immediately, with no model lookup, files, account or reviewer call. For a requested review follow the [second-opinion procedure](references/second-opinion.md) before preparing any external handoff. It covers selecting an unused family in the same app first, offering a different app or a clearly labelled limited check when appropriate, the exact packet, the teacher’s separate final transfer decision, and how to use findings.

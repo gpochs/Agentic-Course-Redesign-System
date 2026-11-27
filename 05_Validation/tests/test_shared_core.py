@@ -852,7 +852,7 @@ class SharedCoreTests(unittest.TestCase):
             }
         )
         guidance = run["approvals"]["trigger_guidance_offer"]
-        guidance["status"] = "offered"
+        guidance["status"] = "recorded"
         guidance["offer"].update(
             {
                 "offer_id": "trigger-guidance:RUN-SYNTHETIC-001:REPLY-OFFER-001",
@@ -888,6 +888,21 @@ class SharedCoreTests(unittest.TestCase):
         state["runs"][0]["approvals"]["gate_2a"]["status"] = "approved"
         state = json.loads(json.dumps(state).replace(empty_manifest, old_manifest))
         self.assertTrue(any("zero-input manifest" in err for err in self.validator.validate(state)))
+
+    def test_private_closeout_receipt_and_legacy_teacher_offer(self) -> None:
+        state, run = self.completed_run_state()
+        self.assertEqual(self.validator.validate(state), [])
+        guidance = run["approvals"]["trigger_guidance_offer"]
+        self.assertEqual(guidance["visibility"], "private_run_record")
+        guidance["status"] = "offered"
+        self.assertTrue(any("trigger-guidance receipt" in error for error in self.validator.validate(state)))
+        guidance["status"] = "recorded"
+        guidance["visibility"] = "teacher"
+        self.assertTrue(any("private to the run record" in error for error in self.validator.validate(state)))
+        guidance.pop("visibility")
+        guidance["allowed_statuses"] = ["not_offered", "offered"]
+        guidance["status"] = "offered"
+        self.assertEqual(self.validator.validate(state), [])
 
     def test_previous_schema_8_state_needs_no_migration(self) -> None:
         state, _ = self.completed_run_state()
@@ -1302,7 +1317,7 @@ class SharedCoreTests(unittest.TestCase):
 
     def test_shared_state_is_schema_8_inactive_unscheduled_and_pre_source(self) -> None:
         self.assertEqual(self.state["schema_version"], 8)
-        self.assertEqual(self.state["plugin_version"], "0.3.4")
+        self.assertEqual(self.state["plugin_version"], "0.3.5")
         self.assertEqual(self.state["status"], "candidate_not_active")
         self.assertEqual(self.state["schedules"], [])
         self.assertEqual(

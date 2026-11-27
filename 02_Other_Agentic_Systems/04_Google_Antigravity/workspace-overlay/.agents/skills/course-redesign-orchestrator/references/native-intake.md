@@ -1,6 +1,6 @@
 # Redesign a course in Google Antigravity
 
-Use this guide with Agentic Course Redesign 0.3.4. Start with the teaching problem you want to solve. For example, “My learners read the chart correctly, but they jump from a difference to a claim about its cause.” The worked example below follows that problem through a revised activity.
+Use this guide with Agentic Course Redesign 0.3.5. Start with the teaching problem you want to solve. For example, “My learners read the chart correctly, but they jump from a difference to a claim about its cause.” The worked example below follows that problem through a revised activity.
 
 ## Model choice for this course
 
@@ -116,7 +116,9 @@ This fictional ENVS-120 walkthrough shows what a teacher could ask and what a dr
 ### Step 8 · Decide what to use & Step 9 · Finish or suggest an improvement
 
 - **Step 8 · Decide what to use.** Review each included draft in its intended view. In the example that means two student drafts and a teacher-only guide. Choose `Use this version`, `Request changes`, `Leave it out`, or describe another change. In the example, the teacher asks for a shorter reveal label on the slide. The assistant would reopen the update and show it before asking for acceptance.
-- **Step 9 (finish cleanly):** Assistant asks once: *"Would you like a written suggestion for improving how this redesign worked?"* (`Write a suggestion`, `Finish here`, or custom answer). The teacher picks `Finish here` for Step 9. They can skip the optional second opinion and finish.
+- **Step 9 (finish cleanly):** Assistant asks once: *"Would you like a written suggestion for improving how this redesign worked?"* (`Write a suggestion`, `Finish here`, or custom answer). The teacher picks `Finish here` for Step 9. The assistant confirms the accepted materials and their actual destination in one sentence and stops.
+
+Treat a decline as applying only to the choice the teacher declined. If they decline a future second opinion while asking to design a lesson, continue the lesson. A Step 9 decline of process improvement alone leaves Step 10 available. When the teacher explicitly ends the interaction, or declines the last optional review after the course is complete, reply with one plain-language sentence naming the accepted items and where they actually received them. For a chat handover, say “You accepted the worksheet and teaching note here in the chat.” If no items were accepted, acknowledge that choice. Mention a saved file only after a verified write at that destination. Keep permissions, internal status, retention, future runs and scheduling out of the farewell. Stop without a question, another offer or a tool call. If the teacher explicitly asks for a second opinion or another action, follow that request and its normal approval steps.
 
 ### Step 10 · Would you like a second opinion?
 

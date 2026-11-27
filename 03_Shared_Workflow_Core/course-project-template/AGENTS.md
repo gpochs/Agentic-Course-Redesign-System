@@ -384,8 +384,7 @@ proposal. It does not authorise system-file changes, installation,
 
 After an explicit requested or declined review response, close the course run
 atomically as terminal `complete_dormant`, record termination, clear
-`active_run_id` and never resume it. Persist one informational trigger-guidance
-offer after closeout. If requested, system-improvement work is separate.
+`active_run_id` and never resume it. Keep future-run and trigger guidance only in the private run record. Its receipt records internal bookkeeping, never a message to the teacher. Show it only if the teacher asks about starting another run or scheduling. If requested, system-improvement work is separate.
 
 Stop work at every gate and set the run to non-terminal `waiting_at_gate`. A
 schedule, silence or prior approval for another stage is not approval for the
@@ -458,13 +457,11 @@ Use the run ID plus final HITL-3 acceptance reference as the idempotency key. On
 resume, `offered_awaiting_response` means wait without asking again; silence is
 not a decision. An explicit `requested` or `declined` response atomically closes
 the course run as terminal `complete_dormant`, records the termination receipt,
-clears top-level `active_run_id` and permanently forbids resumption. Persist one
-informational trigger-guidance offer after closeout: manual triggering is
-available and creates a fresh run/lineage; optional scheduling requires exact
-course, project, IANA timezone, recurrence and non-null expiry plus separate
-gates, with no immediate run. `requested` then permits only separate read-only
+clears top-level `active_run_id` and permanently forbids resumption. Keep future-run and trigger guidance only in the private run record. Its receipt records internal bookkeeping, never a message to the teacher. Show it only if the teacher asks about starting another run or scheduling. `requested` then permits only separate read-only
 system review and one versioned proposal; `declined` ends without system action.
 A missing or mismatched offer record fails closed.
+
+Treat a decline as applying only to the choice the teacher declined. If they decline a future second opinion while asking to design a lesson, continue the lesson. A Step 9 decline of process improvement alone leaves Step 10 available. When the teacher explicitly ends the interaction, or declines the last optional review after the course is complete, reply with one plain-language sentence naming the accepted items and where they actually received them. For a chat handover, say “You accepted the worksheet and teaching note here in the chat.” If no items were accepted, acknowledge that choice. Mention a saved file only after a verified write at that destination. Keep permissions, internal status, retention, future runs and scheduling out of the farewell. Stop without a question, another offer or a tool call. If the teacher explicitly asks for a second opinion or another action, follow that request and its normal approval steps.
 
 ## Reuse and scheduling
 

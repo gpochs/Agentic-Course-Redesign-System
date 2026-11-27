@@ -5,6 +5,10 @@ description: After the teacher accepts the course materials, review the redesign
 
 # Course Redesign System
 
+Treat a decline as applying only to the choice the teacher declined. If they decline a future second opinion while asking to design a lesson, continue the lesson. A Step 9 decline of process improvement alone leaves Step 10 available. When the teacher explicitly ends the interaction, or declines the last optional review after the course is complete, reply with one plain-language sentence naming the accepted items and where they actually received them. For a chat handover, say “You accepted the worksheet and teaching note here in the chat.” If no items were accepted, acknowledge that choice. Mention a saved file only after a verified write at that destination. Keep permissions, internal status, retention, future runs and scheduling out of the farewell. Stop without a question, another offer or a tool call. If the teacher explicitly asks for a second opinion or another action, follow that request and its normal approval steps.
+
+Keep future-run and trigger guidance only in the private run record. Its receipt records internal bookkeeping, never a message to the teacher. Show it only if the teacher asks about starting another run or scheduling.
+
 Technical names for approvals below identify actions in the saved record. In the conversation use the exact English or German wording in the current confirmation table and show the actual files and destination. Keep separate submitted replies for marking drafts ready and saving the handover, and store the teacher's actual words. Check every approved working copy has its own acceptance before accepting a handover declaration.
 
 Course-material acceptance and system activation are separate decisions. Never update the live system merely because a course run succeeded.
@@ -33,8 +37,7 @@ external egress.
 
 Silence remains `offered_awaiting_response` and closes nothing. An explicit
 request or decline closes the course run as terminal `complete_dormant`, clears
-`active_run_id`, prevents resumption, and persists one informational trigger-
-guidance offer. Decline ends system action; request opens only separate system
+`active_run_id`, prevents resumption, and records future-run guidance privately. Decline ends system action; request opens only separate system
 work. The guidance registers and triggers nothing.
 
 ## Improvement proposal

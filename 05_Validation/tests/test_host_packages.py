@@ -50,7 +50,7 @@ class HostPackageTests(unittest.TestCase):
                         self.assertIn(f"]({guide_link})", entry.read_text(encoding="utf-8"))
                         self.assertEqual((stages / builder.NATIVE_GUIDE).resolve(), (entry.parent / guide_link).resolve())
                     if host in {"copilot", "copilot-project"}:
-                        self.assertEqual("0.3.4", (base / "VERSION").read_text().strip())
+                        self.assertEqual("0.3.5", (base / "VERSION").read_text().strip())
                         self.assertIn("](references/native-intake.md)", conversation.split("### Plain-language confirmations")[0])
                         desktop = (stages / builder.NATIVE_GUIDE).read_text(encoding="utf-8")
                         for feature in ("Files", "Library", "Changes", "Browser", "Pick & Polish", "Canvas",

@@ -16,8 +16,8 @@ SCRIPT_PATH = Path(__file__).resolve()
 REPOSITORY_ROOT = SCRIPT_PATH.parents[3]
 ADAPTERS_ROOT = REPOSITORY_ROOT / "02_Other_Agentic_Systems"
 CORE_ROOT = REPOSITORY_ROOT / "03_Shared_Workflow_Core"
-VERSION = "0.3.4"
-PROPOSAL_ID = "ACR-SYS-20261127-005"
+VERSION = "0.3.5"
+PROPOSAL_ID = "ACR-SYS-20261127-006"
 
 SOURCE_RELATIVES = (
     "VERSION",
@@ -298,8 +298,8 @@ def refresh_thin_manifest(folder: str, hashes: dict[str, str], apply: bool) -> b
     if folder == "01_GitHub_Copilot":
         native_root = root / "plugin/agentic-course-redesign"
         native_version = (native_root / "VERSION").read_text(encoding="utf-8").strip()
-        manifest["native_plugin"].update(proposal_id="ACR-COPILOT-20261127-001", package_version=native_version,
-            base_semantic_version=VERSION, rollback_package_version="0.3.3")
+        manifest["native_plugin"].update(proposal_id="ACR-COPILOT-20261127-002", package_version=native_version,
+            base_semantic_version=VERSION, rollback_package_version="0.3.4")
     manifest["files"] = inventory(root, manifest_path)
     overlay = root / "overlay"
     manifest["overlay_files"] = sorted(
@@ -331,7 +331,7 @@ def refresh_antigravity_manifest(
         "validated_base_version": VERSION,
         "adapter_release_version": VERSION,
         "workflow_semantics": (
-            "shared schema-8 version 0.3.4 with scoped desktop source selection, "
+            "shared schema-8 version 0.3.5 with scoped desktop source selection, "
             "per-draft learner previews and observed task checks; "
             "candidate remains inactive and adds no permission, external egress, "
             "runtime activation, or schedule registration"

@@ -610,7 +610,7 @@ def validate_workflow_completeness(
             "requested",
             "declined",
             "complete_dormant",
-            "Persist one informational manual/optional-automation trigger-guidance offer",
+            "Keep future-run guidance only in the private run record",
             "Only a fresh trigger creates another run",
         ),
         "system_review": (
@@ -634,7 +634,7 @@ def validate_workflow_completeness(
             "## HITL 3",
             "Silence is `offered_awaiting_response`",
             "terminal `complete_dormant`",
-            "informational trigger-guidance offer",
+            "only in the private run record",
             "## System Gate",
             "## Separate runtime activation",
             "## Standing schedule",
@@ -900,26 +900,26 @@ def validate(
     if manifest:
         if manifest.get("platform") != "google-antigravity":
             errors.append("adapter manifest platform must be google-antigravity")
-        if manifest.get("adapter_version") != "0.3.4":
-            errors.append("adapter manifest top-level adapter_version must be 0.3.4")
+        if manifest.get("adapter_version") != "0.3.5":
+            errors.append("adapter manifest top-level adapter_version must be 0.3.5")
         if manifest.get("status") != "candidate_not_active":
             errors.append("adapter manifest top-level status must remain candidate_not_active")
         adapter = manifest.get("adapter", {})
         if adapter.get("platform") != "google-antigravity":
             errors.append("nested adapter platform must be google-antigravity")
-        if adapter.get("version") != "0.3.4":
-            errors.append("nested adapter version must be 0.3.4")
+        if adapter.get("version") != "0.3.5":
+            errors.append("nested adapter version must be 0.3.5")
         if adapter.get("status") != "candidate_not_active":
             errors.append("nested adapter status must remain candidate_not_active")
         provenance = manifest.get("provenance", {})
-        if provenance.get("workflow_proposal_id") != "ACR-SYS-20261127-005":
-            errors.append("workflow provenance must identify ACR-SYS-20261127-005")
-        if provenance.get("validated_base_version") != "0.3.4":
-            errors.append("workflow provenance must identify shared base version 0.3.4")
-        if provenance.get("adapter_release_version") != "0.3.4":
-            errors.append("workflow provenance must identify adapter release version 0.3.4")
-        if manifest.get("source", {}).get("version") != "0.3.4":
-            errors.append("source version must identify shared candidate 0.3.4")
+        if provenance.get("workflow_proposal_id") != "ACR-SYS-20261127-006":
+            errors.append("workflow provenance must identify ACR-SYS-20261127-006")
+        if provenance.get("validated_base_version") != "0.3.5":
+            errors.append("workflow provenance must identify shared base version 0.3.5")
+        if provenance.get("adapter_release_version") != "0.3.5":
+            errors.append("workflow provenance must identify adapter release version 0.3.5")
+        if manifest.get("source", {}).get("version") != "0.3.5":
+            errors.append("source version must identify shared candidate 0.3.5")
         source_files = manifest.get("source_files", [])
         if not source_files:
             errors.append("adapter manifest has no source-file hashes")

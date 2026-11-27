@@ -15,7 +15,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent.parent
-CURRENT_VERSION = "0.3.4"
+CURRENT_VERSION = "0.3.5"
 CURRENT_OPENAI_PACKAGE_VERSION = CURRENT_VERSION
 CURRENT_STATE_SCHEMA = 8
 EXPECTED_TOP_LEVEL = {

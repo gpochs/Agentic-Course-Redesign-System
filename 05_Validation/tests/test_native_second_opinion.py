@@ -56,6 +56,8 @@ class NativeSecondOpinionTests(unittest.TestCase):
                                 self.assertEqual(line, "model: inherit")
                     heading = "Step 10 · Would you like a second opinion?"
                     self.assertEqual(guide.count(heading), 1)
+                    self.assertIn("one plain-language sentence", guide)
+                    self.assertIn("only after a verified write", guide)
                     section = guide.partition(heading)[2].split("\n##", 1)[0]
                     for term in (*expected, "Skip", "Prepare a review", "Explore a different model", "Send this packet",
                                  "original", "account", "model", "audience", "cost", "slide",

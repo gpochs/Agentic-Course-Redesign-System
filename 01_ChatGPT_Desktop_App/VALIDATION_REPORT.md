@@ -1,4 +1,10 @@
-# Codex 0.3.4 release checks
+# Codex 0.3.5 release checks
+
+The skills-only ZIP contains 61 files. Repeated builds produced SHA-256 `CAB4A93CB965AAB4092BE936F0DA90755A3B5EDA14E76FDFD68E85853FE10EA4`. All 64 package checks passed, including the private closeout receipt, the early decline of a future review and the explicit option to defer model choice. The reviewer pack includes 30 positive and 21 negative cases.
+
+The 47 structural forward checks passed. The 33 Codex helper tests included a project-upgrade test against frozen 0.3.3 and 0.3.4 state files. One symbolic-link test was skipped on Windows. The installed official skill validator accepted all six skills in the two package trees. The standalone plugin validator was unavailable. [0.3.5 system validation](../05_Validation/VALIDATION_REPORT_v0.3.5.md)
+
+## Codex 0.3.4 release checks
 
 The skills-only ZIP contains 61 files. Two independent builds produced SHA-256 `9FE16EFD2DEA62C680581989E143F50A1762A8D0BF6029DF9FBE07B5574DD12D`. All 63 package checks passed, including the ten role instructions, direct-entry guide links, role-specific tool research and the pending preview status and byte identity with the marketplace runtime. The reviewer pack contains 28 positive and 20 negative cases. The 47 structural forward checks passed. The installed official skill validator accepted all six skills in each package. The standalone plugin validator was unavailable.
 
