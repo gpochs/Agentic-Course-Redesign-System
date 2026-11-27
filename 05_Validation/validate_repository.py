@@ -218,7 +218,7 @@ def source_files() -> tuple[list[Path], list[dict[str, str]]]:
                 findings.append({"path": relative(path), "kind": "symlink_not_portable"})
                 if name in directories:
                     directories.remove(name)
-            elif name in filenames:
+            elif name in filenames and path != ROOT / ".git":
                 files.append(path)
     return sorted(files, key=lambda item: relative(item).casefold()), findings
 
