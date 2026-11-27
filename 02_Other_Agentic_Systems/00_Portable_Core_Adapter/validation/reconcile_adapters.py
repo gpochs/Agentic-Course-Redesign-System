@@ -31,6 +31,7 @@ SOURCE_RELATIVES = (
     "agent-skills/course-redesign-materials/references/artifact-review.md",
     "agent-skills/course-redesign-orchestrator/references/second-opinion.md",
     "agent-skills/course-redesign-orchestrator/references/model-plan.md",
+    "agent-skills/course-redesign-orchestrator/references/tool-fit.md",
     "agent-skills/course-redesign-orchestrator/SKILL.md",
     "agent-skills/course-redesign-research/SKILL.md",
     "agent-skills/course-redesign-setup/SKILL.md",
@@ -201,7 +202,7 @@ def reconcile_roles_and_copilot(apply: bool) -> list[str]:
     opener = brief[brief.index("### Step 1 "):brief.index("The latest stated way of working")].strip()
     portable = ADAPTERS_ROOT / "00_Portable_Core_Adapter/overlay/.claude/skills/course-redesign"
     antigravity = ADAPTERS_ROOT / "04_Google_Antigravity/workspace-overlay/.agents/skills"
-    for guide_name in ("model-plan.md", "second-opinion.md"):
+    for guide_name in ("model-plan.md", "second-opinion.md", "tool-fit.md"):
         emit(portable / "references" / guide_name, (skills / "course-redesign-orchestrator/references" / guide_name).read_bytes())
     for path in (portable / "references/workflow.md", antigravity / "course-redesign-orchestrator/SKILL.md"):
         text = path.read_text(encoding="utf-8")

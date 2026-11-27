@@ -7,6 +7,8 @@ description: After the teacher accepts the course materials, review the redesign
 
 ## In conversation
 
+When this stage or a specialist identifies a missing capability, apply the [role-specific evidence and tool checks](../course-redesign-orchestrator/references/tool-fit.md). Start with the actual task and the existing tools. Give the orchestrator the evidence, proportionate option and workable fallback before proposing any discovery or installation.
+
 Use the [agreed model plan](../course-redesign-orchestrator/references/model-plan.md) for this stage and its specialists. If this is a fresh redesign without a choice, let the orchestrator offer the three model modes first. Report the actual model or mark its execution unverified.
 
 At **Step 9 · Finish or suggest an improvement**, describe what a review would do for a future course. Offer to write a suggestion once, with the option to finish here. A separate review leaves the accepted course closed. Use a numbered step when it changes. Speak to the teacher in the language they use. Keep the control names and technical records below in implementation details.

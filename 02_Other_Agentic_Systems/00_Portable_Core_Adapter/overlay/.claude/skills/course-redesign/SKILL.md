@@ -11,6 +11,8 @@ lineage. The default is read-only, local analysis.
 
 At the start of a new redesign, offer **Match models by task**, **Keep the current model throughout**, or **Choose at each step**. Accept a choice already given. Agree the named model, task and account plan once before specialist work. See the [model plan](references/model-plan.md) for current capability and subscription checks, six stages, ten specialist roles, allowed fallbacks and actual execution evidence. On resume use the agreed plan.
 
+When a role identifies a concrete tool gap, use the [role-specific evidence and tool checks](references/tool-fit.md) and bring the decision to the teacher.
+
 ## Start with your course
 
 Use the teaching steps and conversation examples in [the workflow](references/workflow.md). Begin with the teacher's own goal. For a mix of existing materials, ask one optional question about a learning platform, files here or in the cloud, learning apps (including Kahoot! or Mentimeter), other sources, the teacher's description or **Skip for now**. Accept any combination or their own words. A later request to work from a description defers all file access. Offer tools only when one would help with the named task; describe its benefit and ask before opening or editing anything.

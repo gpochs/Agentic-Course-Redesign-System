@@ -7,6 +7,8 @@ description: Start a course redesign with a description or a mix of learning pla
 
 ## In conversation
 
+When this stage or a specialist identifies a missing capability, apply the [role-specific evidence and tool checks](../course-redesign-orchestrator/references/tool-fit.md). Start with the actual task and the existing tools. Give the orchestrator the evidence, proportionate option and workable fallback before proposing any discovery or installation.
+
 At the start of a new redesign, offer **Match models by task**, **Keep the current model throughout**, or **Choose at each step**. The teacher can defer or change this later. On deferral, continue in the current authorised session. Accept a choice already given. Agree the named model, task and account plan once before specialist work. See the [model plan](../course-redesign-orchestrator/references/model-plan.md) for current capability and subscription checks, six stages, ten specialist roles, allowed fallbacks and actual execution evidence. On resume use the agreed plan.
 
 When selecting course sources or reviewing a draft in this host, use the [Codex desktop review guide](../course-redesign-orchestrator/references/desktop-review.md).

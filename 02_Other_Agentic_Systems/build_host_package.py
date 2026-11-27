@@ -31,7 +31,8 @@ def write(path, value):
 NEW_GUIDES = ("course-redesign-materials/references/artifact-review.md",
               "course-redesign-orchestrator/references/role-evidence.md",
               "course-redesign-orchestrator/references/second-opinion.md",
-              "course-redesign-orchestrator/references/model-plan.md")
+              "course-redesign-orchestrator/references/model-plan.md",
+              "course-redesign-orchestrator/references/tool-fit.md")
 ROLE_GUIDE = Path(NEW_GUIDES[1])
 NATIVE_GUIDE = ROLE_GUIDE.with_name("native-intake.md")
 

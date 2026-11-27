@@ -10,8 +10,8 @@ A syllabus or module outline can answer questions about the programme, learners,
 
 Ten specialists help you check evidence, plan teaching and assessment, and make materials. Choose a focus, compare suggestions and explain your own priorities in your own words. You can combine ideas, request changes or set an idea aside. You approve the plan and the exact materials before work starts.
 
-Combine local or cloud documents, a learning platform and teaching apps as needed. You can share one item or agree on a batch. When a tool would help, you can choose it or continue with the tools already available.
+Combine local or cloud documents, a learning platform and teaching apps as needed. You can share one item or agree on a batch. When the existing tools leave a gap, the specialist can suggest a tool for that task and explain its publisher, access and cost. You choose whether to try it.
 
-Review editable slides, handouts, spreadsheets, quizzes, web pages or online course activities using the tools available to you. Compare the changed page or slide in the file viewer, or try a practice question in the learner’s browser preview. See which checks worked before deciding what to keep, revise or leave out. After trying the drafts, you can leave one out and hand over the others. The omitted draft stays in its working location.
+Review editable slides, handouts, spreadsheets, quizzes, web pages or online course activities using the tools available to you. Compare the changed page or slide in the file viewer, or try a practice question in the learner’s browser preview. See which checks worked. You can also invite a learner to try the draft and share an anonymous observation, or skip that check. After trying the drafts, you can leave one out and hand over the others. The omitted draft stays in its working location.
 
 After your final decision you can finish or ask a different model for a second opinion. The plugin looks for an unused model family in the same app first. If all families contributed, you can choose a limited review by the least-involved one. Choose which details and files it receives and approve the exact handoff before anything is sent.

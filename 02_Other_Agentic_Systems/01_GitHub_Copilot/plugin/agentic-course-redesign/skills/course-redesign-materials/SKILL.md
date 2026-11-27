@@ -9,6 +9,8 @@ description: Make approved teaching materials such as slides, handouts, spreadsh
 
 When the teacher needs to share a resource, compare proposals or try a draft, consult [the Copilot desktop guide](../course-redesign-orchestrator/references/native-intake.md). Suggest the single view that helps with that task. Confirm the named item, audience and permitted action before sharing or changing anything.
 
+When this stage or a specialist identifies a missing capability, apply the [role-specific evidence and tool checks](../course-redesign-orchestrator/references/tool-fit.md). Start with the actual task and the existing tools. Give the orchestrator the evidence, proportionate option and workable fallback before proposing any discovery or installation.
+
 Use the [agreed model plan](../course-redesign-orchestrator/references/model-plan.md) for this stage and its specialists. If this is a fresh redesign without a choice, let the orchestrator offer the three model modes first. Report the actual model or mark its execution unverified.
 
 Show each planned draft and record the teacher's choice for that version. If they say “Keep the handout and leave out the quiz,” preserve both drafts privately and list only the handout for handover. When a change is requested, show the revised draft and wait for its review. When every draft is declined, stop before handover. A choice to leave something out never authorises deleting it. Final choices apply separately to each handed-over item. Sharing with learners requires separate authority.

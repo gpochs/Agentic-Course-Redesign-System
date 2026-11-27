@@ -7,6 +7,8 @@ description: Make approved teaching materials such as slides, handouts, spreadsh
 
 ## In conversation
 
+When this stage or a specialist identifies a missing capability, apply the [role-specific evidence and tool checks](../course-redesign-orchestrator/references/tool-fit.md). Start with the actual task and the existing tools. Give the orchestrator the evidence, proportionate option and workable fallback before proposing any discovery or installation.
+
 Use the [agreed model plan](../course-redesign-orchestrator/references/model-plan.md) for this stage and its specialists. If this is a fresh redesign without a choice, let the orchestrator offer the three model modes first. Report the actual model or mark its execution unverified.
 
 When selecting course sources or reviewing a draft in this host, use the [Codex desktop review guide](../course-redesign-orchestrator/references/desktop-review.md).

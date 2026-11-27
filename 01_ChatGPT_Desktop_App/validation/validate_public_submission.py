@@ -264,6 +264,10 @@ def main() -> int:
     check("all ten specialist roles require host execution evidence", len(role_files) == 10 and all(
         "host execution evidence" in path.read_text(encoding="utf-8") for path in role_files
     ))
+    tool_fit = PUBLIC_PLUGIN / "skills/course-redesign-orchestrator/references/tool-fit.md"
+    check("all six stage entries and ten roles reference task-specific tool checks", tool_fit.is_file() and all(
+        "tool-fit.md)" in entry.read_text(encoding="utf-8") for entry in (PUBLIC_PLUGIN / "skills").glob("*/SKILL.md")
+    ) and all("orchestrator’s tool-fit reference" in path.read_text(encoding="utf-8") for path in role_files))
     desktop_help = native_guide.read_text(encoding="utf-8")
     check("queued Codex previews require rendered readback", all(term in desktop_help for term in ("open_in_codex", "queued", "Verify that the viewer rendered")))
     second = PUBLIC_PLUGIN / "skills/course-redesign-orchestrator/references/second-opinion.md"
@@ -481,6 +485,8 @@ def main() -> int:
             "P24_SINGLE_MODEL",
             "P25_CHOOSE_AT_STEPS",
             "P26_REVIEWER_ALREADY_CONTRIBUTED",
+            "P27_ROLE_TOOL_GAP",
+            "N20_CATALOGUE_IS_NOT_AUTHORITY",
             "N19_UNAPPROVED_MODEL_FALLBACK",
             "N18_SKIP_SECOND_OPINION",
             "N17_UNAVAILABLE_LEARNER_VIEW",

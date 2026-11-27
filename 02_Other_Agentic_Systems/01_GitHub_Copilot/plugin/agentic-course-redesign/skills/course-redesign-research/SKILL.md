@@ -7,6 +7,8 @@ description: Investigate a teaching question the teacher has chosen. Compare res
 
 ## In conversation
 
+When this stage or a specialist identifies a missing capability, apply the [role-specific evidence and tool checks](../course-redesign-orchestrator/references/tool-fit.md). Start with the actual task and the existing tools. Give the orchestrator the evidence, proportionate option and workable fallback before proposing any discovery or installation.
+
 Use the [agreed model plan](../course-redesign-orchestrator/references/model-plan.md) for this stage and its specialists. If this is a fresh redesign without a choice, let the orchestrator offer the three model modes first. Report the actual model or mark its execution unverified.
 
 At **Step 4 · Choose what to focus on**, show a specific observation and ask which difficulty the teacher wants to investigate. At **Step 5 · Choose which changes to make**, show one concrete learner action, its rationale and its costs. Keep study citations and qualifications available beside the claim. Use a numbered step when it changes. Speak to the teacher in the language they use. Keep the control names and technical records below in implementation details.

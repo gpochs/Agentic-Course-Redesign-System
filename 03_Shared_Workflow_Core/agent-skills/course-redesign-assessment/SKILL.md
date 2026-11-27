@@ -7,6 +7,8 @@ description: Check what an assessment asks learners to do, where they practise i
 
 ## In conversation
 
+When this stage or a specialist identifies a missing capability, apply the [role-specific evidence and tool checks](../course-redesign-orchestrator/references/tool-fit.md). Start with the actual task and the existing tools. Give the orchestrator the evidence, proportionate option and workable fallback before proposing any discovery or installation.
+
 Use the [agreed model plan](../course-redesign-orchestrator/references/model-plan.md) for this stage and its specialists. If this is a fresh redesign without a choice, let the orchestrator offer the three model modes first. Report the actual model or mark its execution unverified.
 
 Use the teacher’s terms for the task and criteria. Try “Students have to compare two explanations in the exam. Where do they practise that before it counts?” Show one candidate question, an expected learner response and what evidence the teacher would look for. Ask before changing a fixed assessment. Use a numbered step when it changes. Speak to the teacher in the language they use. Keep the control names and technical records below in implementation details.

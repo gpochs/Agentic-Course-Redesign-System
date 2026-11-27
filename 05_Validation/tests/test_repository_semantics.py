@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import re
 import tempfile
 import unittest
 from pathlib import Path
@@ -23,6 +24,30 @@ class RepositorySemanticTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.validator = load_validator()
+
+    def test_role_tool_checks_reach_the_matching_guide_and_keep_teacher_authority(self) -> None:
+        skills = ROOT / "03_Shared_Workflow_Core/agent-skills"
+        guide = skills / "course-redesign-orchestrator/references/tool-fit.md"
+        entries = sorted(skills.glob("*/SKILL.md"))
+        self.assertEqual(len(entries), 6)
+        for entry in entries:
+            with self.subTest(entry=entry.parent.name):
+                link = re.search(r"\[role-specific evidence and tool checks\]\(([^)]+)\)", entry.read_text(encoding="utf-8"))
+                self.assertIsNotNone(link)
+                self.assertEqual((entry.parent / link.group(1)).resolve(), guide.resolve())
+        content = guide.read_text(encoding="utf-8")
+        rows = [line.split("|")[1].strip() for line in content.splitlines() if line.startswith("| ")]
+        roles = ("Orchestrator", "Course Mapper", "Active-Learning Researcher", "AI Integration",
+                 "Student Experience", "Assessment and Constructive-Alignment", "Source Verification",
+                 "Evidence and Feasibility", "Learning Designer", "Learning Material Designer",
+                 "Artefact Accessibility")
+        for role in roles:
+            self.assertEqual(sum(row.startswith(role) for row in rows), 1, role)
+        for required in ("public description of the task", "untrusted evidence", "pinned revision",
+                         "Installation, use with a particular item, and publication are distinct decisions",
+                         "voluntary learner tryout", "Never recruit or contact learners",
+                         "github.com/openai/skills", "github.com/huggingface/skills"):
+            self.assertIn(required, content)
 
     def test_codex_card_capacity_records_plan_mode_availability(self) -> None:
         compatibility = (

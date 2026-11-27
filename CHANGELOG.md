@@ -2,6 +2,8 @@
 
 ## 0.3.4 — 2026-11-27
 
+- Each specialist can identify a missing observation, suggest a task-specific tool supported by primary evidence and offer a workable fallback. The teacher decides whether to install anything or share data with a new service.
+
 - Teachers can match models to tasks, keep the current model for all roles, or choose at each step. A run-local plan binds each task to eligible models, accounts and data scopes and distinguishes proposed routes from observed execution.
 
 - An optional second opinion follows the teacher’s last course decision. The teacher can finish immediately, prepare a manual review, or approve an exact packet for a model from another family. The review describes all nine steps and only the selected output versions.
