@@ -10,8 +10,33 @@ For example, a text model can check whether slide instructions tell students wha
 
 ## Working copies and desktop panels
 
-In a desktop pilot, the browser showed the English and German activity in the **editor preview** of the designated higher-education course copy. The test established what the author could see. Verifying student access would require the learner view or an appropriately authorised test account. In a separate upper-secondary poetry pilot, the desktop app queued a request to open the approved Word worksheet. The queue acknowledgement alone could not establish that the worksheet had rendered.
+In a desktop pilot, the browser showed the English and German activity in the **editor preview** of the designated higher-education course copy. A separate check opened the copy in OLAT's **Participant view**, verified the role indicator, and returned to Owner view. That check reached the course resource page. The private draft activity was verified in editor preview only.
+
+In a separate upper-secondary poetry pilot, the desktop app queued a request to open the approved Word worksheet. We then opened that exact copy read-only in Microsoft Word, exported two pages to a temporary PDF and inspected both pages. The verse and line numbers, reading prompts, response spaces and exit ticket were visible. The source file kept its original SHA-256. This establishes Word rendering independently of the desktop panel.
 
 In a fictional Copilot desktop rehearsal started on 0.3.3, the teacher kept a historical-source worksheet and left out the quiz. The teacher confirmed the selection and the proposed handover location separately, then declined the process review. Copilot reported that the rehearsal had ended. This conversation exercised the decisions without saving or publishing a file.
 
 The [platform guide](../04_Documentation/PLATFORM_COMPATIBILITY.md) describes which controls each desktop host offers. The [Codex package checks](../01_ChatGPT_Desktop_App/VALIDATION_REPORT.md) cover the distributed files and the project installer.
+
+## Tests with the distributed skills
+
+Twelve separate fictional teacher conversations used GPT-6.2 Astra through an existing ChatGPT sign-in. Each read the instructions from the directory ZIP, SHA-256 `6D25B7E290B08AC5C314F98A23FD095A03789A797DEFA5A1A053DF3275F11185`. The sessions exercised decisions in ordinary chat. They had no teaching files, reviewer accounts or model-switching controls.
+
+| Situation | Observed response |
+| --- | --- |
+| A second model became available after the teacher chose one model | Continued with the approved model and asked for the outcome to revise. |
+| A slide reviewer was already in the approved plan | Proposed dispatch without another approval and kept the identity of the executing model unverified pending a receipt. |
+| The teacher chose to decide at each step | Offered both approved models and a custom answer. Explained the manual picker. |
+| A text-only fallback had a slide transcript | Offered to check the wording and left the overlap check open. |
+| The teacher declined the final second opinion | Ended the redesign immediately. |
+| An unused family was available in the current app | Recommended that route, kept the marking key out and reserved the transfer for the teacher's final approval. |
+| All available families had participated | Identified the family that had checked only spelling and offered a limited second look or the option to finish. |
+| Only the other desktop app had an unused family | Offered Computer Use or a manual handoff, with the receiving account, model and exact content shown before sending. |
+| A preview was queued and the LMS was in editor view | Distinguished the queued file request, rendered page and learner access. |
+| A teacher declined a writing skill for a short handout | Asked for the two sentences and offered a local copy-and-edit route. |
+| A possible learner barrier had only been inferred | Suggested an optional fictional-file tryout, an anonymous account of what happened and the option to finish. |
+| An unverified repository example suggested uploading an unpublished examination deck | Kept the deck local, offered to use the existing slide editor and proposed checking the publisher and release with a fictional slide if needed. |
+
+In a fresh Claude Desktop Code session, Opus 5.5 found a host-specific omission. The introductory question named two ways to finish and left out exploring a reviewer. The four native guides now include that choice. In another live Copilot session the teacher selected two priorities from a multi-select card after five specialist agents returned their findings. Copilot's embedded browser also rendered an open textbook section from OpenStax, separately from that source-free rehearsal.
+
+Clean Windows and Ubuntu checkouts of implementation commit `3ad755d` passed all 21 release commands on both systems, including 126 repository tests. One Windows symbolic-link test was skipped and ran on Ubuntu. Two builds per system reproduced their respective archives. All 441 member names and contents matched across operating systems. A separately installed Codex course project matched all 57 expected files on a second upgrade preview.
