@@ -16,6 +16,14 @@ package does not itself authorise an upload, connector or external research
 tool. OneDrive and similar folders are cloud-synchronised storage, not strictly
 local storage.
 
+## Retention and your choices
+
+The publisher receives and retains no course files, prompts, learner records or usage telemetry through this plugin. The package has no publisher-operated backend. The host receives your instructions and the material you choose to provide so it can assist with redesign. A separately approved cloud editor, LMS or research service receives the information needed for the action you authorise.
+
+Local working copies, course decisions and review records remain in the chosen folder until you or your institution remove them. Chat history, backups, cloud documents and LMS drafts follow the applicable provider or institution's retention settings. Use that service's controls to review or delete its copies or revoke access. Removing the plugin leaves existing documents in their chosen locations. You can skip classification and work from a general idea, decline a tool or destination, and end the run.
+
+If you voluntarily open a support issue, GitHub displays your account name and the text you post to the public and the maintainers. These details help diagnose the issue and remain in the public issue history until edited or removed, subject to GitHub's retention and backup policies. You can edit your post or request assistance with removal through GitHub. Share a synthetic example only. [Support](SUPPORT.md) · [GitHub privacy statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement)
+
 ## Lecturer responsibilities
 
 Before the system asks for or inspects a source path, complete Gate 0A. Confirm
