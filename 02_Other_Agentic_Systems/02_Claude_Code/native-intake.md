@@ -192,6 +192,14 @@ A decline ends that optional idea. For the planned slide deck, the lecturer can 
 
 **Step 8. Decide what to use.** After the handover is saved and checked, L reviews the included slide once more and chooses **Use this version**, **Request changes** or **Leave it out**.
 
+**Step 9. Finish or suggest an improvement.** The lecturer can finish or request a written suggestion for next time.
+
+### Step 10 · Would you like a second opinion?
+
+After Step 9, choose **Skip** to finish immediately or **Prepare a review**. Claude can show the status of Steps 1–9, including skips, as a short list in chat. Open only the selected saved drafts using their file links. A **Side chat** can help you question an individual change within Claude. For an independent opinion, compare the family of the model that actually drafted the course with the proposed reviewer. For example, for an approved interactive worksheet made with Claude, consider an included Gemini or GPT model whose current documentation supports the format and check the destination's model picker. You can replace the suggestion. [Claude Code model selection](https://code.claude.com/docs/en/model-config)
+
+Review the final list of exact files and versions, the nine step summaries and any original source you chose individually. Claude shows the receiving app, account, model, audience and cost before asking **Send this packet?** Keep the receiving session separate from the course folder. If the chosen app and account grant **Computer use** for that task, Claude may operate the specified app after your final approval. You can also copy the approved packet into a fresh session yourself. A reviewer should cite the step, page, slide or activity and exact version, give the evidence and flag checks it could not perform. Accept, change or dismiss each suggestion before revising and retrying the affected learner task. [Claude Desktop computer use](https://code.claude.com/docs/en/desktop#let-claude-use-your-computer)
+
 ### The same conversation without each capability
 
 - **No card.** Every card becomes the numbered chat question shown above. Nothing else changes.

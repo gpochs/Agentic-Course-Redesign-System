@@ -155,9 +155,16 @@ Copilot changes only that file, reopens it and shows you the same spot.
 ### Step 9 · Finish or suggest an improvement
 
 Copilot asks once whether you would like a written suggestion about how the
-redesign process worked. If you do not reply, it waits. A yes or a no closes
-this course's work. Installing, activating or scheduling any change would be a
+redesign process worked. If you do not reply, it waits. Your answer completes Step 9. Installing, activating or scheduling any change would be a
 separate later decision.
+
+### Step 10 · Would you like a second opinion?
+
+After your final choices and Step 9, choose **Skip** to finish immediately, or **Prepare a review** to see what a second model would receive. Ask Copilot to show a short progress list in the conversation, covering Steps 1–9, their decisions and any skipped work.
+
+Use **Files** to check the exact selected drafts and revisions. An existing **Canvas** can help you compare a proposed change with the approved draft. **Library** resources and the rest of the project can stay outside the review. Compare the actual model used for the redesign with candidates for this task. For example, if Claude drafted the activity, an included GPT model that accepts the worksheet format may suit a fresh review. Check the current model picker, plan and capability evidence. You can choose a different eligible model or skip. [Copilot models and availability](https://docs.github.com/en/copilot/reference/ai-models/supported-models)
+
+At the end, inspect the exact packet: nine step summaries, selected filenames and versions, any originals you individually chose, recipient app, account, model, audience and included cost. Remove or replace anything before authorising **Send this packet**. Use a fresh session with only the approved context. If project access cannot be narrowed, use a separate approved destination. **Computer Use**, where available and permitted for that app, can hand over the packet after your approval. You can also copy it yourself. The reviewer identifies each finding by step and page, slide or item, shows its evidence and names what it could not check. Choose each change yourself, then reopen the revised working copy for a learner trial. [Copilot Computer Use](https://docs.github.com/en/copilot/how-tos/github-copilot-app/computer-use)
 
 ## Fictional example
 

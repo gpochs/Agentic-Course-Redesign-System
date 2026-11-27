@@ -108,7 +108,13 @@ This fictional ENVS-120 walkthrough shows what a teacher could ask and what a dr
 ### Step 8 · Decide what to use & Step 9 · Finish or suggest an improvement
 
 - **Step 8 · Decide what to use.** Review each included draft in its intended view. In the example that means two student drafts and a teacher-only guide. Choose `Use this version`, `Request changes`, `Leave it out`, or describe another change. In the example, the teacher asks for a shorter reveal label on the slide. The assistant would reopen the update and show it before asking for acceptance.
-- **Step 9 (finish cleanly):** Assistant asks once: *"Would you like a written suggestion for improving how this redesign worked?"* (`Write a suggestion`, `Finish here`, or custom answer). Teacher picks `Finish here`; the run closes cleanly with a one-line note on starting a fresh run later.
+- **Step 9 (finish cleanly):** Assistant asks once: *"Would you like a written suggestion for improving how this redesign worked?"* (`Write a suggestion`, `Finish here`, or custom answer). The teacher picks `Finish here` for Step 9. They can skip the optional second opinion and finish.
+
+### Step 10 · Would you like a second opinion?
+
+After Step 9, **Skip** finishes immediately. If you choose **Prepare a review**, ask for the status of all nine teaching steps in the conversation, including skipped steps. If an approved **Walkthrough** already summarises the run, open it from **Artifacts** to check the evidence. Select the exact student drafts and versions in **Documents**. Review any teacher-only material in its restricted location. [Antigravity side panel](https://antigravity.google/docs/side-panel)
+
+Choose a model from a different family than the one that actually prepared the drafts. For a worksheet made with Gemini, for example, ask which included Claude or GPT model can inspect the approved format. Check current model documentation and the signed-in account's picker. You may choose another model, use a different app or skip. Check the final packet in chat, including Steps 1–9 and skips, selected files, any original you individually opt in, receiving app, account, model, audience and cost. Only a separate final **Send this packet** decision authorises transfer. When the recipient runs in a supported, already approved browser tab, the browser agent can help deliver it to a fresh conversation with only that context. Alternatively, copy it yourself. Ask for findings tied to a step and page, slide or item, its version and evidence, including anything the reviewer could not verify. Choose which changes to try and reopen each affected learner draft for review. [Antigravity models](https://antigravity.google/docs/models) · [Browser use](https://antigravity.google/docs/browser)
 
 <details>
 <summary>Technical records and exact optional confirmation wording</summary>
